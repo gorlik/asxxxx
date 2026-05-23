@@ -34,8 +34,8 @@
 
 
 
-                                 Version   5.50
-                                 September 2023
+                                Version   5.50.5
+                                  January 2026
 
 
                                 Table Of Contents
@@ -387,11 +387,13 @@
 
         APPENDIX BW  ASSX ASSEMBLER                                 BW-1 
 
-        APPENDIX BX  ASZ8 ASSEMBLER                                 BX-1 
+        APPENDIX BX  ASTLCS90 ASSEMBLER                             BX-1 
 
-        APPENDIX BY  ASZ80 ASSEMBLER                                BY-1 
+        APPENDIX BY  ASZ8 ASSEMBLER                                 BY-1 
 
-        APPENDIX BZ  ASZ280 ASSEMBLER                               BZ-1 
+        APPENDIX BZ  ASZ80 ASSEMBLER                                BZ-1 
+
+        APPENDIX CA  ASZ280 ASSEMBLER                               CA-1 
 
 
                      ---- Link To The Assemblers Index ----
@@ -448,7 +450,7 @@
 
 
 
-           Copyright (C) 1989-2023 Alan R.  Baldwin 
+           Copyright (C) 1989-2026 Alan R.  Baldwin 
 
            This  program  is  free  software:   you  can redistribute it
         and/or modify it under the  terms  of  the  GNU  General  Public
@@ -469,7 +471,7 @@
         
 
 
-        ASxxxx Cross Assemblers, Version 5.50, September 2023 
+        ASxxxx Cross Assemblers, Version 5.50.5, January 2026 
 
         Submitted by Alan R.  Baldwin, 
         Kent State University, Kent, Ohio 
@@ -490,13 +492,14 @@
         8048(8041/8022/8021),  8051,  8085(8080),  AT89LP, 8X300(8X305),
         COP4,  COP8,  DS8XCXXX,  AVR,  EZ8,  EZ80,  F2MC8L/FX,  F8/3870,
         GameBoy(Z80),  H8/3xx,  Cypress  PSoC(M8C),  PDP11,  PIC, Rabbit
-        2000/3000, RS08, ST6, ST7, ST8, SX, Z8, Z80(HD64180),  and  Z280
-        series  microprocessors.   Each  assembler has a device specific
-        section which includes:  (1) device description, byte order, and
-        file  extension  information,  (2)  a table of assembler general
-        directives, special directives, assembler  mnemonics  and  asso-
-        ciated operation codes, (3) machine specific code for processing
-        the device mnemonics, addressing modes, and special directives. 
+        2000/3000,   RS08,   ST6,   ST7,   ST8,    SX,    TLCS90,    Z8,
+        Z80(HD64180,ZXN,8080,8085),  and  Z280  series  microprocessors.
+        Each assembler has a device  specific  section  which  includes:
+        (1)  device description, byte order, and file extension informa-
+        tion, (2) a  table  of  assembler  general  directives,  special
+        directives,  assembler mnemonics and associated operation codes,
+        (3) machine specific code for processing the  device  mnemonics,
+        addressing modes, and special directives.  
 
            The assemblers have a common device independent section which
         handles the details of file input/output, symbol  table  genera-
@@ -517,13 +520,13 @@
         librarys of object modules, (4) process absolute, relative, con-
         catenated, and overlay attributes in data and program  sections,
         (5)  perform  byte and word program-counter relative (pc or pcr)
-        addressing calculations, (6) define absolute  symbol  values  at
 
 
                                                                   Page 4
         
 
 
+        addressing calculations, (6) define absolute  symbol  values  at
         link  time, (7) define absolute area base address values at link
         time, (8) produce an Intel Hex  record,  Motorola  S  record  or
         Tandy  CoCo  Disk  Basic  output  file, (9) produce a map of the
@@ -8580,6 +8583,193 @@
 
 
 
+                        ASxxxx/ASlink version 5.50.5 is
+                  a combined 1-4 release and updated version.
+
+
+
+        2026_01_31 Version 5.50.5
+        
+           This is a complete release version
+           of the ASxxxx assemblers and linker.
+        
+           1) This version combines updates 1 - 4.
+        
+           2) All file names have been made lower case.
+        
+           3) The asz80 assembler has added support for
+              the Z80N (ZX Spectrum Next CPU).
+        
+           4) A new assembler, astlcs90, supports the
+              Toshiba TLCS90 series of CPUs.
+        
+           5) The text and html documentation has been
+              updated to include the asz80 changes and
+              tha addition of the astlcs90 assembler.
+
+
+
+        2025_08_26 Version 5.5 Update 4
+        
+         WARNING
+           This update will replace ALL source code
+           files for the ASxxxx assemblers and linker.
+           You must save and then reapply any changes
+           you may have made to the source code files.
+        
+           An update is performed by merging the update directories
+
+
+        RELEASE NOTES                                           Page D-2
+        
+
+
+           with the asxv5pxx directories.  New files will be added
+           and changed files will be replaced.
+        
+           1) All functions have been changed from
+              the older K&R (Kernighan & Ritchie)
+              style definition:
+        
+                func(i)
+                int i;
+        
+              to the
+        
+                func(int i);
+        
+              style.
+        
+           2) The function definition change has made
+              the code incompatable with the original
+              'DECUS C' K&R format.  All conditional
+              DECUS compiling options have been removed.
+        
+           3) After rebuilding the assemblers and linker
+              the reported version will be V5.50.4
+
+
+
+        2024_10_28 Version 5.5 Update 3
+        
+           An update is performed by merging the update directories
+           with the asxv5pxx directories.  New files will be added
+           and changed files will be replaced.
+        
+           1) Added the 'wit' instruction, short for wait,
+              which has the same opcode as the 'slw' instruction,
+              short for slow.
+        
+           2) Added the 'fst' instruction, short for fast,
+              which has the same opcode as the 'div' instruction,
+              short for divide.
+        
+           Only one of the instructions in each pair,
+           wit/slw or fst/div, can be present in any specific
+           version of a 740 series processor.
+        
+           You must recompile the AS740
+           assembler to incorporate the update.
+        
+        ----------
+        
+
+
+        RELEASE NOTES                                           Page D-3
+        
+
+
+           An alternate fix is to add the
+           instructions using the following macros:
+        
+           for lower case -
+        
+           .macro wit
+             .list (mel)
+           .byte    0xC2    ; wit/slw
+             .nlist (mel)
+           .endm
+        
+           .macro fst
+             .list (mel)
+           .byte    0xE2    ; fst/div
+             .nlist (mel)
+           .endm
+        
+           for upper case -
+        
+           .macro WIT
+             .list (mel)
+           .byte    0xC2    ; WIT/SLW
+             .nlist (mel)
+           .endm
+        
+           .macro FST
+             .list (mel)
+           .byte    0xC2    ; FST/DIV
+             .nlist (mel)
+           .endm
+        
+           which you use by simply inserting
+           wit or fst into you assembly files -
+        
+           ...    other code
+           wit
+           ...    other code
+        
+           which will then assemble as
+        
+           ...    other code
+           .byte    0xC2    ; wit/slw
+           ...    other code
+
+
+
+        2024_09_30 Version 5.50 Update 2
+        
+           An update is performed by merging the update directories
+
+
+        RELEASE NOTES                                           Page D-4
+        
+
+
+           with the asxv5pxx directories.  New files will be added
+           and changed files will be replaced.
+        
+           1) push and pop registers (r0-r7) in as8051 fixed.
+        
+           2) push and pop registers (r0-r7) in as8xcxxx fixed
+        
+           You must recompile the as8051 and as8xcxxx
+           assemblers to incorporate the update.
+
+
+
+        2024_04_28 Version 5.50 Update 1
+        
+           An update is performed by merging the update directories
+           with the asxv5pxx directories.  New files will be added
+           and changed files will be replaced.
+        
+           1) movem error in as68k assembler fixed.
+        
+           2) Added missing bls.s and beq.s mnemonics and
+              added blos (sane as bls) and bhis (same as bhs)
+              instructions to as68k and as68cf assemblers.
+        
+           3) Added dbhis (same as dbhs) and dblos (same
+              as dbls) forms to as68k and as68cf assemblers.
+        
+           4) Added shis (same as shs) and slos( same as sls)
+              forms to as68k and as68cf assemblers.
+        
+           5) Test files for the AS68K and AS68CF
+              assemblers updated.
+        
+           You must recompile the AS68K and AS68CF
+           assemblers to incorporate the update.
+
 
 
                         ASxxxx/ASlink version 5.50 is
@@ -8590,6 +8780,12 @@
 
 
         THE ASSEMBLERS
+
+
+
+
+        RELEASE NOTES                                           Page D-5
+        
 
 
            The assembler command argument structure has changed.  Previ-
@@ -8613,12 +8809,6 @@
 
            The string ascii, ascis, and asciz directives can now include
         byte values.  
-
-
-
-        RELEASE NOTES                                           Page D-2
-        
-
 
            The following new assembler directives have been added:  
 
@@ -8647,6 +8837,11 @@
         for Intel Hex.  In addition, the default output file name and/or
         extension  for  the Intel, Motorola, or Tandy linked code can be
         changed with the extended -i+/-s+/-t+ renaming options.  
+
+
+        RELEASE NOTES                                           Page D-6
+        
+
 
            The  previous linker command line -b option, set base address
         of area, has been changed to the -a option.  
@@ -8669,12 +8864,6 @@
             -b BankB=0x4000
                         sets the start address of BankB to 0x4000
                         (this overrides any defined base address)
-
-
-        RELEASE NOTES                                           Page D-3
-        
-
-
 
 
 
@@ -8703,6 +8892,12 @@
         2022_01_17 Version 5.40 Update 5
         
            UPDATE_02, UPDATE_03, AND UPDATE_04
+
+
+        RELEASE NOTES                                           Page D-7
+        
+
+
            MUST BE INSTALLED BEFORE INSTALLING THIS UPDATE.
          
            An update is performed by merging the update directories
@@ -8724,12 +8919,6 @@
            This update brings the assembler and linker to version 5.44
            There is NO version 5.43
         
-
-
-        RELEASE NOTES                                           Page D-4
-        
-
-
            UPDATE_02 MUST BE INSTALLED AND
            UPDATE_03 MUST BE INSTALLED BEFORE INSTALLING THIS UPDATE.
          
@@ -8758,6 +8947,12 @@
                 more consistent manner.
         
              2) Assembler and Linker exit codes have been updated.
+
+
+        RELEASE NOTES                                           Page D-8
+        
+
+
         
              3) Corrected the handling of the -h option in aslink.
         
@@ -8777,12 +8972,6 @@
         
            You must recompile the ASxxxx Assemblers and Linker
         to incorporate the update.xxx  
-
-
-
-
-        RELEASE NOTES                                           Page D-5
-        
 
 
         2021_09_01 Version 5.40 Update 2
@@ -8813,6 +9002,12 @@
         Microprocessors
              ascop8    - National Semiconductor COP800 Series Of
         Microprocessors
+
+
+        RELEASE NOTES                                           Page D-9
+        
+
+
         
            Updates to build/make files, assembler test files, and do-
         cumentation.
@@ -8832,12 +9027,6 @@
              Note: An externally defined SADDRP address which is ODD
                    will not be reported as an error by the assembler
                    or the linker.
-
-
-
-
-        RELEASE NOTES                                           Page D-6
-        
 
 
                         Asxxxx/ASlink version 5.40 is
@@ -8868,6 +9057,12 @@
                 inclusion of a byte stream.
         
            (7)  Added extended error reporting to all assemblers
+
+
+        RELEASE NOTES                                          Page D-10
+        
+
+
                 for most <a>, <o>, and <q> errors.
         
            (8)  Fixed bug in macro processor related to
@@ -8888,12 +9083,6 @@
         
            (2)  The linker reported the wrong version and has
                 been corrected.
-
-
-        RELEASE NOTES                                           Page D-7
-        
-
-
 
 
         January 2019 Version 5.3
@@ -8923,6 +9112,12 @@
                 Corrected documentation for asf2mc processor types.
         
                 aspic
+
+
+        RELEASE NOTES                                          Page D-11
+        
+
+
                 Fixed missing machine type variable definition
                 Fixed 'tris' instruction
         
@@ -8943,12 +9138,6 @@
         
            (3)  Added Intel Hex legacy start address record
                 type 1 as an option.
-
-
-        RELEASE NOTES                                           Page D-8
-        
-
-
 
 
 
@@ -8978,6 +9167,12 @@
                 with the extension .hlr (when both .lst and .rel
                 files are created by the assembler).
         
+
+
+        RELEASE NOTES                                          Page D-12
+        
+
+
            (2)  Add as6100 assembler (Intersil IM6100 / Harris HM6100)
         
            (3)  Add as78k0s assembler (Renesas/NEC 78K/0S) 
@@ -8998,12 +9193,6 @@
 
         2012_08_01 Version 5.00 Update 5
         
-
-
-        RELEASE NOTES                                           Page D-9
-        
-
-
         Update_05 for the ASxxxx Assembler and Linker Version 5.00
         (use 'pkunzip -d u05500.zip' for extraction with MS-DOS)
         (use 'unzip -L -a u05500.zip' for extraction with Linux)
@@ -9033,6 +9222,12 @@
                 offsets when using the program counter, ".",
                 as a destination in the instructions having
                 a PC-Relative addressing mode.  These
+
+
+        RELEASE NOTES                                          Page D-13
+        
+
+
                 instructions include: jbc, jb, jbn, jc,
                 jnc, jz, jnz, cjne, and djnz.
         
@@ -9053,12 +9248,6 @@
                 causing some errors not to be inserted into the
                 created .rst file.
         
-
-
-        RELEASE NOTES                                          Page D-10
-        
-
-
            (5)  An additional ASxxxx assembler option (-v) which
                 enables checking for out of range signed / unsigned
                 values in symbol equates and arithmetic operations.
@@ -9088,6 +9277,12 @@
                 in the fprintf() function.  This update replaces
                 fprintf(arg1, arg2) with fprintf(arg1, "%s", arg2)
                 in each affected line of code.
+
+
+        RELEASE NOTES                                          Page D-14
+        
+
+
         
            (2)  The newest versions of gcc (and perhaps other
                 compilers) have defined 'getline' as a standard
@@ -9108,12 +9303,6 @@
         
                 [asxv5pxx\asxmak\vc6\asf2mc8]
                 [asxv5pxx\asxmak\vs05\asf2mc8]
-
-
-        RELEASE NOTES                                          Page D-11
-        
-
-
 
 
 
@@ -9143,6 +9332,12 @@
            (1)  New cross assemblers for STMicroelectronics
                 ST6, ST7, and STM8 microprocessors.
         
+
+
+        RELEASE NOTES                                          Page D-15
+        
+
+
            (2)  An ASlink list file update error fix (-u option)
                 causing some errors not to be inserted into the
                 created .rst file.
@@ -9163,12 +9358,6 @@
                 the variable .__.END. as a global.  Therefor the
                 value of .__.END. is not passed to the linker and
                 the start address frame is always zero.
-
-
-        RELEASE NOTES                                          Page D-12
-        
-
-
         
            (2)  The linker will fail to create a start address frame
                 when there is no code generated within the area/bank
@@ -9198,6 +9387,12 @@
         Assemblers includes fixes for the following errors:
         
            (1)  When using the assembler directive .end to specify
+
+
+        RELEASE NOTES                                          Page D-16
+        
+
+
                 the code entry address the assembler fails to set
                 the variable .__.END. as a global.  Therefor the
                 value of .__.END. is not passed to the linker and
@@ -9218,12 +9413,6 @@
                 compilers) give warnings about missing arguments
                 in the fprintf() function.  This update replaces
                 fprintf(arg1, arg2) with fprintf(arg1, "%s", arg2)
-
-
-        RELEASE NOTES                                          Page D-13
-        
-
-
                 in each affected line of code.
         
         
@@ -9253,6 +9442,12 @@
            An  alternate  .if  construction has been added to the ASxxxx
         assemblers:  
 
+
+
+        RELEASE NOTES                                          Page D-17
+        
+
+
         e.g.    .if    eq,...   if argument == 0
 
 
@@ -9272,12 +9467,6 @@
            The  listing  options  for the ASxxxx assemblers has been up-
         dated to enable/disable any of the following parameters from be-
         ing output to a generated listing file:  
-
-
-
-        RELEASE NOTES                                          Page D-14
-        
-
 
             err         error codes
             loc         code location
@@ -9308,6 +9497,12 @@
 
         To enable listing and simultaneously disable the cycle count use
         the directive:  
+
+
+        RELEASE NOTES                                          Page D-18
+        
+
+
 
             .nlist  (!,cyc)
 
@@ -9327,11 +9522,6 @@
             .nlist   1,(!,lst)  ; enables listing even within
                                 ; a FALSE conditional block
 
-
-
-
-        RELEASE NOTES                                          Page D-15
-        
 
 
            The .bndry assembler directive has been added to ASxxxx.  The
@@ -9362,7 +9552,7 @@
            Added the SC/MP ASSCMP assembler to ASxxxx.
 
 
-        RELEASE NOTES                                          Page D-16
+        RELEASE NOTES                                          Page D-19
         
 
 
@@ -9408,7 +9598,7 @@
            wrong object code. Changed from 37 2A  to  37 3A.
 
 
-        RELEASE NOTES                                          Page D-17
+        RELEASE NOTES                                          Page D-20
         
 
 
@@ -9454,7 +9644,7 @@
                compile the s19os9 program.
 
 
-        RELEASE NOTES                                          Page D-18
+        RELEASE NOTES                                          Page D-21
         
 
 
@@ -9506,7 +9696,7 @@
                 aspic
 
 
-        RELEASE NOTES                                          Page D-19
+        RELEASE NOTES                                          Page D-22
         
 
 
@@ -9559,7 +9749,7 @@
 
 
 
-        RELEASE NOTES                                          Page D-20
+        RELEASE NOTES                                          Page D-23
         
 
 
@@ -9614,7 +9804,7 @@
                  only in the output file associated with  the  area/bank
 
 
-        RELEASE NOTES                                          Page D-21
+        RELEASE NOTES                                          Page D-24
         
 
 
@@ -9730,10 +9920,17 @@
         mikebezera at gmail dot com
         
         Nick Downing                            First Author:   ASPDP11
-        nick @ ndcode dot org
+        nick at ndcode dot org
         
         Nick Downing                            First Author:   AS68K
-        nick @ ndcode dot org
+        nick at ndcode dot org
+        
+        Philip Klaus Krause                     Z80N added to ASZ80
+        pkk at spth dot de
+        
+        Rainer Keuchel                          First Author:   ASTLCS90
+        Philip Klaus Krause                     Porting to ASxxxx
+        pkk at spth dot de
         
           And thanks to all those who took the time to
         send bug reports, suggest changes, or simply
@@ -28611,13 +28808,446 @@
 
                                    APPENDIX BX
 
+                               ASTLCS90 ASSEMBLER
+
+
+
+
+
+        BX.1  ASTLCS90 ASSEMBLER SPECIFIC DIRECTIVES 
+
+
+
+        BX.1.1  .setdp Directive 
+
+        Format:  
+
+                .setdp [base [,area]] 
+
+                    The .setdp directive is used to inform the
+                    assembler of the current direct page region
+                    and the offset address within the selected
+                    area.  The normal invocation methods are:
+        
+                        .area   DIRECT  (PAG)
+                        .setdp
+        
+                        or
+        
+                        .setdp  #,DIRECT
+        
+                    The only valid value for # is 0xFF00, and
+                    DIRECT is the direct page address area.
+                    The area must be mapped to include the
+                    address range 0xFF00 to 0xFFFF or the linker
+                    will flag direct page accesses with a paging
+                    error.
+
+             The   TLCS90   series   has   a   direct   page  region  of
+        0xFF00 - 0xFFFF which is accessed using the short form  address-
+        ing  (n)  when n has a value in the range 0xFF00 - 0xFFFF.  When
+        the argument is not a local constant, ie an  externally  defined
+
+
+        ASTLCS90 ASSEMBLER                                     PAGE BX-2
+        ASTLCS90 ASSEMBLER SPECIFIC DIRECTIVES
+
+
+        constant  or  external label, then the default assembler mode is
+        to use the long addressing form (mn).  This can be overriden  by
+        using  the '*' suffix, (*n) or simply *n, to force the assembler
+        to use the short form and let the linker determine if the  value
+        or  address  is  in  the acceptable range of 0xFF00 - 0xFFFF for
+        direct page values.  
+
+
+        BX.2  TLCS90 STATE COUNT 
+
+          The  cycle count output by the assembler is the number of pro-
+        cessor states required for  each  instruction.   The  number  is
+        always  the  largest  value for the instruction.  For the TLCS90
+        series each state requires 2 clock cycles to complete.  
+
+
+        BX.3  TLCS90 REGISTER SET 
+
+        The  following  is  a  list  of  the  TLCS90  registers  used by
+        ASTLCS90:  
+
+                a,b,c,d,e,h,l   -       8-bit registers
+                bc,de,hl        -       16-bit registers <msb:lsb>
+                ix,iy           -       16-bit index registers
+                sp      -       stack pointer
+                pc      -       program counter
+                af, af' -       a and f combined registers
+
+
+        ASTLCS90 ASSEMBLER                                     PAGE BX-3
+        TLCS90 REGISTER SET
+
+
+        BX.4  TLCS90 OPERAND SUMMARY 
+
+        The following tables describe the operand types supported by the
+        ASTLCS90 assembler:  
+
+                af,af'  a + flags registers
+                r       8-bit register  a,b,c,d,e,h,l
+                rr      16-bit register bc,de,hl,ix,iy,sp
+                jx      register        ix,iy,sp
+                jx+d    register + d    ix,iy,sp
+                hl+a    register + a    hl
+                (#)n    8-bit constant  0x00 - 0xFF
+                (#)mn   16-bit constant 0x0000 - 0xFFFF
+                d       8-bit offset    -128 to 127
+                cd      16-bit offset   -32768 to 32767
+                b       bit number      0 to 7
+                cc      condition code  (see table)
+                (rr)    register indirect
+                (jx+d)  indexed         (ix+d),(iy+d),(sp+d)
+                (hl+a)  register index  a = -128 to 127
+                (mn)    extended        (0x0000) to (0xFFFF)
+                (n)     direct          (0xFF00) to (0xFFFF)
+                pc+d    program counter relative
+        
+                        Where mn in (mn), n in (n), and pc+d
+                        are normally replaced with just the
+                        label of the addressed location.
+        
+                        The +a must follow the HL register.
+        
+                        An alternate form for the indexed modes
+                        (ix/iy/sp + d) places the offset d before
+                        the indexed register - d(ix/iy/sp)
+        
+                        Also note that the program counter pc
+                        is equivalent to '.' which is the
+                        address of the instruction.
+
+        The terms n, mn, d, cd, and b may all be expressions.  
+
+             The  ASTLCS90  assembler  allows externally defined symbols
+        (both constants or program locations) to be  used  as  arguments
+        for  mn, n, d, cd, and b.  This has special consequences for the
+        (mn), (n), and pc+d addressing modes.   An  external  argument's
+        value  is  unknown at assembly time and thus the direct page (n)
+        addressing mode always defaults to  the  (mn)  addressing  mode.
+        The  default behavior is overridden if the argument is preceeded
+        by the * character.  The form (*n) forces the assembler  to  use
+        the direct page mode.  In this case the linker will determine if
+
+
+        ASTLCS90 ASSEMBLER                                     PAGE BX-4
+        TLCS90 OPERAND SUMMARY
+
+
+        the resolved address is within the direct page address range and
+        report  an  error  if  it is not.  The form (*n) also interprets
+        constants in the  range  0x0000 - 0x00FF  as  offsets  into  the
+        direct page which begins at 0xFF00.  
+
+             To  use the form pc+d the d must be a number or locally de-
+        fined constant.  For all other relative  addressing  the  'pc+d'
+        must be replaced with a label or label +- constant.  
+
+
+             The cc codes are listed in the following table:  
+
+                f       false
+                lt      signed less than
+                le      signed less than or equal
+                ule     unsigned less than or equal
+                ov      overflow or even parity
+                mi / m  negative
+                eq      equal
+                c       carry set
+                t       true
+                ge      signed greater than or equal
+                gt      signed greater than
+                ugt     unsigned greater than
+                nov     no overflow
+                pl / p  positive
+                ne      not equal
+                nc      c not set
+        
+                z       zero
+                nz      not zero
+                pe      even parity
+                po      odd parity
+                uge     unsigned greater than or equal
+                ult     unsigned less than
+
+
+        BX.5  TLCS90 INSTRUCTION SET 
+
+
+             The  following  tables list all TLCS90 mnemonics recognized
+        by the ASTLCS90 assembler.  The designation ___ refers to a  re-
+        quired  addressing  mode  argument.   The  following tables also
+        specify the format for each addressing mode supported by the in-
+        struction.  
+
+
+        ASTLCS90 ASSEMBLER                                     PAGE BX-5
+        TLCS90 INSTRUCTION SET
+
+
+        BX.5.1  8-Bit Transfer 
+
+                ld  a,r         ld  r,a         r,r
+        
+                ld  r,n         ld  a,(n)       ld (n),a
+        
+                ld  r,___       (rr),(jx+d),(hl+a),(mn),(n)
+        
+                ld  ___,r       (rr),(jx+d),(hl+a),(mn),(n)
+        
+                ld  ___,n       (rr),(jx+d),(hl+a),(mn),(n)
+
+
+        BX.5.2  16-Bit Transfer 
+
+                ld  hl,rr       ld  rr,hl       rr,rr
+        
+                ld  rr,mn       ld  hl,(n)      ld (n),hl
+        
+                ld  rr,___      (rr),(jx+d),(hl+a),(mn),(n)
+        
+                ld  ___,rr      (rr),(jx+d),(hl+a),(mn),(n)
+        
+                ldw ___,mn      (rr),(jx+d),(hl+a),(mn),(n)
+        
+                push  ___       bc,de,hl,ix,iy,af
+                pop   ___       bc,de,hl,ix,iy,af
+        
+                lda rr,___      jx+d,hl+a
+
+
+        ASTLCS90 ASSEMBLER                                     PAGE BX-6
+        TLCS90 INSTRUCTION SET
+
+
+        BX.5.3  8-Bit Arithmetic Instructions 
+
+                add  a,r        add  a,n        add  r,n
+                add  a,___      (rr),(jx+d),(hl+a),(mn),(n)
+                add  ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+        
+                adc  a,r        adc  a,n        adc  r,n
+                adc  a,___      (rr),(jx+d),(hl+a),(mn),(n)
+                adc  ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+        
+                sub  a,r        sub  a,n        sub  r,n
+                sub  a,___      (rr),(jx+d),(hl+a),(mn),(n)
+                sub  ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+        
+                sbc  a,r        sbc  a,n        sbc  r,n
+                sbc  a,___      (rr),(jx+d),(hl+a),(mn),(n)
+                sbc  ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+        
+                and  a,r        and  a,n        and  r,n
+                and  a,___      (rr),(jx+d),(hl+a),(mn),(n)
+                and  ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+        
+                or   a,r        or   a,n        or   r,n
+                or   a,___      (rr),(jx+d),(hl+a),(mn),(n)
+                or   ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+        
+                xor  a,r        xor  a,n        xor  r,n
+                xor  a,___      (rr),(jx+d),(hl+a),(mn),(n)
+                xor  ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+        
+                cp   a,r        cp   a,n        cp   r,n
+                cp   a,___      (rr),(jx+d),(hl+a),(mn),(n)
+                cp   ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+        
+                inc  r
+                inc  ___        (rr),(jx+d),(hl+a),(mn),(n)
+        
+                dec  r
+                dec  ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+        
+                incx (n)
+                decx (n)
+
+
+        ASTLCS90 ASSEMBLER                                     PAGE BX-7
+        TLCS90 INSTRUCTION SET
+
+
+        BX.5.4  Block Transfer And Search 
+
+                exx
+        
+                ex  de,hl
+                ex  af,af'
+                ex  ___,rr      (rr),(jx+d),(hl+a),(mn),(n)
+        
+                ldi             ldir
+                ldd             lddr
+                cpi             cpir
+                cpd             cpdr
+
+
+        BX.5.5  Special Operation And CPU Control 
+
+                daa  a          cpl  a          neg  a
+        
+                ldar hl,pc+d
+        
+                ccf             scf             rcf
+        
+                nop             halt
+        
+                di              ei              swi
+        
+                mul  hl,r       mul  hl,n
+                mul  hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+        
+                div  hl,r       div  hl,n
+                div  hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+
+
+        ASTLCS90 ASSEMBLER                                     PAGE BX-8
+        TLCS90 INSTRUCTION SET
+
+
+        BX.5.6  16-Bit Arithmetic Operation 
+
+                add  hl,rr      add  hl,mn
+                add  hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+        
+                adc  hl,rr      adc  hl,mn
+                adc  hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+        
+                sub  hl,rr      sub  hl,mn
+                sub  hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+        
+                sbc  hl,rr      sbc  hl,mn
+                add  hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+        
+                and  hl,rr      and  hl,mn
+                and  hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+        
+                or   hl,rr      or   hl,mn
+                or   hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+        
+                xor  hl,rr      xor  hl,mn
+                xor  hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+        
+                cp   hl,rr      cp   hl,mn
+                cp   hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+        
+                inc  rr
+                incw ___        (rr),(jx+d),(hl+a),(mn),(n)
+        
+                dec  rr
+                decw ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+
+
+        ASTLCS90 ASSEMBLER                                     PAGE BX-9
+        TLCS90 INSTRUCTION SET
+
+
+        BX.5.7  Rotate and Shift Instructions 
+
+                rlc  r          rlca
+                rlc  ___        (rr),(jx+d),(hl+a),(mn),(n)
+        
+                rrc  r          rrca
+                rrc  ___        (rr),(jx+d),(hl+a),(mn),(n)
+        
+                rl   r          rla
+                rl   ___        (rr),(jx+d),(hl+a),(mn),(n)
+        
+                rr   r          rra
+                rr   ___        (rr),(jx+d),(hl+a),(mn),(n)
+        
+                sla  r          slaa
+                sla  ___        (rr),(jx+d),(hl+a),(mn),(n)
+        
+                sra  r          sraa
+                sra  ___        (rr),(jx+d),(hl+a),(mn),(n)
+        
+                sll  r          slla
+                sll  ___        (rr),(jx+d),(hl+a),(mn),(n)
+        
+                srl  r          srla
+                srl  ___        (rr),(jx+d),(hl+a),(mn),(n)
+        
+                rld  ___        (rr),(jx+d),(hl+a),(mn),(n)
+        
+                rrd  ___        (rr),(jx+d),(hl+a),(mn),(n)
+
+
+        BX.5.8  Bit Manipulation 
+
+                bit  b,r
+                bit  b,___      (rr),(jx+d),(hl+a),(mn),(n)
+        
+                set  b,r
+                set  b,___      (rr),(jx+d),(hl+a),(mn),(n)
+        
+                res  b,r
+                res  b,___      (rr),(jx+d),(hl+a),(mn),(n)
+        
+                tset b,r
+                tset b,___      (rr),(jx+d),(hl+a),(mn),(n)
+
+
+        ASTLCS90 ASSEMBLER                                    PAGE BX-10
+        TLCS90 INSTRUCTION SET
+
+
+        BX.5.9  Short Branch Instructions 
+
+                djnz pc+d
+                djnz bc,pc+d
+        
+                jr   pc+d
+                jr   cc,pc+d
+
+
+        BX.5.10  Long Branch Instructions 
+
+                jp   mn
+                jp   cc,___     rr, jx+d, hl+a, mn
+        
+                call mn
+                call cc,___     rr, jx+d, hl+a, mn
+        
+                jrl  pc+cd
+                calr pc+cd
+
+
+        BX.5.11  Return Instructions 
+
+                ret
+                ret  cc
+                rti
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                   APPENDIX BY
+
                                  ASZ8 ASSEMBLER
 
 
 
 
 
-        BX.1  Z8 REGISTER SET 
+        BY.1  Z8 REGISTER SET 
 
         The following is a list of the Z8 registers used by ASZ8:  
 
@@ -28625,7 +29255,7 @@
                 rr0 ... rr15    -       16-bit accumulators
 
 
-        BX.2  Z8 INSTRUCTION SET 
+        BY.2  Z8 INSTRUCTION SET 
 
 
              The  following  tables  list all Z8 mnemonics recognized by
@@ -28652,7 +29282,7 @@
         
 
 
-        ASZ8 ASSEMBLER                                         PAGE BX-2
+        ASZ8 ASSEMBLER                                         PAGE BY-2
         Z8 INSTRUCTION SET
 
 
@@ -28691,7 +29321,7 @@
         tion, refer to the Z8 technical data for valid modes.  
 
 
-        BX.2.1  Load Instructions 
+        BY.2.1  Load Instructions 
 
                 clr     []
                 ld      [],[]           ldc     [],[]
@@ -28700,11 +29330,11 @@
 
 
 
-        ASZ8 ASSEMBLER                                         PAGE BX-3
+        ASZ8 ASSEMBLER                                         PAGE BY-3
         Z8 INSTRUCTION SET
 
 
-        BX.2.2  Arithmetic Instructions 
+        BY.2.2  Arithmetic Instructions 
 
                 adc     [],[]           add     [],[]
                 cp      [],[]           da      []
@@ -28713,32 +29343,32 @@
                 sbc     [],[]           sub     [],[]
 
 
-        BX.2.3  Logical Instructions 
+        BY.2.3  Logical Instructions 
 
                 and     [],[]           com     []
                 or      [],[]           xor     [],[]
 
 
-        BX.2.4  Program Control Instructions 
+        BY.2.4  Program Control Instructions 
 
                 call    []              djnz    [],[]
                 iret                    jp      CC,[]
                 jr      CC,[]           ret
 
 
-        BX.2.5  Bit Manipulation Instructions 
+        BY.2.5  Bit Manipulation Instructions 
 
                 tcm     [],[]           tm      [],[]
                 and     [],[]           or      [],[]
                 xor     [],[]
 
 
-        BX.2.6  Block Transfer Instructions 
+        BY.2.6  Block Transfer Instructions 
 
                 ldci    [],[]
 
 
-        BX.2.7  Rotate and Shift Instructions 
+        BY.2.7  Rotate and Shift Instructions 
 
                 rl      []              rlc     []
                 rr      []              rrc     []
@@ -28747,11 +29377,11 @@
 
 
 
-        ASZ8 ASSEMBLER                                         PAGE BX-4
+        ASZ8 ASSEMBLER                                         PAGE BY-4
         Z8 INSTRUCTION SET
 
 
-        BX.2.8  Cpu Control Instructions 
+        BY.2.8  Cpu Control Instructions 
 
                 ccf
                 di                      ei
@@ -28773,7 +29403,7 @@
 
 
 
-                                   APPENDIX BY
+                                   APPENDIX BZ
 
                                  ASZ80 ASSEMBLER
 
@@ -28781,17 +29411,17 @@
 
 
 
-        BY.1  PROCESSOR SPECIFIC DIRECTIVES 
+        BZ.1  PROCESSOR SPECIFIC DIRECTIVES 
 
 
 
-        BY.1.1  .z80 Directive 
+        BZ.1.1  .z80 Directive 
 
         Format:  
 
                 .z80 
 
-        The  .z80  directive enables processing of only the z80 specific
+        The  .z80  directive enables processing of only the Z80 specific
         mnemonics.  HD64180/Z180 mnemonics encountered without the .hd64
         directive will be flagged with an <o> error.  
 
@@ -28799,7 +29429,27 @@
         count to be output.  
 
 
-        BY.1.2  .hd64 Directive 
+        BZ.1.2  .zxn Directive 
+
+        Format:  
+
+                .zxn 
+
+        The  .zxn  directive  enables  processing  of  only  the Z80 and
+        ZX-Next specific mnemonics.  HD64180/Z180 mnemonics  encountered
+        without the .hd64 directive will be flagged with an <o> error.  
+
+             The  .zxn  directive  also  selects the ZXN specific cycles
+        count to be output.  
+
+
+
+
+        ASZ80 ASSEMBLER                                        PAGE BZ-2
+        PROCESSOR SPECIFIC DIRECTIVES
+
+
+        BZ.1.3  .hd64 Directive 
 
         Format:  
 
@@ -28814,13 +29464,7 @@
         cycles count to be output.  
 
 
-
-
-        ASZ80 ASSEMBLER                                        PAGE BY-2
-        PROCESSOR SPECIFIC DIRECTIVES
-
-
-        BY.1.3  .8085 Directive 
+        BZ.1.4  .8085 Directive 
 
         Format:  
 
@@ -28836,7 +29480,7 @@
         count to be output.  
 
 
-        BY.1.4  .8085x Directive 
+        BZ.1.5  .8085x Directive 
 
         Format:  
 
@@ -28854,7 +29498,13 @@
         (unspecified) instructions enabled by the .8085x directive.  
 
 
-        BY.1.5  .8080 Directive 
+
+
+        ASZ80 ASSEMBLER                                        PAGE BZ-3
+        PROCESSOR SPECIFIC DIRECTIVES
+
+
+        BZ.1.6  .8080 Directive 
 
         Format:  
 
@@ -28869,13 +29519,7 @@
         count to be output.  
 
 
-
-
-        ASZ80 ASSEMBLER                                        PAGE BY-3
-        THE .__.CPU.  VARIABLE
-
-
-        BY.2  THE .__.CPU.  VARIABLE 
+        BZ.2  THE .__.CPU.  VARIABLE 
 
 
              The  value of the pre-defined symbol '.__.CPU.' corresponds
@@ -28891,6 +29535,7 @@
                    .8085                         2
                    .8085x                        3
                    .8080                         4
+                   .zxn                         12
 
 
              The  variable '.__.CPU.' is by default defined as local and
@@ -28907,7 +29552,13 @@
         multiple non equal definitions.  
 
 
-        BY.3  Z80 REGISTER SET AND CONDITIONS 
+
+
+        ASZ80 ASSEMBLER                                        PAGE BZ-4
+        Z80 REGISTER SET AND CONDITIONS
+
+
+        BZ.3  Z80 REGISTER SET AND CONDITIONS 
 
 
              The  following  is a complete list of register designations
@@ -28924,16 +29575,10 @@
                 P -     sign bit clear
                 PE -    parity even
                 PO -    parity odd
-
-
-        ASZ80 ASSEMBLER                                        PAGE BY-4
-        Z80 REGISTER SET AND CONDITIONS
-
-
                 Z -     zero bit set
 
 
-        BY.4  Z80 INSTRUCTION SET 
+        BZ.4  Z80 INSTRUCTION SET 
 
 
              The following list specifies the format for each addressing
@@ -28962,6 +29607,12 @@
 
         The terms data, n, label, and offset may all be expressions.  
 
+
+
+        ASZ80 ASSEMBLER                                        PAGE BZ-5
+        Z80 INSTRUCTION SET
+
+
              Note that not all addressing modes are valid with every in-
         struction, refer to  the  Z80/HD64180/Z180  technical  data  for
         valid modes.  
@@ -28969,13 +29620,9 @@
              The  following  tables  list all Z80/HD64180/Z180 mnemonics
         recognized by the ASZ80 assembler.  The designation [] refers to
         a required addressing mode argument.  
-
-
-        ASZ80 ASSEMBLER                                        PAGE BY-5
-        Z80 INSTRUCTION SET
 
 
-        BY.4.1  Inherent Instructions 
+        BZ.4.1  Inherent Instructions 
 
                 ccf             cpd
                 cpdr            cpi
@@ -28990,7 +29637,7 @@
                 rrd             scf
 
 
-        BY.4.2  Implicit Operand Instructions 
+        BZ.4.2  Implicit Operand Instructions 
 
                 adc     a,[]            adc     []
                 add     a,[]            add     []
@@ -29011,11 +29658,11 @@
                 xor     a,[]            xor     []
 
 
-        ASZ80 ASSEMBLER                                        PAGE BY-6
+        ASZ80 ASSEMBLER                                        PAGE BZ-6
         Z80 INSTRUCTION SET
 
 
-        BY.4.3  Load Instruction 
+        BZ.4.3  Load Instruction 
 
                 ld      rg,[]           ld      [],rg
                 ld      (bc),a          ld      a,(bc)
@@ -29031,7 +29678,7 @@
                 ldi                     ldir
 
 
-        BY.4.4  Call/Return Instructions 
+        BZ.4.4  Call/Return Instructions 
 
                 call    C,label         ret     C
                 call    M,label         ret     M
@@ -29044,7 +29691,7 @@
                 call    label           ret
 
 
-        BY.4.5  Jump and Jump to Subroutine Instructions 
+        BZ.4.5  Jump and Jump to Subroutine Instructions 
 
                 jp      C,label         jp      M,label
                 jp      NC,label        jp      NZ,label
@@ -29061,18 +29708,18 @@
                 jr      label
 
 
-        ASZ80 ASSEMBLER                                        PAGE BY-7
+        ASZ80 ASSEMBLER                                        PAGE BZ-7
         Z80 INSTRUCTION SET
 
 
-        BY.4.6  Bit Manipulation Instructions 
+        BZ.4.6  Bit Manipulation Instructions 
 
                 bit     n,[]
                 res     n,[]
                 set     n,[]
 
 
-        BY.4.7  Interrupt Mode and Reset Instructions 
+        BZ.4.7  Interrupt Mode and Reset Instructions 
 
                 im      n
                 im      n
@@ -29080,7 +29727,7 @@
                 rst     n
 
 
-        BY.4.8  Input and Output Instructions 
+        BZ.4.8  Input and Output Instructions 
 
                 in      a,(n)           in      rg,(c)
                 ind                     indr
@@ -29091,7 +29738,7 @@
                 outi                    otir
 
 
-        BY.4.9  Register Pair Instructions 
+        BZ.4.9  Register Pair Instructions 
 
                 add     hl,rp           add     ix,rp
                 add     iy,rp
@@ -29106,11 +29753,36 @@
                 push    rp              pop     rp
 
 
-        ASZ80 ASSEMBLER                                        PAGE BY-8
+        ASZ80 ASSEMBLER                                        PAGE BZ-8
         Z80 INSTRUCTION SET
 
 
-        BY.4.10  HD64180/Z180 Specific Instructions 
+        BZ.4.10  ZXN Specific Instructions 
+
+                bsla    de,b            bsra    de,b
+                bsrl    de,b            bsrf    de,b
+                brlc    de,b
+        
+                swap                    swa     a
+        
+                mul     d,e
+                mirror  a               mirror  de
+                nextreg #,#             nextreg #,a
+        
+                cu.wait #               cu.wait #,#
+                cu.move #               cu.move #,#
+                cu.stop                 cu.nop
+        
+                swapnib                 outinb
+                swap                    setae
+                ldix                    ldirx
+                lddx                    lddrx
+                ldirscale               ldpirx
+        
+                pixeldn                 pixelad
+
+
+        BZ.4.11  HD64180/Z180 Specific Instructions 
 
                 in0     rg,(n)
                 out0    (n),rg
@@ -29139,7 +29811,7 @@
 
 
 
-                                   APPENDIX BZ
+                                   APPENDIX CA
 
                                 ASZ280 ASSEMBLER
 
@@ -29147,7 +29819,7 @@
 
 
 
-        BZ.1  ACKNOWLEDGMENT 
+        CA.1  ACKNOWLEDGMENT 
 
 
              The ASZ280 cross assembler was written by John Coffman.  
@@ -29165,17 +29837,17 @@
         files.  
 
 
-        BZ.2  PROCESSOR SPECIFIC DIRECTIVES 
+        CA.2  PROCESSOR SPECIFIC DIRECTIVES 
 
 
 
 
 
-        ASZ280 ASSEMBLER                                       PAGE BZ-2
+        ASZ280 ASSEMBLER                                       PAGE CA-2
         PROCESSOR SPECIFIC DIRECTIVES
 
 
-        BZ.2.1  .z80 Directive 
+        CA.2.1  .z80 Directive 
 
         Format:  
 
@@ -29190,7 +29862,7 @@
         count to be output.  
 
 
-        BZ.2.2  .z80u Directive 
+        CA.2.2  .z80u Directive 
 
         Format:  
 
@@ -29205,7 +29877,7 @@
         count to be output.  
 
 
-        BZ.2.3  .z180 Directive 
+        CA.2.3  .z180 Directive 
 
         Format:  
 
@@ -29222,11 +29894,11 @@
 
 
 
-        ASZ280 ASSEMBLER                                       PAGE BZ-3
+        ASZ280 ASSEMBLER                                       PAGE CA-3
         PROCESSOR SPECIFIC DIRECTIVES
 
 
-        BZ.2.4  .z280 Directive 
+        CA.2.4  .z280 Directive 
 
         Format:  
 
@@ -29241,7 +29913,7 @@
         count to be output.  
 
 
-        BZ.2.5  .z280n Directive 
+        CA.2.5  .z280n Directive 
 
         Format:  
 
@@ -29256,7 +29928,7 @@
         count to be output.  
 
 
-        BZ.2.6  .z280p Directive 
+        CA.2.6  .z280p Directive 
 
         Format:  
 
@@ -29273,11 +29945,11 @@
 
 
 
-        ASZ280 ASSEMBLER                                       PAGE BZ-4
+        ASZ280 ASSEMBLER                                       PAGE CA-4
         PROCESSOR SPECIFIC DIRECTIVES
 
 
-        BZ.2.7  The .__.CPU.  Variable 
+        CA.2.7  The .__.CPU.  Variable 
 
         The  value  of  the pre-defined symbol '.__.CPU.' corresponds to
         the selected processor type.  The following table lists the pro-
@@ -29307,15 +29979,15 @@
         equal definitions.  
 
 
-        ASZ280 ASSEMBLER                                       PAGE BZ-5
+        ASZ280 ASSEMBLER                                       PAGE CA-5
         PROCESSOR SPECIFIC DIRECTIVES
 
 
-        BZ.3  Z280 ADDRESSING AND INSTRUCTIONS 
+        CA.3  Z280 ADDRESSING AND INSTRUCTIONS 
 
 
 
-        BZ.3.1  Registers 
+        CA.3.1  Registers 
 
          Recognized Registers
          -----------------------------------------------------
@@ -29327,7 +29999,7 @@
          -----------------------------------------------------
 
 
-        BZ.3.2  Condition Codes 
+        CA.3.2  Condition Codes 
 
          Condition Codes for Jump, Call, and Return Instructions
          -----------------------------------------------------
@@ -29354,18 +30026,18 @@
          -----------------------------------------------------
 
 
-        ASZ280 ASSEMBLER                                       PAGE BZ-6
+        ASZ280 ASSEMBLER                                       PAGE CA-6
         Z280 ADDRESSING AND INSTRUCTIONS
 
 
-        BZ.3.3  Z280 Instructions 
+        CA.3.3  Z280 Instructions 
 
 
              The  following list of instructions (with addressing modes)
         are available in the Z280 assembler mode.  
 
 
-        BZ.3.3.1  Instruction Modes  - 
+        CA.3.3.1  Instruction Modes  - 
 
          Addressing Mode Notes
          -----------------------------------------------------
@@ -29398,11 +30070,11 @@
          -----------------------------------------------------
 
 
-        ASZ280 ASSEMBLER                                       PAGE BZ-7
+        ASZ280 ASSEMBLER                                       PAGE CA-7
         Z280 ADDRESSING AND INSTRUCTIONS
 
 
-        BZ.3.3.2  Argument Formats  - 
+        CA.3.3.2  Argument Formats  - 
 
              The  instruction  format  arguments  are  described in this
         table.  Note that not all addressing  arguments  are  valid  for
@@ -29443,11 +30115,11 @@
          -----------------------------------------------------
 
 
-        ASZ280 ASSEMBLER                                       PAGE BZ-8
+        ASZ280 ASSEMBLER                                       PAGE CA-8
         Z280 ADDRESSING AND INSTRUCTIONS
 
 
-        BZ.3.3.3  8-Bit Load Group Instructions  - 
+        CA.3.3.3  8-Bit Load Group Instructions  - 
                              Addressing Modes Available
          Format         R   RX  IM  IR  DA  X   SX  RA  SR  BX
          ------        --- --- --- --- --- --- --- --- --- ---
@@ -29467,7 +30139,7 @@
          -----------------------------------------------------
 
 
-        BZ.3.3.4  16-Bit Load and Exchange Group Instructions  - 
+        CA.3.3.4  16-Bit Load and Exchange Group Instructions  - 
                              Addressing Modes Available
          Format           R   IM  IR  DA  X   SX  RA  SR  BX
          ------          --- --- --- --- --- --- --- --- ---
@@ -29491,11 +30163,11 @@
          -----------------------------------------------------
 
 
-        ASZ280 ASSEMBLER                                       PAGE BZ-9
+        ASZ280 ASSEMBLER                                       PAGE CA-9
         Z280 ADDRESSING AND INSTRUCTIONS
 
 
-        BZ.3.3.5  Block Transfer and Search Group Instructions  - 
+        CA.3.3.5  Block Transfer and Search Group Instructions  - 
          Format                         Format
          ------                         ------
          CPD                            LDD
@@ -29505,7 +30177,7 @@
          -----------------------------------------------------
 
 
-        BZ.3.3.6  8-Bit Arithmetic and Logic Group  - 
+        CA.3.3.6  8-Bit Arithmetic and Logic Group  - 
                              Addressing Modes Available
          Format         R   RX  IM  IR  DA  X   SX  RA  SR  BX
          ------        --- --- --- --- --- --- --- --- --- ---
@@ -29532,11 +30204,11 @@
          -----------------------------------------------------
 
 
-        ASZ280 ASSEMBLER                                      PAGE BZ-10
+        ASZ280 ASSEMBLER                                      PAGE CA-10
         Z280 ADDRESSING AND INSTRUCTIONS
 
 
-        BZ.3.3.7  16-Bit Arithmetic Operation Instructions  - 
+        CA.3.3.7  16-Bit Arithmetic Operation Instructions  - 
                              Addressing Modes Available
          Format                 R   IM  IR  DA  X   RA
          ------                --- --- --- --- --- ---
@@ -29560,7 +30232,7 @@
          -----------------------------------------------------
 
 
-        BZ.3.3.8  Bit Manipulation, Rotate and Shift Group  - 
+        CA.3.3.8  Bit Manipulation, Rotate and Shift Group  - 
                              Addressing Modes Available
          Format                     IR  DA  RA
          ------                    --- --- ---
@@ -29586,11 +30258,11 @@
          -----------------------------------------------------
 
 
-        ASZ280 ASSEMBLER                                      PAGE BZ-11
+        ASZ280 ASSEMBLER                                      PAGE CA-11
         Z280 ADDRESSING AND INSTRUCTIONS
 
 
-        BZ.3.3.9  Program Control Group Instructions  - 
+        CA.3.3.9  Program Control Group Instructions  - 
                              Addressing Modes Available
          Format                     IR  DA  RA
          ------                    --- --- ---
@@ -29609,7 +30281,7 @@
          -----------------------------------------------------
 
 
-        BZ.3.3.10  Program Control Group Instructions  - 
+        CA.3.3.10  Program Control Group Instructions  - 
          Format                         Format
          ------                         ------
          IN dst,(C)                     OUT (C),src
@@ -29627,11 +30299,11 @@
          -----------------------------------------------------
 
 
-        ASZ280 ASSEMBLER                                      PAGE BZ-12
+        ASZ280 ASSEMBLER                                      PAGE CA-12
         Z280 ADDRESSING AND INSTRUCTIONS
 
 
-        BZ.3.3.11  CPU Control Group Instructions  - 
+        CA.3.3.11  CPU Control Group Instructions  - 
          Format                         Format
          ------                         ------
          DI mask                        LDCTL dst,src
@@ -29643,7 +30315,7 @@
          -----------------------------------------------------
 
 
-        BZ.3.3.12  Extended Instructions  - 
+        CA.3.3.12  Extended Instructions  - 
          Format                         Format
          ------                         ------
          EPUM src                       EPUF
@@ -29651,7 +30323,7 @@
          -----------------------------------------------------
 
 
-        BZ.3.4  Z280 Execution Cycles 
+        CA.3.4  Z280 Execution Cycles 
 
 
              The  instruction  cycle timing was taken from Appendix E of
@@ -29675,11 +30347,11 @@
         as the smallest number of cycles.  
 
 
-        ASZ280 ASSEMBLER                                      PAGE BZ-13
+        ASZ280 ASSEMBLER                                      PAGE CA-13
         Z280 ADDRESSING AND INSTRUCTIONS
 
 
-        BZ.4  Z80/HD64180 ADDRESSING AND INSTRUCTIONS 
+        CA.4  Z80/HD64180 ADDRESSING AND INSTRUCTIONS 
 
 
              The   following   list   specifies   the  format  for  each
@@ -29710,7 +30382,7 @@
         modes.  
 
 
-        BZ.4.1  Inherent Instructions 
+        CA.4.1  Inherent Instructions 
 
                 ccf             cpd
                 cpdr            cpi
@@ -29725,11 +30397,11 @@
                 rrd             scf
 
 
-        ASZ280 ASSEMBLER                                      PAGE BZ-14
+        ASZ280 ASSEMBLER                                      PAGE CA-14
         Z80/HD64180 ADDRESSING AND INSTRUCTIONS
 
 
-        BZ.4.2  Implicit Operand Instructions 
+        CA.4.2  Implicit Operand Instructions 
 
                 adc     a,[]            adc     []
                 add     a,[]            add     []
@@ -29750,7 +30422,7 @@
                 xor     a,[]            xor     []
 
 
-        BZ.4.3  Load Instruction 
+        CA.4.3  Load Instruction 
 
                 ld      rg,[]           ld      [],rg
                 ld      (bc),a          ld      a,(bc)
@@ -29766,11 +30438,11 @@
                 ldi                     ldir
 
 
-        ASZ280 ASSEMBLER                                      PAGE BZ-15
+        ASZ280 ASSEMBLER                                      PAGE CA-15
         Z80/HD64180 ADDRESSING AND INSTRUCTIONS
 
 
-        BZ.4.4  Call/Return Instructions 
+        CA.4.4  Call/Return Instructions 
 
                 call    C,label         ret     C
                 call    M,label         ret     M
@@ -29783,7 +30455,7 @@
                 call    label           ret
 
 
-        BZ.4.5  Jump and Jump to Subroutine Instructions 
+        CA.4.5  Jump and Jump to Subroutine Instructions 
 
                 jp      C,label         jp      M,label
                 jp      NC,label        jp      NZ,label
@@ -29800,14 +30472,14 @@
                 jr      label
 
 
-        BZ.4.6  Bit Manipulation Instructions 
+        CA.4.6  Bit Manipulation Instructions 
 
                 bit     n,[]
                 res     n,[]
                 set     n,[]
 
 
-        BZ.4.7  Interrupt Mode and Reset Instructions 
+        CA.4.7  Interrupt Mode and Reset Instructions 
 
                 im      n
                 im      n
@@ -29815,11 +30487,11 @@
                 rst     n
 
 
-        ASZ280 ASSEMBLER                                      PAGE BZ-16
+        ASZ280 ASSEMBLER                                      PAGE CA-16
         Z80/HD64180 ADDRESSING AND INSTRUCTIONS
 
 
-        BZ.4.8  Input and Output Instructions 
+        CA.4.8  Input and Output Instructions 
 
                 in      a,(n)           in      rg,(c)
                 ind                     indr
@@ -29830,7 +30502,7 @@
                 outi                    otir
 
 
-        BZ.4.9  Register Pair Instructions 
+        CA.4.9  Register Pair Instructions 
 
                 add     hl,rp           add     ix,rp
                 add     iy,rp
@@ -29845,7 +30517,7 @@
                 push    rp              pop     rp
 
 
-        BZ.4.10  HD64180 Specific Instructions 
+        CA.4.10  HD64180 Specific Instructions 
 
                 in0     rg,(n)
                 out0    (n),rg
@@ -29862,11 +30534,11 @@
                 tstio   #data
 
 
-        ASZ280 ASSEMBLER                                      PAGE BZ-17
+        ASZ280 ASSEMBLER                                      PAGE CA-17
         Z80/HD64180 ADDRESSING AND INSTRUCTIONS
 
 
-        BZ.4.11  Z80 Undocumented Instructions 
+        CA.4.11  Z80 Undocumented Instructions 
 
             op = adc, add, and, cp, or, sbc, sub, xor
                 op      a,ixh           op      a,ixl
@@ -30752,84 +31424,110 @@
           BW.2.6    System Control Instructions                     BW-4 
           BW.2.7    Equivalent Assembler Mnemonics                  BW-4 
 
-        APPENDIX BX  ASZ8 ASSEMBLER                                 BX-1 
-          BX.1    Z8 REGISTER SET                                   BX-1 
-          BX.2    Z8 INSTRUCTION SET                                BX-1 
-          BX.2.1    Load Instructions                               BX-2 
-          BX.2.2    Arithmetic Instructions                         BX-3 
-          BX.2.3    Logical Instructions                            BX-3 
-          BX.2.4    Program Control Instructions                    BX-3 
-          BX.2.5    Bit Manipulation Instructions                   BX-3 
-          BX.2.6    Block Transfer Instructions                     BX-3 
-          BX.2.7    Rotate and Shift Instructions                   BX-3 
-          BX.2.8    Cpu Control Instructions                        BX-4 
+        APPENDIX BX  ASTLCS90 ASSEMBLER                             BX-1 
+          BX.1    ASTLCS90 ASSEMBLER SPECIFIC DIRECTIVES            BX-1 
+          BX.1.1    .setdp Directive                                BX-1 
+          BX.2    TLCS90 STATE COUNT                                BX-2 
+          BX.3    TLCS90 REGISTER SET                               BX-2 
+          BX.4    TLCS90 OPERAND SUMMARY                            BX-3 
+          BX.5    TLCS90 INSTRUCTION SET                            BX-4 
+          BX.5.1    8-Bit Transfer                                  BX-5 
+          BX.5.2    16-Bit Transfer                                 BX-5 
+          BX.5.3    8-Bit Arithmetic Instructions                   BX-6 
+          BX.5.4    Block Transfer And Search                       BX-7 
+          BX.5.5    Special Operation And CPU Control               BX-7 
+          BX.5.6    16-Bit Arithmetic Operation                     BX-8 
+          BX.5.7    Rotate and Shift Instructions                   BX-9 
+          BX.5.8    Bit Manipulation                                BX-9 
+          BX.5.9    Short Branch Instructions                      BX-10 
+          BX.5.10   Long Branch Instructions                       BX-10 
+          BX.5.11   Return Instructions                            BX-10 
 
-        APPENDIX BY  ASZ80 ASSEMBLER                                BY-1 
-          BY.1    PROCESSOR SPECIFIC DIRECTIVES                     BY-1 
-          BY.1.1    .z80 Directive                                  BY-1 
-          BY.1.2    .hd64 Directive                                 BY-1 
-          BY.1.3    .8085 Directive                                 BY-2 
-          BY.1.4    .8085x Directive                                BY-2 
-          BY.1.5    .8080 Directive                                 BY-2 
-          BY.2    THE .__.CPU.  VARIABLE                            BY-3 
-          BY.3    Z80 REGISTER SET AND CONDITIONS                   BY-3 
-          BY.4    Z80 INSTRUCTION SET                               BY-4 
-          BY.4.1    Inherent Instructions                           BY-5 
-          BY.4.2    Implicit Operand Instructions                   BY-5 
-          BY.4.3    Load Instruction                                BY-6 
-          BY.4.4    Call/Return Instructions                        BY-6 
-          BY.4.5    Jump and Jump to Subroutine Instructions        BY-6 
-          BY.4.6    Bit Manipulation Instructions                   BY-7 
-          BY.4.7    Interrupt Mode and Reset Instructions           BY-7 
-          BY.4.8    Input and Output Instructions                   BY-7 
+        APPENDIX BY  ASZ8 ASSEMBLER                                 BY-1 
+          BY.1    Z8 REGISTER SET                                   BY-1 
+          BY.2    Z8 INSTRUCTION SET                                BY-1 
+          BY.2.1    Load Instructions                               BY-2 
+          BY.2.2    Arithmetic Instructions                         BY-3 
+          BY.2.3    Logical Instructions                            BY-3 
+          BY.2.4    Program Control Instructions                    BY-3 
+          BY.2.5    Bit Manipulation Instructions                   BY-3 
+          BY.2.6    Block Transfer Instructions                     BY-3 
+          BY.2.7    Rotate and Shift Instructions                   BY-3 
+          BY.2.8    Cpu Control Instructions                        BY-4 
 
 
                                                                Page xvii
         
 
 
-          BY.4.9    Register Pair Instructions                      BY-7 
-          BY.4.10   HD64180/Z180 Specific Instructions              BY-8 
+        APPENDIX BZ  ASZ80 ASSEMBLER                                BZ-1 
+          BZ.1    PROCESSOR SPECIFIC DIRECTIVES                     BZ-1 
+          BZ.1.1    .z80 Directive                                  BZ-1 
+          BZ.1.2    .zxn Directive                                  BZ-1 
+          BZ.1.3    .hd64 Directive                                 BZ-2 
+          BZ.1.4    .8085 Directive                                 BZ-2 
+          BZ.1.5    .8085x Directive                                BZ-2 
+          BZ.1.6    .8080 Directive                                 BZ-3 
+          BZ.2    THE .__.CPU.  VARIABLE                            BZ-3 
+          BZ.3    Z80 REGISTER SET AND CONDITIONS                   BZ-4 
+          BZ.4    Z80 INSTRUCTION SET                               BZ-4 
+          BZ.4.1    Inherent Instructions                           BZ-5 
+          BZ.4.2    Implicit Operand Instructions                   BZ-5 
+          BZ.4.3    Load Instruction                                BZ-6 
+          BZ.4.4    Call/Return Instructions                        BZ-6 
+          BZ.4.5    Jump and Jump to Subroutine Instructions        BZ-6 
+          BZ.4.6    Bit Manipulation Instructions                   BZ-7 
+          BZ.4.7    Interrupt Mode and Reset Instructions           BZ-7 
+          BZ.4.8    Input and Output Instructions                   BZ-7 
+          BZ.4.9    Register Pair Instructions                      BZ-7 
+          BZ.4.10   ZXN Specific Instructions                       BZ-8 
+          BZ.4.11   HD64180/Z180 Specific Instructions              BZ-8 
 
-        APPENDIX BZ  ASZ280 ASSEMBLER                               BZ-1 
-          BZ.1    ACKNOWLEDGMENT                                    BZ-1 
-          BZ.2    PROCESSOR SPECIFIC DIRECTIVES                     BZ-1 
-          BZ.2.1    .z80 Directive                                  BZ-2 
-          BZ.2.2    .z80u Directive                                 BZ-2 
-          BZ.2.3    .z180 Directive                                 BZ-2 
-          BZ.2.4    .z280 Directive                                 BZ-3 
-          BZ.2.5    .z280n Directive                                BZ-3 
-          BZ.2.6    .z280p Directive                                BZ-3 
-          BZ.2.7    The .__.CPU.  Variable                          BZ-4 
-          BZ.3    Z280 ADDRESSING AND INSTRUCTIONS                  BZ-5 
-          BZ.3.1    Registers                                       BZ-5 
-          BZ.3.2    Condition Codes                                 BZ-5 
-          BZ.3.3    Z280 Instructions                               BZ-6 
-          BZ.3.3.1    Instruction Modes                             BZ-6 
-          BZ.3.3.2    Argument Formats                              BZ-7 
-          BZ.3.3.3    8-Bit Load Group Instructions                 BZ-8 
-          BZ.3.3.4    16-Bit Load and Exchange Group
-                      Instructions                                  BZ-8 
-          BZ.3.3.5    Block Transfer and Search Group
-                      Instructions                                  BZ-9 
-          BZ.3.3.6    8-Bit Arithmetic and Logic Group              BZ-9 
-          BZ.3.3.7    16-Bit Arithmetic Operation Instructions     BZ-10 
-          BZ.3.3.8    Bit Manipulation, Rotate and Shift Group     BZ-10 
-          BZ.3.3.9    Program Control Group Instructions           BZ-11 
-          BZ.3.3.10   Program Control Group Instructions           BZ-11 
-          BZ.3.3.11   CPU Control Group Instructions               BZ-12 
-          BZ.3.3.12   Extended Instructions                        BZ-12 
-          BZ.3.4    Z280 Execution Cycles                          BZ-12 
-          BZ.4    Z80/HD64180 ADDRESSING AND INSTRUCTIONS          BZ-13 
-          BZ.4.1    Inherent Instructions                          BZ-13 
-          BZ.4.2    Implicit Operand Instructions                  BZ-14 
-          BZ.4.3    Load Instruction                               BZ-14 
-          BZ.4.4    Call/Return Instructions                       BZ-15 
-          BZ.4.5    Jump and Jump to Subroutine Instructions       BZ-15 
-          BZ.4.6    Bit Manipulation Instructions                  BZ-15 
-          BZ.4.7    Interrupt Mode and Reset Instructions          BZ-15 
-          BZ.4.8    Input and Output Instructions                  BZ-16 
-          BZ.4.9    Register Pair Instructions                     BZ-16 
-          BZ.4.10   HD64180 Specific Instructions                  BZ-16 
-          BZ.4.11   Z80 Undocumented Instructions                  BZ-17 
+        APPENDIX CA  ASZ280 ASSEMBLER                               CA-1 
+          CA.1    ACKNOWLEDGMENT                                    CA-1 
+          CA.2    PROCESSOR SPECIFIC DIRECTIVES                     CA-1 
+          CA.2.1    .z80 Directive                                  CA-2 
+          CA.2.2    .z80u Directive                                 CA-2 
+          CA.2.3    .z180 Directive                                 CA-2 
+          CA.2.4    .z280 Directive                                 CA-3 
+          CA.2.5    .z280n Directive                                CA-3 
+          CA.2.6    .z280p Directive                                CA-3 
+          CA.2.7    The .__.CPU.  Variable                          CA-4 
+          CA.3    Z280 ADDRESSING AND INSTRUCTIONS                  CA-5 
+          CA.3.1    Registers                                       CA-5 
+          CA.3.2    Condition Codes                                 CA-5 
+          CA.3.3    Z280 Instructions                               CA-6 
+          CA.3.3.1    Instruction Modes                             CA-6 
+          CA.3.3.2    Argument Formats                              CA-7 
+          CA.3.3.3    8-Bit Load Group Instructions                 CA-8 
+          CA.3.3.4    16-Bit Load and Exchange Group
+                      Instructions                                  CA-8 
+          CA.3.3.5    Block Transfer and Search Group
+                      Instructions                                  CA-9 
+          CA.3.3.6    8-Bit Arithmetic and Logic Group              CA-9 
+          CA.3.3.7    16-Bit Arithmetic Operation Instructions     CA-10 
+          CA.3.3.8    Bit Manipulation, Rotate and Shift Group     CA-10 
+          CA.3.3.9    Program Control Group Instructions           CA-11 
+          CA.3.3.10   Program Control Group Instructions           CA-11 
+
+
+                                                              Page xviii
+        
+
+
+          CA.3.3.11   CPU Control Group Instructions               CA-12 
+          CA.3.3.12   Extended Instructions                        CA-12 
+          CA.3.4    Z280 Execution Cycles                          CA-12 
+          CA.4    Z80/HD64180 ADDRESSING AND INSTRUCTIONS          CA-13 
+          CA.4.1    Inherent Instructions                          CA-13 
+          CA.4.2    Implicit Operand Instructions                  CA-14 
+          CA.4.3    Load Instruction                               CA-14 
+          CA.4.4    Call/Return Instructions                       CA-15 
+          CA.4.5    Jump and Jump to Subroutine Instructions       CA-15 
+          CA.4.6    Bit Manipulation Instructions                  CA-15 
+          CA.4.7    Interrupt Mode and Reset Instructions          CA-15 
+          CA.4.8    Input and Output Instructions                  CA-16 
+          CA.4.9    Register Pair Instructions                     CA-16 
+          CA.4.10   HD64180 Specific Instructions                  CA-16 
+          CA.4.11   Z80 Undocumented Instructions                  CA-17 
 

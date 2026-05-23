@@ -1,17 +1,19 @@
-<HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML lang="en-US">
 <HEAD>
-<TITLE></TITLE>
+<TITLE>ASZ80  Assembler</TITLE>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 </HEAD>
 <BODY BGCOLOR="#C0C0C0">
 
 <A href="../home.htm">
-<IMG width=343 height=58 border=0 SRC="welcom.gif" ALT = "Welcome"></A>
+<IMG width="343" height="58" border="0" SRC="welcom.gif" ALT="Welcome"></A>
 
 <H2>ASZ80  Assembler</H2>
 
 <A NAME = "TOP"> </A> 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
-
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 .z80 Directive 
@@ -25,6 +27,20 @@ directive will be flagged with an <o> error.
 
      The  .z80  directive  also  selects the Z80 specific cycles
 count to be output.  
+
+
+.zxn Directive 
+
+Format:  
+
+        .zxn 
+
+The  .zxn  directive  enables  processing  of  only  the Z80 and
+ZX-Next specific mnemonics.  HD64180/Z180 mnemonics  encountered
+without the .hd64 directive will be flagged with an <o> error.  
+
+   The .zxn directive also selects the ZXN specific cycles count
+to be output.  
 
 
 .hd64 Directive 
@@ -49,7 +65,7 @@ Format:
 The  .8085 directive enables processing of the standard 8085 in-
 structions using the z80 style syntax.   Extended  (unspecified)
 8085 instructions will be flagged with an <o> error.  Addressing
-modes not supported by the 8085 will be flagged with an <a>  er-
+modes not supported by the 8085 will be flagged with an &lt;a&gt;  er-
 ror.  
 
      The  .8085  directive also selects the 8085 specific cycles
@@ -63,7 +79,7 @@ Format:
 
 The  .8085x directive enables processing of the standard and ex-
 tended 8085 instructions using the z80 style syntax.  Addressing
-modes  not supported by the 8085 will be flagged with an <a> er-
+modes  not supported by the 8085 will be flagged with an &lt;a&gt; er-
 ror.  
 
      The  .8085x directive also selects the 8085 specific cycles
@@ -81,7 +97,7 @@ Format:
 The  .8080 directive enables processing of the standard 8080 in-
 structions using the z80 style syntax.  All  non  8080  instruc-
 tions  will  be flagged with an <o> error.  Addressing modes not
-supported by the 8080 will be flagged with an <a> error.  
+supported by the 8080 will be flagged with an &lt;a&gt; error.  
 
      The  .8080  directive also selects the 8080 specific cycles
 count to be output.  
@@ -102,6 +118,7 @@ assembler:
            .8085                         2
            .8085x                        3
            .8080                         4
+           .zxn                         12
 
 
      The  variable '.__.CPU.' is by default defined as local and
@@ -299,6 +316,31 @@ Register Pair Instructions
         push    rp              pop     rp
 
 
+ZXN Specific Instructions 
+
+        bsla    de,b            bsra    de,b
+        bsrl    de,b            bsrf    de,b
+        brlc    de,b
+
+        swap                    swa     a
+
+        mul     d,e
+        mirror  a               mirror  de
+        nextreg #,#             nextreg #,a
+
+        cu.wait #               cu.wait #,#
+        cu.move #               cu.move #,#
+        cu.stop                 cu.nop
+
+        swapnib                 outinb
+        swap                    setae
+        ldix                    ldirx
+        lddx                    lddrx
+        ldirscale               ldpirx
+
+        pixeldn                 pixelad
+
+
 HD64180/Z180 Specific Instructions 
 
         in0     rg,(n)
@@ -318,18 +360,20 @@ HD64180/Z180 Specific Instructions
 </PRE></B></H4>
 <H5><A HREF="asxdoc.htm#TOP"> Go to the Documentation Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
-<H4>
-<P><A HREF="asxxxx.htm#JUMP">
-<IMG width=32 height=32 border=0 SRC="spcshp.gif" ALIGN=bottom></A>
-<B>...  Exit the ASxxxx Documentation</B></A></P>
+<P>
+<A HREF="asxxxx.htm#JUMP">
+<IMG width="32" height="32" border="0" SRC="spcshp.gif" ALIGN="bottom" alt="spaceship"></A>
+<B>...  Exit the ASxxxx Documentation</B>
+</P>
 
-<P><A href="../home.htm">
-<IMG width=32 height=32 border=0 SRC="home.gif" ALIGN=bottom></A>
-<B>...  Home Page</B></P>
-</H4>
+<P>
+<A href="../home.htm">
+<IMG width="32" height="32" border="0" SRC="home.gif" ALIGN="bottom" alt="home"></A>
+<B>...  Home Page</B>
+</P>
 
-<H6><P><B>Last Updated: September 2023</B></P></H6>
+<H6><B>Last Updated: January 2026</B></H6>
 </BODY> 
 </HTML>

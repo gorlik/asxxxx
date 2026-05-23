@@ -1,37 +1,51 @@
-<HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML lang="en-US">
 <HEAD>
-<TITLE></TITLE>
+<TITLE>Notes and Tips</TITLE>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 </HEAD>
 <BODY BGCOLOR="#C0C0C0">
 
 <A href="../home.htm">
-<IMG width=343 height=58 border=0 SRC="welcom.gif" ALT="Welcome"></A>
+<IMG width="343" height="58" border="0" SRC="welcom.gif" ALT="Welcome"></A>
 
-<H2>Notes and Tips</H2>
+    <H2>Notes and Tips</H2>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
-<A NAME = "Index"> </A>
-<H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Notes and Tips</A>
-</B></H3>
-<H4><B><PRE>
+    <IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
+    <A NAME="Index"> </A>
+    <H3>
+        <B>
+            <IMG SRC="green.gif" ALT="-">... Notes and Tips
+        </B>
+    </H3>
+    <H4>
+        <B>
+            <PRE>
 
    In  no  particular order are some notes and tips on using the
 ASxxxx assemblers that users have asked about.  
-</PRE></B></H4>
+</PRE>
+        </B>
+    </H4>
 
-<H4>
-<IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF= #Note_01>Register Renaming</A><BR>
-<IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF= #Note_02>Areas and Banks</A><BR>
-<IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF= #Note_03>Inhibiting Include File Pagination</A><BR>
-<IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF= #Note_04>To Include or To Include</A><BR>
-<BR>
-<IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF="asxdoc.htm#Index">Return to the Assembler Documentation Index</A><BR>
-<BR>
-<IMG width=576 height=5 border=0 SRC="rnbow.gif"><BR>
-<A NAME = "Note_01"><BR>
-<FONT COLOR="#FF0000">REGISTER RENAMING</FONT>
-<H4><B><PRE>
+    <H4>
+        <IMG SRC="yellow.gif" ALT="-"> ... <A HREF=#Note_01>Register Renaming</A><BR>
+        <IMG SRC="yellow.gif" ALT="-"> ... <A HREF=#Note_02>Areas and Banks</A><BR>
+        <IMG SRC="yellow.gif" ALT="-"> ... <A HREF=#Note_03>Inhibiting Include File Pagination</A><BR>
+        <IMG SRC="yellow.gif" ALT="-"> ... <A HREF=#Note_04>To Include or To Include</A><BR>
+        <BR>
+        <IMG SRC="yellow.gif" ALT="-"> ... <A HREF="asxdoc.htm#Index">Return to the Assembler Documentation Index</A><BR>
+    </H4>
+    <BR>
+    <IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow"><BR>
+
+    <A NAME="Note_01"></A><BR>
+    <FONT COLOR="#FF0000">REGISTER RENAMING</FONT>
+    <H4>
+        <B>
+            <PRE>
    Sometimes  it  is  convenient  to  give  alternate names to a
 processor's registers to improve readability or make  your  code
 more descriptive.  
@@ -55,12 +69,19 @@ e.g.
    The  assembler, when it finds the key word 'iptr', will first
 replace the string 'iptr' with 'R3' and then process  the  line.
 (Note that the the keyword must start with a letter.) 
-</PRE></B></H4>
-<H5><A HREF= #Index> =&gt; Section Index</A></H5>
-<IMG width=576 height=5 border=0 SRC="rnbow.gif"><BR>
-<A NAME = "Note_02"><BR>
-<FONT COLOR="#FF0000">AREAS AND BANKS</FONT>
-<H4><B><PRE>
+</PRE>
+        </B>
+    </H4>
+    <H5><A HREF=#Index> =&gt; Section Index</A></H5>
+
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+<BR>
+    <A NAME="Note_02"></A>
+        <BR>
+        <FONT COLOR="#FF0000">AREAS AND BANKS</FONT>
+        <H4>
+            <B>
+                <PRE>
    The  .area  and .bank directives are just a means of organiz-
 ing, ordering, combining, and placing code where you want it.  
 
@@ -161,12 +182,18 @@ into the specific bank:
    One  should  note that by using a definition file, which con-
 tains all the area/bank options, all other assembly  files  need
 only .area directives with the area name.  
-</PRE></B></H4>
-<H5><A HREF= #Index> =&gt; Section Index</A></H5>
-<IMG width=576 height=5 border=0 SRC="rnbow.gif"><BR>
-<A NAME = "Note_03"><BR>
-<FONT COLOR="#FF0000">INHIBITING INCLUDE FILE PAGINATION</FONT>
-<H4><B><PRE>
+</PRE>
+            </B>
+        </H4>
+        <H5><A HREF=#Index> =&gt; Section Index</A></H5>
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+<BR>
+        <A NAME="Note_03"></A>
+            <BR>
+            <FONT COLOR="#FF0000">INHIBITING INCLUDE FILE PAGINATION</FONT>
+            <H4>
+                <B>
+                    <PRE>
    The  default  actions  when the .include directive is invoked
 are:  
 
@@ -227,12 +254,19 @@ cluded file.
 will be a single line in the assembly listing:  
 
 ;       area.def        Areas/Banks             Defined
-</PRE></B></H4>
-<H5><A HREF= #Index> =&gt; Section Index</A></H5>
-<IMG width=576 height=5 border=0 SRC="rnbow.gif"><BR>
-<A NAME = "Note_04"><BR>
-<FONT COLOR="#FF0000">TO INCLUDE OR TO INCLUDE</FONT>
-<H4><B><PRE>
+</PRE>
+                </B>
+            </H4>
+            <H5><A HREF=#Index> =&gt; Section Index</A></H5>
+
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+<BR>
+            <A NAME="Note_04"></A>
+                <BR>
+                <FONT COLOR="#FF0000">TO INCLUDE OR TO INCLUDE</FONT>
+                <H4>
+                    <B>
+                        <PRE>
    When  building  a project there is always the decision to as-
 semble multiple files together on the command line, use the .in-
 clude directive to insert assembly files into the project, or to
@@ -294,20 +328,28 @@ ule "fnctns".
 
 This  results  in  only the globals being defined for the module
 "fnctns.asm".  
-</PRE></B></H4>
-<H5><A HREF= #Index> =&gt; Section Index</A></H5>
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+</PRE>
+                    </B>
+                </H4>
+                <H5><A HREF="#Index"> =&gt; Section Index</A></H5>
 
-<H4>
-<P><A HREF="asxxxx.htm#JUMP">
-<IMG width=32 height=32 border=0 SRC="spcshp.gif" ALIGN=bottom></A>
-<B>...  Exit the ASxxxx Documentation</B></A></P>
+<IMG width=576 height=5 border=0 SRC="rnbow.gif" ALT="rainbow">
 
-<P><A href="../home.htm">
-<IMG width=32 height=32 border=0 SRC="home.gif" ALIGN=bottom></A>
-<B>...  Home Page</B></P>
-</H4>
+<P>
+<A HREF="asxxxx.htm#JUMP">
+<IMG width="32" height="32" border="0" SRC="spcshp.gif" ALIGN="bottom" alt="spaceship"></A>
+<B>...  Exit the ASxxxx Documentation</B>
+</P>
 
-<H6><P><B>Last Updated: September 2023</B></P></H6>
+<P>
+<A href="../home.htm">
+<IMG width="32" height="32" border="0" SRC="home.gif" ALIGN="bottom" alt="home"></A>
+<B>...  Home Page</B>
+</P>
+
+<H6><B>Last Updated: March 2025</B></H6>
+</BODY> 
+</HTML>
+
 </BODY> 
 </HTML>

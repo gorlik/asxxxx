@@ -3,7 +3,7 @@
 #		Linux 'GNU make' Version
 #		=========================
 #
-#   4  February  2023
+#   17  January  2026
 #
 ####################################################################
 
@@ -56,6 +56,7 @@ ASXXXX =	as1802		\
 		asst7		\
 		asst8		\
 		assx		\
+		astlcs90	\
 		asz8		\
 		asz80		\
 		asz280		\
@@ -140,6 +141,7 @@ SRCST6=		$(ASXBAS)asst6/
 SRCST7=		$(ASXBAS)asst7/
 SRCST8=		$(ASXBAS)asst8/
 SRCSX=		$(ASXBAS)assx/
+SRCTLCS90=	$(ASXBAS)astlcs90/
 SRCZ8=		$(ASXBAS)asz8/
 SRCZ80=		$(ASXBAS)asz80/
 SRCZ280=	$(ASXBAS)asz280/
@@ -1179,6 +1181,26 @@ assx :		$(ASXX) $(ASSX)
 		cp assx $(DSTEXE)assx
 		strip $(DSTEXE)assx
 		chmod 755 $(DSTEXE)assx
+
+
+####################################################################
+# ASTLCS
+####################################################################
+
+ASTLCS90 =	t90pst.o t90mch.o t90adr.o
+
+t90pst.o :	$(SRCTLCS90)t90pst.c $(SRCTLCS90)t90.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+t90mch.o :	$(SRCTLCS90)t90mch.c $(SRCTLCS90)t90.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+t90adr.o :	$(SRCTLCS90)t90adr.c $(SRCTLCS90)t90.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+
+astlcs90 :		$(ASXX) $(ASTLCS90)
+		$(LD) $(LDFLAGS) -o astlcs90 $(ASXX) $(ASTLCS90)
+		cp astlcs90 $(DSTEXE)astlcs90
+		strip $(DSTEXE)astlcs90
+		chmod 755 $(DSTEXE)astlcs90
 
 
 ####################################################################

@@ -1,15 +1,154 @@
-<HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML lang="en-US">
 <HEAD>
-<TITLE></TITLE>
+<TITLE>ASxxxx Release Notes</TITLE>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 </HEAD>
 <BODY BGCOLOR="#C0C0C0">
 
 <A href="../home.htm">
-<IMG width=343 height=58 border=0 SRC="welcom.gif" ALT="Welcome"></A>
+<IMG width="343" height="58" border="0" SRC="welcom.gif" ALT="Welcome"></A>
 
 <H2>ASxxxx Release Notes</H2>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
+<H4><B><PRE>
+Summary  of changes/additions to the ASxxxx Assemblers
+from version 5.50.
+</PRE></B></H4>
+
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
+<H4><B><PRE>
+        ASxxxx/ASlink version 5.50.5 is
+  a combined 1-4 release and updated version.
+
+
+2026_01_31 Version 5.50.5
+
+   This is a complete release version
+   of the ASxxxx assemblers and linker.
+
+   1) This version combines updates 1 - 4.
+
+   2) All file names have been made lower case.
+
+   3) The asz80 assembler has added support for
+      the Z80N (ZX Spectrum Next CPU).
+
+   4) A new assembler, astlcs90, supports the
+      Toshiba TLCS90 series of CPUs.
+
+   5) The text and html documentation has been
+      updated to include the asz80 changes and
+      tha addition of the astlcs90 assembler.
+
+
+</PRE></B></H4>
+
+<H4><B><PRE>
+2025_08_26 Version 5.50 Update 4
+
+ WARNING
+   This update will replace ALL source code
+   files for the ASxxxx assemblers and linker.
+   You must save and then reapply any changes
+   you may have made to the source code files.
+
+   An update is performed by merging the update directories
+   with the asxv5pxx directories.  New files will be added
+   and changed files will be replaced.
+
+   1) All functions have been changed from
+      the older K&R (Kernighan & Ritchie)
+      style definition:
+
+        func(i)
+        int i;
+
+      to the
+
+        func(int i);
+
+      style.
+
+   2) The function definition change has made
+      the code incompatable with the original
+      'DECUS C' K&R format.  All conditional
+      DECUS compiling options have been removed.
+
+   3) After rebuilding the assemblers and linker
+      the reported version will be V05.50.4
+
+</PRE></B></H4>
+
+<H4><B><PRE>
+2024_10_28 Version 5.50 Update 3
+
+   An update is performed by merging the update directories
+   with the asxv5pxx directories.  New files will be added
+   and changed files will be replaced.
+
+     1) added the 'wit' instruction, short for wait, which has
+        the same opcode as the 'slw' instruction, short for slow.
+
+     2) added the 'fst' instruction, short for fast, which has
+        the same opcode as the 'div' instruction, short for divide.
+
+   Only one of the instructions in each pair, wit/slw or fst/div,
+   can be present in any specific version of a 740 series processor.
+
+   You must recompile the as740
+   assembler to incorporate the update.
+
+</PRE></B></H4>
+
+<H4><B><PRE>
+2024_09_30 Version 5.50 Update 2
+
+   An update is performed by merging the update directories
+   with the asxv5pxx directories.  New files will be added
+   and changed files will be replaced.
+
+     1) push and pop registers (r0-r7) in as8051 fixed.
+
+     1) push and pop registers (r0-r7) in as8xcxxx fixed.
+
+   You must recompile the as8051 and as8xcxxx
+   assemblers to incorporate the update. 
+
+</PRE></B></H4>
+
+<H4><B><PRE>
+2024_04_28 Version 5.50 Update 1
+
+   An update is performed by merging the update directories
+   with the asxv5pxx directories.  New files will be added
+   and changed files will be replaced.
+
+     1) movem error in as68k assembler fixed.
+
+     2) Added missing bls.s and beq.s mnemonics and
+        added blos (same as bls) and bhis (same as bhs)
+        instructions to as68k and as68cf assemblers.
+
+     3) Added dbhis (same as dbhs) and dblos (same
+        as dbls) forms to as68k and as68cf assemblers.
+
+     4) Added shis (same as shs) and slos (same as sls)
+        forms to as68k and as68cf assemblers.
+
+     5) Test files for the AS68K and AS68CF
+        assemblers are updated.
+
+   You must recompile the AS68K and AS68CF
+   assemblers to incorporate the update.
+ 
+</PRE></B></H4>
+
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
                 ASxxxx/ASlink version 5.50 is
@@ -235,7 +374,7 @@ to incorporate the update.xxx
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
                 VERSION 5.40 RELEASE NOTES
@@ -962,18 +1101,20 @@ Version 4.00 to Version 4.10.
 </PRE></B></H4>
 <H5><A HREF="asxdoc.htm#TOP"> Go to the Documentation Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
-<H4>
-<P><A HREF="asxxxx.htm#JUMP">
-<IMG width=32 height=32 border=0 SRC="spcshp.gif" ALIGN=bottom></A>
-<B>...  Exit the ASxxxx Documentation</B></A></P>
+<P>
+<A HREF="asxxxx.htm#JUMP">
+<IMG width="32" height="32" border="0" SRC="spcshp.gif" ALIGN="bottom" alt="spaceship"></A>
+<B>...  Exit the ASxxxx Documentation</B>
+</P>
 
-<P><A href="../home.htm">
-<IMG width=32 height=32 border=0 SRC="home.gif" ALIGN=bottom></A>
-<B>...  Home Page</B></P>
-</H4>
+<P>
+<A href="../home.htm">
+<IMG width="32" height="32" border="0" SRC="home.gif" ALIGN="bottom" alt="home"></A>
+<B>...  Home Page</B>
+</P>
 
-<H6><P><B>Last Updated: September 2023</B></P></H6>
+<H6><B>Last Updated: January 2026</B></H6>
 </BODY> 
 </HTML>

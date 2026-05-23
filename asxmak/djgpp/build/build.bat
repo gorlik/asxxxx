@@ -48,6 +48,7 @@ make asst6
 make asst7
 make asst8
 make assx
+make astlcs90
 make asz8
 make asz80
 make asz280

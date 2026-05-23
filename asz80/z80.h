@@ -65,6 +65,8 @@
 #define I	0107
 #define R	0117
 
+#define X       8       /* for ZXN pop x */
+
 #define BC	0
 #define DE	1
 #define HL	2
@@ -95,6 +97,8 @@
 #define	S_R16X	34
 #define	S_CND	35
 #define	S_FLAG	36
+#define	S_R8U1	37
+#define	S_R8U2	38
 
 /*
  * Indexing modes
@@ -109,6 +113,13 @@
 #define	S_IDIX	55
 #define	S_IDIY	56
 #define	S_INDM	57
+
+/*
+ * Undocumented instructions
+ */
+
+#define	X_UNDOCD	58
+#define	S_RL_UNDOCD	59
 
 /*
  * Instruction types
@@ -172,6 +183,19 @@
 #define	X_8080	2
 #define	X_8085	3
 #define	X_8085X	4
+#define	X_ZXN	12
+
+/*
+ * Z80-ZX Next Instructions
+ */
+#define	X_ZXN_INH2	100
+#define	X_ZXN_MUL	101
+#define	X_ZXN_MIRROR	102
+#define	X_ZXN_NEXTREG	103
+#define	X_ZXN_CU_WAIT	104
+#define	X_ZXN_CU_MOVE	105
+#define	X_ZXN_CU_STOP	106
+#define	X_ZXN_CU_NOP	107
 
 
 struct adsym
@@ -182,8 +206,12 @@ struct adsym
 
 extern	struct	adsym	R8[];
 extern	struct	adsym	R8X[];
+extern	struct	adsym	R8U1[];
+extern	struct	adsym	R8U2[];
+
 extern	struct	adsym	R16[];
 extern	struct	adsym	R16X[];
+extern	struct	adsym	RX[];
 extern	struct	adsym	CND[];
 
 	/* machine dependent functions */

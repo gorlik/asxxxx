@@ -1,30 +1,34 @@
-<HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML lang="en-US">
 <HEAD>
-<TITLE></TITLE>
+<TITLE>The Assembler Description</TITLE>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 </HEAD>
 <BODY BGCOLOR="#C0C0C0">
 
 <A href="../home.htm">
-<IMG width=343 height=58 border=0 SRC="welcom.gif" ALT="Welcome"></A>
+<IMG width="343" height="58" border="0" SRC="welcom.gif" ALT="Welcome"></A>
 
 <H2>The Assembler Description</H2>
 
 <A NAME = "TOP"> </A> 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 <BR>
 <A NAME = "Assemblers"> </A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... The ASxxxx Assemblers</A>
+<IMG SRC = "green.gif" ALT = "-">... The ASxxxx Assemblers
 </B></H3>
-<H4><B><UL> 
-<LI><A HREF= #Pass1>  Assembly Pass 1 </A>
-<LI><A HREF= #Pass2>  Assembly Pass 2 </A>
-<LI><A HREF= #Pass3>  Assembly Pass 3 </A>
+
+<UL> 
+<LI><A HREF="#Pass1">  Assembly Pass 1 </A>
+<LI><A HREF="#Pass2">  Assembly Pass 2 </A>
+<LI><A HREF="#Pass3">  Assembly Pass 3 </A>
 <BR><BR>
 <LI><A HREF="asmblr.htm#Index">  Return to the Assembler Index</A>
-</UL></B></H4>
+</UL>
 
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH="100%" NOSHADE>
 <H4><B><PRE>
 <A NAME = "Pass1"></A><FONT COLOR="#FF0000">Assembly Pass 1</FONT>
 
@@ -39,7 +43,7 @@ bols will be flagged as errors during succeeding passes.
   
 </PRE></B></H4>
 <H5><A HREF= #Assemblers> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH="100%" NOSHADE>
 <H4><B><PRE>
 <A NAME = "Pass2"></A><FONT COLOR="#FF0000">Assembly Pass 2</FONT>
 
@@ -57,8 +61,8 @@ blers  can  manually  specify  additional passes to resolve more
 than one level of forward referencing.  
   
 </PRE></B></H4>
-<H5><A HREF= #Assemblers> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF="#Assemblers"> =&gt; Section Index</A></H5>
+<HR SIZE="3" WIDTH="100%" NOSHADE>
 <H4><B><PRE>
 <A NAME = "Pass3"></A><FONT COLOR="#FF0000">Assembly Pass 3</FONT>
 
@@ -75,14 +79,14 @@ or Tandy CoCo Disk Basic formats).
 </PRE></B></H4>
 <H5><A HREF= #Assemblers> =&gt; Section Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 <BR><BR>
 <A NAME = "Source"> </A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Source Program Format</A>
+<IMG SRC = "green.gif" ALT = "-">... Source Program Format
 </B></H3>
 
-<H4><B><UL>
+<UL>
 <LI><A HREF= #Statement>  Statement Format </A> 
 <LI><A HREF= #Label>  Label Field </A>
 <LI><A HREF= #Operator>  Operator Field </A>
@@ -90,9 +94,9 @@ or Tandy CoCo Disk Basic formats).
 <LI><A HREF= #Comment>  Comment Field </A>
 <BR><BR>
 <LI><A HREF="asmblr.htm#Index">  Return to the Assembler Index</A>
-</UL></B></H4>
+</UL>
 
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH="100%" NOSHADE>
 <H4><B><PRE>
 <A NAME = "Statement"></A><FONT COLOR="#FF0000">Statement Format</FONT>
 
@@ -120,7 +124,7 @@ formed.
 
 </PRE></B></H4>
 <H5><A HREF= #Source> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH="100%" NOSHADE>
 <H4><B><PRE>
 <A NAME = "Label"></A><FONT COLOR="#FF0000">Label Field</FONT>  -
 
@@ -196,11 +200,11 @@ The legal characters for defining labels are:
    A  label  may  be  any  length,  however  only  the  first 79
 characters are significant and, therefore must be  unique  among
 all   labels  in  the  source  program  (not  necessarily  among
-separately compiled modules).   An  error  code(s)  (&ltm&gt or &ltp&gt)
+separately compiled modules).   An  error  code(s)  (&lt;m&gt; or &lt;p&gt;)
 will  be  generated  in  the  assembly  listing  if the first 79
-characters in two or more labels are the same.  The &ltm&gt code  is
+characters in two or more labels are the same.  The &lt;m&gt; code  is
 caused  by  the  redeclaration of the symbol or its reference by
-another statement.  The &ltp&gt code is generated because  the  sym-
+another statement.  The &lt;p&gt; code is generated because  the  sym-
 bols location is changing on each pass through the source file. 
 
    The  label  must  not  start with the characters 0-9, as this
@@ -209,7 +213,7 @@ in a later section.
 
 </PRE></B></H4>
 <H5><A HREF= #Source> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH="100%" NOSHADE>
 <H4><B><PRE>
 <A NAME = "Operator"></A><FONT COLOR="#FF0000">Operator Field</FONT>  -
 
@@ -231,7 +235,7 @@ the operator field from the preceding and following fields.
 
 </PRE></B></H4>
 <H5><A HREF= #Source> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH="100%" NOSHADE>
 <H4><B><PRE>
 <A NAME = "Operand"></A><FONT COLOR="#FF0000">Operand Field</FONT>  -
 
@@ -243,7 +247,7 @@ evaluated/manipulated by the operator.
 operator.  Multiple expressions used in the operand  fields  may
 be  separated  by  a comma.  An operand should be preceded by an
 operator field;  if it is not, the statement will give an  error
-(&ltq&gt or &lto&gt).   All operands following instruction mnemonics are
+(&lt;q&gt; or &lt;o&gt;).   All operands following instruction mnemonics are
 treated as expressions.  
 
    The operand field is terminated by a semicolon when the field
@@ -261,7 +265,7 @@ end of the source line.
 
 </PRE></B></H4>
 <H5><A HREF= #Source> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH="100%" NOSHADE>
 <H4><B><PRE>
 <A NAME = "Comment"></A><FONT COLOR="#FF0000">Comment Field</FONT>  -
 
@@ -275,11 +279,11 @@ tion.
 </PRE></B></H4>
 <H5><A HREF= #Source> =&gt; Section Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 <BR><BR>
 <A NAME = "Symbols"> </A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Symbols and Expressions</A>
+<IMG SRC = "green.gif" ALT = "-">... Symbols and Expressions
 </B></H3>
 <H4><B><PRE>
    This  section  describes the generic components of the ASxxxx
@@ -289,7 +293,7 @@ pressions.
 
 </PRE></B></H4>
 
-<H4><B><UL>
+<UL>
 <LI><A HREF= #Character>  Character Sets </A> 
 <LI><A HREF= #User>  User-Defined Symbols </A>
 <LI><A HREF= #Reusable>  Reusable Symbols </A>
@@ -299,9 +303,9 @@ pressions.
 <LI><A HREF= #Expressions>  Expressions </A>
 <BR><BR>
 <LI><A HREF="asmblr.htm#Index">  Return to the Assembler Index</A>
-</UL></B></H4>
+</UL>
 
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH=100% NOSHADE>
 <H4><B><PRE>
 <A NAME = "Character"></A><FONT COLOR="#FF0000">Character Set</FONT> 
 
@@ -479,7 +483,7 @@ Table 6         Temporary Radix Operators
 
 </PRE></B></H4>
 <H5><A HREF= #Symbols> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH="100%" NOSHADE>
 <H4><B><PRE>
 <A NAME = "User"></A><FONT COLOR="#FF0000">User-Defined Symbols</FONT> 
 
@@ -506,7 +510,7 @@ The following rules govern the creation of user-defined symbols:
 
 </PRE></B></H4>
 <H5><A HREF= #Symbols> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH="100%" NOSHADE>
 <H4><B><PRE>
 <A NAME = "Reusable"></A><FONT COLOR="#FF0000">Reusable Symbols</FONT> 
 
@@ -547,7 +551,7 @@ less symbol table space  than  normal  symbols.   Their  use  is
 recommended.  
 
    The  use  of  the  same reusable symbol within a symbol block
-will generate one or both of the &ltm&gt or &ltp&gt errors.  
+will generate one or both of the &lt;m&gt; or &lt;p&gt; errors.  
 
 Example of reusable symbols:  
 
@@ -565,7 +569,7 @@ Example of reusable symbols:
 
 </PRE></B></H4>
 <H5><A HREF= #Symbols> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH="100%" NOSHADE>
 <H4><B><PRE>
 <A NAME = "Current"></A><FONT COLOR="#FF0000">Current Location Counter</FONT> 
 
@@ -610,7 +614,7 @@ assignment statement of the following form:
    The  new  location  counter can only be specified relative to
 the current location counter.  Neglecting to specify the current
 program  counter  along with the expression on the right side of
-the assignment operator will generate the &lt.&gt error.   (Absolute
+the assignment operator will generate the &lt;.&gt; error.   (Absolute
 program areas may use the .org directive to specify the absolute
 location of the current program counter.) 
 
@@ -658,9 +662,9 @@ allocating space.
 
 </PRE></B></H4>
 <H5><A HREF= #Symbols> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH="100%" NOSHADE>
 <H4><B><PRE>
-<A NAME = "Numbers"><A/><FONT COLOR="#FF0000">Numbers</FONT>
+<A NAME = "Numbers"></A><FONT COLOR="#FF0000">Numbers</FONT>
 
    ASxxxx  assumes that all numbers in the source program are to
 be interpreted in decimal radix unless otherwise specified.  The
@@ -678,7 +682,7 @@ they are never relocatable.
 
 </PRE></B></H4>
 <H5><A HREF= #Symbols> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH="100%" NOSHADE>
 <H4><B><PRE>
 <A NAME = "Terms"></A><FONT COLOR="#FF0000">Terms</FONT>
 
@@ -711,7 +715,7 @@ following:
 
 </PRE></B></H4>
 <H5><A HREF= #Symbols> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH="100%" NOSHADE>
 <H4><B><PRE>
 <A NAME = "Expressions"></A><FONT COLOR="#FF0000">Expressions</FONT>
 
@@ -745,7 +749,7 @@ Expressions are evaluate with an operand hierarchy as follows:
 
 
    A  missing  or  illegal  operator  terminates  the expression
-analysis, causing error codes &lto&gt and/or  &ltq&gt  to  be  generated
+analysis, causing error codes &lt;o&gt; and/or  &lt;q&gt;  to  be  generated
 depending upon the context of the expression itself.  
 
    At assembly time the value of an external (global) expression
@@ -787,20 +791,22 @@ tinctions are important:
 
 </PRE></B></H4>
 <H5><A HREF= #Symbols> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH="100%" NOSHADE>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
-<H4>
-<P><A HREF="asxxxx.htm#JUMP">
-<IMG width=32 height=32 border=0 SRC="spcshp.gif" ALIGN=bottom></A>
-<B>...  Exit the ASxxxx Documentation</B></A></P>
+<P>
+<A HREF="asxxxx.htm#JUMP">
+<IMG width="32" height="32" border="0" SRC="spcshp.gif" ALIGN="bottom" alt="spaceship"></A>
+<B>...  Exit the ASxxxx Documentation</B>
+</P>
 
-<P><A href="../home.htm">
-<IMG width=32 height=32 border=0 SRC="home.gif" ALIGN=bottom></A>
-<B>...  Home Page</B></P>
-</H4>
+<P>
+<A href="../home.htm">
+<IMG width="32" height="32" border="0" SRC="home.gif" ALIGN="bottom" alt="home"></A>
+<B>...  Home Page</B>
+</P>
 
-<H6><P><B>Last Updated: September 2023</B></P></H6>
+<H6><B>Last Updated: March 2025</B></H6>
 </BODY> 
 </HTML>

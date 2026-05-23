@@ -1,19 +1,22 @@
-<HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML lang="en-US">
 <HEAD>
-<TITLE></TITLE>
+<TITLE>The Assembler Description</TITLE>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 </HEAD>
 <BODY BGCOLOR="#C0C0C0">
 
 <A href="../home.htm">
-<IMG width=343 height=58 border=0 SRC="welcom.gif" ALT="Welcome"></A>
+<IMG width="343" height="58" border="0" SRC="welcom.gif" ALT="Welcome"></A>
 
 <H2>The Assembler Description</H2>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 <BR>
 <A NAME = "Directives"> </A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... General Assembler Directives</A>
+<IMG SRC = "green.gif" ALT = "-">... General Assembler Directives
 </B></H3>
 
 <H4><B><PRE>
@@ -21,65 +24,65 @@
 source line.  Only one directive is  allowed  per  source  line.
 Each  directive  may  have  a blank operand field or one or more
 operands.  Legal operands differ with each directive.  
-
 </PRE></B></H4>
-
-<H4><B><UL>
-<LI><A HREF= #module>  .module Directive </A> 
-<LI><A HREF= #title>  .title Directive </A>
-<LI><A HREF= #sbttl>  .sbttl Directive </A>
-<LI><A HREF= #list>  .list and .nlist Directives </A>
-<LI><A HREF= #page>  .page Directive </A>
-<LI><A HREF= #msg>  .msg Directive </A>
-<LI><A HREF= #error>  .error Directive </A>
-<LI><A HREF= #byte>  .byte, .db, and .fcb Directives </A>
-<LI><A HREF= #word>  .word, .dw, and .fdb Directives </A>
-<LI><A HREF= #3byte>  .3byte and .triple Directives </A>
-<LI><A HREF= #4byte>  .dl, .long, .4byte and .quad Directives </A>
-<LI><A HREF= #blkb>  .blkb, .ds, .rmb, and .rs Directives </A>
-<LI><A HREF= #blkw>  .blkw, .blkl, .blk3, and .blk4 Directives </A>
-<LI><A HREF= #ascii>  .ascii, .fcc, and .str Directives </A>
-<LI><A HREF= #ascis>  .ascis and .strs Directives </A>
-<LI><A HREF= #asciz>  .asciz and .strz Directives </A>
-<LI><A HREF= #npchars>  Non-Printing Characters In Strings </A>
-<LI><A HREF= #assume>  .assume Directive </A>
-<LI><A HREF= #radix>  .radix Directive </A>
-<LI><A HREF= #even>  .even Directive </A>
-<LI><A HREF= #odd>  .odd Directive </A>
-<LI><A HREF= #bndry>  .bndry Directive </A>
-<LI><A HREF= #area>  .area Directive </A>
-<LI><A HREF= #pshpop>  .psharea and .poparea Directives </A>
-<LI><A HREF= #bank>  .bank Directive </A>
-<LI><A HREF= #org>  .org Directive </A>
-<LI><A HREF= #globl>  .globl Directive </A>
-<LI><A HREF= #local>  .local Directive </A>
-<LI><A HREF= #alt>  .equ, .gblequ, and .lclequ Directives </A>
-<LI><A HREF= #if>  .if, .else, and .endif Directives </A>
-<LI><A HREF= #iftf>  .iff, .ift, and .iftf Directives </A>
-<LI><A HREF= #ifxx>  .ifxx Directive </A>
-<LI><A HREF= #ifdef>  .ifdef Directive </A>
-<LI><A HREF= #ifndef>  .ifndef Directive </A>
-<LI><A HREF= #ifb>  .ifb Directive </A>
-<LI><A HREF= #ifnb>  .ifnb Directive </A>
-<LI><A HREF= #ifidn>  .ifidn Directive </A>
-<LI><A HREF= #ifdif>  .ifdif Directive </A>
-<LI><A HREF= #ifalt>  Alternate .if Directive Forms </A>
-<LI><A HREF= #iif>  Immediate Conditional Assembly Directives </A>
-<LI><A HREF= #include>  .include Directive </A>
-<LI><A HREF= #incbin>  .incbin Directive </A>
-<LI><A HREF= #define>  .define and .undefine Directives </A>
-<LI><A HREF= #enabl>  .enabl and .dsabl Directives </A>
-<LI><A HREF= #setdp>  .setdp Directive </A>
-<LI><A HREF= #bits>  .16bit, .24bit, and .32bit Directives </A>
-<LI><A HREF= #msb>  .msb Directive </A>
-<LI><A HREF= #lohi>  .lohi and .hilo Directives </A>
-<LI><A HREF= #trace>  .trace and .ntrace Directives </A>
-<LI><A HREF= #end>  .end Directive </A>
+<code><b>
+<UL>
+<LI><A HREF="#module">  .module Directive </A> 
+<LI><A HREF="#title">  .title Directive </A>
+<LI><A HREF="#sbttl">  .sbttl Directive </A>
+<LI><A HREF="#list">  .list and .nlist Directives </A>
+<LI><A HREF="#page">  .page Directive </A>
+<LI><A HREF="#msg">  .msg Directive </A>
+<LI><A HREF="#error">  .error Directive </A>
+<LI><A HREF="#byte">  .byte, .db, and .fcb Directives </A>
+<LI><A HREF="#word">  .word, .dw, and .fdb Directives </A>
+<LI><A HREF="#3byte">  .3byte and .triple Directives </A>
+<LI><A HREF="#4byte">  .dl, .long, .4byte and .quad Directives </A>
+<LI><A HREF="#blkb">  .blkb, .ds, .rmb, and .rs Directives </A>
+<LI><A HREF="#blkw">  .blkw, .blkl, .blk3, and .blk4 Directives </A>
+<LI><A HREF="#ascii">  .ascii, .fcc, and .str Directives </A>
+<LI><A HREF="#ascis">  .ascis and .strs Directives </A>
+<LI><A HREF="#asciz">  .asciz and .strz Directives </A>
+<LI><A HREF="#npchars">  Non-Printing Characters In Strings </A>
+<LI><A HREF="#assume">  .assume Directive </A>
+<LI><A HREF="#radix">  .radix Directive </A>
+<LI><A HREF="#even">  .even Directive </A>
+<LI><A HREF="#odd">  .odd Directive </A>
+<LI><A HREF="#bndry">  .bndry Directive </A>
+<LI><A HREF="#area">  .area Directive </A>
+<LI><A HREF="#pshpop">  .psharea and .poparea Directives </A>
+<LI><A HREF="#bank">  .bank Directive </A>
+<LI><A HREF="#org">  .org Directive </A>
+<LI><A HREF="#globl">  .globl Directive </A>
+<LI><A HREF="#local">  .local Directive </A>
+<LI><A HREF="#alt">  .equ, .gblequ, and .lclequ Directives </A>
+<LI><A HREF="#if">  .if, .else, and .endif Directives </A>
+<LI><A HREF="#iftf">  .iff, .ift, and .iftf Directives </A>
+<LI><A HREF="#ifxx">  .ifxx Directive </A>
+<LI><A HREF="#ifdef">  .ifdef Directive </A>
+<LI><A HREF="#ifndef">  .ifndef Directive </A>
+<LI><A HREF="#ifb">  .ifb Directive </A>
+<LI><A HREF="#ifnb">  .ifnb Directive </A>
+<LI><A HREF="#ifidn">  .ifidn Directive </A>
+<LI><A HREF="#ifdif">  .ifdif Directive </A>
+<LI><A HREF="#ifalt">  Alternate .if Directive Forms </A>
+<LI><A HREF="#iif">  Immediate Conditional Assembly Directives </A>
+<LI><A HREF="#include">  .include Directive </A>
+<LI><A HREF="#incbin">  .incbin Directive </A>
+<LI><A HREF="#define">  .define and .undefine Directives </A>
+<LI><A HREF="#enabl">  .enabl and .dsabl Directives </A>
+<LI><A HREF="#setdp">  .setdp Directive </A>
+<LI><A HREF="#bits">  .16bit, .24bit, and .32bit Directives </A>
+<LI><A HREF="#msb">  .msb Directive </A>
+<LI><A HREF="#lohi">  .lohi and .hilo Directives </A>
+<LI><A HREF="#trace">  .trace and .ntrace Directives </A>
+<LI><A HREF="#end">  .end Directive </A>
 <BR><BR>
 <LI><A HREF="asmblr.htm#Index">  Return to the Assembler Index</A>
-</UL></B></H4>
+</UL>
+</b></code>
+<HR SIZE="3" WIDTH="100%" NOSHADE>
 
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
 <H4><B><PRE>
 <A NAME = "module"></A><FONT COLOR="#FF0000">.module</FONT> Directive 
 
@@ -99,7 +102,9 @@ listed.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "title"></A><FONT COLOR="#FF0000">.title</FONT> Directive 
 
@@ -114,7 +119,9 @@ or tab) and ends with the end of the line.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "sbttl"></A><FONT COLOR="#FF0000">.sbttl</FONT> Directive 
 
@@ -129,9 +136,11 @@ or tab) and ends with the end of the line.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
-<A NAME = "list"></A><FONT COLOR="#FF0000">.list</FONT> and </A><FONT COLOR="#FF0000">.nlist</FONT> Directives 
+<A NAME = "list"></A><FONT COLOR="#FF0000">.list</FONT> and <FONT COLOR="#FF0000">.nlist</FONT> Directives 
 
 Format:  
 
@@ -219,7 +228,9 @@ value.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "page"></A><FONT COLOR="#FF0000">.page</FONT> Directive 
 
@@ -256,7 +267,9 @@ with out the need to use the comment delimiter (;):
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "msg"></A><FONT COLOR="#FF0000">.msg</FONT> Directive 
 
@@ -283,7 +296,9 @@ other information during the assembly process.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "error"></A><FONT COLOR="#FF0000">.error</FONT> Directive 
 
@@ -304,7 +319,9 @@ more descriptive.)
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "byte"></A><FONT COLOR="#FF0000">.byte</FONT>, <FONT COLOR="#FF0000">.db</FONT>, and <FONT COLOR="#FF0000">.fcb</FONT> Directives 
 
@@ -330,7 +347,9 @@ cessive bytes of binary data in the object module.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "word"></A><FONT COLOR="#FF0000">.word</FONT>, <FONT COLOR="#FF0000">.dw</FONT>, and <FONT COLOR="#FF0000">.fdb</FONT> Directives 
 
@@ -355,7 +374,9 @@ cessive words of binary data in the object module.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "3byte"></A><FONT COLOR="#FF0000">.3byte</FONT> and <FONT COLOR="#FF0000">.triple</FONT> Directive 
 
@@ -383,9 +404,11 @@ addressing.)
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
-<A NAME = "4byte"></A><FONT COLOR="#FF0000">.dl</FONT>, </A><FONT COLOR="#FF0000">.long</FONT>, </A><FONT COLOR="#FF0000">.4byte</FONT>, and <FONT COLOR="#FF0000">.quad</FONT> Directives 
+<A NAME = "4byte"></A><FONT COLOR="#FF0000">.dl</FONT>, <FONT COLOR="#FF0000">.long</FONT>, <FONT COLOR="#FF0000">.4byte</FONT>, and <FONT COLOR="#FF0000">.quad</FONT> Directives 
 
 Format:  
 
@@ -412,7 +435,9 @@ addressing.)
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "blkb"></A><FONT COLOR="#FF0000">.blkb</FONT>, <FONT COLOR="#FF0000">.ds</FONT>, <FONT COLOR="#FF0000">.rmb</FONT>, and <FONT COLOR="#FF0000">.rs</FONT> Directives 
 
@@ -428,7 +453,9 @@ in the object module;
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "blkw"></A><FONT COLOR="#FF0000">.blkw</FONT>, <FONT COLOR="#FF0000">.blkl</FONT>, <FONT COLOR="#FF0000">.blk3</FONT>, and <FONT COLOR="#FF0000">.blk4</FONT> Directives 
 
@@ -446,7 +473,9 @@ able in assemblers supporting 32-bit addressing).
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "ascii"></A><FONT COLOR="#FF0000">.ascii</FONT>, <FONT COLOR="#FF0000">.fcc</FONT> and <FONT COLOR="#FF0000">.str</FONT> Directives 
 
@@ -478,7 +507,9 @@ data for each character in the string into the object module.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "ascis"></A><FONT COLOR="#FF0000">.ascis</FONT> and <FONT COLOR="#FF0000">.strs</FONT> Directives 
 
@@ -509,7 +540,9 @@ last character in the string will have the high order bit set.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "asciz"></A><FONT COLOR="#FF0000">.asciz</FONT> and <FONT COLOR="#FF0000">.strz</FONT> Directives 
 
@@ -541,7 +574,9 @@ minate the character string.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "npchars"></A><FONT COLOR="#FF0000">Non-Printing Characters In Strings</FONT>
 
@@ -566,7 +601,9 @@ string statemment:
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "assume"></A><FONT COLOR="#FF0000">.assume</FONT> Directive 
 
@@ -586,7 +623,9 @@ tion to the .error directive, just perhaps more descriptive.)
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "radix"></A><FONT COLOR="#FF0000">.radix</FONT> Directive 
 
@@ -611,7 +650,9 @@ where:  character  represents  a single character specifying the
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "even"></A><FONT COLOR="#FF0000">.even</FONT> Directive 
 
@@ -625,7 +666,9 @@ tion is odd.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "odd"></A><FONT COLOR="#FF0000">.odd</FONT> Directive 
 
@@ -639,7 +682,9 @@ cation is even.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "bndry"></A><FONT COLOR="#FF0000">.bndry</FONT> Directive 
 
@@ -712,7 +757,9 @@ area is placed within a bank.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "area"></A><FONT COLOR="#FF0000">.area</FONT> Directive 
 
@@ -828,9 +875,12 @@ The .area names and options are never case sensitive.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
-<A NAME = "pshpop"></A><FONT COLOR="#FF0000">.psharea</FONT> and <FONT COLOR="#FF0000">.poparea</FONT> Directives
+<A NAME = "pshpop"></A>
+<FONT COLOR="#FF0000">.psharea</FONT> and <FONT COLOR="#FF0000">.poparea</FONT> Directives
 
 Format:  
 
@@ -869,7 +919,9 @@ text.
   
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "bank"></A><FONT COLOR="#FF0000">.bank</FONT> Directive 
 
@@ -927,7 +979,9 @@ lowed.)
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "org"></A><FONT COLOR="#FF0000">.org</FONT> Directive 
 
@@ -945,7 +999,9 @@ is to become the specified absolute value.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "globl"></A><FONT COLOR="#FF0000">.globl</FONT> Directive 
 
@@ -986,7 +1042,9 @@ following .local directive.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "local"></A><FONT COLOR="#FF0000">.local</FONT> Directive 
 
@@ -1027,7 +1085,9 @@ following .globl directive.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "alt"></A><FONT COLOR="#FF0000">.equ</FONT>, <FONT COLOR="#FF0000">.gblequ</FONT>, and <FONT COLOR="#FF0000">.lclequ</FONT> Directives
 
@@ -1042,7 +1102,9 @@ convenience.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "if"></A><FONT COLOR="#FF0000">.if</FONT>, <FONT COLOR="#FF0000">.else</FONT>, and <FONT COLOR="#FF0000">.endif</FONT> Directives 
 
@@ -1078,10 +1140,10 @@ all valid .if/.else/.endif constructions:
         .byte   3,4             ;insert bytes if K+3
         .endif                  ;is zero
 
-        .if     J&3             ;evaluate J masked by 3
-        .byte   12              ;insert this byte if J&3
+        .if     J&amp;3             ;evaluate J masked by 3
+        .byte   12              ;insert this byte if J&amp;3
         .else                   ;is not zero
-        .byte   13              ;insert this byte if J&3
+        .byte   13              ;insert this byte if J&amp;3
         .endif                  ;is zero
 
 
@@ -1094,7 +1156,9 @@ counts will cause an &lt;i&gt; error.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "iftf"></A><FONT COLOR="#FF0000">.iff</FONT>, <FONT COLOR="#FF0000">.ift</FONT>, and <FONT COLOR="#FF0000">.iftf</FONT> Directives 
 
@@ -1152,7 +1216,9 @@ counts will cause an &lt;i&gt; error.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "ifxx"></A><FONT COLOR="#FF0000">.ifxx</FONT> Directives 
    Additional  conditional  directives are available to test the
@@ -1160,10 +1226,10 @@ value of an evaluated expression:
 
         .ifne   expr            ; true if expr != 0
         .ifeq   expr            ; true if expr == 0
-        .ifgt   expr            ; true if expr >  0
-        .iflt   expr            ; true if expr <  0
-        .ifge   expr            ; true if expr >= 0
-        .ifle   expr            ; true if expr <= 0
+        .ifgt   expr            ; true if expr &gt;  0
+        .iflt   expr            ; true if expr &lt;  0
+        .ifge   expr            ; true if expr &gt;= 0
+        .ifle   expr            ; true if expr &lt;= 0
 
    Format:  
 
@@ -1213,7 +1279,9 @@ counts will cause an &lt;i&gt; error.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "ifdef"></A><FONT COLOR="#FF0000">.ifdef</FONT> Directive 
 
@@ -1270,7 +1338,9 @@ counts will cause an &lt;i&gt; error.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "ifndef"></A><FONT COLOR="#FF0000">.ifndef</FONT> Directive 
 
@@ -1324,7 +1394,9 @@ counts will cause an &lt;i&gt; error.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "ifb"></A><FONT COLOR="#FF0000">.ifb</FONT> Directive 
 
@@ -1376,7 +1448,9 @@ counts will cause an &lt;i&gt; error.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "ifnb"></A><FONT COLOR="#FF0000">.ifnb</FONT> Directive 
 
@@ -1428,7 +1502,9 @@ counts will cause an &lt;i&gt; error.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "ifidn"></A><FONT COLOR="#FF0000">.ifidn</FONT> Directive 
 
@@ -1485,7 +1561,9 @@ counts will cause an &lt;i&gt; error.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "ifdif"></A><FONT COLOR="#FF0000">.ifdif</FONT> Directive 
 
@@ -1542,7 +1620,9 @@ counts will cause an &lt;i&gt; error.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "ifalt"></A><FONT COLOR="#FF0000">Alternate .if Directive Forms</FONT>
 
@@ -1591,7 +1671,9 @@ counts will cause an &lt;i&gt; error.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "iif"></A><FONT COLOR="#FF0000">Immediate Conditional Assembly Directives</FONT>
 
@@ -1659,7 +1741,9 @@ arguments are delimited with the form ^/symbol/ for each symbol.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "incbin"></A><FONT COLOR="#FF0000">.incbin</FONT> Directive
 
@@ -1706,7 +1790,9 @@ in a file does not result in an error.
   
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "include"></A><FONT COLOR="#FF0000">.include</FONT> Directive 
 
@@ -1843,7 +1929,9 @@ D:\proj\include1.asm is opened.
 
 </PRE></B></H5>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "define"></A><FONT COLOR="#FF0000">.define</FONT> and <FONT COLOR="#FF0000">.undefine</FONT> Directives 
 
@@ -1894,7 +1982,9 @@ iifndef, or any variation of def or ndef conditionals.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "enabl"></A><FONT COLOR="#FF0000">.enabl</FONT> and <FONT COLOR="#FF0000">.dsabl</FONT> Directives
 
@@ -1919,7 +2009,9 @@ that assembler and will be described in its documentation.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "setdp"></A><FONT COLOR="#FF0000">.setdp</FONT> Directive 
 
@@ -2021,7 +2113,9 @@ direct addressing is the offset.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "bits"></A><FONT COLOR="#FF0000">.16bit</FONT>, <FONT COLOR="#FF0000">.24bit</FONT>, and <FONT COLOR="#FF0000">.32bit</FONT> Directives 
 
@@ -2038,7 +2132,9 @@ used.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "msb"></A><FONT COLOR="#FF0000">.msb</FONT> Directive
 
@@ -2079,7 +2175,9 @@ address byte:
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "lohi"></A><FONT COLOR="#FF0000">.lohi</FONT> and <FONT COLOR="#FF0000">.hilo</FONT> Directives 
 
@@ -2098,7 +2196,9 @@ tives are both used within the same assembly source file.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+
+<HR SIZE="3" WIDTH="100%" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "trace"></A><FONT COLOR="#FF0000">.trace</FONT> and <FONT COLOR="#FF0000">.ntrace</FONT> Directives
 
@@ -2151,32 +2251,32 @@ tives are both used within the same assembly source file.
  traced  action  occurs.   The inserted lines contain information
  related to the type of traced action:  
 
-         ins     at insertion    ;N>>
+         ins     at insertion    ;N&gt;&gt;
  
-         asm     at entry        ;A>> file.ext
-                 at exit         ;A<< file.ext
+         asm     at entry        ;A&gt;&gt; file.ext
+                 at exit         ;A&lt;&lt; file.ext
                  The name of the assembler file
  
          inc     at entry        ;I>> (N) file.ext
-                 at exit         ;I<< (N) file.ext
+                 at exit         ;I&lt;&lt; (N) file.ext
                  The inclusion depth (N) and
                  the name of the include file
  
-         mcr     at entry        ;M>> (N) file.ext (L)
-                 at exit         ;M<< (N) file.ext (L)
+         mcr     at entry        ;M&gt;&gt; (N) file.ext (L)
+                 at exit         ;M&lt;&lt; (N) file.ext (L)
                  The macro recursion level,
                  the name of the file defining the macro,
                  and the line number in file.ext
  
-         rpt     at invocation   ;R>> (N) file.ext (L)
+         rpt     at invocation   ;R&gt;&gt; (N) file.ext (L)
                  The macro repeat count,
                  the name of the file defining the macro,
                  and the line number in file.ext
 
 
     The initial invocation of a macro or any repeat macro will be
- listed as ;M>> and subsequent repeats will be  listed  as  ;R>>.
- Thus  the first ;R>> will be the second invocation of the repeat
+ listed as ;M&gt;&gt; and subsequent repeats will be  listed  as  ;R&gt;&gt;.
+ Thus  the first ;R&gt;&gt; will be the second invocation of the repeat
  macro.  
 
     Examples of tracing options:  
@@ -2191,7 +2291,7 @@ tives are both used within the same assembly source file.
 
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH="100%" NOSHADE>
 <H4><B><PRE>
 <A NAME = "end"></A><FONT COLOR="#FF0000">.end</FONT> Directive 
 
@@ -2214,20 +2314,20 @@ record formats described in the linker section for details.
 </PRE></B></H4>
 <H5><A HREF= #Directives> =&gt; Section Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
-<H4>
-<P><A HREF="asxxxx.htm#JUMP">
-<IMG width=32 height=32 border=0 SRC="spcshp.gif" ALIGN=bottom></A>
-<B>...  Exit the ASxxxx Documentation</B></A></P>
+<P>
+<A HREF="asxxxx.htm#JUMP">
+<IMG width="32" height="32" border="0" SRC="spcshp.gif" ALIGN="bottom" alt="spaceship"></A>
+<B>...  Exit the ASxxxx Documentation</B>
+</P>
 
-<P><A href="../home.htm">
-<IMG width=32 height=32 border=0 SRC="home.gif" ALIGN=bottom></A>
-<B>...  Home Page</B></P>
-</H4>
+<P>
+<A href="../home.htm">
+<IMG width="32" height="32" border="0" SRC="home.gif" ALIGN="bottom" alt="home"></A>
+<B>...  Home Page</B>
+</P>
 
-<H6><P><B>Last Updated: September 2023</B></P></H6>
+<H6><B>Last Updated: March 2025</B></H6>
 </BODY> 
 </HTML>
-
-

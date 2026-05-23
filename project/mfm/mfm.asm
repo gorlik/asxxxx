@@ -157,14 +157,14 @@
 ; *****-----*****-----*****-----*****-----*****-----*****-----*****
 ;
 	.macro	.rst	addr,srvc
-	  .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	  .list	(!,err,loc,bin,cyc,eqt,lin,src,me)
 	  .org	addr
 	  ljmp	srvc	; Normal Interrupt Processing
 	  .nlist
 	.endm
 
 	.macro	.irq	addr,srvc
-	  .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	  .list	(!,err,loc,bin,cyc,eqt,lin,src,me)
 	  .org	addr
 	  ljmp	srvc	; Normal Interrupt Processing
 	  .nlist

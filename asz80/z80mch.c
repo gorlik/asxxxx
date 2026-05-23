@@ -22,10 +22,15 @@
  * Kent, Ohio  44240
  */
 
+/*
+ *  Philipp Klaus Krause provided support for the Z80N
+ *  (ZX Spectrum Next CPU)
+ */
+
 #include "asxxxx.h"
 #include "z80.h"
 
-char	*cpu	= "Zilog Z80 / Hitachi HD64180";
+char	*cpu	= "Zilog Z80 / Hitachi HD64180 / ZX-Next";
 char	*dsft	= "asm";
 
 char	imtab[3] = { 0x46, 0x56, 0x5E };
@@ -81,7 +86,7 @@ static char  z80pg2[256] = {  /* P2 == CB */
 /*00*/   8, 8, 8, 8, 8, 8,15, 8, 8, 8, 8, 8, 8, 8,15, 8,
 /*10*/   8, 8, 8, 8, 8, 8,15, 8, 8, 8, 8, 8, 8, 8,15, 8,
 /*20*/   8, 8, 8, 8, 8, 8,15, 8, 8, 8, 8, 8, 8, 8,15, 8,
-/*30*/  UN,UN,UN,UN,UN,UN,UN,UN, 8, 8, 8, 8, 8, 8,15, 8,
+/*30*/   8, 8, 8, 8, 8, 8,15, 8, 8, 8, 8, 8, 8, 8,15, 8,
 /*40*/   8, 8, 8, 8, 8, 8,12, 8, 8, 8, 8, 8, 8, 8,12, 8,
 /*50*/   8, 8, 8, 8, 8, 8,12, 8, 8, 8, 8, 8, 8, 8,12, 8,
 /*60*/   8, 8, 8, 8, 8, 8,12, 8, 8, 8, 8, 8, 8, 8,12, 8,
@@ -101,16 +106,16 @@ static char  z80pg3[256] = {  /* P3 == DD */
 /*--*--* -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - */
 /*00*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,15,UN,UN,UN,UN,UN,UN,
 /*10*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,15,UN,UN,UN,UN,UN,UN,
-/*20*/  UN,14,20,10,UN,UN,UN,UN,UN,15,20,10,UN,UN,UN,UN,
+/*20*/  UN,14,20,10, 8, 8,11,UN,UN,15,20,10, 8,8 ,11,UN,
 /*30*/  UN,UN,UN,UN,23,23,19,UN,UN,15,UN,UN,UN,UN,UN,UN,
-/*40*/  UN,UN,UN,UN,UN,UN,19,UN,UN,UN,UN,UN,UN,UN,19,UN,
-/*50*/  UN,UN,UN,UN,UN,UN,19,UN,UN,UN,UN,UN,UN,UN,19,UN,
-/*60*/  UN,UN,UN,UN,UN,UN,19,UN,UN,UN,UN,UN,UN,UN,19,UN,
-/*70*/  19,19,19,19,19,19,UN,19,UN,UN,UN,UN,UN,UN,19,UN,
-/*80*/  UN,UN,UN,UN,UN,UN,19,UN,UN,UN,UN,UN,UN,UN,19,UN,
-/*90*/  UN,UN,UN,UN,UN,UN,19,UN,UN,UN,UN,UN,UN,UN,19,UN,
-/*A0*/  UN,UN,UN,UN,UN,UN,19,UN,UN,UN,UN,UN,UN,UN,19,UN,
-/*B0*/  UN,UN,UN,UN,UN,UN,19,UN,UN,UN,UN,UN,UN,UN,19,UN,
+/*40*/  UN,UN,UN,UN, 8, 8,19,UN,UN,UN,UN,UN, 8, 8,19,UN,
+/*50*/  UN,UN,UN,UN, 8, 8,19,UN,UN,UN,UN,UN, 8, 8,19,UN,
+/*60*/   8, 8, 8, 8, 8, 8,19, 8, 8, 8, 8, 8, 8, 8,19, 8,
+/*70*/  19,19,19,19,19,19,UN,19,UN,UN,UN,UN, 8, 8,19,UN,
+/*80*/  UN,UN,UN,UN, 8, 8,19,UN,UN,UN,UN,UN, 8, 8,19,UN,
+/*90*/  UN,UN,UN,UN, 8, 8,19,UN,UN,UN,UN,UN, 8, 8,19,UN,
+/*A0*/  UN,UN,UN,UN, 8, 8,19,UN,UN,UN,UN,UN, 8, 8,19,UN,
+/*B0*/  UN,UN,UN,UN, 8, 8,19,UN,UN,UN,UN,UN, 8, 8,19,UN,
 /*C0*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,P6,UN,UN,UN,UN,
 /*D0*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,
 /*E0*/  UN,14,UN,23,UN,15,UN,UN,UN, 8,UN,UN,UN,UN,UN,UN,
@@ -124,10 +129,10 @@ static char  z80pg4[256] = {  /* P4 == ED */
 /*10*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,
 /*20*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,
 /*30*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,
-/*40*/  12,12,15,20, 8,14, 8, 9,12,12,15,20,UN,14,UN, 9,
-/*50*/  12,12,15,20,UN,UN, 8, 9,12,12,15,20,UN,UN, 8, 9,
-/*60*/  12,12,15,20,UN,UN,UN,18,12,12,15,20,UN,UN,UN,18,
-/*70*/  UN,UN,15,20,UN,UN,UN,UN,12,12,15,20,UN,UN,UN,UN,
++/*40*/  12,12,15,20, 8,14, 8, 9,12,12,15,20, 8,14, 8, 9,
++/*50*/  12,12,15,20, 8,14, 8, 9,12,12,15,20, 8,14, 8, 9,
++/*60*/  12,12,15,20, 8,14, 8,18,12,12,15,20, 8,14, 8,18,
++/*70*/  12,12,15,20, 8,14, 8,UN,12,12,15,20, 8,14, 8,UN,
 /*80*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,
 /*90*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,
 /*A0*/  16,16,16,16,UN,UN,UN,UN,16,16,16,16,UN,UN,UN,UN,
@@ -143,17 +148,17 @@ static char  z80pg5[256] = {  /* P5 == FD */
 /*--*--* -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - */
 /*00*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,15,UN,UN,UN,UN,UN,UN,
 /*10*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,15,UN,UN,UN,UN,UN,UN,
-/*20*/  UN,14,20,10,UN,UN,UN,UN,UN,15,20,10,UN,UN,UN,UN,
+/*20*/  UN,14,20,10, 8, 8,11,UN,UN,15,20,10, 8,8 ,11,UN,
 /*30*/  UN,UN,UN,UN,23,23,19,UN,UN,15,UN,UN,UN,UN,UN,UN,
-/*40*/  UN,UN,UN,UN,UN,UN,19,UN,UN,UN,UN,UN,UN,UN,19,UN,
-/*50*/  UN,UN,UN,UN,UN,UN,19,UN,UN,UN,UN,UN,UN,UN,19,UN,
-/*60*/  UN,UN,UN,UN,UN,UN,19,UN,UN,UN,UN,UN,UN,UN,19,UN,
-/*70*/  19,19,19,19,19,19,UN,19,UN,UN,UN,UN,UN,UN,19,UN,
-/*80*/  UN,UN,UN,UN,UN,UN,19,UN,UN,UN,UN,UN,UN,UN,19,UN,
-/*90*/  UN,UN,UN,UN,UN,UN,19,UN,UN,UN,UN,UN,UN,UN,19,UN,
-/*A0*/  UN,UN,UN,UN,UN,UN,19,UN,UN,UN,UN,UN,UN,UN,19,UN,
-/*B0*/  UN,UN,UN,UN,UN,UN,19,UN,UN,UN,UN,UN,UN,UN,19,UN,
-/*C0*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,P7,UN,UN,UN,UN,
+/*40*/  UN,UN,UN,UN, 8, 8,19,UN,UN,UN,UN,UN, 8, 8,19,UN,
+/*50*/  UN,UN,UN,UN, 8, 8,19,UN,UN,UN,UN,UN, 8, 8,19,UN,
+/*60*/   8, 8, 8, 8, 8, 8,19, 8, 8, 8, 8, 8, 8, 8,19, 8,
+/*70*/  19,19,19,19,19,19,UN,19,UN,UN,UN,UN, 8, 8,19,UN,
+/*80*/  UN,UN,UN,UN, 8, 8,19,UN,UN,UN,UN,UN, 8, 8,19,UN,
+/*90*/  UN,UN,UN,UN, 8, 8,19,UN,UN,UN,UN,UN, 8, 8,19,UN,
+/*A0*/  UN,UN,UN,UN, 8, 8,19,UN,UN,UN,UN,UN, 8, 8,19,UN,
+/*B0*/  UN,UN,UN,UN, 8, 8,19,UN,UN,UN,UN,UN, 8, 8,19,UN,
+/*C0*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,P6,UN,UN,UN,UN,
 /*D0*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,
 /*E0*/  UN,14,UN,23,UN,15,UN,UN,UN, 8,UN,UN,UN,UN,UN,UN,
 /*F0*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,10,UN,UN,UN,UN,UN,UN
@@ -363,6 +368,36 @@ static char *hd64Page[7] = {
 };
 
 /*
+ * Z80-ZXN Opcode Cycle Pages
+ */
+
+static const char  zxnpg4[256] = {  /* P4 == ED */
+/*--*--* 0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F */
+/*--*--* -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - */
+/*00*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,
+/*10*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,
+/*20*/  UN,UN,UN, 8, 8,UN,UN,11, 8, 8, 8, 8, 8,UN,UN,UN,
+/*30*/   8, 8, 8, 8,16,16,16,UN,UN,UN,UN,UN,UN,UN,UN,UN,
+/*40*/  12,12,15,20, 8,14, 8, 9,12,12,15,20, 8,14, 8, 9,
+/*50*/  12,12,15,20, 8,14, 8, 9,12,12,15,20, 8,14, 8, 9,
+/*60*/  12,12,15,20, 8,14, 8,18,12,12,15,20, 8,14, 8,18,
+/*70*/  12,12,15,20, 8,14, 8,UN,12,12,15,20, 8,14, 8,UN,
+/*80*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,23,UN,UN,UN,UN,UN,
+/*90*/  16,20,17, 8, 8, 8,UN,UN,13,UN,UN,UN,UN,UN,UN,UN,
+/*A0*/  16,16,16,16,16,14,UN,UN,16,16,16,16,16,UN,UN,UN,
+/*B0*/  21,21,21,21,21,UN,UN,21,21,21,21,21,21,UN,UN,UN,
+/*C0*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,
+/*D0*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,
+/*E0*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,
+/*F0*/  UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN,UN
+};
+
+static const char *zxnPage[7] = {
+    z80pg1, z80pg2, z80pg3, zxnpg4,
+    z80pg5, z80pg6, z80pg7
+};
+
+/*
  * 8080 Cycle Count
  *
  *	opcycles = i80pg1[opcode]
@@ -505,6 +540,24 @@ machine(struct mne *mp)
 			outab(op | (v1<<4));
 			break;
 		}
+		if (mchtyp == X_ZXN && op == 0xC5 && (t1 = addr(&e1)) == S_IMMED) {
+			/* ZXN push is big-endian */
+			outab(0xED);
+			outab(0x8A);
+			if (e1.e_flag==0 && e1.e_base.e_ap==NULL) {
+				outab(hibyte(e1.e_addr));
+				outab(lobyte(e1.e_addr));
+			} else {
+				outrb(&e1, R_MSB);
+				outrb(&e1, R_LSB);
+			}
+			break;
+		}
+		if (mchtyp == X_ZXN && op == 0xC1 && (v1 = admode(RX)) != 0 && (v1 &= 0xFF) == X) {
+			outab(0xED);
+			outab(0x8B);
+			break;
+		}
 		xerr('a', "Only 16-Bit registers except SP.");
 		break;
 
@@ -637,6 +690,41 @@ machine(struct mne *mp)
 					v2 = HL;
 				outab(0xFD);
 				outab(op | (v2<<4));
+				break;
+			}
+		}
+		if (mchtyp == X_ZXN && rf == S_ADD && t1 == S_R16) {
+			if (e1.e_addr == HL && t2 == S_R8 && e2.e_addr == A) {
+				outab(0xED);
+				outab(0x31);
+				break;
+			}
+			if (e1.e_addr == DE && t2 == S_R8 && e2.e_addr == A) {
+				outab(0xED);
+				outab(0x32);
+				break;
+			}
+			if (e1.e_addr == BC && t2 == S_R8 && e2.e_addr == A) {
+				outab(0xED);
+				outab(0x33);
+				break;
+			}
+			if (e1.e_addr == HL && t2 == S_IMMED) {
+				outab(0xED);
+				outab(0x34);
+				outrw(&e2, 0);
+				break;
+			}
+			if (e1.e_addr == DE && t2 == S_IMMED) {
+				outab(0xED);
+				outab(0x35);
+				outrw(&e2, 0);
+				break;
+			}
+			if (e1.e_addr == BC && t2 == S_IMMED) {
+				outab(0xED);
+				outab(0x36);
+				outrw(&e2, 0);
 				break;
 			}
 		}
@@ -888,6 +976,14 @@ machine(struct mne *mp)
 			outab(0xE9);
 			break;
 		}
+		/*
+		 * jp  (c)
+		 */
+		if (mchtyp == X_ZXN && t1 == S_IDC) {
+			outab(0xED);
+			outab(0x98);
+			break;
+		}
 		xerr('a', "Invalid Addressing Mode.");
 		break;
 
@@ -917,7 +1013,15 @@ machine(struct mne *mp)
 		break;
 
 	case X_MLT:
+		/*
+		 * mlt  bc/de/hl/sp
+		 */
 		t1 = addr(&e1);
+		if (mchtyp == X_ZXN && (t1 == S_R16) && (int) e1.e_addr == DE) {
+			outab(0xED);
+			outab(0x30);
+			break;
+		}
 		if ((t1 == S_R16) && ((v1 = (int) e1.e_addr) <= SP)) {
 			outab(0xED);
 			outab(op | (v1<<4));
@@ -942,7 +1046,13 @@ machine(struct mne *mp)
 		}
 		if (t1 == S_IMMED) {
 			outab(0xED);
-			outab(0x64);
+			if (mchtyp == X_HD64) {
+				outab(0x64);
+			} else if (mchtyp == X_ZXN) {
+ 				outab(0x27);
+			} else {
+				aerr();
+			}
 			outrb(&e1, 0);
 			break;
 		}
@@ -960,6 +1070,136 @@ machine(struct mne *mp)
 			break;
 		}
 		xerr('a', "Invalid Addressing Mode.");
+		break;
+
+	case X_ZXN_INH2:
+		switch (op) {
+		case 0x23: /* swap */
+			if (more()) { /* Optional argument a on swap */
+				t1 = addr(&e1);
+				if (t1 != S_R8 || e1.e_addr != A) {
+					aerr();
+				}
+			}
+			break;
+		case 0x28: /* BSLA DE,B */
+		case 0x29: /* BSRA DE,B */
+		case 0x2a: /* BSRL DE,B */
+		case 0x2b: /* BSRF DE,B */
+		case 0x2c: /* BRLC DE,B */
+			t1 = addr(&e1);
+			comma(1);
+			t2 = addr(&e2);
+			if (t1 != S_R16 || e1.e_addr != DE || t2 != S_R8 || e2.e_addr != B) {
+				aerr();
+			}
+			break;
+		}
+		outab(0xED);
+		outab(op);
+		break;
+
+	case X_ZXN_MUL:
+		if ((t1 = addr(&e1)) == S_R8 && e1.e_addr == D &&
+			more() && comma(1) &&
+			(t2 = addr(&e2)) == S_R8 && e2.e_addr == E) {
+			outab(0xED);
+			outab(op);
+			break;
+		}
+		aerr();
+		break;
+
+	case X_ZXN_MIRROR:
+		t1 = addr(&e1);
+		if (t1 == S_R8 && e1.e_addr == A) {
+			outab(0xED);
+			outab(0x24);
+			break;
+		}
+		if (t1 == S_R16 && e1.e_addr == DE) {
+			outab(0xED);
+			outab(0x26);
+			break;
+		}
+		aerr();
+		break;
+
+	case X_ZXN_NEXTREG:
+		t1 = addr(&e1);
+		t2 = 0;
+		if (more()) {
+			comma(1);
+			t2 = addr(&e2);
+		}
+		if (t1 == S_IMMED && t2 == S_IMMED) {
+			outab(0xED);
+			outab(0x91);
+			outrb(&e1, 0);
+			outrb(&e2, 0);
+			break;
+		}
+		if (t1 == S_IMMED && t2 == S_R8 && e2.e_addr == A) {
+			outab(0xED);
+			outab(0x92);
+			outrb(&e1, 0);
+			break;
+		}
+		aerr();
+		break;
+
+	case X_ZXN_CU_WAIT:
+		t1 = addr(&e1);
+		t2 = 0;
+		if (more()) {
+			comma(1);
+			t2 = addr(&e2);
+		}
+		if (t1 == S_IMMED && t2 == S_IMMED) {
+			if (e1.e_addr > 311 || e2.e_addr > 55) {
+				aerr();
+				break;
+			}
+			v1 = 0x8000 + (e2.e_addr << 9) + (e1.e_addr);
+			outab(v1 >> 8);
+			outab(v1 & 0xFF);
+			opcycles = OPCY_ERR;
+			break;
+		}
+		aerr();
+		break;
+
+	case X_ZXN_CU_MOVE:
+		t1 = addr(&e1);
+		t2 = 0;
+		if (more()) {
+			comma(1);
+			t2 = addr(&e2);
+		}
+		if (t1 == S_IMMED && t2 == S_IMMED) {
+			if (e1.e_addr > 127 || e2.e_addr > 255) {
+				aerr();
+				break;
+			}
+			v1 = (e1.e_addr << 8) + (e2.e_addr);
+			outab(v1 >> 8);
+			outab(v1 & 0xFF);
+			opcycles = OPCY_ERR;
+			break;
+		}
+		aerr();
+		break;
+
+	case X_ZXN_CU_STOP:
+		outab(0xFF);
+		outab(0xFF);
+		opcycles = OPCY_ERR;
+		break;
+
+	case X_ZXN_CU_NOP:
+		outab(0x00);
+		outab(0x00);
+		opcycles = OPCY_ERR;
 		break;
 
 	default:
@@ -1011,6 +1251,27 @@ machine(struct mne *mp)
 				case P6:	/* DD CB -- xx	*/
 				case P7:	/* FD CB -- xx	*/
 					opcycles = z80Page[opcycles & OPCY_MASK][cb[3] & 0xFF];
+					break;
+				default:
+					opcycles = OPCY_NONE;
+					break;
+				}
+			}
+			break;
+
+		case X_ZXN:
+			opcycles = zxnPage[0][cb[0] & 0xFF];
+			while ((opcycles & OPCY_NONE) && (opcycles & OPCY_MASK)) {
+			switch (opcycles) {
+				case P2:	/* CB xx	*/
+				case P3:	/* DD xx	*/
+				case P4:	/* ED xx	*/
+				case P5:	/* FD xx	*/
+					opcycles = zxnPage[opcycles & OPCY_MASK][cb[1] & 0xFF];
+					break;
+				case P6:	/* DD CB -- xx	*/
+				case P7:	/* FD CB -- xx	*/
+					opcycles = zxnPage[opcycles & OPCY_MASK][cb[3] & 0xFF];
 					break;
 				default:
 					opcycles = OPCY_NONE;

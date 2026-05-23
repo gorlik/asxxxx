@@ -1,20 +1,24 @@
-<HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML LANG="EN-us">
 <HEAD>
-<TITLE></TITLE>
+<TITLE>ASxxxx Cross Assemblers</TITLE>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 </HEAD>
 <BODY BGCOLOR="#C0C0C0">
 
 <A href="../home.htm">
-<IMG width=343 height=58 border=0 SRC="welcom.gif" ALT="Welcome"></A>
+<IMG width="343" height="58" border="0" SRC="welcom.gif" ALT="Welcome"></A>
 
 <H2>Documentation for the<BR>
 ASxxxx Assemblers and<BR>
 ASlink Relocating Linker</H2>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
 <H4><PRE>
 
-ASxxxx Cross Assemblers, Version 5.50, September 2023
+ASxxxx Cross Assemblers, Version 5.50.5, January 2026
 
    The  ASxxxx  assemblers are a series of microprocessor assem-
 blers written in the C programming  language.   This  collection
@@ -25,15 +29,15 @@ contains   cross   assemblers   for   the  1802,  S2650,  SC/MP,
 8048(8041/8022/8021),  8051,  8085(8080),  AT89LP, 8X300(8X305),
 COP4,  COP8,  DS8XCXXX,  AVR,  EZ8,  EZ80,  F2MC8L/FX,  F8/3870,
 GameBoy(Z80),  H8/3xx,  Cypress  PSoC(M8C),  PDP11,  PIC, Rabbit
-2000/3000, RS08, ST6, ST7, ST8, SX, Z8, Z80(HD64180),  and  Z280
-series  microprocessors.
+2000/3000,   RS08,   ST6,   ST7,   ST8,    SX,    TLCS90,    Z8,
+Z80(HD64180,ZXN,8080,8085),  and  Z280  series  microprocessors.
 
 </PRE></H4>
 
 <A NAME = "TOP"> </A> 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
-<H4>
+<H4><B><CODE>
 <IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF="asmblr.htm ">The Assembler Description</A><BR>
 <IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF="asmcro.htm ">The Macro Processor Description</A><BR>
 <IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF="aslink.htm ">The Linker Description</A><BR>
@@ -43,16 +47,17 @@ series  microprocessors.
 <IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF="asnote.htm ">ASxxxx Notes and Tips</A><BR>
 <IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF="aschng.htm ">ASxxxx Change Log</A><BR>
 <BR>
-<IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF="asmlnk.htm">ASxxxx Documentation as a Single HTML File</A><BR>
-<IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF="asmlnk.txt">ASxxxx Documentation as a Single TEXT File</A><BR>
-<IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF="asmlnk.rtf">ASxxxx Documentation as a Single RTF File</A><BR>
-<IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF="asmlnk.pdf">ASxxxx Documentation as a Single PDF File</A><BR>
+<IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF="asmlnk.htm">ASxxxx Documentation as a Single HTML File  V5.50.5</A><BR>
+<IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF="asmlnk.txt">ASxxxx Documentation as a Single TEXT File  V5.50.5</A><BR>
+<IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF="asmlnk.rtf">ASxxxx Documentation as a Single RTF File  V5.50</A><BR>
+<IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF="asmlnk.pdf">ASxxxx Documentation as a Single PDF File  V5.50</A><BR>
 <BR>
 <IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF="ascont.htm#Contributors">Contributors</A><BR>
 <BR>
 <IMG SRC = "yellow.gif" ALT = "-"> ... <A HREF="asxxxx.htm#JUMP">Exit the ASxxxx Documentation</A><BR>
 <BR><BR>
 <IMG SRC = "green.gif" ALT = "-"> ... The Assemblers:<BR>
+</CODE></B></H4>
 
 <H4><PRE>
   <IMG SRC = "orange.gif" ALT = "-"> <A HREF="as1802.htm ">AS1802</A>    CDP1802 COSMAC
@@ -102,24 +107,28 @@ series  microprocessors.
   <IMG SRC = "orange.gif" ALT = "-"> <A HREF="asst6.htm ">ASST6</A>     STMicroelectronics ST6
   <IMG SRC = "orange.gif" ALT = "-"> <A HREF="asst7.htm ">ASST7</A>     STMicroelectronics ST7
   <IMG SRC = "orange.gif" ALT = "-"> <A HREF="asst8.htm ">ASST8</A>     STMicroelectronics STM8
+  <IMG SRC = "orange.gif" ALT = "-"> <A HREF="astlcs90.htm ">ASTLCS90</A>  Toshiba TLCS90 Series
   <IMG SRC = "orange.gif" ALT = "-"> <A HREF="assx.htm ">ASSX</A>      Ubicom SX Family
   <IMG SRC = "orange.gif" ALT = "-"> <A HREF="asz8.htm ">ASZ8</A>      Z8
-  <IMG SRC = "orange.gif" ALT = "-"> <A HREF="asz80.htm ">ASZ80</A>     Z80, HD64180, 8085, and 8080
+  <IMG SRC = "orange.gif" ALT = "-"> <A HREF="asz80.htm ">ASZ80</A>     Z80, ZXN, HD64180, 8085, and 8080
   <IMG SRC = "orange.gif" ALT = "-"> <A HREF="asz280.htm ">ASZ280</A>    Z280, Z180, and Z80
 </PRE></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
-<H4>
-<P><A HREF="asxxxx.htm#JUMP">
-<IMG width=32 height=32 border=0 SRC="spcshp.gif" ALIGN=bottom></A>
-<B>...  Exit the ASxxxx Documentation</B></A></P>
+<P>
+<A HREF="asxxxx.htm#JUMP">
+<IMG width="32" height="32" border="0" SRC="spcshp.gif" ALIGN="bottom" alt="spaceship"></A>
+<B>...  Exit the ASxxxx Documentation</B>
+</P>
 
-<P><A href="../home.htm">
-<IMG width=32 height=32 border=0 SRC="home.gif" ALIGN=bottom></A>
-<B>...  Home Page</B></P>
-</H4>
+<P>
+<A href="../home.htm">
+<IMG width="32" height="32" border="0" SRC="home.gif" ALIGN="bottom" alt="home"></A>
+<B>...  Home Page</B>
+</P>
 
-<H6><P><B>Last Updated: September 2023</B></P></H6>
+<H6><B>Last Updated: January 2026</B></H6>
 </BODY> 
 </HTML>
+

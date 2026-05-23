@@ -177,6 +177,8 @@ cd ..
 cd assx
 call ..\_xfiles.bat
 cd ..
+cd astlcs90
+call ..\_xfiles.bat
 cd ..
 cd asz8
 call ..\_xfiles.bat

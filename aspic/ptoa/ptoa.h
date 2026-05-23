@@ -1,7 +1,7 @@
 /* PtoA.h */
 
 /*
- *  Copyright (C) 2002-2019  Alan R. Baldwin
+ *  Copyright (C) 2002-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -22,37 +22,18 @@
  * Kent, Ohio  44240
  */
 
-#define	VERSION	"V05.00"
+#define	VERSION	"V05.50"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <setjmp.h>
 #include <string.h>
 
-/* DECUS C void definition */
-/* File/extension seperator */
-
-#ifdef	decus
-#define	VOID	char
-#define	FSEPX	'.'
-#endif
-
-/* PDOS C void definition */
-/* File/extension seperator */
-
-#ifdef	PDOS
-#define	VOID	char
-#define	FSEPX	':'
-#endif
-
 /* Default void definition */
 /* File/extension seperator */
 
-#ifndef	VOID
 #define	VOID	void
 #define	FSEPX	'.'
-#define	OTHERSYSTEM
-#endif
 
 /*
  * Error definitions
@@ -138,8 +119,6 @@ extern	struct	def	defs[];		/* substitution definitions list */
 
 /* pictoasx functions */
 
-#ifdef	OTHERSYSTEM
-
 /* pictoasx.c */
 extern	FILE *		afile(char *fn, char *ft, int wf);
 extern	VOID		afilex(char *fn, char *ft);
@@ -162,32 +141,4 @@ extern	VOID		unget(int c);
 extern	VOID		usage(int n);
 extern	char *		usetxt[];
 extern	char		endline(void);
-
-#else
-
-/* pictoasx.c */
-extern	FILE *		afile();
-extern	VOID		afilex();
-extern	VOID		ptoaexit();
-extern	int		changekey();
-extern	VOID		changestr();
-extern	VOID		chopcrlf();
-extern	VOID		cnvhex();
-extern	char		endline();
-extern	int		fndidx();
-extern	int		get();
-extern	VOID		getid();
-extern	int		getnb();
-extern	VOID		getst();
-extern	int		main();
-extern	int		more();
-extern	int		nxtline();
-extern	VOID		scanline();
-extern	int		symeq();
-extern	int		symeqn();
-extern	VOID		unget();
-extern	char *		usetxt[];
-extern	VOID		usage();
-
-#endif
 

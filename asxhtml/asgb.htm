@@ -1,16 +1,19 @@
-<HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML lang="en-US">
 <HEAD>
-<TITLE></TITLE>
+<TITLE>ASGB  Assembler</TITLE>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 </HEAD>
 <BODY BGCOLOR="#C0C0C0">
 
 <A href="../home.htm">
-<IMG width=343 height=58 border=0 SRC="welcom.gif" ALT="Welcome"></A>
+<IMG width="343" height="58" border="0" SRC="welcom.gif" ALT="Welcome"></A>
 
 <H2>ASGB  Assembler</H2>
 
 <A NAME = "TOP"> </A> 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 ACKNOWLEDGEMENT 
@@ -32,7 +35,7 @@ of the Gameboy assembler.
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 INTRODUCTION 
@@ -117,7 +120,7 @@ where:  string  is  a  string of ascii characters taken from the
                 characters,  as  long  as the characters are not
                 contained within  the  string  itself.   If  the
                 delimiting  characters  do  not match, the .tile
-                directive will give the &ltq&gt error.  
+                directive will give the &lt;q&gt; error.  
 
 
      The Gameboy displays information on the screen using a pro-
@@ -371,7 +374,7 @@ Load Instructions
         |               |  ld hl,sp+0   |
         |               |  ld hl,sp     |
         |===============|===============|
-            Note: -128 <= n <= 127
+            Note: -128 &lt;= n &lt;= 127
 
 
 Call/Return Instructions 
@@ -402,7 +405,7 @@ Bit Manipulation Instructions
         bit n,[]
         res n,[]
         set n,[]
-            0 <= n <= 7
+            0 &lt;= n &lt;= 7
             [] = a, b, c, d, e, h, l, or (hl)
 
 
@@ -430,7 +433,7 @@ Input and Output Instructions
         |               |                       |
         |               |   ld (c),a            |
         |===============|=======================|
-            Note: 0 <= n <= 255
+            Note: 0 &lt;= n &lt;= 255
 
 
 Register Pair Instructions 
@@ -446,7 +449,7 @@ Register Pair Instructions
         |               | lda sp,#n(sp) |
         |               | lda sp,n(sp)  |
         |===============|===============|
-            Note: -128 <= n <= 127
+            Note: -128 &lt;= n &lt;= 127
 
         push []
         pop []
@@ -455,19 +458,22 @@ Register Pair Instructions
 </PRE></B></H4>
 <H5><A HREF="asxdoc.htm#TOP"> Go to the Documentation Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
-<H4>
-<P><A HREF="asxxxx.htm#JUMP">
-<IMG width=32 height=32 border=0 SRC="spcshp.gif" ALIGN=bottom></A>
-<B>...  Exit the ASxxxx Documentation</B></A></P>
+<P>
+<A HREF="asxxxx.htm#JUMP">
+<IMG width="32" height="32" border="0" SRC="spcshp.gif" ALIGN="bottom" alt="spaceship"></A>
+<B>...  Exit the ASxxxx Documentation</B>
+</P>
 
-<P><A href="../home.htm">
-<IMG width=32 height=32 border=0 SRC="home.gif" ALIGN=bottom></A>
-<B>...  Home Page</B></P>
-</H4>
+<P>
+<A href="../home.htm">
+<IMG width="32" height="32" border="0" SRC="home.gif" ALIGN="bottom" alt="home"></A>
+<B>...  Home Page</B>
+</P>
 
-<H6><P><B>Last Updated: September 2023</B></P></H6>
+<H6><B>Last Updated: March 2025</B></H6>
 </BODY> 
 </HTML>
+
 

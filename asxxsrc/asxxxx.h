@@ -1,7 +1,7 @@
 /* asxxxx.h */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -53,8 +53,8 @@
  * Local Definitions
  */
 
-#define	VERSION	"V05.50.4"
-#define	COPYRIGHT "2025"
+#define	VERSION	"V05.50.5"
+#define	COPYRIGHT "2026"
 
 /*
  * To include NoICE Debugging set non-zero
@@ -360,6 +360,7 @@ struct	bndry
 #define	R_MBRO	0x0008		/* Merge Bit Range Overflow */
 				/* An alias for Overflow */
 
+#define	R_LSB	0x0000		/* LSB */
 #define	R_MSB	0x000C		/* MSB */
 				/* Mutually exclusive with Signed / Unsigned */
 

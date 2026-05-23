@@ -1,5 +1,31 @@
 
 
+                        ASxxxx/ASlink version 5.50.5 is
+                  a combined 1-4 release and updated version.
+
+
+
+        2026_01_31 Version 5.50.5
+        
+           This is a complete release version
+           of the ASxxxx assemblers and linker.
+        
+           1) This version combines updates 1 - 4.
+        
+           2) All file names have been made lower case.
+        
+           3) The asz80 assembler has added support for
+              the Z80N (ZX Spectrum Next CPU).
+        
+           4) A new assembler, astlcs90, supports the
+              Toshiba TLCS90 series of CPUs.
+        
+           5) The text and html documentation has been
+              updated to include the asz80 changes and
+              tha addition of the astlcs90 assembler.
+
+
+
         2025_08_26 Version 5.5 Update 4
         
          WARNING
@@ -30,6 +56,12 @@
               'DECUS C' K&R format.  All conditional
               DECUS compiling options have been removed.
         
+
+
+                                                                  Page 2
+        
+
+
            3) After rebuilding the assemblers and linker
               the reported version will be V5.50.4
 
@@ -56,12 +88,6 @@
            You must recompile the AS740
            assembler to incorporate the update.
         
-
-
-                                                                  Page 2
-        
-
-
         ----------
         
            An alternate fix is to add the
@@ -88,6 +114,12 @@
            .byte    0xC2    ; WIT/SLW
              .nlist (mel)
            .endm
+
+
+                                                                  Page 3
+        
+
+
         
            .macro FST
              .list (mel)
@@ -114,12 +146,6 @@
         
            An update is performed by merging the update directories
            with the asxv5pxx directories.  New files will be added
-
-
-                                                                  Page 3
-        
-
-
            and changed files will be replaced.
         
            1) push and pop registers (r0-r7) in as8051 fixed.
@@ -146,6 +172,12 @@
            3) Added dbhis (same as dbhs) and dblos (same
               as dbls) forms to as68k and as68cf assemblers.
         
+
+
+                                                                  Page 4
+        
+
+
            4) Added shis (same as shs) and slos( same as sls)
               forms to as68k and as68cf assemblers.
         
@@ -172,12 +204,6 @@
         ment was the output file.  This has been changed:  
 
         THE OUTPUT FILE HAS THE NAME OF THE FIRST INPUT FILE
-
-
-                                                                  Page 4
-        
-
-
 
 
            The output file name and/or extension can be changed by using
@@ -204,6 +230,12 @@
                 .ntrace         files, macros, and repeat macros
         
                 .dl and .long   create 4-byte values
+
+
+                                                                  Page 5
+        
+
+
                 .blkl           allocate 4-byte blocks
                                 (only in specific assemblers)
 
@@ -230,12 +262,6 @@
         dress of a bank.  
 
           Given:
-
-
-                                                                  Page 5
-        
-
-
                 .area   A       (bank=BankA)
                 .bank   BankA   (base=0x100)
         
@@ -262,6 +288,12 @@
                 ASCOP4
                 ASCOP8
                 ASEZ8
+
+
+                                                                  Page 6
+        
+
+
                 ASPDP11         (with EIS, FIS, FPP, and CIS)
                 ASRS08          (reduced version of the HCS08)
                 ASSX
@@ -288,12 +320,6 @@
                 AS78K0 and AS78K0S assemblers.
         
              2) Test files for the AS78K0 and AS78K0S
-
-
-                                                                  Page 6
-        
-
-
                 assemblers are updated.
         
            You must recompile the AS78K0 and AS78K0S
@@ -320,6 +346,12 @@
              3) Documentation updated.
         
            You must recompile the ASxxxx Assemblers and Linker
+
+
+                                                                  Page 7
+        
+
+
         to incorporate the update.xxx  
 
 
@@ -346,12 +378,6 @@
              asdata.c, asmain.c, asout.c, assym.c, and asxxxx.h
         
            aslink:
-
-
-                                                                  Page 7
-        
-
-
              lkarea.c, lkbank.c, kkeval.c, lkhead.c, lklex.c, lklibr.c,
              lkmain.c, lkroc.c, lkrloc3.c, lkrloc4.c, lksym.c, and
         aslink.h
@@ -378,6 +404,12 @@
              lkrloc3.c - "
              aslink.h  - Version 5.41
         
+
+
+                                                                  Page 8
+        
+
+
            as8x300:
              s8xmch.c  - line 351 changed to
                          if ((v2 == 0x07) | (v2 == 0x0F)) {
@@ -404,12 +436,6 @@
            Instruction MOVW with an addressing mode of SADDRP failed to
            report an ODD address as an error.
         
-
-
-                                                                  Page 8
-        
-
-
              Note: An externally defined SADDRP address which is ODD
                    will not be reported as an error by the assembler
                    or the linker.
@@ -436,6 +462,12 @@
            (4)  AS8085 assembler has been updated to support
                 the 8080.
         
+
+
+                                                                  Page 9
+        
+
+
            (5)  Assemblers flagging <# and ># as syntax errors
                 have been fixed to be equivalent to #< and #>.
         
@@ -462,12 +494,6 @@
                 'H' and 'L' errors which have been corrected.
         
            (2)  The linker reported the wrong version and has
-
-
-                                                                  Page 9
-        
-
-
                 been corrected.
 
 
@@ -494,6 +520,12 @@
                 as8048
                 Corrected bug in "sel" instruction in .8041 mode.
         
+
+
+                                                                 Page 10
+        
+
+
                 asf2mc
                 Corrected documentation for asf2mc processor types.
         
@@ -518,12 +550,6 @@
         
            (3)  Added Intel Hex legacy start address record
                 type 1 as an option.
-
-
-                                                                 Page 10
-        
-
-
 
 
 
@@ -552,6 +578,12 @@
                 The Assemblers now create a .lst to .rst hint file
                 with the extension .hlr (when both .lst and .rel
                 files are created by the assembler).
+
+
+                                                                 Page 11
+        
+
+
         
            (2)  Add as6100 assembler (Intersil IM6100 / Harris HM6100)
         
@@ -576,12 +608,6 @@
         Update_05 for the ASxxxx Assembler and Linker Version 5.00
         (use 'pkunzip -d u05500.zip' for extraction with MS-DOS)
         (use 'unzip -L -a u05500.zip' for extraction with Linux)
-
-
-                                                                 Page 11
-        
-
-
         
                See the note about merging
                this update with the
@@ -610,6 +636,12 @@
                 a PC-Relative addressing mode.  These
                 instructions include: jbc, jb, jbn, jc,
                 jnc, jz, jnz, cjne, and djnz.
+
+
+                                                                 Page 12
+        
+
+
         
         
            Update 3 Items
@@ -634,12 +666,6 @@
                 This option has some ambiguities as internally the
                 assemblers use unsigned arithmetic for calculations.
                 (e.g. for a 2-byte machine -32768 and 32768 are both
-
-
-                                                                 Page 12
-        
-
-
                 represented as 0x8000)
         
         
@@ -668,6 +694,12 @@
                 compilers) have defined 'getline' as a standard
                 function in 'stdio.h'.  This conflicts with the
                 function 'getline()' in the ASxxxx package.
+
+
+                                                                 Page 13
+        
+
+
                 All references to 'getline()' have been changed
                 to 'nxtline()'.
         
@@ -692,12 +724,6 @@
         Assemblers includes fixes for the following errors:
         
            (1)  The AS8048 base opcode value for the
-
-
-                                                                 Page 13
-        
-
-
                 JMPP instruction should be B3 and NOT 83.
         
            (2)  The AS8051 assembler calculates incorrect
@@ -726,6 +752,12 @@
                 enables checking for out of range signed / unsigned
                 values in symbol equates and arithmetic operations.
                 This option has some ambiguities as internally the
+
+
+                                                                 Page 14
+        
+
+
                 assemblers use unsigned arithmetic for calculations.
                 (e.g. for a 2-byte machine -32768 and 32768 are both
                 represented as 0x8000)
@@ -750,12 +782,6 @@
                 compilers) give warnings about missing arguments
                 in the fprintf() function.  This update replaces
                 fprintf(arg1, arg2) with fprintf(arg1, "%s", arg2)
-
-
-                                                                 Page 14
-        
-
-
                 in each affected line of code.
         
            (2)  The newest versions of gcc (and perhaps other
@@ -784,6 +810,12 @@
 
 
 
+
+
+                                                                 Page 15
+        
+
+
         2010_03_03 Version 5.00 Update 1
         
            This  update  for  Version  5.00  of the  ASxxxx Cross
@@ -806,12 +838,6 @@
 
 
         2009_04_01 (Version 5.00)
-
-
-
-
-                                                                 Page 15
-        
 
 
            Added  a general purpose macro processor to the ASxxxx assem-
@@ -842,6 +868,12 @@
         added to the ASxxxx assemblers:  
 
         e.g.    .iif    eq,arg  label:  .word   0x1234
+
+
+                                                                 Page 16
+        
+
+
 
 
            The  listing  options  for the ASxxxx assemblers has been up-
@@ -866,12 +898,6 @@
                         applying the sublist options
         
         e.g.    .nlist  (lst,pag)       ; disable .list/.nlist listing
-
-
-                                                                 Page 16
-        
-
-
                                         ; and pagination
 
 
@@ -900,6 +926,12 @@
         the .list or .nlist directive:  
 
             .nlist   1,(!,lst)  ; enables listing even within
+
+
+                                                                 Page 17
+        
+
+
                                 ; a FALSE conditional block
 
 
@@ -924,12 +956,6 @@
         
         
         2008_09
-
-
-                                                                 Page 17
-        
-
-
            Added the 8048 (8021, 8022, and 8041) AS8048
            assembler to Asxxxx.
         

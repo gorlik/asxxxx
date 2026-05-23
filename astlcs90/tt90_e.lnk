@@ -1,0 +1,18 @@
+-um
+-g xn=0
+-g xk=0
+-g xx=0
+-g xy1=djnz1+0x02
+-g xy2=djnz2+0x02
+-g xw=0
+-g xmn=0
+-g xvw=0
+-g djnzx=djnz+0x02
+-g jrx=jr+0x02
+-g jrlx=jrl+0x03
+-g calrx=calr+0x03
+-g ldarx=ldar+0x03
+-a DP_Area=0xFF00
+tt90
+tt90dp
+-e

@@ -88,16 +88,16 @@
 	  .irp bit 1,2,4,8,16,32,64,128
 	    .ifne	sfr$'arg & bit
 	      .ifne sfr$n - 0xE0
-	      	.list	(!,err,loc,bin,eqt,cyc,lin,src,me,meb)
+	      	.list	(!,err,loc,bin,eqt,cyc,lin,src,me)
 	  mov	a,sfr$n
 	        .nlist
 	      .else	; mov	a,a	is illegal
-	      	.list	(!,err,loc,bin,eqt,cyc,lin,src,me,meb)
+	      	.list	(!,err,loc,bin,eqt,cyc,lin,src,me)
 	  nop
 	  nop
 	        .nlist
 	      .endif
-	      .list	(!,err,loc,bin,eqt,cyc,lin,src,me,meb)
+	      .list	(!,err,loc,bin,eqt,cyc,lin,src,me)
 	  ret
 	      .nlist
 	    .endif
@@ -143,16 +143,16 @@
 	  .irp bit 1,2,4,8,16,32,64,128
 	    .ifne	sfr$'arg & bit
 	      .ifne sfr$n - 0xE0
-	      	.list	(!,err,loc,bin,eqt,cyc,lin,src,me,meb)
+	      	.list	(!,err,loc,bin,eqt,cyc,lin,src,me)
 	  mov	sfr$n,a
 	        .nlist
 	      .else	; mov	a,a	is illegal
-	      	.list	(!,err,loc,bin,eqt,cyc,lin,src,me,meb)
+	      	.list	(!,err,loc,bin,eqt,cyc,lin,src,me)
 	  nop
 	  nop
 	        .nlist
 	      .endif
-	      .list	(!,err,loc,bin,eqt,cyc,lin,src,me,meb)
+	      .list	(!,err,loc,bin,eqt,cyc,lin,src,me)
 	  ret
 	      .nlist
 	    .endif

@@ -1,16 +1,19 @@
-<HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML lang="en-US">
 <HEAD>
-<TITLE></TITLE>
+<TITLE>ASEZ80  Assembler</TITLE>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 </HEAD>
 <BODY BGCOLOR="#C0C0C0">
 
 <A href="../home.htm">
-<IMG width=343 height=58 border=0 SRC="welcom.gif" ALT = "Welcome"></A>
+<IMG width="343" height="58" border="0" SRC="welcom.gif" ALT="Welcome"></A>
 
 <H2>ASEZ80  Assembler</H2>
 
 <A NAME = "TOP"> </A> 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 
 <H4><B><PRE>
@@ -25,7 +28,7 @@ assembler.
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 PROCESSOR SPECIFIC DIRECTIVES 
@@ -76,31 +79,31 @@ Format:
         .msb    n 
 
 
-   The  assembler operator '&gt' selects the upper byte (MSB) when
+   The  assembler operator '&gt;' selects the upper byte (MSB) when
 included in an assembler instruction.  The normal assembler mode
-is  to select bits &lt15:8&gt as the MSB.  The .msb directive allows
+is  to select bits &lt;15:8&gt; as the MSB.  The .msb directive allows
 the programmer to specify a particular byte as  the  'MSB'  when
 the address space is larger than 16-bits.  
 
    For a 24-bit EZ80 address the assembler directive .msb n con-
 figures the assembler to select a particular byte as MSB.  Given
-a  24-bit  address  of  Mmn (M is &lt23:16&gt, m is &lt15:8&gt, and n is
-&lt7:0&gt) the following examples show how to  select  a  particular
+a  24-bit  address  of  Mmn (M is &lt;23:16&gt;, m is &lt;15:8&gt;, and n is
+&lt;7:0&gt;) the following examples show how to  select  a  particular
 address byte:  
 
         .msb 1          ;select byte 1 of address
-                        ;&ltM(2):m(1):n(0)&gt
-        LD A,&gtMmn       ;byte m &lt15:8&gt ==&gt&gt A
+                        ;&lt;M(2):m(1):n(0)&gt;
+        LD A,&gt;Mmn       ;byte m &lt;15:8&gt;==&gt;&gt; A
         ...
 
         .msb 2          ;select byte 2 of address
-                        ;&ltM(2):m(1):n(0)&gt
-        LD A,&gtMmn       ;byte M &lt23:16&gt ==&gt&gt A
+                        ;&lt;M(2):m(1):n(0)&gt;
+        LD A,&gt;Mmn       ;byte M &lt;23:16&gt; ==&gt;&gt; A
         LD MB,A         ;place in MBASE register
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 EZ80 ADDRESSING AND INSTRUCTIONS 
@@ -286,7 +289,7 @@ ASEZ80  assembler.   The designation [] refers to a required ad-
 dressing mode argument shown in the table  above.   The  allowed
 mnemonic  suffixes  are  denoted within the enclosing delimiters
 ().  Mnemonics specified with illegal  or  unrecognized  suffixs
-will be flagged with &ltq&gt or &lta&gt errors.  
+will be flagged with &lt;q&gt; or &lt;a&gt; errors.  
 
 
 Arithmetic Instructions 
@@ -400,18 +403,20 @@ Shift and Rotate Instructions
 </PRE></B></H4>
 <H5><A HREF="asxdoc.htm#TOP"> Go to the Documentation Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
-<H4>
-<P><A HREF="asxxxx.htm#JUMP">
-<IMG width=32 height=32 border=0 SRC="spcshp.gif" ALIGN=bottom></A>
-<B>...  Exit the ASxxxx Documentation</B></A></P>
+<P>
+<A HREF="asxxxx.htm#JUMP">
+<IMG width="32" height="32" border="0" SRC="spcshp.gif" ALIGN="bottom" alt="spaceship"></A>
+<B>...  Exit the ASxxxx Documentation</B>
+</P>
 
-<P><A href="../home.htm">
-<IMG width=32 height=32 border=0 SRC="home.gif" ALIGN=bottom></A>
-<B>...  Home Page</B></P>
-</H4>
+<P>
+<A href="../home.htm">
+<IMG width="32" height="32" border="0" SRC="home.gif" ALIGN="bottom" alt="home"></A>
+<B>...  Home Page</B>
+</P>
 
-<H6><P><B>Last Updated: September 2023</B></P></H6>
+<H6><B>Last Updated: March 2025</B></H6>
 </BODY> 
 </HTML>

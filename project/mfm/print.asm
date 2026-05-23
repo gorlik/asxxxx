@@ -32,13 +32,13 @@
 ; *****-----*****-----*****-----*****-----*****-----*****-----*****
 ;
 	.macro	.spush	arg
-	  .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	  .list	(!,err,loc,bin,cyc,eqt,lin,src,me)
 	  push	arg
 	  .nlist
 	.endm
 
 	.macro	.spop	arg
-	  .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	  .list	(!,err,loc,bin,cyc,eqt,lin,src,me)
 	  pop	arg
 	  .nlist
 	.endm
@@ -53,7 +53,7 @@
 	  .globl SP0_MCT
 	  .iifnb ppx$,	.spush	dph
 	  .iifnb ppx$,	.spush	dpl
-	  .list	(!,err,loc,bin,eqt,cyc,lin,src,me,meb)
+	  .list	(!,err,loc,bin,eqt,cyc,lin,src,me)
 	  mov	dptr,#string
 	  lcall SP0_MCT
 	  .nlist
@@ -72,7 +72,7 @@
 	.macro	.dprint	string,crlf,ppx$
 	  .globl SP0_MDT
 	  .iifnb ppx$,	.spush	r0
-	  .list	(!,err,loc,bin,eqt,cyc,lin,src,me,meb)
+	  .list	(!,err,loc,bin,eqt,cyc,lin,src,me)
 	  mov	r0,#string
 	  lcall SP0_MDT
 	  .nlist
@@ -91,7 +91,7 @@
 	  .globl SP0_MXT
 	  .iifnb ppx$,	.spush	dph
 	  .iifnb ppx$,	.spush	dpl
-	  .list	(!,err,loc,bin,eqt,cyc,lin,src,me,meb)
+	  .list	(!,err,loc,bin,eqt,cyc,lin,src,me)
 	  mov	dptr,#string
 	  lcall SP0_MXT
 	  .nlist
@@ -109,7 +109,7 @@
 
 	.macro	.pcrlf
 	  .globl m.pcrlf
-	  .list	(!,err,loc,bin,eqt,cyc,lin,src,me,meb)
+	  .list	(!,err,loc,bin,eqt,cyc,lin,src,me)
 	  lcall	m.pcrlf
 	.endm	
 

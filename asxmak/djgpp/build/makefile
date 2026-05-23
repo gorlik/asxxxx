@@ -3,7 +3,7 @@
 #		DJGPP V02.03  'GNU make' Version
 #		================================
 #
-#   4  February  2023		GCC 4.0.1 / make 3.79.1
+#   17  January  2025		GCC 4.0.1 / make 3.79.1
 #
 ####################################################################
 
@@ -56,6 +56,7 @@ ASXXXX =	as1802		\
 		asst7		\
 		asst8		\
 		assx		\
+		astlcs90	\
 		asz8		\
 		asz80		\
 		asz280		\
@@ -139,6 +140,7 @@ SRCST6=		$(ASXBAS)asst6/
 SRCST7=		$(ASXBAS)asst7/
 SRCST8=		$(ASXBAS)asst8/
 SRCSX=		$(ASXBAS)assx/
+SRCTLCS90=	$(ASXBAS)astlcs90/
 SRCZ8=		$(ASXBAS)asz8/
 SRCZ80=		$(ASXBAS)asz80/
 SRCZ280=	$(ASXBAS)asz280/
@@ -510,7 +512,7 @@ m68cffpp.o :	$(SRC68CF)m68cffpp.c $(SRC68CF)m68cf.h $(SRCASX)asxxxx.h
 
 as68cf :	$(ASXX) $(AS68CF)
 		$(LD) $(LDFLAGS) -o as68cf $(ASXX) $(AS68CF)
-		cp as68cf.exe $(DSTEXE)as68cf.exe
+		mv as68cf.exe $(DSTEXE)as68cf.exe
 		strip $(DSTEXE)as68cf.exe
 
 
@@ -1126,6 +1128,25 @@ assx :		$(ASXX) $(ASSX)
 		$(LD) $(LDFLAGS) -o assx $(ASXX) $(ASSX)
 		mv assx.exe $(DSTEXE)assx.exe
 		strip $(DSTEXE)assx.exe
+
+
+####################################################################
+# ASTLCS90
+####################################################################
+
+ASTLCS90 =	t90adr.o t90pst.o t90mch.o
+
+t90adr.o :	$(SRCTLCS90)t90adr.c $(SRCTLCS90)t90.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+t90pst.o :	$(SRCTLCS90)t90pst.c $(SRCTLCS90)t90.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+t90mch.o :	$(SRCTLCS90)t90mch.c $(SRCTLCS90)t90.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+
+astlcs90 :	$(ASXX) $(ASTLCS90)
+		$(LD) $(LDFLAGS) -o astlcs90 $(ASXX) $(ASTLCS90)
+		mv astlcs90.exe $(DSTEXE)astlcs90.exe
+		strip $(DSTEXE)astlcs90.exe
 
 
 ####################################################################

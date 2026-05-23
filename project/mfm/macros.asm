@@ -3,7 +3,7 @@
 ;
 ; Compile The Macro Support Code
 ;
-;	AS89LP -loxff macros lpxxxx.sfr macros.asm
+;	AS89LP -loxff macros
 ;
 ; To Define The macro.asm Macros Place The Following Lines In Your Code
 ;

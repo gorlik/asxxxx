@@ -1,16 +1,19 @@
-<HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML lang="en-US">
 <HEAD>
-<TITLE></TITLE>
+<TITLE>AS68CF  Assembler</TITLE>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 </HEAD>
 <BODY BGCOLOR="#C0C0C0">
 
 <A href="../home.htm">
-<IMG width=343 height=58 border=0 SRC="welcom.gif" ALT="Welcome"></A>
+<IMG width="343" height="58" border="0" SRC="welcom.gif" ALT="Welcome"></A>
 
 <H2>AS68CF  Assembler</H2>
 
 <A NAME = "TOP"> </A> 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
    The  ColdFire assembler, AS68CF, supports the instruction set
@@ -24,7 +27,7 @@ as the ColdFire is available in chip or IP Core form.
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 AS6CF ASSEMBLER SPECIFIC DIRECTIVES 
@@ -239,25 +242,25 @@ alt:  controls whether the automatic translation of instructions
 to alternate instruction  forms  is  enabled.   The  default  is
 enabled.  The following translations may be performed:  
 
-        MOVE [],An  ->  MOVEA [],An
-        MOVE #,Dn   ->  MOVEQ #,Dn  (#: -128 to +127)
+        MOVE [],An  -&gt;  MOVEA [],An
+        MOVE #,Dn   -&gt;  MOVEQ #,Dn  (#: -128 to +127)
 
-        ADD Dn,An   ->  ADDA Dn,An
-        ADD #,Dn    ->  ADDI #,Dn
-        ADD #,Dn    ->  ADDQ #,Dn   (#: 1 to 8)
+        ADD Dn,An   -&gt;  ADDA Dn,An
+        ADD #,Dn    -&gt;  ADDI #,Dn
+        ADD #,Dn    -&gt;  ADDQ #,Dn   (#: 1 to 8)
 
-        AND #,Dn    ->  ANDI #,Dn
+        AND #,Dn    -&gt;  ANDI #,Dn
 
-        CMP [],An   ->  CMPA [],An
-        CMP #,Dn    ->  CMPI #,Dn
+        CMP [],An   -&gt;  CMPA [],An
+        CMP #,Dn    -&gt;  CMPI #,Dn
 
-        EOR #,[]    ->  EORI #,[]
+        EOR #,[]    -&gt;  EORI #,[]
 
-        OR #,Dn     ->  ORI #,Dn
+        OR #,Dn     -&gt;  ORI #,Dn
 
-        SUB [],An   ->  SUBA [],An
-        SUB #,Dn    ->  SUBI #,Dn
-        SUB #,Dn    ->  SUBQ #,Dn   (#: 1 to 8)
+        SUB [],An   -&gt;  SUBA [],An
+        SUB #,Dn    -&gt;  SUBI #,Dn
+        SUB #,Dn    -&gt;  SUBQ #,Dn   (#: 1 to 8)
 
 autodpcnst:  controls whether instructions without length quali-
 fies, .B, .W, .L, can automatically use  short  forms  when  the
@@ -290,7 +293,7 @@ one disables the other.
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 COLDFIRE REGISTER SET 
@@ -361,7 +364,7 @@ are not described in this document.
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 COLDFIRE ADDRESSING MODES 
@@ -396,14 +399,14 @@ COLDFIRE ADDRESSING MODES
 
         The following short forms are also supported:
 
-                @An     <==>    (An)
-                @An+    <==>    (An)+
-               -@An     <==>   -(An)
+                @An     &lt;==&gt;    (An)
+                @An+    &lt;==&gt;    (An)+
+               -@An     &lt;==&gt;   -(An)
 
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 COLDFIRE BASE INSTRUCTION SET 
@@ -425,7 +428,8 @@ sizing suffix is optional.
 words (48 bits).  This limits instructions to specific  address-
 ing  modes.   Double  operand  instructions  will report certain
 pairs of addressing modes as illegal if  the  total  instruction
-size exceeds the three word limit.  
+size exceeds the three word limit.
+  
         Ry      Source Register (Dy or Ay)
         Rx      Destination Register (Dx or Ax)
         CRy     Source Control Register
@@ -589,13 +593,13 @@ to all 1s else the addressed byte is set to all 0s.
 
 Trap False 
 
-        TPF             PC + 2 -> PC, Opcode Only
-        TPF.W           PC + 4 -> PC, Opcode Only
-        TPF.L           PC + 6 -> PC, Opcode Only
+        TPF             PC + 2 -&gt; PC, Opcode Only
+        TPF.W           PC + 4 -&gt; PC, Opcode Only
+        TPF.L           PC + 6 -&gt; PC, Opcode Only
 
         TPF (.W,.L)  #  Autoselect TPF.W or TPF.L
-        TPF.W   #       PC + 4 -> PC, Opcode + Word
-        TPF.L   #       PC + 6 -> PC, Opcode + Long
+        TPF.W   #       PC + 4 -&gt; PC, Opcode + Word
+        TPF.L   #       PC + 6 -&gt; PC, Opcode + Long
 
 
 Other Instructions 
@@ -641,15 +645,15 @@ cent versions of the Coldfire core.
         CAS     Dc,Du,[]y       Compare And Swap With Operand
         CAS2    Dc1:Dc2,Du1:Du2,(Ry1):(Ry2)
 
-        CHK  (.W,.L)    []y,Dx  Dn < 0 or Dn > [], TRAP
-        CHK2 (.B.,W,.L) []y,Rx  Rn < [] Lower Bound
+        CHK  (.W,.L)    []y,Dx  Dn &lt; 0 or Dn &gt; [], TRAP
+        CHK2 (.B.,W,.L) []y,Rx  Rn &lt; [] Lower Bound
 
         CMP2 (.B,.W,.L) []y,Rx  Upper/Lower Bounds Check
 
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 MULTIPLY-ACCUMULATE INSTRUCTION SET 
@@ -661,28 +665,28 @@ MULTIPLY-ACCUMULATE INSTRUCTION SET
         Rx      Destination Register (Dx or Ax)
         Rw      Load Destination Register (Dw or Aw)
         {U,L}   U For Upper Word, L For Lower Word
-        {<<,>>} << For Product<<1
-                >> For Product>>1
-        {&}     ANDed With MASK Register
+        {&lt;&lt;,&gt;&gt;} &lt;&lt; For Product&lt;&lt;1
+                &gt;&gt; For Product&gt;&gt;1
+        {&amp;}     ANDed With MASK Register
 
 
 Multiply-Accumulate Operations 
 
         Multiply Accumulate
-        MAC (.W)    Ry.{U,L},Rx.{U,L}{<<,>>}
-        MAC (.L)    Ry,Rx{<<,>>}
+        MAC (.W)    Ry.{U,L},Rx.{U,L}{&lt;&lt;,&gt;&gt;}
+        MAC (.L)    Ry,Rx{&lt;&lt;,&gt;&gt;}
 
         Multiply Accumulate With Load
-        MAC (.W)    Ry.{U,L},Rx.{U,L}{<<,>>},[]y{&},Rw
-        MAC (.L)    Ry,Rx{<<,>>},[]y{&},Rw
+        MAC (.W)    Ry.{U,L},Rx.{U,L}{&lt;&lt;,&gt;&gt;},[]y{&amp;},Rw
+        MAC (.L)    Ry,Rx{&lt;&lt;,&gt;&gt;},[]y{&amp;},Rw
 
         Multiply Subtract
-        MSAC (.W)   Ry.{U,L},Rx.{U,L}{<<,>>}
-        MSAC (.L)   Ry,Rx{<<,>>}
+        MSAC (.W)   Ry.{U,L},Rx.{U,L}{&lt;&lt;,&gt;&gt;}
+        MSAC (.L)   Ry,Rx{&lt;&lt;,&gt;&gt;}
 
         Multiply Subtract With Load
-        MSAC (.W)   Ry.{U,L},Rx.{U,L}{<<,>>},[]y{&},Rw
-        MSAC (.L)   Ry,Rx{<<,>>},[]y{&},Rw
+        MSAC (.W)   Ry.{U,L},Rx.{U,L}{&lt;&lt;,&gt;&gt;},[]y{&amp;},Rw
+        MSAC (.L)   Ry,Rx{&lt;&lt;,&gt;&gt;},[]y{&amp;},Rw
 
 
 Move Operations 
@@ -703,7 +707,7 @@ Move Operations
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 EXTENDED MULTIPLY-ACCUMULATE INSTRUCTION SET 
@@ -718,48 +722,48 @@ EXTENDED MULTIPLY-ACCUMULATE INSTRUCTION SET
         Rx      Destination Register (Dx or Ax)
         Rw      Load Destination Register (Dw or Aw)
         {U,L}   U For Upper Word, L For Lower Word
-        {<<,>>} << For Product<<1
-                >> For Product>>1
-        {&}     ANDed With MASK Register
+        {&lt;&lt;,&gt;&gt;} &lt;&lt; For Product&lt;&lt;1
+                &gt;&gt; For Product&gt;&gt;1
+        {&amp;}     ANDed With MASK Register
 
 
 Multiply-Accumulate Operations 
 
         Multiply Accumulate
-        MAC (.W)    Ry.{U,L},Rx.{U,L}{<<,>>}
-        MAC (.L)    Ry,Rx{<<,>>}
+        MAC (.W)    Ry.{U,L},Rx.{U,L}{&lt;&lt;,&gt;&gt;}
+        MAC (.L)    Ry,Rx{&lt;&lt;,&gt;&gt;}
 
         Multiply Accumulate With Load
-        MAC (.W)    Ry.{U,L},Rx.{U,L}{<<,>>},[]y{&},Rw
-        MAC (.L)    Ry,Rx{<<,>>},[]y{&},Rw
+        MAC (.W)    Ry.{U,L},Rx.{U,L}{&lt;&lt;,&gt;&gt;},[]y{&amp;},Rw
+        MAC (.L)    Ry,Rx{&lt;&lt;,&gt;&gt;},[]y{&amp;},Rw
 
         Multiply Subtract
-        MSAC (.W)   Ry.{U,L},Rx.{U,L}{<<,>>},ACCx
-        MSAC (.L)   Ry,Rx{<<,>>},ACCx
+        MSAC (.W)   Ry.{U,L},Rx.{U,L}{&lt;&lt;,&gt;&gt;},ACCx
+        MSAC (.L)   Ry,Rx{&lt;&lt;,&gt;&gt;},ACCx
 
         Multiply Subtract With Load
-        MSAC (.W)   Ry.{U,L},Rx.{U,L}{<<,>>},[]y{&},Rw,ACCx
-        MSAC (.L)   Ry,Rx{<<,>>},[]y{&},Rw,ACCx
+        MSAC (.W)   Ry.{U,L},Rx.{U,L}{&lt;&lt;,&gt;&gt;},[]y{&amp;},Rw,ACCx
+        MSAC (.L)   Ry,Rx{&lt;&lt;,&gt;&gt;},[]y{&amp;},Rw,ACCx
 
         Multiply And Add To First Accumulator
         Add To Second Accumulator
-        MAAAC (.W)  Ry.{U,L},Rx.{U,L}{<<,>>},ACCx,ACCw
-        MAAAC (.L)  Ry,Rx{<<,>>},ACCx,ACCw
+        MAAAC (.W)  Ry.{U,L},Rx.{U,L}{&lt;&lt;,&gt;&gt;},ACCx,ACCw
+        MAAAC (.L)  Ry,Rx{&lt;&lt;,&gt;&gt;},ACCx,ACCw
 
         Multiply And Add To First Accumulator
         Subtract From Second Accumulator
-        MASAC (.W)  Ry.{U,L},Rx.{U,L}{<<,>>},ACCx,ACCw
-        MASAC (.L)  Ry,Rx{<<,>>},ACCx,ACCw
+        MASAC (.W)  Ry.{U,L},Rx.{U,L}{&lt;&lt;,&gt;&gt;},ACCx,ACCw
+        MASAC (.L)  Ry,Rx{&lt;&lt;,&gt;&gt;},ACCx,ACCw
 
         Multiply And Subtract From First Accumulator
         Add To Second Accumulator
-        MSAAC (.W)  Ry.{U,L},Rx.{U,L}{<<,>>},ACCx,ACCw
-        MSAAC (.L)  Ry,Rx{<<,>>},ACCx,ACCw
+        MSAAC (.W)  Ry.{U,L},Rx.{U,L}{&lt;&lt;,&gt;&gt;},ACCx,ACCw
+        MSAAC (.L)  Ry,Rx{&lt;&lt;,&gt;&gt;},ACCx,ACCw
 
         Multiply And Subtract From First Accumulator
         Subtract From Second Accumulator
-        MSSAC (.W)  Ry.{U,L},Rx.{U,L}{<<,>>},ACCx,ACCw
-        MSSAC (.L)  Ry,Rx{<<,>>},ACCx,ACCw
+        MSSAC (.W)  Ry.{U,L},Rx.{U,L}{&lt;&lt;,&gt;&gt;},ACCx,ACCw
+        MSSAC (.L)  Ry,Rx{&lt;&lt;,&gt;&gt;},ACCx,ACCw
 
 
 Move Operations 
@@ -799,7 +803,7 @@ Move Operations
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 COLDFIRE FLOATING POINT INSTRUCTION SET 
@@ -831,7 +835,7 @@ which is summarized here:
         FPcr    A Floating point Control Register
         []y     SRC addressing mode
         []x     DST addressing mode
-        <label> Branching label
+        &lt;label&gt; Branching label
         <list>  Data or Control register list
 
         B       Byte
@@ -873,7 +877,7 @@ Dyadic Instructions
      -----------    ---------           ---------
         F(dop)      []y,FPx             B,W,L,S,D
                     FPy,FPx             D
-        If Noted:   FPy -> (Fpy,Fpy)    D
+        If Noted:   FPy -&gt; (Fpy,Fpy)    D
 
         FS(dop)     Round To Single Precision
         FD(dop)     Round To Double Precision   
@@ -904,7 +908,7 @@ Monadic Instructions
      -----------    ---------           ---------
         F(mop)      []y,FPx             B,W,L,S,D
                     FPy,FPx             D
-        If Noted:   FPy -> (Fpy,Fpy)    D
+        If Noted:   FPy -&gt; (Fpy,Fpy)    D
 
         FS(dop)     Round To Single Precision
         FD(dop)     Round To Double Precision   
@@ -942,7 +946,7 @@ Program Control Instructions
 
      Instruction    OP Syntax           OP Format
      -----------    ---------           ---------
-      * FBcc        <label>             W,L
+      * FBcc        &lt;label&gt;             W,L
 
         FNOP            -               -
 
@@ -1010,18 +1014,20 @@ Condition Test Mnemonics
 </PRE></B></H4>
 <H5><A HREF="asxdoc.htm#TOP"> Go to the Documentation Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
-<H4>
-<P><A HREF="asxxxx.htm#JUMP">
-<IMG width=32 height=32 border=0 SRC="spcshp.gif" ALIGN=bottom></A>
-<B>...  Exit the ASxxxx Documentation</B></A></P>
+<P>
+<A HREF="asxxxx.htm#JUMP">
+<IMG width="32" height="32" border="0" SRC="spcshp.gif" ALIGN="bottom" alt="spaceship"></A>
+<B>...  Exit the ASxxxx Documentation</B>
+</P>
 
-<P><A href="../home.htm">
-<IMG width=32 height=32 border=0 SRC="home.gif" ALIGN=bottom></A>
-<B>...  Home Page</B></P>
-</H4>
+<P>
+<A href="../home.htm">
+<IMG width="32" height="32" border="0" SRC="home.gif" ALIGN="bottom" alt="home"></A>
+<B>...  Home Page</B>
+</P>
 
-<H6><P><B>Last Updated: September 2023</B></P></H6>
+<H6><B>Last Updated: March 2025</B></H6>
 </BODY> 
 </HTML>

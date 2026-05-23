@@ -8,7 +8,7 @@ REM    cygwin
 REM    djgpp
 REM    linux
 REM    symantec
-REM    turboc
+REM    turboc or turboc30
 REM    vc6
 REM    vs05
 REM    vs10
@@ -37,6 +37,9 @@ if %1.==symantec. goto SYMANTEC
 REM Turboc
 if %1.==TURBOC. goto TURBOC
 if %1.==turboc. goto TURBOC
+REM Turboc30
+if %1.==TURBOC30. goto TURBOC
+if %1.==turboc30. goto TURBOC
 REM VC6
 if %1.==VC6. goto VC6
 if %1.==vc6. goto VC6
@@ -126,7 +129,7 @@ echo cygwin    CYGWIN
 echo djgpp     DJGPP
 echo linux     LINUX
 echo symantec  SYMANTEC
-echo turboc    TURBOC
+echo turboc    TURBOC or TURBOC30
 echo vc6       VC6
 echo vs05      VS05
 echo vs10      VS10

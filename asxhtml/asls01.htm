@@ -1,18 +1,22 @@
-<HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML lang="en-US">
 <HEAD>
-<TITLE></TITLE>
+<TITLE>The Linker Description</TITLE>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 </HEAD>
 <BODY BGCOLOR="#C0C0C0">
 
 <A href="../home.htm">
-<IMG width=343 height=58 border=0 SRC="welcom.gif" ALT="Welcome"></A>
+<IMG width="343" height="58" border="0" SRC="welcom.gif" ALT="Welcome"></A>
 
 <H2>The Linker Description</H2>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
 <A NAME = "Invoking"> </A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Invoking ASlink</A>
+<IMG SRC = "green.gif" ALT = "-">... Invoking ASlink
 </B></H3>
 
 <H4><B><PRE>
@@ -45,9 +49,9 @@ Output:
   -s   Motorola S Record as file1[.s--]
   -t   Tandy CoCo Disk BASIC binary as file1[.bin]
   -*+  -i+/-s+/-t+  Renaming Options  -*+[ ][name][.ext]
-    '-*+.ext'      (or)  '-*+  .ext'      ->  file1.ext
-    '-*+name'      (or)  '-*+  name'      ->  name[.---]
-    '-*+name.ext'  (or)  '-*+  name.ext'  ->   name.ext
+    '-*+.ext'      (or)  '-*+  .ext'      -&gt;  file1.ext
+    '-*+name'      (or)  '-*+  name'      -&gt;  name[.---]
+    '-*+name.ext'  (or)  '-*+  name.ext'  -&gt;   name.ext
   -o   Linked file/library -i/-s/-t output enable (default)
   -v   Linked file/library -i/-s/-t output disable
   -j   NoICE Debug output as file1[.noi]
@@ -114,9 +118,9 @@ The linker commands are explained in some more detail:
         -t      Tandy CoCo Disk BASIC binary as file1[.bin]
 
         -*+   -i+/-s+/-t+ Renaming Options  -o+[ ][name][.ext]
-          '-*+.ext'      (or)  '-*+  .ext'      ->  file1.ext
-          '-*+name'      (or)  '-*+  name'      ->  name[.---]
-          '-*+name.ext'  (or)  '-*+  name.ext'  ->   name.ext
+          '-*+.ext'      (or)  '-*+  .ext'      -&gt;  file1.ext
+          '-*+name'      (or)  '-*+  name'      -&gt;  name[.---]
+          '-*+name.ext'  (or)  '-*+  name.ext'  -&gt;   name.ext
 
                 The file name and/or extension of the
                 output file may be changed.
@@ -219,20 +223,20 @@ The linker commands are explained in some more detail:
    When  using  the command line all options and file(s) must be
 on a single line.  
 
-   When using the -c option (ASlink >>) or a command file [.lnk]
+   When using the -c option (ASlink &gt;&gt;) or a command file [.lnk]
 options should precede the file(s).  The files  may  be  on  the
 same  line  as the options or on a separate line(s) one file per
 line or multiple files separated by spaces or tabs.  The use  of
 multiple  -o and -v options is available only with the interrac-
-tive, ASlink >>, or command file modes.  
+tive, ASlink &gt;&gt;, or command file modes.  
 
 </PRE></B></H4>
 <H5><A HREF="aslink.htm#Index">  Return to the Linker Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 <A NAME = "Library"> </A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Library Path(s) and File(s)</A>
+<IMG SRC = "green.gif" ALT = "-">... Library Path(s) and File(s)
 </B></H3>
 
 <H4><B><PRE>
@@ -292,10 +296,11 @@ for non existent path(s)/file(s).)
 </PRE></B></H4>
 <H5><A HREF="aslink.htm#Index">  Return to the Linker Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
 <A NAME = "Processing"></A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... ASlink Processing</A>
+<IMG SRC = "green.gif" ALT = "-">... ASlink Processing
 </B></H3>
 
 <H4><B><PRE>
@@ -403,10 +408,11 @@ libraries for object code inclusion or suppression.
 </PRE></B></H4>
 <H5><A HREF="aslink.htm#Index">  Return to the Linker Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
 <A NAME = "Input4"></A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Linker V5.xx (V4.xx) Input Format</A>
+<IMG SRC = "green.gif" ALT = "-">... Linker V5.xx (V4.xx) Input Format
 </B></H3>
 
 <H4><B><PRE>
@@ -440,7 +446,7 @@ The object module contains the following designators:
 
 </PRE></B></H4>
 <A NAME = "Index"></A>
-<H4><B><UL>
+<UL>
 <LI><A HREF= #Object4>  Object Module Format </A> 
 <LI><A HREF= #Header4>  Header Line </A>
 <LI><A HREF= #Module4>  Module Line </A>
@@ -453,9 +459,10 @@ The object module contains the following designators:
 <LI><A HREF= #PLine4>  P Line </A>
 <BR><BR>
 <LI><A HREF="aslink.htm#Index">  Return to the Linker Index</A>
-</UL></B></H4>
+</UL>
 
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "Object4"></A><FONT COLOR="#FF0000">Object Module Format</FONT>
 
@@ -465,8 +472,10 @@ idecimal  file  with  most significant byte first and 16-bit ad-
 dressing) for the following designators.  
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "Header4"></A><FONT COLOR="#FF0000">Header Line</FONT>
 
@@ -477,8 +486,10 @@ number of global symbols(gg) defined or referenced in  this  ob-
 ject module segment.  
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "Module4"></A><FONT COLOR="#FF0000">Module Line</FONT>
 
@@ -489,8 +500,10 @@ header segment was assembled.  The module line will  not  appear
 if the .module directive was not used in the source program.  
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "Merge4"></A><FONT COLOR="#FF0000">Merge Mode Line</FONT>
 
@@ -518,8 +531,10 @@ value.
             loaded with this normal integer bit.  
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "Bank4"></A><FONT COLOR="#FF0000">Bank Line</FONT>
 
@@ -539,8 +554,10 @@ parameter  is  for  NOICE processing.  The flags indicate if the
 parameters have been set.  
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "Area4"></A><FONT COLOR="#FF0000">Area Line</FONT>
 
@@ -568,8 +585,10 @@ be  increased to match the boundary modulus.  This will also in-
 crease the area (area segment) size by the same amount.  
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "Symbol3"></A><FONT COLOR="#FF0000">Symbol Line</FONT>
 
@@ -587,8 +606,10 @@ definition.  References to external symbols will have a value of
 zero.  
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "TLine4"></A><FONT COLOR="#FF0000">T Line</FONT>
 
@@ -601,8 +622,10 @@ byte format.  (xx xx and nn nn can be 2, 3, or 4 bytes as speci-
 fied by the .REL file header.) 
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "RLine4"></A><FONT COLOR="#FF0000">R Line</FONT>
 
@@ -640,8 +663,10 @@ The groups of 4 bytes are repeated for each item requiring relo-
 cation in the preceding T line.  
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "PLine4"></A><FONT COLOR="#FF0000">P Line</FONT>
 
@@ -665,8 +690,10 @@ area defined in the input REL file.  All ASxxxx assemblers  will
 specify the _CODE area first, making this the default page area. 
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "Bits4"></A><FONT COLOR="#FF0000">24-Bit and 32-Bit Addressing</FONT>
 
@@ -687,12 +714,13 @@ data  respectively.  The 2nd byte format (also named MSB) always
 uses the second byte of the 2, 3, or 4-byte data.
   
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
 <A NAME = "Error4"></A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Linker V5.xx (V4.xx) Error Messages</A>
+<IMG SRC = "green.gif" ALT = "-">... Linker V5.xx (V4.xx) Error Messages
 </B></H3>
 
 <H4><B><PRE>
@@ -799,10 +827,11 @@ area to locate the offending code.
 </PRE></B></H4>
 <H5><A HREF="aslink.htm#Index">  Return to the Linker Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
 <A NAME = "Input3"></A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Linker V3.xx Input Format</A>
+<IMG SRC = "green.gif" ALT = "-">... Linker V3.xx Input Format
 </B></H3>
 
 <H4><B><PRE>
@@ -834,7 +863,7 @@ The object module contains the following designators:
 
 </PRE></B></H4>
 <A NAME = "Index"></A>
-<H4><B><UL>
+<UL>
 <LI><A HREF= #Object3>  Object Module Format </A> 
 <LI><A HREF= #Header3>  Header Line </A>
 <LI><A HREF= #Module3>  Module Line </A>
@@ -845,9 +874,10 @@ The object module contains the following designators:
 <LI><A HREF= #PLine3>  P Line </A>
 <BR><BR>
 <LI><A HREF="aslink.htm#Index">  Return to the Linker Index</A>
-</UL></B></H4>
+</UL>
 
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "Object3"></A><FONT COLOR="#FF0000">Object Module Format</FONT>
 
@@ -857,8 +887,10 @@ idecimal  file  with  most significant byte first and 16-bit ad-
 dressing) for the following designators.  
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "Header3"></A><FONT COLOR="#FF0000">Header Line</FONT>
 
@@ -869,8 +901,10 @@ number of global symbols(gg) defined or referenced in  this  ob-
 ject module segment.  
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "Module3"></A><FONT COLOR="#FF0000">Module Line</FONT>
 
@@ -881,8 +915,10 @@ header segment was assembled.  The module line will  not  appear
 if the .module directive was not used in the source program.  
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "Symbol3"></A><FONT COLOR="#FF0000">Symbol Line</FONT>
 
@@ -900,8 +936,10 @@ definition.  References to external symbols will have a value of
 zero.  
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "Area3"></A><FONT COLOR="#FF0000">Area Line</FONT>
 
@@ -918,8 +956,10 @@ the ABS, REL, CON, OVR, and PAG parameters:
         PAG      (0x10 i.e.  bit position 4) 
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "TLine3"></A><FONT COLOR="#FF0000">T Line</FONT>
 
@@ -931,8 +971,10 @@ base address and nn being the assembled instructions and data in
 byte format.  
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "RLine3"></A><FONT COLOR="#FF0000">R Line</FONT>
 
@@ -969,8 +1011,10 @@ The groups of 4 bytes are repeated for each item requiring relo-
 cation in the preceding T line.  
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "PLine3"></A><FONT COLOR="#FF0000">P Line</FONT>
 
@@ -994,8 +1038,10 @@ area defined in the input REL file.  All ASxxxx assemblers  will
 specify the _CODE area first, making this the default page area. 
 
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
-<HR SIZE=3 WIDTH=100% ALIGN=Center NOSHADE>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
+
+<HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
+
 <H4><B><PRE>
 <A NAME = "Bits3"></A><FONT COLOR="#FF0000">24-Bit and 32-Bit Addressing</FONT>
 
@@ -1016,12 +1062,13 @@ data  respectively.  The 2nd byte format (also named MSB) always
 uses the second byte of the 2, 3, or 4-byte data.
   
 </PRE></B></H4>
-<H5><A HREF= #Index> => Section Index</A></H5>
+<H5><A HREF= #Index> =&gt; Section Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
 <A NAME = "Error3"></A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Linker V3.xx Error Messages</A>
+<IMG SRC = "green.gif" ALT = "-">... Linker V3.xx Error Messages
 </B></H3>
 
 <H4><B><PRE>
@@ -1101,10 +1148,12 @@ area to locate the offending code.
 
 </PRE></B></H4>
 <H5><A HREF="aslink.htm#Index">  Return to the Linker Index</A></H5>
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
 <A NAME = "Hint"></A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Hint File Format For Relocated Listings</A>
+<IMG SRC = "green.gif" ALT = "-">... Hint File Format For Relocated Listings
 </B></H3>
 
 <H4><B><PRE>
@@ -1187,10 +1236,11 @@ not be updated.
 </PRE></B></H4>
 <H5><A HREF="aslink.htm#Index">  Return to the Linker Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
 <A NAME = "IntelIHX"></A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Intel IHX Output Format (16-Bit)</A>
+<IMG SRC = "green.gif" ALT = "-">... Intel IHX Output Format (16-Bit)
 </B></H3>
 
 <H4><B><PRE>
@@ -1250,10 +1300,11 @@ Checksum Field       -  The  checksum  field is the 8 bit binary
 </PRE></B></H4>
 <H5><A HREF="aslink.htm#Index">  Return to the Linker Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
 <A NAME = "MotorolaS1"></A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Motorola S1-S9 Output Format (16-Bit)</A>
+<IMG SRC = "green.gif" ALT = "-">... Motorola S1-S9 Output Format (16-Bit)
 </B></H3>
 
 <H4><B><PRE>
@@ -1300,10 +1351,11 @@ Checksum Field       -  The  checksum  field is the 8 bit binary
 </PRE></B></H4>
 <H5><A HREF="aslink.htm#Index">  Return to the Linker Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
 <A NAME = "MotorolaS2"></A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Motorola S2-S8 Output Format (24-Bit)</A>
+<IMG SRC = "green.gif" ALT = "-">... Motorola S2-S8 Output Format (24-Bit)
 </B></H3>
 
 <H4><B><PRE>
@@ -1352,10 +1404,11 @@ Checksum Field       -  The  checksum  field is the 8 bit binary
 </PRE></B></H4>
 <H5><A HREF="aslink.htm#Index">  Return to the Linker Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
 <A NAME = "MotorolaS3"></A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Motorola S3-S7 Output Format (32-Bit)</A>
+<IMG SRC = "green.gif" ALT = "-">... Motorola S3-S7 Output Format (32-Bit)
 </B></H3>
 
 <H4><B><PRE>
@@ -1406,10 +1459,11 @@ Checksum Field       -  The  checksum  field is the 8 bit binary
 </PRE></B></H4>
 <H5><A HREF="aslink.htm#Index">  Return to the Linker Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
 <A NAME = "CoCoDiskBasic"></A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Tandy Color Computer Disk Basic Format</A>
+<IMG SRC = "green.gif" ALT = "-">... Tandy Color Computer Disk Basic Format
 </B></H3>
 
 <H4><B><PRE>
@@ -1447,18 +1501,21 @@ is the execution address.
 </PRE></B></H4>
 <H5><A HREF="aslink.htm#Index">  Return to the Linker Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
-<H4>
-<P><A HREF="asxxxx.htm#JUMP">
-<IMG width=32 height=32 border=0 SRC="spcshp.gif" ALIGN=bottom></A>
-<B>...  Exit the ASxxxx Documentation</B></A></P>
 
-<P><A href="../home.htm">
-<IMG width=32 height=32 border=0 SRC="home.gif" ALIGN=bottom></A>
-<B>...  Home Page</B></P>
-</H4>
+<P>
+<A HREF="asxxxx.htm#JUMP">
+<IMG width="32" height="32" border="0" SRC="spcshp.gif" ALIGN="bottom" alt="spaceship"></A>
+<B>...  Exit the ASxxxx Documentation</B>
+</P>
 
-<H6><P><B>Last Updated: September 2023</B></P></H6>
+<P>
+<A href="../home.htm">
+<IMG width="32" height="32" border="0" SRC="home.gif" ALIGN="bottom" alt="home"></A>
+<B>...  Home Page</B>
+</P>
+
+<H6><B>Last Updated: March 2025</B></H6>
 </BODY> 
 </HTML>

@@ -1,16 +1,19 @@
-<HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML lang="en-US">
 <HEAD>
-<TITLE></TITLE>
+<TITLE>AS68k  Assembler</TITLE>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 </HEAD>
 <BODY BGCOLOR="#C0C0C0">
 
 <A href="../home.htm">
-<IMG width=343 height=58 border=0 SRC="welcom.gif" ALT="Welcome"></A>
+<IMG width="343" height="58" border="0" SRC="welcom.gif" ALT="Welcome"></A>
 
 <H2>AS68k  Assembler</H2>
 
 <A NAME = "TOP"> </A> 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
    The assembler supports the full instruction set of the 68000,
@@ -51,7 +54,7 @@ User's Manual" Second Edition, (Motorola Inc.  1989).
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 AS68K ASSEMBLER SPECIFIC DIRECTIVES 
@@ -312,25 +315,25 @@ alt:  controls whether the automatic translation of instructions
 to alternate instruction  forms  is  enabled.   The  default  is
 enabled.  The following translations may be performed:  
 
-        MOVE [],An  ->  MOVEA [],An
-        MOVE #,Dn   ->  MOVEQ #,Dn  (#: -128 to +127)
+        MOVE [],An  -&gt;  MOVEA [],An
+        MOVE #,Dn   -&gt;  MOVEQ #,Dn  (#: -128 to +127)
 
-        ADD Dn,An   ->  ADDA Dn,An
-        ADD #,Dn    ->  ADDI #,Dn
-        ADD #,Dn    ->  ADDQ #,Dn   (#: 1 to 8)
+        ADD Dn,An   -&gt;  ADDA Dn,An
+        ADD #,Dn    -&gt;  ADDI #,Dn
+        ADD #,Dn    -&gt;  ADDQ #,Dn   (#: 1 to 8)
 
-        AND #,Dn    ->  ANDI #,Dn
+        AND #,Dn    -&gt;  ANDI #,Dn
 
-        CMP [],An   ->  CMPA [],An
-        CMP #,Dn    ->  CMPI #,Dn
+        CMP [],An   -&gt;  CMPA [],An
+        CMP #,Dn    -&gt;  CMPI #,Dn
 
-        EOR #,[]    ->  EORI #,[]
+        EOR #,[]    -&gt;  EORI #,[]
 
-        OR #,Dn     ->  ORI #,Dn
+        OR #,Dn     -&gt;  ORI #,Dn
 
-        SUB An,Dn   ->  SUBA An,Dn
-        SUB #,Dn    ->  SUBI #,Dn
-        SUB #,Dn    ->  SUBQ #,Dn   (#: 1 to 8)
+        SUB An,Dn   -&gt;  SUBA An,Dn
+        SUB #,Dn    -&gt;  SUBI #,Dn
+        SUB #,Dn    -&gt;  SUBQ #,Dn   (#: 1 to 8)
 
 
    fpt:   controls  whether floating-point truncation is active.
@@ -353,7 +356,7 @@ fied for this option to take effect.  The default is enabled.
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 680XX REGISTER SET 
@@ -425,7 +428,7 @@ described in this document.
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 COMMON 680XX ADDRESSING MODES 
@@ -459,13 +462,13 @@ The addressing modes supported by all 680xx processors:
         Note that Rn supports Rn.W and Rn.L forms.
 
         The following short forms are also supported:
-                @An     <==>    (An)
-                @An+    <==>    (An)+
-               -@An     <==>   -(An)
+                @An     &lt;==&gt;    (An)
+                @An+    &lt;==&gt;    (An)+
+               -@An     &lt;==&gt;   -(An)
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 ADDITIONAL 68020 ADDRESSING MODES 
@@ -504,7 +507,7 @@ only on the 68020 processor:
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 680XX INSTRUCTION SET 
@@ -759,19 +762,19 @@ Other Instructions
       # CHK  (.W)       [],Dn   Check Register Against Bounds
      ** CHK2 (.B,.W,.L) [],Rn   Check Register Against Bounds
      ** CMP2 (.B,.W,.L) [],Rn   Compare Register Against Bounds
-      # DIVS.L       [],Dr:Dq   Sgnd Division 64/32 -> 32r:32q
-      # DIVSL.L      [],Dr:Dq   Sgnd Division 32/32 -> 32r:32q
-      # DIVU.L       [],Dr:Dq   UnSngd Division 64/32 -> 32r:32q
-      # DIVUL.L      [],Dr:Dq   UnSngd Division 32/32 -> 32r:32q
+      # DIVS.L       [],Dr:Dq   Sgnd Division 64/32 -&gt; 32r:32q
+      # DIVSL.L      [],Dr:Dq   Sgnd Division 32/32 -&gt; 32r:32q
+      # DIVU.L       [],Dr:Dq   UnSngd Division 64/32 -&gt; 32r:32q
+      # DIVUL.L      [],Dr:Dq   UnSngd Division 32/32 -&gt; 32r:32q
         EXG  (.L)       Rn,Rn   Exchange Registers
         EXT  (.W,.L)    Dn      Sign Extend Byte Or Word
      ** EXTB (.L)       Dn      Sign Extend Byte To Long
         ILLEGAL                 Illegal Instruction Exception
       # LINK            An,#    Link And Allocate
-      # MULS.L       [],Dl      Signed Multiply 32*32 -> 32
-      # MULS.L       [],Dh:Dl   Signed Multiply 32*32 -> 64
-      # MULU.L       [],Dl      Unsigned Multiply 32*32 -> 32
-      # MULU.L       [],Dh:Dl   Unsigned Multiply 32*32 -> 64
+      # MULS.L       [],Dl      Signed Multiply 32*32 -&gt; 32
+      # MULS.L       [],Dh:Dl   Signed Multiply 32*32 -&gt; 64
+      # MULU.L       [],Dl      Unsigned Multiply 32*32 -&gt; 32
+      # MULU.L       [],Dh:Dl   Unsigned Multiply 32*32 -&gt; 64
         NOP                     No Operation
      ** PACK    Dx,Dy,#         Pack To BCD
                 -(ax),-(ay),#
@@ -792,7 +795,7 @@ Other Instructions
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 68881/68882 INSTRUCTION SET 
@@ -835,8 +838,8 @@ which is summarized here:
         {Dn}    Dynamic packing factor
         {#k}    Static packing factor
         #ccc    ROM constant
-        <label> Branching label
-        <list>  Data or Control register list
+        &lt;label&gt; Branching label
+        &lt;list&gt;  Data or Control register list
 
         B       Byte
         W       Word
@@ -861,9 +864,9 @@ Data Movement Instructions
 
         FMOVECR     #ccc,FPn            X
 
-        FMOVEM      [],<list>           L,X
+        FMOVEM      [],&lt;list&gt;           L,X
                     [],Dn               X
-                    <list>,[]           L,X
+                    &lt;list&gt;,[]           L,X
                     Dn,[]               X
 
 
@@ -929,8 +932,8 @@ Program Control Instructions
 
      Instruction    OP Syntax           OP Format
      -----------    ---------           ---------
-      * FBcc        <label>             W,L
-      * FDBcc       Dn,<label>          W
+      * FBcc        &lt;label&gt;             W,L
+      * FDBcc       Dn,&lt;label&gt;          W
         FNOP            -               -
       * FScc        []                  B
         FTST        []                  B,W,L,S,D,X,P
@@ -1001,18 +1004,20 @@ Condition Test Mnemonics
 </PRE></B></H4>
 <H5><A HREF="asxdoc.htm#TOP"> Go to the Documentation Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
-<H4>
-<P><A HREF="asxxxx.htm#JUMP">
-<IMG width=32 height=32 border=0 SRC="spcshp.gif" ALIGN=bottom></A>
-<B>...  Exit the ASxxxx Documentation</B></A></P>
+<P>
+<A HREF="asxxxx.htm#JUMP">
+<IMG width="32" height="32" border="0" SRC="spcshp.gif" ALIGN="bottom" alt="spaceship"></A>
+<B>...  Exit the ASxxxx Documentation</B>
+</P>
 
-<P><A href="../home.htm">
-<IMG width=32 height=32 border=0 SRC="home.gif" ALIGN=bottom></A>
-<B>...  Home Page</B></P>
-</H4>
+<P>
+<A href="../home.htm">
+<IMG width="32" height="32" border="0" SRC="home.gif" ALIGN="bottom" alt="home"></A>
+<B>...  Home Page</B>
+</P>
 
-<H6><P><B>Last Updated: September 2023</B></P></H6>
+<H6><B>Last Updated: March 2025</B></H6>
 </BODY> 
 </HTML>

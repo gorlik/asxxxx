@@ -265,7 +265,7 @@ t2$lsb:	.blkb	1			; Tick Counter (LSB)
 	  .nlist
 	  .dbg	dbg.tm0dbg
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me)
 	  jnb	tm0dbg,arg2
 	  jb	tm0xbt,arg1
 	  .x1setb
@@ -280,7 +280,7 @@ arg2:
 	  .nlist
 	  .dbg	dbg.tm0dbg
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me)
 	  jnb	tm0dbg,arg2
 	  jb	tm0xbt,arg1
 	  .x1clrb
@@ -297,7 +297,7 @@ arg2:
 	  .nlist
 	  .dbg	dbg.tm1dbg
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me)
 	  jnb	tm1dbg,arg2
 	  jb	tm1xbt,arg1
 	  .x1setb
@@ -312,7 +312,7 @@ arg2:
 	  .nlist
 	  .dbg	dbg.tm1dbg
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me)
 	  jnb	tm1dbg,arg2
 	  jb	tm1xbt,arg1
 	  .x1clrb
@@ -329,7 +329,7 @@ arg2:
 	  .nlist
 	  .dbg	dbg.tm2dbg
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me)
 	  jnb	tm2dbg,arg2
 	  jb	tm2xbt,arg1
 	  .x1setb
@@ -344,7 +344,7 @@ arg2:
 	  .nlist
 	  .dbg	dbg.tm2dbg
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me)
 	  jnb	tm2dbg,arg2
 	  jb	tm2xbt,arg1
 	  .x1clrb

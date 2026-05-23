@@ -1,16 +1,20 @@
-<HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML lang="en-US">
 <HEAD>
-<TITLE></TITLE>
+<TITLE>ASPDP11 Assembler</TITLE>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 </HEAD>
 <BODY BGCOLOR="#C0C0C0">
 
 <A href="../home.htm">
-<IMG width=343 height=58 border=0 SRC="welcom.gif" ALT="Welcome"></A>
+<IMG width="343" height="58" border="0" SRC="welcom.gif" ALT="Welcome"></A>
 
-<H2>ASPDP11  Assembler</H2>
+<H2>ASPDP11 Assembler</H2>
 
 <A NAME = "TOP"> </A> 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
      The  assembler  supports  the full instruction set of PDP11
@@ -22,7 +26,7 @@ particular processor core used in your application.
      The  assembler  supports  the basic PDP11 core instructions
 and the various subsets:  EIS, FIS, FPP, and  CIS  instructions.
 Various  alternate  instruction sequences used in the early UNIX
-(R) V7 assembler developed at AT&T are also implemented.  
+(R) V7 assembler developed at AT&amp;T are also implemented.  
 
      The  cycle  counts for each instruction were extracted from
 the DCJ11 documentation and is  expressed  in  microcycles  (one
@@ -33,7 +37,7 @@ number  of microcycles exceeds 99 then the cycle count will show
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 PROCESSOR SPECIFIC DIRECTIVES 
@@ -59,7 +63,7 @@ where:  string  represents a series of characters to be
         ^/  /   represent delimiting characters.  These
                 delimiters may be any paired printable
                 characters other than the left angle
-                bracket (<) or semicolon (;), providing
+                bracket (&lt;) or semicolon (;), providing
                 that the delimiting character is not
                 contained within the text string itself.
 
@@ -327,11 +331,11 @@ to some unexpected coding.
      rtyp:   The default is to allow any valid register designa-
 tion in floating point instructions.  Setting rtyp to a non-zero
 value  will  require floating register types to be used.  (These
-include ACn, Fn, or FRn where 0 <= n <= 5) 
+include ACn, Fn, or FRn where 0 &lt;= n &lt;= 5) 
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 PDP-11 REGISTER SET 
@@ -359,7 +363,7 @@ values:
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 PDP-11 ADDRESSING MODES 
@@ -448,7 +452,7 @@ counter.
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 PDP-11 INSTRUCTION SET 
@@ -570,7 +574,7 @@ argument is normally an address.
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 EIS - Extended Instruction Set 
@@ -595,7 +599,7 @@ EIS - Extended Instruction Set
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 FIS - Floating-Point Instruction Set 
@@ -612,23 +616,23 @@ FIS - Floating-Point Instruction Set
                 (R)+6   Is Address For Low  Part Of Answer
 
         If The Result Of The Floating-Point Instruction
-        Is < 2 ** (-128) Then The Argument Is Left Unchanged.
+        Is &lt; 2 ** (-128) Then The Argument Is Left Unchanged.
 
         FADD    R       Floating-Point Add
-            [(R)+4, (R)+6] <- [(R)+4, (R)+6] + [(R), (R)+2]
+            [(R)+4, (R)+6] &lt;- [(R)+4, (R)+6] + [(R), (R)+2]
 
         FSUB    R       Floating Point Subtract
-            [(R)+4, (R)+6] <- [(R)+4, (R)+6] - [(R), (R)+2]
+            [(R)+4, (R)+6] &lt;- [(R)+4, (R)+6] - [(R), (R)+2]
 
         FMUL    R       Floating-Point Multiplication
-            [(R)+4, (R)+6] <- [(R)+4, (R)+6] X [(R), (R)+2]
+            [(R)+4, (R)+6] &lt;- [(R)+4, (R)+6] X [(R), (R)+2]
 
         FDIV    R       Floating-Point Division
-            [(R)+4, (R)+6] <- [(R)+4, (R)+6] / [(R), (R)+2]
+            [(R)+4, (R)+6] &lt;- [(R)+4, (R)+6] / [(R), (R)+2]
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 FPP - Floating-Point Processor Instructions 
@@ -652,40 +656,40 @@ the floating long integer mode bit (FL) FL = 0 is 16-Bit Integer
 or FL = 1 is 32-Bit Long Integer.  
 
     Double Operands
-        ADDF/D     *[],ACn      (AC)   <-- (AC) + (*[])
+        ADDF/D     *[],ACn      (AC)   &lt;-- (AC) + (*[])
         CMPF/D     *[],ACn                 (*[]) - (AC)
-        DIVF/D     *[],ACn      (AC)   <-- (AC) / (*[])
-        LDCDF/FD   *[],ACn      (AC)   <-- Cxy(*[])
-        STCFD/DF   ACn,*[]      (*[])  <-- Cxy(AC)
+        DIVF/D     *[],ACn      (AC)   &lt;-- (AC) / (*[])
+        LDCDF/FD   *[],ACn      (AC)   &lt;-- Cxy(*[])
+        STCFD/DF   ACn,*[]      (*[])  &lt;-- Cxy(AC)
                      Where Cxy Specifies Conversion From
                      Floating Mode x To Floating Mode y
                      x = D, y = F  If FD = 0 (Single) LDCDF
                      x = F, y = D  If FD = 1 (Double) LDCFD
-        LDF/D      *[],ACn      (AC)   <-- (*[])
-        STF/D      ACn,*[]      (*[])  <-- (AC)
-        MODF/D     *[],ACn      PROD   <-- INT((AC) X (*[]))
-                     AC(Even)   (AC)   <-- INT(PROD)
-                                (AC|1) <-- PROD - INT(PROD)
-                     AC(Odd)    (AC)   <-- PROD - INT(PROD)
-        MULF/D     *[],ACn      (AC)   <-- (AC) X (*[])
-        SUBF/D     *[],ACn      (AC)   <-- (AC) - (*[])
+        LDF/D      *[],ACn      (AC)   &lt;-- (*[])
+        STF/D      ACn,*[]      (*[])  &lt;-- (AC)
+        MODF/D     *[],ACn      PROD   &lt;-- INT((AC) X (*[]))
+                     AC(Even)   (AC)   &lt;-- INT(PROD)
+                                (AC|1) &lt;-- PROD - INT(PROD)
+                     AC(Odd)    (AC)   &lt;-- PROD - INT(PROD)
+        MULF/D     *[],ACn      (AC)   &lt;-- (AC) X (*[])
+        SUBF/D     *[],ACn      (AC)   &lt;-- (AC) - (*[])
         LDEXP      [],ACn       Load ACn Exponent From []
         STEXP      ACn,[]       Store ACn Exponent Into []
 
     Single Operand
-        ABSF/D     *[]          (*[])  <-- | (*[]) |
-        CLRF/D     *[]          (*[])  <-- 0
-        NEGF/D     *[]          (*[])  <-- - (*[])
+        ABSF/D     *[]          (*[])  &lt;-- | (*[]) |
+        CLRF/D     *[]          (*[])  &lt;-- 0
+        NEGF/D     *[]          (*[])  &lt;-- - (*[])
         TSTF/D     *[]          Test Contents Of *[]
                      FC=0, FV=0,
-                     FZ <-- 1 If (*[]) Is = Zero Else FZ <-- 0
-                     FN <-- 1 If (*[]) Is < Zero Else FN <-- 0
+                     FZ &lt;-- 1 If (*[]) Is = Zero Else FZ &lt;-- 0
+                     FN &lt;-- 1 If (*[]) Is &lt; Zero Else FN &lt;-- 0
 
     Mixed Integer And Floating
-        LDCIF/ID/LF/LD  [],ACn          (AC)  <-- Cjx(SRC)
+        LDCIF/ID/LF/LD  [],ACn          (AC)  &lt;-- Cjx(SRC)
                         Where Cjx Specifies Conversion From
                         Integer Mode j To Floating Mode x
-        STCFI/FL/DI/DL  ACn,[]          (*[]) <-- Cxj(AC)
+        STCFI/FL/DI/DL  ACn,[]          (*[]) &lt;-- Cxj(AC)
                         Where Cxj Specifies Conversion From
                         Floating Mode x To Integer Mode j
 
@@ -696,18 +700,18 @@ or FL = 1 is 32-Bit Long Integer.
         CFCC            Copy Floating Condition Codes
         LDFPS   []      Load Floating-Point Status From []
         STFPS   []      Store Floating-Point Status Into []
-        SETD            FD <-- 1        Set Double-Precision
-        SETF            FD <-- 0        Set Single-Precision
-        SETL            FL <-- 1        Set Long-Integer
-        SETI            FL <-- 0        Set Short-Integer
-        STST    []      ([])    <-- FEC Floating Exception
+        SETD            FD &lt;-- 1        Set Double-Precision
+        SETF            FD &lt;-- 0        Set Single-Precision
+        SETL            FL &lt;-- 1        Set Long-Integer
+        SETI            FL &lt;-- 0        Set Short-Integer
+        STST    []      ([])    &lt;-- FEC Floating Exception
                                           Register
-                        ([]+2)  <-- FEA Floating Address
+                        ([]+2)  &lt;-- FEA Floating Address
                                           Register
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 CIS - Commercial Instruction Set 
@@ -779,10 +783,10 @@ machines but is included here for completeness.
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
-AT&T UNIX V7 ALTERNATE MNEMONICS 
+AT&amp;T UNIX V7 ALTERNATE MNEMONICS 
 
      Several  assembler  mnemonics  used by the V7 assembler are
 included as alternates to those generally used by the PDP-11 as-
@@ -858,18 +862,21 @@ following table describes the combined mnemonics:
 </PRE></B></H4>
 <H5><A HREF="asxdoc.htm#TOP"> Go to the Documentation Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
-<H4>
-<P><A HREF="asxxxx.htm#JUMP">
-<IMG width=32 height=32 border=0 SRC="spcshp.gif" ALIGN=bottom></A>
-<B>...  Exit the ASxxxx Documentation</B></A></P>
+<P>
+<A HREF="asxxxx.htm#JUMP">
+<IMG width="32" height="32" border="0" SRC="spcshp.gif" ALIGN="bottom" alt="spaceship"></A>
+<B>...  Exit the ASxxxx Documentation</B>
+</P>
 
-<P><A href="../home.htm">
-<IMG width=32 height=32 border=0 SRC="home.gif" ALIGN=bottom></A>
-<B>...  Home Page</B></P>
-</H4>
+<P>
+<A href="../home.htm">
+<IMG width="32" height="32" border="0" SRC="home.gif" ALIGN="bottom" alt="home"></A>
+<B>...  Home Page</B>
+</P>
 
-<H6><P><B>Last Updated: September 2023</B></P></H6>
+<H6><B>Last Updated: March 2025</B></H6>
 </BODY> 
 </HTML>
+

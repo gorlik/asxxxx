@@ -1,16 +1,19 @@
-<HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML lang="en-US">
 <HEAD>
-<TITLE></TITLE>
+<TITLE>AS1802  Assembler</TITLE>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
 </HEAD>
 <BODY BGCOLOR="#C0C0C0">
 
 <A href="../home.htm">
-<IMG width=343 height=58 border=0 SRC="welcom.gif" ALT="Welcome"></A>
+<IMG width="343" height="58" border="0" SRC="welcom.gif" ALT="Welcome"></A>
 
 <H2>AS1802  Assembler</H2>
 
 <A NAME = "TOP"> </A> 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 ACKNOWLEDGMENT 
@@ -26,7 +29,7 @@ cross assembler.
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 1802 REGISTER SET 
@@ -122,7 +125,7 @@ struction, refer to the 1802 technical data for valid modes.
 
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
 CDP1802 COSMAC Microprocessor Instruction Set Summary 
@@ -160,7 +163,7 @@ CDP1802 COSMAC Microprocessor Instruction Set Summary
         ----------------------------------------------------------------
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
         ----------------------------------------------------------------
@@ -169,52 +172,52 @@ CDP1802 COSMAC Microprocessor Instruction Set Summary
         |                                                              |
         |                    _________    _________                    |
         |                  _|         \__/         |_                  |
-        |       --&gt CLOCK |_|1                   40|_| Vdd             |
+        |       --&gt; CLOCK |_|1                   40|_| Vdd             |
         |            ____  _|                      |_  ____            |
-        |        --&gt WAIT |_|2                   39|_| XTAL --&gt        |
+        |        --&gt; WAIT |_|2                   39|_| XTAL --&gt;        |
         |           _____  _|                      |_  ______          |
-        |       --&gt CLEAR |_|3                   38|_| DMA IN &lt--      |
+        |       --&gt; CLEAR |_|3                   38|_| DMA IN &lt;--      |
         |                  _|                      |_  _______         |
-        |           &lt-- Q |_|4                   37|_| DMA OUT &lt--     |
+        |           &lt;-- Q |_|4                   37|_| DMA OUT &lt;--     |
         |                  _|                      |_  _________       |
-        |         &lt-- SC1 |_|5                   36|_| INTERRUPT &lt--   |
+        |         &lt;-- SC1 |_|5                   36|_| INTERRUPT &lt;--   |
         |                  _|                      |_  ___             |
-        |         &lt-- SC0 |_|6                   35|_| MWR &lt--         |
+        |         &lt;-- SC0 |_|6                   35|_| MWR &lt;--         |
         |             ___  _|                      |_                  |
-        |         &lt-- MRD |_|7                   34|_| TPA --&gt         |
+        |         &lt;-- MRD |_|7                   34|_| TPA --&gt;         |
         |                  _|                      |_                  |
-        |      &lt--&gt BUS 7 |_|8                   33|_| TPB --&gt         |
+        |      &lt;--&gt; BUS 7 |_|8                   33|_| TPB --&gt;         |
         |                  _|                      |_                  |
-        |      &lt--&gt BUS 6 |_|9                   32|_| MA7 --&gt         |
+        |      &lt;--&gt; BUS 6 |_|9                   32|_| MA7 --&gt;         |
         |                  _|                      |_                  |
-        |      &lt--&gt BUS 5 |_|10       1802       31|_| MA6 --&gt         |
+        |      &lt;--&gt; BUS 5 |_|10       1802       31|_| MA6 --&gt;         |
         |                  _|                      |_                  |
-        |      &lt--&gt BUS 4 |_|11                  30|_| MA5 --&gt         |
+        |      &lt;--&gt; BUS 4 |_|11                  30|_| MA5 --&gt;         |
         |                  _|                      |_                  |
-        |      &lt--&gt BUS 3 |_|12                  29|_| MA4 --&gt         |
+        |      &lt;--&gt; BUS 3 |_|12                  29|_| MA4 --&gt;         |
         |                  _|                      |_                  |
-        |      &lt--&gt BUS 2 |_|13                  28|_| MA3 --&gt         |
+        |      &lt;--&gt; BUS 2 |_|13                  28|_| MA3 --&gt;         |
         |                  _|                      |_                  |
-        |      &lt--&gt BUS 1 |_|14                  27|_| MA2 --&gt         |
+        |      &lt;--&gt; BUS 1 |_|14                  27|_| MA2 --&gt;         |
         |                  _|                      |_                  |
-        |      &lt--&gt BUS 0 |_|15                  26|_| MA1 --&gt         |
+        |      &lt;--&gt; BUS 0 |_|15                  26|_| MA1 --&gt;         |
         |                  _|                      |_                  |
-        |             Vcc |_|16                  25|_| MA0 --&gt         |
+        |             Vcc |_|16                  25|_| MA0 --&gt;         |
         |                  _|                      |_  ___             |
-        |          &lt-- N2 |_|17                  24|_| EF1 &lt--         |
+        |          &lt;-- N2 |_|17                  24|_| EF1 &lt;--         |
         |                  _|                      |_  ___             |
-        |          &lt-- N1 |_|18                  23|_| EF2 &lt--         |
+        |          &lt;-- N1 |_|18                  23|_| EF2 &lt;--         |
         |                  _|                      |_  ___             |
-        |          &lt-- N0 |_|19                  22|_| EF3 &lt--         |
+        |          &lt;-- N0 |_|19                  22|_| EF3 &lt;--         |
         |                  _|                      |_  ___             |
-        |             Vss |_|20                  21|_| EF4 &lt--         |
+        |             Vss |_|20                  21|_| EF4 &lt;--         |
         |                   |______________________|                   |
         |                                                              |
         |                                                              |
         ----------------------------------------------------------------
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
         ----------------------------------------------------------------
@@ -224,8 +227,8 @@ CDP1802 COSMAC Microprocessor Instruction Set Summary
         |ADCI i|7C|*|Add with Carry Immediate    |{DF,D}=mp+D+DF,p=p+1 |
         |ADD   |F4|*|Add                         |{DF,D}=mx+D          |
         |ADI  i|FC|*|Add Immediate               |{DF,D}=mp+D,p=p+1    |
-        |AND   |F2|*|Logical AND                 |D={mx}&D             |
-        |ANI  i|FA|*|Logical AND Immediate       |D={mp}&D,p=p+1       |
+        |AND   |F2|*|Logical AND                 |D={mx}&amp;D             |
+        |ANI  i|FA|*|Logical AND Immediate       |D={mp}&amp;D,p=p+1       |
         |B1   a|34|-|Branch if EF1               |If EF1=1 BR else NBR |
         |B2   a|35|-|Branch if EF2               |If EF2=1 BR else NBR |
         |B3   a|36|-|Branch if EF3               |If EF3=1 BR else NBR |
@@ -269,7 +272,7 @@ CDP1802 COSMAC Microprocessor Instruction Set Summary
         ----------------------------------------------------------------
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
         ----------------------------------------------------------------
@@ -303,10 +306,10 @@ CDP1802 COSMAC Microprocessor Instruction Set Summary
         |SEP  r|DN|-|Set P                       |P=N                  |
         |SEQ   |7B|-|Set Q                       |Q=1                  |
         |SEX  r|EN|-|Set X                       |X=N                  |
-        |SHL   |FE|*|Shift Left                  |{DF,D}={DF,D,0}&lt-    |
-        |SHLC  |7E|*|Shift Left with Carry       |{DF,D}={DF,D}&lt-      |
-        |SHR   |F6|*|Shift Right                 |{D,DF}=-&gt{0,D,DF}    |
-        |SHRC  |76|*|Shift Right with Carry      |{D,DF}=-&gt{D,DF}      |
+        |SHL   |FE|*|Shift Left                  |{DF,D}={DF,D,0}&lt;-    |
+        |SHLC  |7E|*|Shift Left with Carry       |{DF,D}={DF,D}&lt;-      |
+        |SHR   |F6|*|Shift Right                 |{D,DF}=-&gt;{0,D,DF}    |
+        |SHRC  |76|*|Shift Right with Carry      |{D,DF}=-&gt;{D,DF}      |
         |SKP   |38|-|Short Skip                  |See NBR              |
         |SMB   |77|*|Subtract Memory with Borrow |{DF,D}=D-mx-{~DF}    |
         |SMBI i|7F|*|Subtract Mem with Borrow Imm|{DF,D}=D-mp-~DF,p=p+1|
@@ -325,7 +328,7 @@ CDP1802 COSMAC Microprocessor Instruction Set Summary
         ----------------------------------------------------------------
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
         ----------------------------------------------------------------
@@ -366,7 +369,7 @@ CDP1802 COSMAC Microprocessor Instruction Set Summary
         ----------------------------------------------------------------
 </PRE></B></H4>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
         ----------------------------------------------------------------
@@ -382,34 +385,37 @@ CDP1802 COSMAC Microprocessor Instruction Set Summary
         | -         |Arithmetic subtraction                            |
         | *         |Arithmetic multiplication                         |
         | /         |Arithmetic division                               |
-        | &         |Logical AND                                       |
+        | &amp;         |Logical AND                                       |
         | ~         |Logical NOT                                       |
         | v         |Logical inclusive OR                              |
         | .         |Logical exclusive OR                              |
-        | &lt-        |Rotate left                                       |
-        | -&gt        |Rotate right                                      |
+        | &lt;-        |Rotate left                                       |
+        | -&gt;        |Rotate right                                      |
         | { }       |Combination of operands                           |
         | ?         |Hexadecimal digit (0-F)                           |
-        | --&gt       |Input pin                                         |
-        | &lt--       |Output pin                                        |
-        | &lt--&gt      |Input/output pin                                  |
+        | --&gt;       |Input pin                                         |
+        | &lt;--       |Output pin                                        |
+        | &lt;--&gt;      |Input/output pin                                  |
         ----------------------------------------------------------------
 
 </PRE></B></H4>
 <H5><A HREF="asxdoc.htm#TOP"> Go to the Documentation Index</A></H5>
 
-<IMG width=576 height=5 border=0 SRC="rnbow.gif">
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
-<H4>
-<P><A HREF="asxxxx.htm#JUMP">
-<IMG width=32 height=32 border=0 SRC="spcshp.gif" ALIGN=bottom></A>
-<B>...  Exit the ASxxxx Documentation</B></A></P>
+<P>
+<A HREF="asxxxx.htm#JUMP">
+<IMG width="32" height="32" border="0" SRC="spcshp.gif" ALIGN="bottom" alt="spaceship"></A>
+<B>...  Exit the ASxxxx Documentation</B>
+</P>
 
-<P><A href="../home.htm">
-<IMG width=32 height=32 border=0 SRC="home.gif" ALIGN=bottom></A>
-<B>...  Home Page</B></P>
-</H4>
+<P>
+<A href="../home.htm">
+<IMG width="32" height="32" border="0" SRC="home.gif" ALIGN="bottom" alt="home"></A>
+<B>...  Home Page</B>
+</P>
 
-<H6><P><B>Last Updated: September 2023</B></P></H6>
+<H6><B>Last Updated: March 2025</B></H6>
 </BODY> 
 </HTML>
+

@@ -200,6 +200,10 @@ del ..\..\..\asxtst\asmt2bhi.lst
 ..\exe\assx.exe -glacxff ..\..\..\asxtst\asmt2bhi.asm
 ..\exe\asxscn.exe ..\..\..\asxtst\asmt2bhi.lst
 
+del ..\..\..\asxtst\asmt2blo.lst
+..\exe\astlcs90.exe -glacxff ..\..\..\asxtst\asmt2blo.asm
+..\exe\asxscn.exe ..\..\..\asxtst\asmt2blo.lst
+
 del ..\..\..\asxtst\asmt2bhi.lst
 ..\exe\asz8.exe -glacxff ..\..\..\asxtst\asmt2bhi.asm
 ..\exe\asxscn.exe ..\..\..\asxtst\asmt2bhi.lst
@@ -674,6 +678,19 @@ del ..\..\..\assx\tsx.rst
 ..\exe\aslink.exe -nxu -g X=0 ..\..\..\assx\tsx.rel
 ..\exe\asxscn.exe -i ..\..\..\assx\tsx.rst
 
+del ..\..\..\astlcs90\tt90.rel
+del ..\..\..\astlcs90\tt90.lst
+del ..\..\..\astlcs90\tt90.hlr
+del ..\..\..\astlcs90\tt90.rst
+..\exe\astlcs90.exe -locxff ..\..\..\astlcs90\tt90.asm
+..\exe\asxscn.exe -i ..\..\..\astlcs90\tt90.lst
+..\exe\aslink.exe -nxu ..\..\..\astlcs90\tt90.rel
+..\exe\asxscn.exe -i ..\..\..\astlcs90\tt90.rst
+..\exe\astlcs90.exe -locxff -i ".list" -i "EXTERNAL=1" ..\..\..\astlcs90\tt90.asm
+..\exe\astlcs90.exe -locxff ..\..\..\astlcs90\tt90dp.asm
+..\exe\aslink.exe -nxu -g xn=0 -g xk=0 -g xx=0 -g xy1=djnz1+0x02 -g xy2=djnz2+0x02 -g xw=0 -g xmn=0 -g xvw=0 -g djnzx=djnz+0x02 -g jrx=jr+0x02 -g jrlx=jrl+0x03 -g calrx=calr+0x03 -g ldarx=ldar+0x03 -a DP_Area=0xFF00 ..\..\..\astlcs90\tt90 ..\..\..\astlcs90\tt90dp
+..\exe\asxscn.exe -i ..\..\..\astlcs90\tt90.rst
+
 del ..\..\..\asz8\tz8.rel
 del ..\..\..\asz8\tz8.lst
 del ..\..\..\asz8\tz8.hlr
@@ -685,30 +702,30 @@ del ..\..\..\asz8\tz8.rst
 
 del ..\..\..\asz80\tz80.lst
 ..\exe\asz80.exe -glacxff ..\..\..\asz80\tz80.asm
-..\exe\asxscn.exe ..\..\..\asz80\tz80.lst
+..\exe\asxscn.exe -i ..\..\..\asz80\tz80.lst
 
 del ..\..\..\asz280\*.rel
 del ..\..\..\asz280\*.lst
 del ..\..\..\asz280\*.hlr
 del ..\..\..\asz280\*.rst
-..\exe\asz280 -lbcxff -p -o+ ..\..\..\asz280\tzx_CL ..\..\..\asz280\asz_CL ..\..\..\asz280\tz280x 
-..\exe\asxscn ..\..\..\asz280\tzx_CL.lst
+..\exe\asz280 -lbcxff -p -o+ ..\..\..\asz280\tzx_cl ..\..\..\asz280\asz_cl ..\..\..\asz280\tz280x 
+..\exe\asxscn ..\..\..\asz280\tzx_cl.lst
 
-..\exe\asz280 -lbcxff -p -o+ ..\..\..\asz280\tzx_CR ..\..\..\asz280\asz_CR ..\..\..\asz280\tz280x 
-..\exe\aslink -nxuf ..\..\..\asz280\tzx_CR
-..\exe\asxscn ..\..\..\asz280\tzx_CR.rst
+..\exe\asz280 -lbcxff -p -o+ ..\..\..\asz280\tzx_cr ..\..\..\asz280\asz_cr ..\..\..\asz280\tz280x 
+..\exe\aslink -nxuf ..\..\..\asz280\tzx_cr
+..\exe\asxscn ..\..\..\asz280\tzx_cr.rst
 
-..\exe\asz280 -lbcxff -p -o+ ..\..\..\asz280\tzx_XL ..\..\..\asz280\asz_XL ..\..\..\asz280\tz280x 
-..\exe\asxscn ..\..\..\asz280\tzx_XL.lst
+..\exe\asz280 -lbcxff -p -o+ ..\..\..\asz280\tzx_xl ..\..\..\asz280\asz_xl ..\..\..\asz280\tz280x 
+..\exe\asxscn ..\..\..\asz280\tzx_xl.lst
 
-..\exe\asz280 -lbcxff -p -o+ ..\..\..\asz280\tzx_XR ..\..\..\asz280\asz_XR ..\..\..\asz280\tz280x 
-..\exe\aslink -nxuf ..\..\..\asz280\tzx_XR
-..\exe\asxscn ..\..\..\asz280\tzx_XR.rst
+..\exe\asz280 -lbcxff -p -o+ ..\..\..\asz280\tzx_xr ..\..\..\asz280\asz_xr ..\..\..\asz280\tz280x 
+..\exe\aslink -nxuf ..\..\..\asz280\tzx_xr
+..\exe\asxscn ..\..\..\asz280\tzx_xr.rst
 
-..\exe\asz280 -lbcxff -p -o+ ..\..\..\asz280\tzx_EXL ..\..\..\asz280\asz_EXL ..\..\..\asz280\tz280x 
-..\exe\asxscn ..\..\..\asz280\tzx_EXL.lst
+..\exe\asz280 -lbcxff -p -o+ ..\..\..\asz280\tzx_exl ..\..\..\asz280\asz_exl ..\..\..\asz280\tz280x 
+..\exe\asxscn ..\..\..\asz280\tzx_exl.lst
 
-..\exe\asz280 -lbcxff -p -o+ ..\..\..\asz280\tzx_EXR ..\..\..\asz280\asz_EXR ..\..\..\asz280\tz280x 
-..\exe\aslink -nxuf ..\..\..\asz280\tzx_EXR
-..\exe\asxscn ..\..\..\asz280\tzx_EXR.rst
+..\exe\asz280 -lbcxff -p -o+ ..\..\..\asz280\tzx_exr ..\..\..\asz280\asz_exr ..\..\..\asz280\tz280x 
+..\exe\aslink -nxuf ..\..\..\asz280\tzx_exr
+..\exe\asxscn ..\..\..\asz280\tzx_exr.rst
 

@@ -1,0 +1,408 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML lang="en-US">
+<HEAD>
+<TITLE>ASZ80  Assembler</TITLE>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+</HEAD>
+<BODY BGCOLOR="#C0C0C0">
+
+<A href="../home.htm">
+<IMG width="343" height="58" border="0" SRC="welcom.gif" ALT="Welcome"></A>
+
+<H2>ASTLCS90  Assembler</H2>
+
+<A NAME = "TOP"> </A> 
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
+<H4><B><PRE>
+ASTLCS90 ASSEMBLER SPECIFIC DIRECTIVE
+ 
+
+.setdp Directive 
+
+Format:  
+
+        .setdp [base [,area]] 
+
+            The .setdp directive is used to inform the
+            assembler of the current direct page region
+            and the offset address within the selected
+            area.  The normal invocation methods are:
+
+                .area   DIRECT  (PAG)
+                .setdp
+
+                or
+
+                .setdp  #,DIRECT
+
+            The only valid value for # is 0xFF00, and
+            DIRECT is the direct page address area.
+            The area must be mapped to include the
+            address range 0xFF00 to 0xFFFF or the linker
+            will flag direct page accesses with a paging
+            error.
+
+   The TLCS90 series has a direct page region of 0xFF00 - 0xFFFF
+which is accessed using the short form addressing (n) when n has
+a  value in the range 0xFF00 - 0xFFFF.  When the argument is not
+a local constant, ie an externally defined constant or  external
+label,  then  the  default assembler mode is to use the long ad-
+dressing form (mn).  This can be overriden by using the '*' suf-
+fix,  (*n) or simply *n, to force the assembler to use the short
+form and let the linker determine if the value or address is  in
+the acceptable range of 0xFF00 - 0xFFFF for direct page values. 
+
+
+TLCS90 STATE COUNT 
+
+  The  cycle count output by the assembler is the number of pro-
+cessor states required for  each  instruction.   The  number  is
+always  the  largest  value for the instruction.  For the TLCS90
+series each state requires 2 clock cycles to complete.  
+
+
+TLCS90 REGISTER SET 
+
+The  following  is  a  list  of  the  TLCS90  registers  used by
+ASTLCS90:  
+
+        a,b,c,d,e,h,l   -       8-bit registers
+        bc,de,hl        -       16-bit registers <msb:lsb>
+        ix,iy           -       16-bit index registers
+        sp      -       stack pointer
+        pc      -       program counter
+        af, af' -       a and f combined registers
+
+
+TLCS90 OPERAND SUMMARY 
+
+The following tables describe the operand types supported by the
+ASTLCS90 assembler:  
+
+        af,af'  a + flags registers
+        r       8-bit register  a,b,c,d,e,h,l
+        rr      16-bit register bc,de,hl,ix,iy,sp
+        jx      register        ix,iy,sp
+        jx+d    register + d    ix,iy,sp
+        hl+a    register + a    hl
+        (#)n    8-bit constant  0x00 - 0xFF
+        (#)mn   16-bit constant 0x0000 - 0xFFFF
+        d       8-bit offset    -128 to 127
+        cd      16-bit offset   -32768 to 32767
+        b       bit number      0 to 7
+        cc      condition code  (see table)
+        (rr)    register indirect
+        (jx+d)  indexed         (ix+d),(iy+d),(sp+d)
+        (hl+a)  register index  a = -128 to 127
+        (mn)    extended        (0x0000) to (0xFFFF)
+        (n)     direct          (0xFF00) to (0xFFFF)
+        pc+d    program counter relative
+
+                Where mn in (mn), n in (n), and pc+d
+                are normally replaced with just the
+                label of the addressed location.
+
+                The +a must follow the HL register.
+
+                An alternate form for the indexed modes
+                (ix/iy/sp + d) places the offset d before
+                the indexed register - d(ix/iy/sp)
+
+
+                Also note that the program counter pc
+                is equivalent to '.' which is the
+                address of the instruction.
+
+The terms n, mn, d, cd, and b may all be expressions.  
+
+   The  ASTLCS90  assembler  allows  externally  defined symbols
+(both constants or program locations) to be  used  as  arguments
+for  mn, n, d, cd, and b.  This has special consequences for the
+(mn), (n), and pc+d addressing modes.   An  external  argument's
+value  is  unknown at assembly time and thus the direct page (n)
+addressing mode always defaults to  the  (mn)  addressing  mode.
+The  default behavior is overridden if the argument is preceeded
+by the * character.  The form (*n) forces the assembler  to  use
+the direct page mode.  In this case the linker will determine if
+the resolved address is within the direct page address range and
+report  an  error  if  it is not.  The form (*n) also interprets
+constants in the  range  0x0000 - 0x00FF  as  offsets  into  the
+direct page which begins at 0xFF00.  
+
+   To  use  the  form pc+d the d must be a number or locally de-
+fined constant.  For all other relative  addressing  the  'pc+d'
+must be replaced with a label or label +- constant.  
+
+
+The cc codes are listed in the following table:  
+
+        f       false
+        lt      signed less than
+        le      signed less than or equal
+        ule     unsigned less than or equal
+        ov      overflow or even parity
+        mi / m  negative
+        eq      equal
+        c       carry set
+        t       true
+        ge      signed greater than or equal
+        gt      signed greater than
+        ugt     unsigned greater than
+        nov     no overflow
+        pl / p  positive
+        ne      not equal
+        nc      c not set
+
+        z       zero
+        nz      not zero
+        pe      even parity
+        po      odd parity
+        uge     unsigned greater than or equal
+        ult     unsigned less than
+
+
+TLCS90 INSTRUCTION SET 
+
+
+   The  following tables list all TLCS90 mnemonics recognized by
+the ASTLCS90 assembler.  The designation ___  refers  to  a  re-
+quired  addressing  mode  argument.   The  following tables also
+specify the format for each addressing mode supported by the in-
+struction.  
+
+
+8-Bit Transfer 
+
+        ld  a,r         ld  r,a         r,r
+
+        ld  r,n         ld  a,(n)       ld (n),a
+
+        ld  r,___       (rr),(jx+d),(hl+a),(mn),(n)
+
+        ld  ___,r       (rr),(jx+d),(hl+a),(mn),(n)
+
+        ld  ___,n       (rr),(jx+d),(hl+a),(mn),(n)
+
+
+16-Bit Transfer 
+
+        ld  hl,rr       ld  rr,hl       rr,rr
+
+        ld  rr,mn       ld  hl,(n)      ld (n),hl
+
+        ld  rr,___      (rr),(jx+d),(hl+a),(mn),(n)
+
+        ld  ___,rr      (rr),(jx+d),(hl+a),(mn),(n)
+
+        ldw ___,mn      (rr),(jx+d),(hl+a),(mn),(n)
+
+        push  ___       bc,de,hl,ix,iy,af
+        pop   ___       bc,de,hl,ix,iy,af
+
+        lda rr,___      jx+d,hl+a
+
+
+8-Bit Arithmetic Instructions 
+
+        add  a,r        add  a,n        add  r,n
+        add  a,___      (rr),(jx+d),(hl+a),(mn),(n)
+        add  ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+
+        adc  a,r        adc  a,n        adc  r,n
+        adc  a,___      (rr),(jx+d),(hl+a),(mn),(n)
+        adc  ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+
+        sub  a,r        sub  a,n        sub  r,n
+        sub  a,___      (rr),(jx+d),(hl+a),(mn),(n)
+        sub  ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+
+        sbc  a,r        sbc  a,n        sbc  r,n
+        sbc  a,___      (rr),(jx+d),(hl+a),(mn),(n)
+        sbc  ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+
+        and  a,r        and  a,n        and  r,n
+        and  a,___      (rr),(jx+d),(hl+a),(mn),(n)
+        and  ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+
+        or   a,r        or   a,n        or   r,n
+        or   a,___      (rr),(jx+d),(hl+a),(mn),(n)
+        or   ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+
+        xor  a,r        xor  a,n        xor  r,n
+        xor  a,___      (rr),(jx+d),(hl+a),(mn),(n)
+        xor  ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+
+        cp   a,r        cp   a,n        cp   r,n
+        cp   a,___      (rr),(jx+d),(hl+a),(mn),(n)
+        cp   ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+
+        inc  r
+        inc  ___        (rr),(jx+d),(hl+a),(mn),(n)
+
+        dec  r
+        dec  ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+
+        incx (n)
+        decx (n)
+
+
+Block Transfer And Search 
+
+        exx
+
+        ex  de,hl
+        ex  af,af'
+        ex  ___,rr      (rr),(jx+d),(hl+a),(mn),(n)
+
+        ldi             ldir
+        ldd             lddr
+        cpi             cpir
+        cpd             cpdr
+
+
+Special Operation And CPU Control 
+
+        daa  a          cpl  a          neg  a
+
+        ldar hl,pc+d
+
+        ccf             scf             rcf
+
+        nop             halt
+
+        di              ei              swi
+
+        mul  hl,r       mul  hl,n
+        mul  hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+
+        div  hl,r       div  hl,n
+        div  hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+
+
+16-Bit Arithmetic Operation 
+
+        add  hl,rr      add  hl,mn
+        add  hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+
+        adc  hl,rr      adc  hl,mn
+        adc  hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+
+        sub  hl,rr      sub  hl,mn
+        sub  hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+
+        sbc  hl,rr      sbc  hl,mn
+        add  hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+
+        and  hl,rr      and  hl,mn
+        and  hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+
+        or   hl,rr      or   hl,mn
+        or   hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+
+        xor  hl,rr      xor  hl,mn
+        xor  hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+
+        cp   hl,rr      cp   hl,mn
+        cp   hl,___     (rr),(jx+d),(hl+a),(mn),(n)
+
+        inc  rr
+        incw ___        (rr),(jx+d),(hl+a),(mn),(n)
+
+        dec  rr
+        decw ___,n      (rr),(jx+d),(hl+a),(mn),(n)
+
+
+Rotate and Shift Instructions 
+
+        rlc  r          rlca
+        rlc  ___        (rr),(jx+d),(hl+a),(mn),(n)
+
+        rrc  r          rrca
+        rrc  ___        (rr),(jx+d),(hl+a),(mn),(n)
+
+        rl   r          rla
+        rl   ___        (rr),(jx+d),(hl+a),(mn),(n)
+
+        rr   r          rra
+        rr   ___        (rr),(jx+d),(hl+a),(mn),(n)
+
+        sla  r          slaa
+        sla  ___        (rr),(jx+d),(hl+a),(mn),(n)
+
+        sra  r          sraa
+        sra  ___        (rr),(jx+d),(hl+a),(mn),(n)
+
+        sll  r          slla
+        sll  ___        (rr),(jx+d),(hl+a),(mn),(n)
+
+        srl  r          srla
+        srl  ___        (rr),(jx+d),(hl+a),(mn),(n)
+
+        rld  ___        (rr),(jx+d),(hl+a),(mn),(n)
+
+        rrd  ___        (rr),(jx+d),(hl+a),(mn),(n)
+
+
+Bit Manipulation 
+
+        bit  b,r
+        bit  b,___      (rr),(jx+d),(hl+a),(mn),(n)
+
+        set  b,r
+        set  b,___      (rr),(jx+d),(hl+a),(mn),(n)
+
+        res  b,r
+        res  b,___      (rr),(jx+d),(hl+a),(mn),(n)
+
+        tset b,r
+        tset b,___      (rr),(jx+d),(hl+a),(mn),(n)
+
+
+Short Branch Instructions 
+
+        djnz pc+d
+        djnz bc,pc+d
+
+        jr   pc+d
+        jr   cc,pc+d
+
+
+Long Branch Instructions 
+
+        jp   mn
+        jp   cc,___     rr, jx+d, hl+a, mn
+
+        call mn
+        call cc,___     rr, jx+d, hl+a, mn
+
+        jrl  pc+cd
+        calr pc+cd
+
+
+Return Instructions 
+
+        ret
+        ret  cc
+        rti
+</PRE></B></H4>
+<H5><A HREF="asxdoc.htm#TOP"> Go to the Documentation Index</A></H5>
+
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
+<P>
+<A HREF="asxxxx.htm#JUMP">
+<IMG width="32" height="32" border="0" SRC="spcshp.gif" ALIGN="bottom" alt="spaceship"></A>
+<B>...  Exit the ASxxxx Documentation</B>
+</P>
+
+<P>
+<A href="../home.htm">
+<IMG width="32" height="32" border="0" SRC="home.gif" ALIGN="bottom" alt="home"></A>
+<B>...  Home Page</B>
+</P>
+
+<H6><B>Last Updated: January 2026</B></H6>
+</BODY> 
+</HTML>

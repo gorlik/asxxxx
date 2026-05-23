@@ -1,7 +1,7 @@
 /* z80pst.c */
 
 /*
- *  Copyright (C) 1989-2023  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -220,6 +220,7 @@ struct	mne	mne[] = {
     {	NULL,	".z80",		S_CPU,		0,	X_Z80	},
     {	NULL,	".hd64",	S_CPU,		0,	X_HD64	},
     {	NULL,	".z180",	S_CPU,		0,	X_HD64	},
+    {	NULL,	".zxn",		S_CPU,		0,	X_ZXN	},
     {	NULL,	".8080",	S_CPU,		0,	X_8080	},
     {	NULL,	".8085",	S_CPU,		0,	X_8085	},
     {	NULL,	".8085x",	S_CPU,		0,	X_8085X	},
@@ -265,6 +266,7 @@ struct	mne	mne[] = {
     {	NULL,	"rrc",		S_RL,		0,	0x08	},
     {	NULL,	"sla",		S_RL,		0,	0x20	},
     {	NULL,	"sra",		S_RL,		0,	0x28	},
+    {	NULL,	"sll",		S_RL_UNDOCD,	0,	0x30	},
     {	NULL,	"srl",		S_RL,		0,	0x38	},
 
     {	NULL,	"rst",		S_RST,		0,	0xC7	},
@@ -321,7 +323,35 @@ struct	mne	mne[] = {
     {	NULL,	"mlt",		X_MLT,		0,	0x4C	},
 
     {	NULL,	"tst",		X_TST,		0,	0x04	},
+    {	NULL,	"test",		X_TST,		0,	0x04	},
     {	NULL,	"tstio",	X_TSTIO,	0,	0x74	},
+
+	/* z80-zxn */
+
+    {   NULL,   "swapnib",      X_ZXN_INH2,     0,      0x23    },
+    {   NULL,   "swap",         X_ZXN_INH2,     0,      0x23    },
+    {   NULL,   "mul",          X_ZXN_MUL,      0,      0x30    },
+    {   NULL,   "outinb",       X_ZXN_INH2,     0,      0x90    },
+    {   NULL,   "ldix",         X_ZXN_INH2,     0,      0xA4    },
+    {   NULL,   "ldirx",        X_ZXN_INH2,     0,      0xB4    },
+    {   NULL,   "lddx",         X_ZXN_INH2,     0,      0xAC    },
+    {   NULL,   "lddrx",        X_ZXN_INH2,     0,      0xBC    },
+    {   NULL,   "ldirscale",    X_ZXN_INH2,     0,      0xB6    },
+    {   NULL,   "ldpirx",       X_ZXN_INH2,     0,      0xB7    },
+    {   NULL,   "mirror",       X_ZXN_MIRROR,   0,      0       },
+    {   NULL,   "nextreg",      X_ZXN_NEXTREG,  0,      0       },
+    {   NULL,   "pixeldn",      X_ZXN_INH2,     0,      0x93    },
+    {   NULL,   "pixelad",      X_ZXN_INH2,     0,      0x94    },
+    {   NULL,   "setae",        X_ZXN_INH2,     0,      0x95    },
+    {   NULL,   "cu.wait",      X_ZXN_CU_WAIT,  0,      0       },
+    {   NULL,   "cu.move",      X_ZXN_CU_MOVE,  0,      0       },
+    {   NULL,   "cu.stop",      X_ZXN_CU_STOP,  0,      0       },
+    {   NULL,   "cu.nop",       X_ZXN_CU_NOP,   0,      0       },
+    {   NULL,   "bsla",         X_ZXN_INH2,     0,      0x28    },
+    {   NULL,   "bsra",         X_ZXN_INH2,     0,      0x29    },
+    {   NULL,   "bsrl",         X_ZXN_INH2,     0,      0x2a    },
+    {   NULL,   "bsrf",         X_ZXN_INH2,     0,      0x2b    },
+    {   NULL,   "brlc",         X_ZXN_INH2,     0,      0x2c    },
 
 	/*
 	 * Undocumented 8085 Instructions
@@ -361,3 +391,4 @@ struct	mne	mne[] = {
     {	NULL,	"jk",		X_JP,		0,	0xFD	},
     {	NULL,	"jx5",		X_JP,		S_EOL,	0xFD	}
 };
+

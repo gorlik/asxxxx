@@ -115,6 +115,12 @@ addr(struct expr *esp)
 				xerr('a', "8080: No I or R.");
 			mode = S_R8X;
 		} else
+		if ((indx = admode(R8U1)) != 0) {
+			mode = S_R8U1;
+		} else
+		if ((indx = admode(R8U2)) != 0) {
+			mode = S_R8U2;
+		} else
 		if ((indx = admode(R16X)) != 0) {
 			mode = S_R16X;
 		} else {
@@ -238,6 +244,20 @@ struct	adsym	R8X[] = {
     {	"",	0000	}
 };
 
+/* Undocumented instructions for 0xDD prefix H->IX high, L->IX low */
+struct  adsym   R8U1[] = {
+  {   "ixh",  H|0400  },
+  {   "ixl",  L|0400  },
+  {   "",     0000    }
+};
+
+/* Undocumented instructions for 0xFD prefix H->IY high, L->IY low */
+struct  adsym   R8U2[] = {
+  {   "iyh",  H|0400  },
+  {   "iyl",  L|0400  },
+  {   "",     0000    }
+};
+
 struct	adsym	R16[] = {
     {	"bc",	BC|0400	},
     {	"de",	DE|0400	},
@@ -252,6 +272,11 @@ struct	adsym	R16X[] = {
     {	"af'",	AF|0400	},	/* af' must be first !!! */
     {	"af",	AF|0400	},
     {	"",	0000	}
+};
+
+struct  adsym   RX[] = {
+    {   "x",    X|0400 },      /* for ZXN pop x */
+    {   "",     0000   }
 };
 
 /*

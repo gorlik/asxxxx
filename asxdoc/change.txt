@@ -1,5 +1,194 @@
 
 
+                        ASxxxx/ASlink version 5.50.5 is
+                  a combined 1-4 release and updated version.
+
+
+
+        2026_01_31 Version 5.50.5
+        
+           This is a complete release version
+           of the ASxxxx assemblers and linker.
+        
+           1) This version combines updates 1 - 4.
+        
+           2) All file names have been made lower case.
+        
+           3) The asz80 assembler has added support for
+              the Z80N (ZX Spectrum Next CPU).
+        
+           4) A new assembler, astlcs90, supports the
+              Toshiba TLCS90 series of CPUs.
+        
+           5) The text and html documentation has been
+              updated to include the asz80 changes and
+              tha addition of the astlcs90 assembler.
+
+
+
+        2025_08_26 Version 5.5 Update 4
+        
+         WARNING
+           This update will replace ALL source code
+           files for the ASxxxx assemblers and linker.
+           You must save and then reapply any changes
+           you may have made to the source code files.
+        
+           An update is performed by merging the update directories
+           with the asxv5pxx directories.  New files will be added
+           and changed files will be replaced.
+        
+           1) All functions have been changed from
+              the older K&R (Kernighan & Ritchie)
+              style definition:
+        
+                func(i)
+                int i;
+        
+              to the
+        
+                func(int i);
+        
+              style.
+        
+           2) The function definition change has made
+              the code incompatable with the original
+              'DECUS C' K&R format.  All conditional
+              DECUS compiling options have been removed.
+        
+
+
+                                                                  Page 2
+        
+
+
+           3) After rebuilding the assemblers and linker
+              the reported version will be V5.50.4
+
+
+
+        2024_10_28 Version 5.5 Update 3
+        
+           An update is performed by merging the update directories
+           with the asxv5pxx directories.  New files will be added
+           and changed files will be replaced.
+        
+           1) Added the 'wit' instruction, short for wait,
+              which has the same opcode as the 'slw' instruction,
+              short for slow.
+        
+           2) Added the 'fst' instruction, short for fast,
+              which has the same opcode as the 'div' instruction,
+              short for divide.
+        
+           Only one of the instructions in each pair,
+           wit/slw or fst/div, can be present in any specific
+           version of a 740 series processor.
+        
+           You must recompile the AS740
+           assembler to incorporate the update.
+        
+        ----------
+        
+           An alternate fix is to add the
+           instructions using the following macros:
+        
+           for lower case -
+        
+           .macro wit
+             .list (mel)
+           .byte    0xC2    ; wit/slw
+             .nlist (mel)
+           .endm
+        
+           .macro fst
+             .list (mel)
+           .byte    0xE2    ; fst/div
+             .nlist (mel)
+           .endm
+        
+           for upper case -
+        
+           .macro WIT
+             .list (mel)
+           .byte    0xC2    ; WIT/SLW
+             .nlist (mel)
+           .endm
+
+
+                                                                  Page 3
+        
+
+
+        
+           .macro FST
+             .list (mel)
+           .byte    0xC2    ; FST/DIV
+             .nlist (mel)
+           .endm
+        
+           which you use by simply inserting
+           wit or fst into you assembly files -
+        
+           ...    other code
+           wit
+           ...    other code
+        
+           which will then assemble as
+        
+           ...    other code
+           .byte    0xC2    ; wit/slw
+           ...    other code
+
+
+
+        2024_09_30 Version 5.50 Update 2
+        
+           An update is performed by merging the update directories
+           with the asxv5pxx directories.  New files will be added
+           and changed files will be replaced.
+        
+           1) push and pop registers (r0-r7) in as8051 fixed.
+        
+           2) push and pop registers (r0-r7) in as8xcxxx fixed
+        
+           You must recompile the as8051 and as8xcxxx
+           assemblers to incorporate the update.
+
+
+
+        2024_04_28 Version 5.50 Update 1
+        
+           An update is performed by merging the update directories
+           with the asxv5pxx directories.  New files will be added
+           and changed files will be replaced.
+        
+           1) movem error in as68k assembler fixed.
+        
+           2) Added missing bls.s and beq.s mnemonics and
+              added blos (sane as bls) and bhis (same as bhs)
+              instructions to as68k and as68cf assemblers.
+        
+           3) Added dbhis (same as dbhs) and dblos (same
+              as dbls) forms to as68k and as68cf assemblers.
+        
+
+
+                                                                  Page 4
+        
+
+
+           4) Added shis (same as shs) and slos( same as sls)
+              forms to as68k and as68cf assemblers.
+        
+           5) Test files for the AS68K and AS68CF
+              assemblers updated.
+        
+           You must recompile the AS68K and AS68CF
+           assemblers to incorporate the update.
+
+
+
                         ASxxxx/ASlink version 5.50 is
                       considered a major release version.
 
@@ -41,6 +230,12 @@
                 .ntrace         files, macros, and repeat macros
         
                 .dl and .long   create 4-byte values
+
+
+                                                                  Page 5
+        
+
+
                 .blkl           allocate 4-byte blocks
                                 (only in specific assemblers)
 
@@ -53,12 +248,6 @@
         was the output file.  This has been changed:  
 
         THE OUTPUT FILE HAS THE NAME OF THE FIRST INPUT FILE
-
-
-
-
-                                                                  Page 2
-        
 
 
            The  output hex format now uses the generally accepted format
@@ -99,6 +288,12 @@
                 ASCOP4
                 ASCOP8
                 ASEZ8
+
+
+                                                                  Page 6
+        
+
+
                 ASPDP11         (with EIS, FIS, FPP, and CIS)
                 ASRS08          (reduced version of the HCS08)
                 ASSX
@@ -113,12 +308,6 @@
 
 
         2022_01_17 Version 5.40 Update 5
-
-
-                                                                  Page 3
-        
-
-
         
            UPDATE_02, UPDATE_03, AND UPDATE_04
            MUST BE INSTALLED BEFORE INSTALLING THIS UPDATE.
@@ -157,6 +346,12 @@
              3) Documentation updated.
         
            You must recompile the ASxxxx Assemblers and Linker
+
+
+                                                                  Page 7
+        
+
+
         to incorporate the update.xxx  
 
 
@@ -171,12 +366,6 @@
         
              2) Assembler and Linker exit codes have been updated.
         
-
-
-                                                                  Page 4
-        
-
-
              3) Corrected the handling of the -h option in aslink.
         
              4) Fix the ascop8 test file tcop8.asm
@@ -215,6 +404,12 @@
              lkrloc3.c - "
              aslink.h  - Version 5.41
         
+
+
+                                                                  Page 8
+        
+
+
            as8x300:
              s8xmch.c  - line 351 changed to
                          if ((v2 == 0x07) | (v2 == 0x0F)) {
@@ -228,12 +423,6 @@
         
            Updates to build/make files, assembler test files, and do-
         cumentation.
-
-
-                                                                  Page 5
-        
-
-
 
 
         2021_05_11 Version 5.40 Update 1
@@ -273,6 +462,12 @@
            (4)  AS8085 assembler has been updated to support
                 the 8080.
         
+
+
+                                                                  Page 9
+        
+
+
            (5)  Assemblers flagging <# and ># as syntax errors
                 have been fixed to be equivalent to #< and #>.
         
@@ -286,12 +481,6 @@
                 missing or malformed arguments.
         
            (9)  Update sections of code using strncpy() giving
-
-
-                                                                  Page 6
-        
-
-
                 errors when compiled with GCC 10.2.0 (no other
                 compiler flagged this code with an error).
 
@@ -331,6 +520,12 @@
                 as8048
                 Corrected bug in "sel" instruction in .8041 mode.
         
+
+
+                                                                 Page 10
+        
+
+
                 asf2mc
                 Corrected documentation for asf2mc processor types.
         
@@ -342,12 +537,6 @@
                 Included add/addw/sub/subw sp,#byte modes.
                 Added the int opcode.  Cleaned up st8addr.c
                 addressing mode comments and code.
-
-
-
-
-                                                                  Page 7
-        
 
 
         January 2017 Version 5.20
@@ -389,6 +578,12 @@
                 The Assemblers now create a .lst to .rst hint file
                 with the extension .hlr (when both .lst and .rel
                 files are created by the assembler).
+
+
+                                                                 Page 11
+        
+
+
         
            (2)  Add as6100 assembler (Intersil IM6100 / Harris HM6100)
         
@@ -402,12 +597,6 @@
         Assemblers rolls up updates 1, 2, 3, 4, and 5 with fixes
         for the following:
         
-
-
-                                                                  Page 8
-        
-
-
            (1)  Fix asscmp assembler (pre-increment on fetch).
         
            (2)  Fix aslink error reporting for PC relative modes.
@@ -447,6 +636,12 @@
                 a PC-Relative addressing mode.  These
                 instructions include: jbc, jb, jbn, jc,
                 jnc, jz, jnz, cjne, and djnz.
+
+
+                                                                 Page 12
+        
+
+
         
         
            Update 3 Items
@@ -460,12 +655,6 @@
         
            (3)  New cross assemblers for STMicroelectronics
                 ST6, ST7, and STM8 microprocessors.
-
-
-                                                                  Page 9
-        
-
-
         
            (4)  An ASlink list file update error fix (-u option)
                 causing some errors not to be inserted into the
@@ -505,6 +694,12 @@
                 compilers) have defined 'getline' as a standard
                 function in 'stdio.h'.  This conflicts with the
                 function 'getline()' in the ASxxxx package.
+
+
+                                                                 Page 13
+        
+
+
                 All references to 'getline()' have been changed
                 to 'nxtline()'.
         
@@ -518,12 +713,6 @@
                 [asxv5pxx\asf2mc8\f8pst.c
                 [asxv5pxx\asf2mc8\f8.h
         
-
-
-                                                                 Page 10
-        
-
-
                 [asxv5pxx\asxmak\vc6\asf2mc8]
                 [asxv5pxx\asxmak\vs05\asf2mc8]
 
@@ -563,6 +752,12 @@
                 enables checking for out of range signed / unsigned
                 values in symbol equates and arithmetic operations.
                 This option has some ambiguities as internally the
+
+
+                                                                 Page 14
+        
+
+
                 assemblers use unsigned arithmetic for calculations.
                 (e.g. for a 2-byte machine -32768 and 32768 are both
                 represented as 0x8000)
@@ -576,12 +771,6 @@
                 value of .__.END. is not passed to the linker and
                 the start address frame is always zero.
         
-
-
-                                                                 Page 11
-        
-
-
            (2)  The linker will fail to create a start address frame
                 when there is no code generated within the area/bank
                 referenced by the .__.END. variable.
@@ -621,6 +810,12 @@
 
 
 
+
+
+                                                                 Page 15
+        
+
+
         2010_03_03 Version 5.00 Update 1
         
            This  update  for  Version  5.00  of the  ASxxxx Cross
@@ -634,12 +829,6 @@
         
         
            (2)  The newest versions of gcc (and perhaps other
-
-
-                                                                 Page 12
-        
-
-
                 compilers) have defined 'getline' as a standard
                 function in 'stdio.h'.  This conflicts with the
                 function 'getline()' in the ASxxxx package.
@@ -679,6 +868,12 @@
         added to the ASxxxx assemblers:  
 
         e.g.    .iif    eq,arg  label:  .word   0x1234
+
+
+                                                                 Page 16
+        
+
+
 
 
            The  listing  options  for the ASxxxx assemblers has been up-
@@ -692,12 +887,6 @@
             cyc         machine cycles
             lin         assembler source line number
             src         assembler source code
-
-
-                                                                 Page 13
-        
-
-
             pag         paging control
             lst         listing of .list / .nlist
             md          macro definition
@@ -737,6 +926,12 @@
         the .list or .nlist directive:  
 
             .nlist   1,(!,lst)  ; enables listing even within
+
+
+                                                                 Page 17
+        
+
+
                                 ; a FALSE conditional block
 
 
@@ -750,12 +945,6 @@
                 ; . == 0
         
                 .org    1
-
-
-                                                                 Page 14
-        
-
-
                 .bndry  4
                 ; . == 4
 
@@ -775,7 +964,7 @@
            Added the SC/MP ASSCMP assembler to ASxxxx.
 
 
-                                                                 Page 15
+                                                                 Page 18
         
 
 
@@ -821,7 +1010,7 @@
            wrong object code. Changed from 37 2A  to  37 3A.
 
 
-                                                                 Page 16
+                                                                 Page 19
         
 
 
@@ -867,7 +1056,7 @@
                compile the s19os9 program.
 
 
-                                                                 Page 17
+                                                                 Page 20
         
 
 
@@ -919,7 +1108,7 @@
                 aspic
 
 
-                                                                 Page 18
+                                                                 Page 21
         
 
 
@@ -976,7 +1165,7 @@
 
 
 
-                                                                 Page 19
+                                                                 Page 22
         
 
 
@@ -1034,7 +1223,7 @@
                  Fix:  
 
 
-                                                                 Page 20
+                                                                 Page 23
         
 
 

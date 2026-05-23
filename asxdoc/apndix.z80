@@ -1,0 +1,409 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                   APPENDIX BY
+
+                                 ASZ80 ASSEMBLER
+
+
+
+
+
+        BY.1  PROCESSOR SPECIFIC DIRECTIVES 
+
+
+
+        BY.1.1  .z80 Directive 
+
+        Format:  
+
+                .z80 
+
+        The  .z80  directive enables processing of only the Z80 specific
+        mnemonics.  HD64180/Z180 mnemonics encountered without the .hd64
+        directive will be flagged with an <o> error.  
+
+           The .z80 directive also selects the Z80 specific cycles count
+        to be output.  
+
+
+        BY.1.2  .zxn Directive 
+
+        Format:  
+
+                .zxn 
+
+        The  .zxn  directive  enables  processing  of  only  the Z80 and
+        ZX-Next specific mnemonics.  HD64180/Z180 mnemonics  encountered
+        without the .hd64 directive will be flagged with an <o> error.  
+
+           The .zxn directive also selects the ZXN specific cycles count
+        to be output.  
+
+
+
+
+        ASZ80 ASSEMBLER                                        PAGE BY-2
+        PROCESSOR SPECIFIC DIRECTIVES
+
+
+        BY.1.3  .hd64 Directive 
+
+        Format:  
+
+                .hd64 
+
+        The  .hd64  directive  enables  processing  of  the HD64180/Z180
+        specific mnemonics not included  in  the  Z80  instruction  set.
+        HD64180/Z180  mnemonics  encountered without the .hd64 directive
+        will be flagged with an <o> error.  A synonym of .hd64 is .z180. 
+
+           The  .hd64  directive  also selects the HD64180/Z180 specific
+        cycles count to be output.  
+
+
+        BY.1.4  .8085 Directive 
+
+        Format:  
+
+                .8085 
+
+        The  .8085 directive enables processing of the standard 8085 in-
+        structions using the z80 style syntax.   Extended  (unspecified)
+        8085 instructions will be flagged with an <o> error.  Addressing
+        modes not supported by the 8085 will be flagged with an <a>  er-
+        ror.  
+
+           The  .8085  directive  also  selects the 8085 specific cycles
+        count to be output.  
+
+
+        BY.1.5  .8085x Directive 
+
+        Format:  
+
+                .8085x 
+
+        The  .8085x directive enables processing of the standard and ex-
+        tended 8085 instructions using the z80 style syntax.  Addressing
+        modes  not supported by the 8085 will be flagged with an <a> er-
+        ror.  
+
+           The  .8085x  directive  also selects the 8085 specific cycles
+        count to be output.  
+
+           See  the  AS8085  appendix  for a description of the extended
+        (unspecified) instructions enabled by the .8085x directive.  
+
+
+
+
+        ASZ80 ASSEMBLER                                        PAGE BY-3
+        PROCESSOR SPECIFIC DIRECTIVES
+
+
+        BY.1.6  .8080 Directive 
+
+        Format:  
+
+                .8080 
+
+        The  .8080 directive enables processing of the standard 8080 in-
+        structions using the z80 style syntax.  All  non  8080  instruc-
+        tions  will  be flagged with an <o> error.  Addressing modes not
+        supported by the 8080 will be flagged with an <a> error.  
+
+           The  .8080  directive  also  selects the 8080 specific cycles
+        count to be output.  
+
+
+        BY.2  THE .__.CPU.  VARIABLE 
+
+
+           The value of the pre-defined symbol '.__.CPU.' corresponds to
+        the selected processor type.  The default value is 0 which  cor-
+        responds  to  the  default  processor type.  The following table
+        lists the processor types and associated values  for  the  ASZ80
+        assembler:  
+
+                Processor Type            .__.CPU. Value
+                --------------            --------------
+                    .z80                         0
+                .hd64 / .z180                    1
+                   .8085                         2
+                   .8085x                        3
+                   .8080                         4
+                   .zxn                         12
+
+
+           The  variable  '.__.CPU.'  is by default defined as local and
+        will not be output to the created .rel file.  The assembler com-
+        mand line options -g or -a will not cause the local symbol to be
+        output to the created .rel file.  
+
+           The  assembler .globl directive may be used to change the the
+        variable type to global causing its definition to be  output  to
+        the  .rel file.  The inclusion of the definition of the variable
+        '.__.CPU.' might be a useful means of validating that separately
+        assembled  files have been compiled for the same processor type.
+        The linker will report an error for variables with multiple  non
+        equal definitions.  
+
+
+
+
+        ASZ80 ASSEMBLER                                        PAGE BY-4
+        Z80 REGISTER SET AND CONDITIONS
+
+
+        BY.3  Z80 REGISTER SET AND CONDITIONS 
+
+
+           The following is a complete list of register designations and
+        condition mnemonics:  
+
+                byte registers  -       a,b,c,d,e,h,l,i,r
+                register pairs  -       af,af',bc,de,hl
+                word registers  -       pc,sp,ix,iy
+        
+                C -     carry bit set
+                M -     sign bit set
+                NC -    carry bit clear
+                NZ -    zero bit clear
+                P -     sign bit clear
+                PE -    parity even
+                PO -    parity odd
+                Z -     zero bit set
+
+
+        BY.4  Z80 INSTRUCTION SET 
+
+
+           The  following  list specifies the format for each addressing
+        mode supported by ASZ80:  
+
+                #data           immediate data
+                                byte or word data
+        
+                n               byte value
+        
+                rg              a byte register
+                                a,b,c,d,e,h,l
+        
+                rp              a register pair
+                                bc,de,hl
+        
+                (hl)            implied addressing or
+                                register indirect addressing
+        
+                (label)         direct addressing
+        
+                offset(ix)      indexed addressing with
+                                an offset
+        
+                label           call/jmp/jr label
+
+        The terms data, n, label, and offset may all be expressions.  
+
+
+
+        ASZ80 ASSEMBLER                                        PAGE BY-5
+        Z80 INSTRUCTION SET
+
+
+           Note  that  not all addressing modes are valid with every in-
+        struction, refer to  the  Z80/HD64180/Z180  technical  data  for
+        valid modes.  
+
+           The  following  tables  list  all  Z80/HD64180/Z180 mnemonics
+        recognized by the ASZ80 assembler.  The designation [] refers to
+        a required addressing mode argument.  
+
+
+        BY.4.1  Inherent Instructions 
+
+                ccf             cpd
+                cpdr            cpi
+                cpir            cpl
+                daa             di
+                ei              exx
+                halt            neg
+                nop             reti
+                retn            rla
+                rlca            rld
+                rra             rrca
+                rrd             scf
+
+
+        BY.4.2  Implicit Operand Instructions 
+
+                adc     a,[]            adc     []
+                add     a,[]            add     []
+                and     a,[]            and     []
+                cp      a,[]            cp      []
+                dec     a,[]            dec     []
+                inc     a,[]            inc     []
+                or      a,[]            or      []
+                rl      a,[]            rl      []
+                rlc     a,[]            rlc     []
+                rr      a,[]            rr      []
+                rrc     a,[]            rrc     []
+                sbc     a,[]            sbc     []
+                sla     a,[]            sla     []
+                sra     a,[]            sra     []
+                srl     a,[]            srl     []
+                sub     a,[]            sub     []
+                xor     a,[]            xor     []
+
+
+        ASZ80 ASSEMBLER                                        PAGE BY-6
+        Z80 INSTRUCTION SET
+
+
+        BY.4.3  Load Instruction 
+
+                ld      rg,[]           ld      [],rg
+                ld      (bc),a          ld      a,(bc)
+                ld      (de),a          ld      a,(de)
+                ld      (label),a       ld      a,(label)
+                ld      (label),rp      ld      rp,(label)
+                ld      i,a             ld      r,a
+                ld      a,i             ld      a,r
+                ld      sp,hl           ld      sp,ix
+                ld      sp,iy           ld      rp,#data
+        
+                ldd                     lddr
+                ldi                     ldir
+
+
+        BY.4.4  Call/Return Instructions 
+
+                call    C,label         ret     C
+                call    M,label         ret     M
+                call    NC,label        ret     NC
+                call    NZ,label        ret     NZ
+                call    P,label         ret     P
+                call    PE,label        ret     PE
+                call    PO,label        ret     PO
+                call    Z,label         ret     Z
+                call    label           ret
+
+
+        BY.4.5  Jump and Jump to Subroutine Instructions 
+
+                jp      C,label         jp      M,label
+                jp      NC,label        jp      NZ,label
+                jp      P,label         jp      PE,label
+                jp      PO,label        jp      Z,label
+        
+                jp      (hl)            jp      (ix)
+                jp      (iy)            jp      label
+        
+                djnz    label
+        
+                jr      C,label         jr      NC,label
+                jr      NZ,label        jr      Z,label
+                jr      label
+
+
+        ASZ80 ASSEMBLER                                        PAGE BY-7
+        Z80 INSTRUCTION SET
+
+
+        BY.4.6  Bit Manipulation Instructions 
+
+                bit     n,[]
+                res     n,[]
+                set     n,[]
+
+
+        BY.4.7  Interrupt Mode and Reset Instructions 
+
+                im      n
+                im      n
+                im      n
+                rst     n
+
+
+        BY.4.8  Input and Output Instructions 
+
+                in      a,(n)           in      rg,(c)
+                ind                     indr
+                ini                     inir
+        
+                out     (n),a           out     (c),rg
+                outd                    otdr
+                outi                    otir
+
+
+        BY.4.9  Register Pair Instructions 
+
+                add     hl,rp           add     ix,rp
+                add     iy,rp
+        
+                adc     hl,rp           sbc     hl,rp
+        
+                ex      (sp),hl         ex      (sp),ix
+                ex      (sp),iy
+                ex      de,hl
+                ex      af,af'
+        
+                push    rp              pop     rp
+
+
+        ASZ80 ASSEMBLER                                        PAGE BY-8
+        Z80 INSTRUCTION SET
+
+
+        BY.4.10  ZXN Specific Instructions 
+
+                bsla    de,b            bsra    de,b
+                bsrl    de,b            bsrf    de,b
+                brlc    de,b
+        
+                swap                    swa     a
+        
+                mul     d,e
+                mirror  a               mirror  de
+                nextreg #,#             nextreg #,a
+        
+                cu.wait #               cu.wait #,#
+                cu.move #               cu.move #,#
+                cu.stop                 cu.nop
+        
+                swapnib                 outinb
+                swap                    setae
+                ldix                    ldirx
+                lddx                    lddrx
+                ldirscale               ldpirx
+        
+                pixeldn                 pixelad
+
+
+        BY.4.11  HD64180/Z180 Specific Instructions 
+
+                in0     rg,(n)
+                out0    (n),rg
+        
+                otdm                    otdmr
+                otim                    otimr
+        
+                mlt     bc              mlt     de
+                mlt     hl              mlt     sp
+        
+                slp
+        
+                tst     a
+                tstio   #data
+

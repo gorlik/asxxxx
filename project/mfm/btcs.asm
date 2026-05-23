@@ -27,7 +27,7 @@
 ;	Macro Implementation
 ;
 	.macro	.x1setb
-	  .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	  .list	(!,err,loc,bin,cyc,eqt,lin,src,me)
 	  mov	dptr,#xtbits
 	  mov	a,#(x1.btwt | x1.btx1)
 	  movx	@dptr,a
@@ -35,7 +35,7 @@
 	.endm
 
 	.macro	.x1clrb
-	  .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	  .list	(!,err,loc,bin,cyc,eqt,lin,src,me)
 	  mov	dptr,#xtbits
 	  mov	a,#(x1.btwt | 0)
 	  movx	@dptr,a
@@ -43,7 +43,7 @@
 	.endm
 
 	.macro	.x2setb
-	  .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	  .list	(!,err,loc,bin,cyc,eqt,lin,src,me)
 	  mov	dptr,#xtbits
 	  mov	a,#(x2.btwt | x2.btx2)
 	  movx	@dptr,a
@@ -51,7 +51,7 @@
 	.endm
 
 	.macro	.x2clrb
-	  .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	  .list	(!,err,loc,bin,cyc,eqt,lin,src,me)
 	  mov	dptr,#xtbits
 	  mov	a,#(x2.btwt | 0)
 	  movx	@dptr,a

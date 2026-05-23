@@ -60,7 +60,7 @@
 ;
 	.macro	.mfmide.globals	arg$
 	  .ifne	mfm$ide
-	    .iifne  arg$	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .iifne  arg$	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 
 	  ; MFMIDE Initialization
 	  .globl	mfmide_init
@@ -72,7 +72,7 @@
 	  .globl	setmfm,	setrll
 	    .nlist
 	    .ifne	mfm$dbg
-	      .iifne  arg$    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	      .iifne  arg$    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 
 	  ; Debugging
 	  .globl	x1setb,	x1clrb,	x2setb,	x2clrb
@@ -92,7 +92,7 @@
 	  .globl	bsycnt,	wbkcnt,	cpycnt,	rdycnt,	nulcnt, dupcnt
 	      .nlist
 	    .endif
-	    .iifne  arg$    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .iifne  arg$    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 
 	  ; MFM Port Parameters
 	  .globl	prtoff,	prtsiz
@@ -879,7 +879,7 @@ hdport:	.blkb	1		; Head(Track) / Port State
 	  .list
 	  .dbg	dbg.db$que
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  jnb	q$enbl,arg1
 	  lcall	db$que
 arg1:
@@ -894,7 +894,7 @@ arg1:
 	  .nlist
 	  .dbg	dbg.db$ide
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  jnb	q$enbl,arg1
 	  lcall	db$ide
 arg1:
@@ -908,7 +908,7 @@ arg1:
 	.macro	.setb	arg1
 	  .nlist
 	  .ifne mfm$dbg
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  setb	arg1
 	    .nlist
 	  .endif
@@ -917,7 +917,7 @@ arg1:
 	.macro	.clrb	arg1
 	  .nlist
 	  .ifne mfm$dbg
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  clr	arg1
 	    .nlist
 	  .endif
@@ -933,11 +933,11 @@ arg1:
 	    .iifnb ppa$,	.push	a
 	    .iifnb ppr$,	.push	r1
 	    .ifnb  dst$
-	      .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	      .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  mov	r1,#dst$
 	      .nlist
 	    .endif
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  lcall	incw_rx
 	    .nlist
 	    .iifnb ppr$,	.pop	r1
@@ -949,7 +949,7 @@ arg1:
 	  .nlist
 	  .dbg	dbg.db$cnt
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  push	a
 	  push	r1
 	  mov	a,pr$chg		; the event
@@ -973,7 +973,7 @@ arg1:	  lcall	incw_rx
 	  .nlist
 	  .dbg	dbg.db$cnt
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  mov	r1,#dupcnt		; update dupcnt
 	  lcall	incw_rx
 	    .nlist
@@ -1005,7 +1005,7 @@ incw_rx:
 	  .nlist
 	  .dbg	dbg.db$chg
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  jnb	i$enbl,arg5
 	  mov	dph,i$msb
 	  mov	dpl,i$lsb
@@ -1019,7 +1019,7 @@ incw_rx:
 	    .iifidn	sts2,#0xFF	t$m$p =: t$m$p + 1
 	    .iifidn	sts2,#0xff	t$m$p =: t$m$p + 1
 	    .ifne	t$m$p-2
-	      .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	      .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  mov	a,sts2
 	  rrc	a
 	  mov	a,sts2+1
@@ -1028,7 +1028,7 @@ incw_rx:
 	  inc	dptr
 	      .nlist
 	    .else
-	      .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	      .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  mov	a,sts2
 	  jnb	mfmbsy,arg1
 	  anl	a,#~1
@@ -1040,7 +1040,7 @@ arg3:	  movx	@dptr,a
 	  inc	dptr
 	      .nlist
 	    .endif
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  mov	a,dph
 	  cjne	a,#>0x1000,arg4
 	  mov	dph,#>m2_blk
@@ -1059,7 +1059,7 @@ arg5:
 	  .nlist
 	  .dbg	dbg.Ex0$TstA
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  jnb	Ex0$TstA,arg2
 	  jb	Ex0$xbtA,arg1
 	  lcall	x1setb
@@ -1074,7 +1074,7 @@ arg2:
 	  .nlist
 	  .dbg	dbg.Ex0$TstA
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  jnb	Ex0$TstA,arg2
 	  jb	Ex0$xbtA,arg1
 	  lcall	x1clrb
@@ -1092,7 +1092,7 @@ arg2:
 	  .nlist
 	  .dbg	dbg.Ex0$TstB
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  jnb	Ex0$TstB,arg2
 	  jb	Ex0$xbtB,arg1
 	  lcall	x1setb
@@ -1107,7 +1107,7 @@ arg2:
 	  .nlist
 	  .dbg	dbg.Ex0$TstB
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  jnb	Ex0$TstB,arg2
 	  jb	Ex0$xbtB,arg1
 	  lcall	x1clrb
@@ -1125,7 +1125,7 @@ arg2:
 	  .nlist
 	  .dbg	dbg.Ex0$TstB
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  jnb	Ex0$TstB,arg1
 	  mov	b,#36			; TstB Enabled Loop Count
 	  sjmp	arg2
@@ -1133,7 +1133,7 @@ arg1:	  mov	b,#56			; TstB Disabled Loop Count
 arg2:
 	    .nlist
 	  .else
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  mov	b,#62			; Reset Loop Count
 	    .nlist
 	  .endif
@@ -1146,7 +1146,7 @@ arg2:
 	  .nlist
 	  .dbg	dbg.Wbk$TstA
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  jnb	Wbk$TstA,arg2
 	  jb	Wbk$xbtA,arg1
 	  lcall	x1setb
@@ -1161,7 +1161,7 @@ arg2:
 	  .nlist
 	  .dbg	dbg.Wbk$TstA
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  jnb	Wbk$TstA,arg2
 	  jb	Wbk$xbtA,arg1
 	  lcall	x1clrb
@@ -1178,7 +1178,7 @@ arg2:
 	.macro	.dr$set
 	  .nlist
 	  .ifne mfm.dr$set
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  .lb_x	a,ideblk+(2*63+0)	; selected DMA mode
 	  jb	a.2,7$			; mode 2 - finished
 	  lcall	dr$set
@@ -1195,7 +1195,7 @@ arg2:
 	  .nlist
 	  .dbg	dbg.db$skt
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  jnb	q$enbl,arg1	; skip if not enabled
 	  setb	q$seek		; seek time in progress
 	  clr	et2		; disable timer 2
@@ -1211,7 +1211,7 @@ arg1:
 	  .nlist
 	  .dbg	dbg.db$skt
 	  .ifne .debug
-	    .list	(!,err,loc,bin,cyc,eqt,lin,src,me,meb)
+	    .list	(!,err,loc,bin,cyc,eqt,lin,src,mel)
 	  jnb	q$seek,arg1	; skip if not enabled
 	  mov	a,mfmidx	; get port number
 	  mov	b,#qu$siz	; compute address of address table
