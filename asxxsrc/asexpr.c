@@ -1,7 +1,7 @@
 /* asexpr.c */
 
 /*
- *  Copyright (C) 1989-2021  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -41,20 +41,20 @@
  *	evaluated by normal arithmetic conventions.
  *
  *	asexpr.c contains the following functions:
- *		VOID	abscheck()
+ *		void	abscheck()
  *		a_uint	absexpr()
  *		int	is_abs()
- *		VOID	clrexpr()
+ *		void	clrexpr()
  *		int	digit()
- *		VOID	expr()
- *		VOID	exprmasks()
+ *		void	expr()
+ *		void	exprmasks()
  *		int	oprio()
- *		VOID	term()
+ *		void	term()
  *
  *	asexpr.c contains no local/static variables
  */
 
-/*)Function	VOID	expr(esp, n)
+/*)Function	void	expr(esp, n)
  *
  *		expr *	esp		pointer to an expr structure
  *		int	n		a firewall priority; all top
@@ -76,13 +76,13 @@
  *					ASCII character
  *
  *	functions called:
- *		VOID	binop()		asexpr.c
- *		VOID	clrexpr()	asexpr.c
+ *		void	binop()		asexpr.c
+ *		void	clrexpr()	asexpr.c
  *		int	getnb()		aslex.c
  *		int	oprio()		asexpr.c
- *		VOID	xerr()		assubr.c
- *		VOID	term()		asexpr.c
- *		VOID	unget()		aslex.c
+ *		void	xerr()		assubr.c
+ *		void	term()		asexpr.c
+ *		void	unget()		aslex.c
  *
  *
  *	side effects:
@@ -92,10 +92,8 @@
  *		terminate if a 'q' error occurs.
  */
 
-VOID
-expr(esp, n)
-struct expr *esp;
-int n;
+void
+expr(struct expr *esp, int n)
 {
 	int c, p;
 	struct expr re;
@@ -118,7 +116,7 @@ int n;
 	unget(c);
 }
 
-/*)Function	VOID	binop(c, esp, re)
+/*)Function	void	binop(c, esp, re)
  * 
  *		int	c		operation to perform
  *		expr *	esp		pointer to LHS argument, result
@@ -141,15 +139,13 @@ int n;
  *		area *	ap		pointer to an area structure
  *
  *	functions called:
- *		VOID	abscheck()	asexpr.c
- *		VOID	err()		assubr.c
- *		VOID	xerr()		assubr.c
+ *		void	abscheck()	asexpr.c
+ *		void	err()		assubr.c
+ *		void	xerr()		assubr.c
  */
 
-VOID
-binop(c, esp, re)
-int c;
-struct expr *esp, *re;
+void
+binop(int c, struct expr *esp, struct expr *re)
 {
 	a_uint ae, ar;
 	struct area *ap;
@@ -271,9 +267,9 @@ struct expr *esp, *re;
  *		none
  *
  *	functions called:
- *		VOID	abscheck()	asexpr.c
- *		VOID	clrexpr()	asexpr.c
- *		VOID	expr()		asexpr.c
+ *		void	abscheck()	asexpr.c
+ *		void	clrexpr()	asexpr.c
+ *		void	expr()		asexpr.c
  *
  *	side effects:
  *		If the expression is not absolute then
@@ -281,7 +277,7 @@ struct expr *esp, *re;
  */
 
 a_uint
-absexpr()
+absexpr(void)
 {
 	struct expr e;
 
@@ -291,7 +287,7 @@ absexpr()
 	return (e.e_addr);
 }
 
-/*)Function	VOID	term(esp)
+/*)Function	void	term(esp)
  *
  *		expr *	esp		pointer to an expr structure
  *
@@ -325,18 +321,18 @@ absexpr()
  *		sym *	symp		pointer to a symbol structure
  *
  *	functions called:
- *		VOID	abscheck()	asexpr.c
+ *		void	abscheck()	asexpr.c
  *		int	digit()		asexpr.c
- *		VOID	err()		assubr.c
- *		VOID	expr()		asexpr.c
+ *		void	err()		assubr.c
+ *		void	expr()		asexpr.c
  *		int	is_abs()	asexpr.c
  *		int	get()		aslex.c
- *		VOID	getid()		aslex.c
+ *		void	getid()		aslex.c
  *		int	getmap()	aslex.c
  *		int	getnb()		aslex.c
  *		sym *	lookup()	assym.c
- *		VOID	qerr()		assubr.c
- *		VOID	unget()		aslex.c
+ *		void	qerr()		assubr.c
+ *		void	unget()		aslex.c
  *
  *	side effects:
  *		An arithmetic term is evaluated, a symbol structure
@@ -344,9 +340,8 @@ absexpr()
  *		by a 'q' error.
  */
 
-VOID
-term(esp)
-struct expr *esp;
+void
+term(struct expr *esp)
 {
 	int c;
 	char *jp;
@@ -723,8 +718,7 @@ struct expr *esp;
  */
 
 int
-digit(c, r)
-int c, r;
+digit(int c, int r)
 {
 	if (r == 16) {
 		if (ctype[c] & RAD16) {
@@ -777,8 +771,7 @@ int c, r;
  */
 
 int
-is_digit(c, r)
-int c, r;
+is_digit(int c, int r)
 {
 	if ((r == 16) && (ctype[c] & RAD16)) return(1);
 	if ((r == 10) && (ctype[c] & RAD10)) return(1);
@@ -787,7 +780,7 @@ int c, r;
 	return(0);
 }
 
-/*)Function	VOID	abscheck(esp)
+/*)Function	void	abscheck(esp)
  *
  *		expr *	esp		pointer to an expr structure
  *
@@ -807,16 +800,15 @@ int c, r;
  *		none
  *
  *	functions called:
- *		VOID	rerr()		assubr.c
+ *		void	rerr()		assubr.c
  *
  *	side effects:
  *		The expression may be changed to absolute and the
  *		'r' error invoked.
  */
 
-VOID
-abscheck(esp)
-struct expr *esp;
+void
+abscheck(struct expr *esp)
 {
 	if (esp->e_flag || esp->e_base.e_ap) {
 		esp->e_flag = 0;
@@ -851,8 +843,7 @@ struct expr *esp;
  */
 
 int
-is_abs (esp)
-struct expr *esp;
+is_abs(struct expr *esp)
 {
 	if (esp->e_flag || esp->e_base.e_ap) {
 		return(0);
@@ -881,8 +872,7 @@ struct expr *esp;
  */
  
 int
-oprio(c)
-int c;
+oprio(int c)
 {
 	if (c == '*' || c == '/' || c == '%')
 		return (10);
@@ -899,7 +889,7 @@ int c;
 	return (0);
 }
 
-/*)Function	VOID	clrexpr(esp)
+/*)Function	void	clrexpr(esp)
  *
  *		expr *	esp		pointer to expression structure
  *
@@ -918,9 +908,8 @@ int c;
  *		expression structure cleared.
  */
  
-VOID
-clrexpr(esp)
-struct expr *esp;
+void
+clrexpr(struct expr *esp)
 {
 	esp->e_mode = 0;
 	esp->e_flag = 0;
@@ -949,7 +938,7 @@ struct expr *esp;
  *		a_aint	v_mask		Value mask
  *
  *	functions called:
- *		VOID	err()		assubr.c
+ *		void	err()		assubr.c
  *
  *	side effects:
  *		a 'v' error message may be generated.
@@ -964,8 +953,7 @@ struct expr *esp;
  */
 
 a_uint
-rngchk(n)
-a_uint n;
+rngchk(a_uint n)
 {
 	if (vflag) {
 		if ((n & ~a_mask) && ((n & ~a_mask) != ~a_mask)) {
@@ -975,7 +963,7 @@ a_uint n;
 	return((n & s_mask) ? (n | ~v_mask) : (n & v_mask));
 }
 
-/*)Function	VOID	exprmasks(esp)
+/*)Function	void	exprmasks(esp)
  *
  *		int	n		T Line Bytes in Address
  *
@@ -998,9 +986,8 @@ a_uint n;
  *		The arithmetic precision parameters are set.
  */
  
-VOID
-exprmasks(n)
-int n;
+void
+exprmasks(int n)
 {
 	a_bytes = n;
 

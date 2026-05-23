@@ -1,7 +1,7 @@
 /* io8.h */
 
 /*
- *  Copyright (C) 2018-2021  Alan R. Baldwin
+ *  Copyright (C) 2018-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -95,8 +95,6 @@ struct adsym
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* i08adr.c */
 extern	struct adsym	reg[];
 extern	int		addr(struct expr *esp);
@@ -104,20 +102,6 @@ extern	int		admode(struct adsym *sp);
 extern	int		srch(char *str);
 
 	/* i08mch.c */
-extern	VOID		machine(struct mne *mp);
-extern	VOID		minit(void);
-
-#else
-
-	/* i08adr.c */
-extern	struct adsym	reg[];
-extern	int		addr();
-extern	int		admode();
-extern	int		srch();
-
-	/* i08mch.c */
-extern	VOID		machine();
-extern	VOID		minit();
-
-#endif
+extern	void		machine(struct mne *mp);
+extern	void		minit(void);
 

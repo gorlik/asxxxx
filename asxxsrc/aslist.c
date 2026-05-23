@@ -1,7 +1,7 @@
 /* aslist.c */
 
 /*
- *  Copyright (C) 1989-2021  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -38,17 +38,17 @@
  *	to generate the assembler list and symbol output files.
  *
  *	aslist.c contains the following functions:
- *		VOID	list()
- *		VOID	list1()
- *		VOID	list2()
- *		VOID	listhlr()
- *		VOID	slew()
- *		VOID	lstsym()
+ *		void	list()
+ *		void	list1()
+ *		void	list2()
+ *		void	listhlr()
+ *		void	slew()
+ *		void	lstsym()
  *
  *	The module aslist.c contains no local/static variables
  */
 
-/*)Function	VOID	list()
+/*)Function	void	list(void)
  *
  *	The function list() generates the listing output
  *	which includes the input source, line numbers,
@@ -96,10 +96,10 @@
  *
  *	functions called:
  *		int	fprintf()	c_library
- *		VOID	list1()		aslist.c
- *		VOID	listhlr()	aslist.c
+ *		void	list1()		aslist.c
+ *		void	listhlr()	aslist.c
  *		int	putc()		c_library
- *		VOID	slew()		asslist.c
+ *		void	slew()		asslist.c
  *
  *	side effects:
  *		Listing or symbol output updated.
@@ -200,8 +200,8 @@ ee DDDDDDDDDD ddd ddd ddd ddd [nn]LLLLL *********	DECIMAL(32)
  *
  */
 
-VOID
-list()
+void
+list(void)
 {
 	char *frmt, *wp;
 	int *wpt;
@@ -760,7 +760,7 @@ list()
 	}
 }
 
-/*)Function	VOID	list1(wp, wpt, nb)
+/*)Function	void	list1(wp, wpt, nb)
  *
  *		int	nb		number of bytes listed per line
  *		int *	wp		pointer to data bytes
@@ -774,17 +774,15 @@ list()
  *		int	xflag		-x, listing radix flag
  *
  *	functions called:
- *		VOID	list2()		asslist.c
+ *		void	list2()		asslist.c
  *		int	fprintf()	c_library
  *
  *	side effects:
  *		Data formatted and output to listing.
  */
 
-VOID
-list1(wp, wpt, nb)
-char *wp;
-int *wpt, nb;
+void
+list1(char *wp, int *wpt, int nb)
 {
 	int i;
 	char *frmt;
@@ -813,7 +811,7 @@ int *wpt, nb;
 	}
 }
 
-/*)Function	VOID	list2(t)
+/*)Function	void	list2(t)
  *
  *		int	t		relocation mode
  *
@@ -833,9 +831,8 @@ int *wpt, nb;
  *		Relocation flag output to listing file.
  */
 
-VOID
-list2(t)
-int t;
+void
+list2(int t)
 {
 	int c;
 
@@ -886,7 +883,7 @@ int t;
 	putc(c, lfp);
 }
 
-/*)Function	VOID	listhlr(hlr_lst, hlr_mode, nb)
+/*)Function	void	listhlr(hlr_lst, hlr_mode, nb)
  *
  *		int	hlr_lst		output listing flags for src line
  *		int	hlr_mode	output listing mode for src line
@@ -912,11 +909,8 @@ int t;
  *		is written to the HLR file.
  */
 
-VOID
-listhlr(hlr_lst, hlr_mode, hlr_nb)
-int hlr_lst;
-int hlr_mode;
-int hlr_nb;
+void
+listhlr(int hlr_lst, int hlr_mode, int hlr_nb)
 {
 	char *frmt;
 
@@ -951,7 +945,7 @@ int hlr_nb;
 }
 
 
-/*)Function	VOID	slew(fp, flag)
+/*)Function	void	slew(fp, flag)
  *
  *		FILE *	fp		file handle for listing
  *		int	flag		enable pagination
@@ -987,10 +981,8 @@ int hlr_nb;
  *		a new page header is output to the listing file.
  */
 
-VOID
-slew(fp,flag)
-FILE *fp;
-int flag;
+void
+slew(FILE *fp, int flag)
 {
 	char *frmt;
 	char np[80];
@@ -1047,7 +1039,7 @@ int flag;
 	}
 }
 
-/*)Function	VOID	lstsym(fp)
+/*)Function	void	lstsym(fp)
  *
  *		FILE *	fp		file handle for output
  *
@@ -1086,7 +1078,7 @@ int flag;
  *	functions called:
  *		int	fprintf()	c_library
  *		int	putc()		c_library
- *		VOID	slew()		aslist.c
+ *		void	slew()		aslist.c
  *		int	strcmp()	c_library
  *		char *	strcpy()	c_library
  *
@@ -1094,9 +1086,8 @@ int flag;
  *		Symbol and area tables output.
  */
 
-VOID
-lstsym(fp)
-FILE *fp;
+void
+lstsym(FILE *fp)
 {
 	int c, i, j, k, n, paging;
 	int nmsym, narea, nbank;

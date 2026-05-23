@@ -1,7 +1,7 @@
 /* i8085.h */
 
 /*
- *  Copyright (C) 1989-2021  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -90,23 +90,10 @@
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* 85mch.c */
-extern	VOID		machine(struct mne *mp);
-extern	VOID		minit(void);
-extern	VOID		out3(int a, int b);
+extern	void		machine(struct mne *mp);
+extern	void		minit(void);
+extern	void		out3(int a, int b);
 extern	int		reg(void);
 extern	int		regpair(int r, int s);
-
-#else
-
-	/* 85mch.c */
-extern	VOID		machine();
-extern	VOID		minit();
-extern	VOID		out3();
-extern	int		reg();
-extern	int		regpair();
-
-#endif
 

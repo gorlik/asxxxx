@@ -1,7 +1,7 @@
 /* m740.h */
 
 /*
- *  Copyright (C) 2005-2021  Alan R. Baldwin
+ *  Copyright (C) 2005-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -117,8 +117,6 @@ struct adsym
  * machine dependent functions
  */
 
-#ifdef	OTHERSYSTEM
-
 	/* m74adr.c */
 extern	struct	adsym	axy[];
 extern	int		addr(struct expr *esp);
@@ -128,26 +126,8 @@ extern	int		zpage(struct expr *esp);
 
 	/* m74mch.c */
 extern	struct  area	*zpg;
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
-extern	VOID		minit(void);
-extern	VOID		genbad(struct expr *esp);
-
-#else
-
-	/* m74adr.c */
-extern	struct	adsym	axy[];
-extern	int		addr();
-extern	int		admode();
-extern	int		srch();
-extern	int		zpage();
-
-	/* m74mch.c */
-extern	struct  area	*zpg;
-extern	VOID		machine();
-extern	int		mchpcr();
-extern	VOID		minit();
-extern	VOID		genbad();
-
-#endif
+extern	void		minit(void);
+extern	void		genbad(struct expr *esp);
 

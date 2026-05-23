@@ -1,7 +1,7 @@
 /* lkrloc4.c */
 
 /*
- *  Copyright (C) 2003-2021  Alan R. Baldwin
+ *  Copyright (C) 2003-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -41,32 +41,32 @@
  *
  *	lkrloc.c contains the following functions:
  *		a_uint	adb_byte()
- *		VOID	erpdmp4()
- *		VOID	errdmp4()
+ *		void	erpdmp4()
+ *		void	errdmp4()
  *		a_uint	gtb_1b()
  *		a_uint	gtb_2b()
  *		a_uint	gtb_3b()
  *		a_uint	gtb_4b()
  *		a_uint	gtb_xb()
- *		VOID	lkmerge()
+ *		void	lkmerge()
  *		a_uint	ptb_1b()
  *		a_uint	ptb_2b()
  *		a_uint	ptb_3b()
  *		a_uint	ptb_4b()
  *		a_uint	ptb_xb()
- *		VOID	rele4()
- *		VOID	relerr4()
- *		VOID	relerp4()
- *		VOID	reloc4()
- *		VOID	relp4()
- *		VOID	relr4()
- *		VOID	relt4()
+ *		void	rele4()
+ *		void	relerr4()
+ *		void	relerp4()
+ *		void	reloc4()
+ *		void	relp4()
+ *		void	relr4()
+ *		void	relt4()
  *
  *	lkrloc4.c the local variable errmsg4[].
  *
  */
 
-/*)Function	VOID	reloc4(c)
+/*)Function	void	reloc4(c)
  *
  *		int c			process code
  *
@@ -81,9 +81,9 @@
  *
  *	called functions:
  *		int	fprintf()	c_library
- *		VOID	rele4()		lkrloc4.c
- *		VOID	relp4()		lkrloc4.c
- *		VOID	relr4()		lkrloc4.c
+ *		void	rele4()		lkrloc4.c
+ *		void	relp4()		lkrloc4.c
+ *		void	relr4()		lkrloc4.c
  *		VOId	relt4()		lkrloc4.c
  *
  *	side effects:
@@ -91,9 +91,8 @@
  *
  */
 
-VOID
-reloc4(c)
-int c;
+void
+reloc4(int c)
 {
 	switch(c) {
 
@@ -122,7 +121,7 @@ int c;
 }
 
 
-/*)Function	VOID	relt4()
+/*)Function	void	relt4(void)
  *
  *	The function relt4() evaluates a T line read by
  *	the linker. Each byte value read is saved in the
@@ -168,8 +167,8 @@ int c;
  *
  */
 
-VOID
-relt4()
+void
+relt4(void)
 {
 	rtcnt = 0;
 	while (more()) {
@@ -182,7 +181,7 @@ relt4()
 	}
 }
 
-/*)Function	VOID	relr4()
+/*)Function	void	relr4(void)
  *
  *	The function relr4() evaluates a R line read by
  *	the linker.  The R line data is combined with the
@@ -278,10 +277,10 @@ relt4()
  *		a_uint	evword()	lkrloc.c
  *		int	eval()		lkeval.c
  *		int	fprintf()	c_library
- *		VOID	lkout()		lkout.c
- *		VOID	lkulist		lklist.c
+ *		void	lkout()		lkout.c
+ *		void	lkulist		lklist.c
  *		int	more()		lklex.c
- *		VOID	relerr4()	lkrloc4.c
+ *		void	relerr4()	lkrloc4.c
  *		int	symval()	lksym.c
  *
  *	side effects:
@@ -291,8 +290,8 @@ relt4()
  *
  */
 
-VOID
-relr4()
+void
+relr4(void)
 {
 	a_uint reli, relv;
 	int mode;
@@ -875,7 +874,7 @@ char *errmsg4[] = {
 };
 
 
-/*)Function	VOID	relp4()
+/*)Function	void	relp4(void)
  *
  *	The function relp4() evaluates a P line read by
  *	the linker.  The P line data is combined with the
@@ -929,8 +928,8 @@ char *errmsg4[] = {
  *
  */
 
-VOID
-relp4()
+void
+relp4(void)
 {
 	int aindex, rindex;
 	int mode, rtp;
@@ -1023,7 +1022,7 @@ fprintf(stdout, "relp4-sdp: area = %s, addr = %X, p_mask = %X\n", sdp.s_areax->a
 		relerp4("Page Definition Boundary Error");
 }
 
-/*)Function	VOID	rele4()
+/*)Function	void	rele4(void)
  *
  *	The function rele4() closes all open output files
  *	at the end of the linking process.
@@ -1036,17 +1035,17 @@ fprintf(stdout, "relp4-sdp: area = %s, addr = %X, p_mask = %X\n", sdp.s_areax->a
  *		int	uflag		relocation listing flag
  *
  *	called functions:
- *		VOID	lkfclose()	lkbank.c
- *		VOID	lkflush()	lkout.c
- *		VOID	lkulist()	lklist.c
+ *		void	lkfclose()	lkbank.c
+ *		void	lkflush()	lkout.c
+ *		void	lkulist()	lklist.c
  *
  *	side effects:
  *		All open output files are closed.
  *
  */
 
-VOID
-rele4()
+void
+rele4(void)
 {
 	if (uflag != 0) {
 		lkulist(0);
@@ -1057,7 +1056,7 @@ rele4()
 	}
 }
 
-/*)Function	VOID	relerr4(str)
+/*)Function	void	relerr4(str)
  *
  *		char	*str		error string
  *
@@ -1071,23 +1070,22 @@ rele4()
  *		FILE	*mfp		handle for the map file
  *
  *	called functions:
- *		VOID	errdmp4()	lkrloc4.c
+ *		void	errdmp4()	lkrloc4.c
  *
  *	side effects:
  *		Error message inserted into map file.
  *
  */
 
-VOID
-relerr4(str)
-char *str;
+void
+relerr4(char *str)
 {
 	errdmp4(stderr, str);
 	if (mfp)
 		errdmp4(mfp, str);
 }
 
-/*)Function	VOID	errdmp4(fptr, str)
+/*)Function	void	errdmp4(fptr, str)
  *
  *		FILE	*fptr		output file handle
  *		char	*str		error string
@@ -1111,17 +1109,15 @@ char *str;
  *
  *	called functions:
  *		int	fprintf()	c_library
- *		VOID	prntval()	lkrloc.c
+ *		void	prntval()	lkrloc.c
  *
  *	side effects:
  *		Error reported.
  *
  */
 
-VOID
-errdmp4(fptr, str)
-FILE *fptr;
-char *str;
+void
+errdmp4(FILE *fptr, char *str)
 {
 	int mode, aindex, rindex;
 	struct sym **s;
@@ -1189,7 +1185,7 @@ char *str;
 	}
 }
 
-/*)Function	VOID	relerp4(str)
+/*)Function	void	relerp4(str)
  *
  *		char	*str		error string
  *
@@ -1203,23 +1199,22 @@ char *str;
  *		FILE	*mfp		handle for the map file
  *
  *	called functions:
- *		VOID	erpdmp4()	lkrloc4.c
+ *		void	erpdmp4()	lkrloc4.c
  *
  *	side effects:
  *		Error message inserted into map file.
  *
  */
 
-VOID
-relerp4(str)
-char *str;
+void
+relerp4(char *str)
 {
 	erpdmp4(stderr, str);
 	if (mfp)
 		erpdmp4(mfp, str);
 }
 
-/*)Function	VOID	erpdmp4(fptr, str)
+/*)Function	void	erpdmp4(fptr, str)
  *
  *		FILE	*fptr		output file handle
  *		char	*str		error string
@@ -1236,17 +1231,15 @@ char *str;
  *
  *	called functions:
  *		int	fprintf()	c_library
- *		VOID	prntval()	lkrloc.c
+ *		void	prntval()	lkrloc.c
  *
  *	side effects:
  *		Error reported.
  *
  */
 
-VOID
-erpdmp4(fptr, str)
-FILE *fptr;
-char *str;
+void
+erpdmp4(FILE *fptr, char *str)
 {
 	struct head *thp;
 
@@ -1273,7 +1266,7 @@ char *str;
 	prntval(fptr, sdp.s_area->a_addr + sdp.s_addr);
 }
 
-/*)Function	VOID	lkmerge(val, r, base)
+/*)Function	void	lkmerge(val, r, base)
  *
  *		a_uint	val		data to merge into base value
  *		int	r		relocation mode
@@ -1295,15 +1288,13 @@ char *str;
  *
  *	functions called:
  *		int	fprintf()	c_library
- *		VOID	lkexit()	lkmain.c
+ *		void	lkexit()	lkmain.c
  *
  *	side effects:
  *		none
  */
-a_uint lkmerge(val, r, base)
-a_uint val;
-int r;
-a_uint base;
+a_uint
+lkmerge(a_uint val, int r, a_uint base)
 {
 	struct mode *mp;
 	char *vp;
@@ -1363,10 +1354,7 @@ a_uint base;
  */
 
 a_uint
-adb_byte(p, v, i)
-int 	p;
-a_uint	v;
-int	i;
+adb_byte(int p, a_uint v, int i)
 {
 	a_uint j;
 	int m, n;
@@ -1404,8 +1392,7 @@ int	i;
  */
 
 a_uint
-gtb_1b(i)
-int i;
+gtb_1b(int i)
 {
 	return(rtval[i]);
 }
@@ -1434,9 +1421,7 @@ int i;
  */
 
 a_uint
-ptb_1b(v, i)
-a_uint v;
-int i;
+ptb_1b(a_uint v, int i)
 {
 	return(rtval[i] = v & ((a_uint) 0x000000FF));
 }
@@ -1465,8 +1450,7 @@ int i;
  */
 
 a_uint
-gtb_2b(i)
-int i;
+gtb_2b(int i)
 {
 	a_uint v;
 
@@ -1505,9 +1489,7 @@ int i;
  */
 
 a_uint
-ptb_2b(v, i)
-a_uint v;
-int i;
+ptb_2b(a_uint v, int i)
 {
 	if (hilo) {
 		rtval[i+0] = (v >> 8) & ((a_uint) 0x000000FF);
@@ -1543,8 +1525,7 @@ int i;
  */
 
 a_uint
-gtb_3b(i)
-int i;
+gtb_3b(int i)
 {
 	a_uint v;
 
@@ -1585,9 +1566,7 @@ int i;
  */
 
 a_uint
-ptb_3b(v, i)
-a_uint v;
-int i;
+ptb_3b(a_uint v, int i)
 {
 	if (hilo) {
 		rtval[i+0] = (v >> 16) & ((a_uint) 0x000000FF);
@@ -1625,8 +1604,7 @@ int i;
  */
 
 a_uint
-gtb_4b(i)
-int i;
+gtb_4b(int i)
 {
 	a_uint v;
 
@@ -1669,9 +1647,7 @@ int i;
  */
 
 a_uint
-ptb_4b(v, i)
-a_uint v;
-int i;
+ptb_4b(a_uint v, int i)
 {
 	if (hilo) {
 		rtval[i+0] = (v >> 24) & ((a_uint) 0x000000FF);
@@ -1712,8 +1688,7 @@ int i;
  */
 
 a_uint
-gtb_xb(i)
-int i;
+gtb_xb(int i)
 {
 	a_uint v;
 
@@ -1792,9 +1767,7 @@ int i;
  */
 
 a_uint
-ptb_xb(v, i)
-a_uint v;
-int i;
+ptb_xb(a_uint v, int i)
 {
 	a_uint j;
 

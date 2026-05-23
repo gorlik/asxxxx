@@ -1,7 +1,7 @@
 /* asxcnv.c */
 
 /*
- *  Copyright (C) 1989-2023  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -99,9 +99,7 @@ char	ccase[128] = {
  */
 
 int
-main(argc, argv)
-int argc;
-char *argv[];
+main(int argc, char *argv[])
 {
 	char *p, *q, *r, *s;
 	int c, i, j, k, l, m, n;
@@ -442,7 +440,7 @@ loop:
 	return(0);
 }
 
-/*)Function	VOID	chopcrlf(str)
+/*)Function	void	chopcrlf(str)
  *
  *		char	*str		string to chop
  *
@@ -468,9 +466,8 @@ loop:
  *		Trailing white space removed.
  */
 
-VOID
-chopcrlf(str)
-char *str;
+void
+chopcrlf(char *str)
 {
 	char *p, *q;
 	char c;
@@ -495,7 +492,7 @@ char *str;
 	}
 }
 
-/*)Function	VOID	asexit(i)
+/*)Function	void	asexit(i)
  *
  *			int	i	exit code
  *
@@ -511,15 +508,14 @@ char *str;
  *
  *	functions called:
  *		int	fclose()	c-library
- *		VOID	exit()		c-library
+ *		void	exit()		c-library
  *
  *	side effects:
  *		All files closed. Program terminates.
  */
 
-VOID
-asexit(i)
-int i;
+void
+asexit(int i)
 {
 	if (nfp != NULL) fclose(nfp);
 	if (dfp != NULL) fclose(dfp);
@@ -540,7 +536,7 @@ char *usetxt[] = {
 	NULL
 };
 
-/*)Function	VOID	usage()
+/*)Function	void	usage()
  *
  *	The function usage() outputs to the stderr device the
  *	program name and version and a list of valid program options.
@@ -559,8 +555,8 @@ char *usetxt[] = {
  *		none
  */
 
-VOID
-usage()
+void
+usage(void)
 {
 	char   **dp;
 

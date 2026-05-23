@@ -1,7 +1,7 @@
 /* i8048.h */
 
 /*
- *  Copyright (C) 2009-2021  Alan R. Baldwin
+ *  Copyright (C) 2009-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -136,8 +136,6 @@ extern struct PreDef preDef[];
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* i48adr.c */
 extern	struct adsym	acc[];
 extern	struct adsym	indacc[];
@@ -151,29 +149,7 @@ extern	int		admode(struct adsym *sp);
 extern	int		srch(char *str);
 
 	/* i48mch.c */
-extern	VOID		machine(struct mne *mp);
-extern	VOID		mchrel(struct expr *esp);
-extern	VOID		minit(void);
-
-#else
-
-	/* i48adr.c */
-extern	struct adsym	acc[];
-extern	struct adsym	indacc[];
-extern	struct adsym	reg[];
-extern	struct adsym	indreg[];
-extern	struct adsym	port[];
-extern	struct adsym	slct[];
-extern	struct adsym	misc[];
-extern	int		addr();
-extern	int		admode();
-extern	int		srch();
-
-	/* i48mch.c */
-extern	VOID		machine();
-extern	VOID		mchrel();
-extern	VOID		minit();
-
-#endif
-
+extern	void		machine(struct mne *mp);
+extern	void		mchrel(struct expr *esp);
+extern	void		minit(void);
 

@@ -1,8 +1,8 @@
 /* m68cffpp.c */
 
 /*
- *  Copyright (C) 2023-2024  Alan R. Baldwin
- *  Copyright (C) 2023-2024  Nick Downing
+ *  Copyright (C) 2023-2025  Alan R. Baldwin
+ *  Copyright (C) 2023-2025  Nick Downing
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -130,8 +130,8 @@ int	fpt;		/*	Rounding Or Truncation */
  *	MSB - fbuf[PREC_BYTES - 1]
  *	LSB - fbuf[PREC_BYTES - 2]
  */
-VOID
-atowrd()
+void
+atowrd(void)
 {
 	int ovrf;
 
@@ -153,8 +153,8 @@ if (pass == 2) fprintf(stderr, "FLT16 = %4.4x\n", rslt[4]);
  *	       ...
  *	LSB - fbuf[PREC_BYTES - 4]
  */
-VOID
-atoflt()
+void
+atoflt(void)
 {
 	int ovrf;
 
@@ -176,8 +176,8 @@ if (pass == 2) fprintf(stderr, "FLT32 = %4.4x %4.4x\n", rslt[4], rslt[3]);
  *	      ...
  *	LSB - fbuf[PREC_BYTES - 8]
  */
-VOID
-atodbl()
+void
+atodbl(void)
 {
 	int ovrf;
 
@@ -200,8 +200,8 @@ if (pass == 2) fprintf(stderr, "FLT64 = %4.4x %4.4x %4.4x %4.4x\n", rslt[4], rsl
  *	      ...
  *	LSB - fbuf[PREC_BYTES - 10]
  */
-VOID
-atoext()
+void
+atoext(void)
 {
 	int ovrf;
 
@@ -226,8 +226,7 @@ if (pass == 2) fprintf(stderr, "FLT80 = %4.4x %4.4x %4.4x %4.4x %4.4x\n", rslt[4
  */
 
 int
-atofd(fd)
-int fd;
+atofd(int fd)
 {
 	int c, i, v;
 #if DENORMALS	/* denormals */
@@ -543,8 +542,8 @@ int fd;
  * This is taken from term() in asexpr.c and evaluates a quad-word constant.
  * The constant is returned in rslt[0] (least significant) through rslt[3].
  */
-VOID
-atoint()
+void
+atoint(void)
 {
 	int r, c, sign;
 	char *jp;
@@ -688,8 +687,8 @@ atoint()
 /*
  * Zero 'fbuf'
  */
-VOID
-fltzr()
+void
+fltzr(void)
 {
 	int i;
 
@@ -702,7 +701,7 @@ fltzr()
  * Test 'fbuf' For Zero
  */
 int
-fltnz()
+fltnz(void)
 {
 	int i;
 
@@ -717,8 +716,8 @@ fltnz()
 /*
  * Move 'fbuf' To 'fsav'
  */
-VOID
-fltsv()
+void
+fltsv(void)
 {
 	int i;
 
@@ -730,8 +729,8 @@ fltsv()
 /*
  * Move 'fsav2' To 'fbuf'
  */
-VOID
-fltld2()
+void
+fltld2(void)
 {
 	int i;
 
@@ -743,8 +742,8 @@ fltld2()
 /*
  * Move 'fbuf' To 'fsav2'
  */
-VOID
-fltsv2()
+void
+fltsv2(void)
 {
 	int i;
 
@@ -757,8 +756,8 @@ fltsv2()
  * Right Shift 'fbuf' Circularly Through 'fcry' By 1 Bit
  * Note: 'fcry' Bit 0 Is Shifted In, Bit 7 Receives Shifted Out Bit
  */
-VOID
-fltrs()
+void
+fltrs(void)
 {
 	int i, temp;
 
@@ -773,8 +772,8 @@ fltrs()
 /*
  * Right Shift 'fbuf' Circularly Through 'fcry' By 8 Bits
  */
-VOID
-fltrs8()
+void
+fltrs8(void)
 {
 	int i, temp;
 
@@ -790,8 +789,8 @@ fltrs8()
  * Left Shift 'fbuf' Circularly Through 'fcry' By 1 Bit
  * Note: 'fcry' Bit 7 Is Shifted In, Bit 0 Receives Shifted Out Bit
  */
-VOID
-fltls()
+void
+fltls(void)
 {
 	int i, temp;
 
@@ -806,8 +805,8 @@ fltls()
 /*
  * Left Shift 'fbuf' Circularly Through 'fcry' By 8 Bits
  */
-VOID
-fltls8()
+void
+fltls8(void)
 {
 	int i, temp;
 
@@ -826,9 +825,8 @@ fltls8()
  *
  * 'fcry' Returns Any Overflow/Carry Bit(s)
  */
-VOID
-fltnd(base, digit)
-int base, digit;
+void
+fltnd(int base, int digit)
 {
 	int i;
 	unsigned int acc; /* acc must be unsigned when int is 16-bit */
@@ -847,8 +845,8 @@ int base, digit;
  *
  * 'fcry' Is Set To Carry From The Addition
  */
-VOID
-fltad()
+void
+fltad(void)
 {
 	int i;
 
@@ -865,8 +863,8 @@ fltad()
  *
  * 'fcry' Is Set To High Byte Of Low Half Of Result
  */
-VOID
-fltsq()
+void
+fltsq(void)
 {
 	int i, j, v;
 	unsigned int acc; /* acc must be unsigned when int is 16-bit */
@@ -890,8 +888,8 @@ fltsq()
  *
  * 'fcry' Is Set To High Byte Of Low Half Of Result
  */
-VOID
-fltml()
+void
+fltml(void)
 {
 	int i, j, v;
 	unsigned int acc; /* acc must be unsigned when int is 16-bit */

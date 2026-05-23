@@ -1,7 +1,7 @@
 /* aslex.c */
 
 /*
- *  Copyright (C) 1989-2022  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -31,27 +31,27 @@
  *	analysis routines for the assembler.
  *
  *	aslex.c contains the following functions:
- *		VOID	chopcrlf()
+ *		void	chopcrlf()
  *		int	comma()
  *		char	endline()
  *		int	get()
  *		int	getdlm()
- *		VOID	getid()
+ *		void	getid()
  *		int	getmap()
  *		int	getnb()
  *		int	getlnm()
- *		VOID	getst()
+ *		void	getst()
  *		int	more()
  *		int	nxtline()
  *		int	replace()
- *		VOID	scanline()
+ *		void	scanline()
  *		int	skpcomma()
- *		VOID	unget()
+ *		void	unget()
  *
  *	aslex.c contains no local/static variables
  */
 
-/*)Function	VOID	getid(id,c)
+/*)Function	void	getid(id, c)
  *
  *		char *	id		a pointer to a string of
  *					maximum length NCPS-1
@@ -86,7 +86,7 @@
  *	called functions:
  *		int	get()		aslex.c
  *		int	getnb()		aslex.c
- *		VOID	unget()		aslex.c
+ *		void	unget()		aslex.c
  *
  *	side effects:
  *		Use of getnb(), get(), and unget() updates the
@@ -94,10 +94,8 @@
  *		assembler-source text line.
  */
 
-VOID
-getid(id, c)
-int c;
-char *id;
+void
+getid(char *id, int c)
 {
 	char *p;
 
@@ -115,7 +113,7 @@ char *id;
 	*p++ = 0;
 }
 
-/*)Function	VOID	getst(id,c)
+/*)Function	void	getst(id, c)
  *
  *		char *	id		a pointer to a string of
  *					maximum length NCPS-1
@@ -150,7 +148,7 @@ char *id;
  *	called functions:
  *		int	get()		aslex.c
  *		int	getnb()		aslex.c
- *		VOID	unget()		aslex.c
+ *		void	unget()		aslex.c
  *
  *	side effects:
  *		use of getnb(), get(), and unget() updates the
@@ -158,10 +156,8 @@ char *id;
  *		assembler-source text line.
  */
 
-VOID
-getst(id, c)
-int c;
-char *id;
+void
+getst(char *id, int c)
 {
 	char *p;
 
@@ -208,10 +204,8 @@ char *id;
  *		is found or the input line terminates unexpectedly.
  */
 
-VOID
-getdstr(str, slen)
-char * str;
-int slen;
+void
+getdstr(char *str, int slen)
 {
 	char *p;
 	int c, d;
@@ -232,7 +226,7 @@ int slen;
 	*p = 0;
 }
 
-/*)Function	int	getdlm()
+/*)Function	int	getdlm(void)
  *
  *	The function getdlm() returns the delimiter character
  *	or if the end of the line is encountered a 'q' error
@@ -259,7 +253,7 @@ int slen;
  */
 
 int
-getdlm()
+getdlm(void)
 {
 	int c;
 
@@ -276,7 +270,7 @@ getdlm()
 	return (c);
 }
 
-/*)Function	int	getnb()
+/*)Function	int	getnb(void)
  *
  *	The function getnb() scans the current assembler-source
  *	text line returning the first character not a SPACE or TAB.
@@ -297,7 +291,7 @@ getdlm()
  */
 
 int
-getnb()
+getnb(void)
 {
 	int c;
 
@@ -306,7 +300,7 @@ getnb()
 	return (c);
 }
 
-/*)Function	int	get()
+/*)Function	int	get(void)
  *
  *	The function get() returns the next character in the
  *	assembler-source text line, at the end of the line a
@@ -330,7 +324,7 @@ getnb()
  */
 
 int
-get()
+get(void)
 {
 	int c;
 
@@ -339,7 +333,7 @@ get()
 	return (c & 0x007F);
 }
 
-/*)Function	VOID	unget(c)
+/*)Function	void	unget(c)
  *
  *		int	c		value of last character read from
  *					assembler-source text line
@@ -367,9 +361,8 @@ get()
  *		ip decremented by 1 character position
  */
 
-VOID
-unget(c)
-int c;
+void
+unget(int c)
 {
 	if (c)
 		if (ip != ib)
@@ -407,8 +400,7 @@ int c;
  */
 
 int
-getmap(d)
-int d;
+getmap(int d)
 {
 	int c, n, v;
 
@@ -488,16 +480,15 @@ int d;
  *
  *	called functions:
  *		int	getnb()		aslex.c
- *		VOID	unget()		aslex.c
- *		VOID	xerr()		assubr.c
+ *		void	unget()		aslex.c
+ *		void	xerr()		assubr.c
  *
  *	side effects:
  *		assembler-source text line pointer updated
  */
 
 int
-comma(flag)
-int flag;
+comma(int flag)
 {
 	int c;
 
@@ -512,7 +503,7 @@ int flag;
 	return(1);
 }
 
-/*)Function	int	skpcomma(VOID)
+/*)Function	int	skpcomma(void)
  *
  *	The function skpcomma() checks for and then skips an
  *	immediate COMMA.  The function returns '1' if a COMMA
@@ -526,12 +517,12 @@ int flag;
  *
  *	functions called:
  *		int	get()		aslex.c
- *		VOID	unget()		aslex.c
+ *		void	unget()		aslex.c
  *
  *	side effects:
  *		assembler-source text line pointer may be updated
  */
-int skpcomma()
+int skpcomma(void)
 {
 	int c;
 
@@ -542,7 +533,7 @@ int skpcomma()
 	return(1);
 }
 
-/*)Function	int	nxtline()
+/*)Function	int	nxtline(void)
  *
  *	The function nxtline() reads a line of assembler-source text
  *	from an assembly source text file, include file, or macro.
@@ -581,13 +572,13 @@ int skpcomma()
  *		int	srcline		current source line number
  *
  *	called functions:
- *		VOID	chopcrlf()	aslex.c
+ *		void	chopcrlf()	aslex.c
  *		int	fclose()	c_library
  *		char *	fgets()		c_library
  *		char *	fgetm()		asmcro.c
  *		int	fprintf()	c_library
- *		VOID	listhlr()	aslist.c
- *		VOID	scanline()	aslex.c
+ *		void	listhlr()	aslist.c
+ *		void	scanline()	aslex.c
  *		char *	strcpy()	c_library
  *
  *	side effects:
@@ -681,7 +672,7 @@ int skpcomma()
  */
 
 int
-nxtline()
+nxtline(void)
 {
 	struct asmf *asmt;
 	struct macrofp *nfp;
@@ -869,7 +860,7 @@ loop:	if (asmc == NULL) return(0);
 }
 
 
-/*)Function	VOID	scanline()
+/*)Function	void	scanline(void)
  *
  *	The function scanline() scans the assembler-source text line
  *	for a valid substitutable string.  The only valid targets
@@ -909,8 +900,8 @@ loop:	if (asmc == NULL) return(0);
  *		and a substitution made for the string id[].
  */
 
-VOID
-scanline()
+void
+scanline(void)
 {
 	int c;
 	char id[NINPUT];
@@ -1008,8 +999,8 @@ scanline()
  *	called functions:
  *		int	fprintf()	c_library
  *		int	getlnm()	assubr.c
- *		VOID	listhlr()	aslist.c
- *		VOID	slew()		aslist.c
+ *		void	listhlr()	aslist.c
+ *		void	slew()		aslist.c
  *		char *	strcat()	c_library
  *		char *	strcpy()	c_library
  *		int	strlen()	c_library
@@ -1021,8 +1012,7 @@ scanline()
  */
 
 int
-replace(id)
-char *id;
+replace(char *id)
 {
 	char *p;
 	char str[NINPUT*2];
@@ -1098,7 +1088,7 @@ char *id;
 }
 
 
-/*)Function:	int	getlnm()
+/*)Function:	int	getlnm(void)
  *
  *	The function getlnm() returns the line number of the
  *	originating assembler or include file.
@@ -1119,7 +1109,7 @@ char *id;
  */
 
 int
-getlnm()
+getlnm(void)
 {
 	struct asmf *asmt;
 
@@ -1138,7 +1128,7 @@ getlnm()
 }
 
 
-/*)Function	int	more()
+/*)Function	int	more(void)
  *
  *	The function more() scans the assembler-source text line
  *	skipping white space (SPACES and TABS) and returns a (0)
@@ -1154,7 +1144,7 @@ getlnm()
  *
  *	called functions:
  *		int	getnb()		aslex.c
- *		VOID	unget()		aslex.c
+ *		void	unget()		aslex.c
  *
  *	side effects:
  *		use of getnb() and unget() updates the global pointer ip
@@ -1162,7 +1152,7 @@ getlnm()
  */
 
 int
-more()
+more(void)
 {
 	int c;
 
@@ -1171,7 +1161,7 @@ more()
 	return( (c == '\0' || c == ';') ? 0 : 1 );
 }
 
-/*)Function	char	endline()
+/*)Function	char	endline(void)
  *
  *	The function endline() scans the assembler-source text line
  *	skipping white space (SPACES and TABS) and returns the next
@@ -1194,7 +1184,7 @@ more()
  */
 
 char
-endline()
+endline(void)
 {
 	int c;
 
@@ -1202,7 +1192,7 @@ endline()
 	return( (c == '\0' || c == ';') ? 0 : c );
 }
 
-/*)Function	VOID	chopcrlf(str)
+/*)Function	void	chopcrlf(str)
  *
  *		char	*str		string to chop
  *
@@ -1223,9 +1213,8 @@ endline()
  *		All CR and LF characters removed.
  */
 
-VOID
-chopcrlf(str)
-char *str;
+void
+chopcrlf(char *str)
 {
 	char *p;
 	char c;

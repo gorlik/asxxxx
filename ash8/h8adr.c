@@ -1,7 +1,7 @@
 /* h8adr.c */
 
 /*
- *  Copyright (C) 1994-2021  Alan R. Baldwin
+ *  Copyright (C) 1994-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -28,8 +28,7 @@
 int aindx;
 
 int
-addr(esp)
-struct expr *esp;
+addr(struct expr *esp)
 {
 	int c;
 	char *p;
@@ -162,8 +161,7 @@ struct expr *esp;
 }
 
 int
-addr1(esp)
-struct expr *esp;
+addr1(struct expr *esp)
 {
 	if (admode(autoinc)) {
 		esp->e_mode = S_INDI;
@@ -220,8 +218,7 @@ struct expr *esp;
  * 'aindx' contains the value of the addressing mode.
  */
 int
-admode(sp)
-struct adsym *sp;
+admode(struct adsym *sp)
 {
 	char *ptr;
 	int i;
@@ -246,8 +243,7 @@ struct adsym *sp;
  *      srch --- does string match ?
  */
 int
-srch(str)
-char *str;
+srch(char *str)
 {
 	char *ptr;
 	ptr = ip;

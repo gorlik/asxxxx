@@ -1,7 +1,7 @@
 /* asxscn.c */
 
 /*
- *  Copyright (C) 1989-2023  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -86,12 +86,7 @@ char	ccase[128] = {
 /*x*/	'\170',	'\171',	'\172',	'\173',	'\174',	'\175',	'\176',	'\177'
 };
 
-#ifdef	OTHERSYSTEM
 extern	int	blank(char *p, char *q, int n);
-#else
-extern	int	blank();
-#endif
-
 
 /*)Function	int	main(argc, argv)
  *
@@ -100,9 +95,7 @@ extern	int	blank();
  */
 
 int
-main(argc, argv)
-int argc;
-char *argv[];
+main(int argc, char *argv[])
 {
 	char *p, *q;
 	int c, i, j, n, m, k, r, x, y;
@@ -452,9 +445,7 @@ loop:
  */
 
 int
-blank(p, q, n)
-char *p, *q;
-int n;
+blank(char *p, char *q, int n)
 {
 	int i, j;
 
@@ -501,9 +492,7 @@ int n;
  */
 
 int
-dgt(rdx, str, n)
-int rdx, n;
-char *str;
+dgt(int rdx, char *str, int n)
 {
 	int i;
 
@@ -515,7 +504,7 @@ char *str;
 	return(1);
 }
 
-/*)Function	VOID	chopcrlf(str)
+/*)Function	void	chopcrlf(str)
  *
  *		char	*str		string to chop
  *
@@ -541,9 +530,8 @@ char *str;
  *		Trailing white space removed.
  */
 
-VOID
-chopcrlf(str)
-char *str;
+void
+chopcrlf(char *str)
 {
 	char *p, *q;
 	char c;
@@ -568,7 +556,7 @@ char *str;
 	}
 }
 
-/*)Function	VOID	asexit(i)
+/*)Function	void	asexit(i)
  *
  *			int	i	exit code
  *
@@ -583,15 +571,14 @@ char *str;
  *
  *	functions called:
  *		int	fclose()	c-library
- *		VOID	exit()		c-library
+ *		void	exit()		c-library
  *
  *	side effects:
  *		All files closed. Program terminates.
  */
 
-VOID
-asexit(i)
-int i;
+void
+asexit(int i)
 {
 	if (sfp[0] != NULL) fclose(sfp[0]);
 
@@ -612,7 +599,7 @@ char *usetxt[] = {
 	NULL
 };
 
-/*)Function	VOID	usage()
+/*)Function	void	usage(void)
  *
  *	The function usage() outputs to the stderr device the
  *	program name and version and a list of valid program options.
@@ -631,8 +618,8 @@ char *usetxt[] = {
  *		program is terminated
  */
 
-VOID
-usage()
+void
+usage(void)
 {
 	char **dp;
 

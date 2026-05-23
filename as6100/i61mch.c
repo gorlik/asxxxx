@@ -1,7 +1,7 @@
 /* i61mch.c */
 
 /*
- *  Copyright (C) 2013-2023  Alan R. Baldwin
+ *  Copyright (C) 2013-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -42,9 +42,8 @@ char *dsft = "asm";
 /*
  * Process a machine op.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	int op, t1;
 	struct expr e1, e2;
@@ -369,8 +368,7 @@ struct mne *mp;
  * Map Standard ASCII Characters to 6-Bits
  */
 int
-mapchr(c)
-int c;
+mapchr(int c)
 {
 	c &= 0x7F;
 	/* 'A'(0x01) - '_'(0x1F) */
@@ -396,8 +394,8 @@ int c;
 /*
  * Machine dependent initialization
  */
-VOID
-minit()
+void
+minit(void)
 {
 	struct expr e1;
 

@@ -1,7 +1,7 @@
 /* xxxpst.c */
 
 /*
- *  Copyright (C) 1989-2021  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -113,6 +113,8 @@ struct	mne	mne[] = {
     {	NULL,	"FSFX",		S_BTYP,		0,	B_FSFX	},
     {	NULL,	"MAP",		S_BTYP,		0,	B_MAP	},
 
+    {	NULL,	".enabl",	S_OPTN,		0,	O_ENBL	},
+    {	NULL,	".dsabl",	S_OPTN,		0,	O_DSBL	},
     {	NULL,	".page",	S_PAGE,		0,	0	},
     {	NULL,	".title",	S_HEADER,	0,	O_TITLE	},
     {	NULL,	".sbttl",	S_HEADER,	0,	O_SBTTL	},
@@ -201,15 +203,16 @@ struct	mne	mne[] = {
     {	NULL,	".msg"	,	S_MSG,		0,	0	},
     {	NULL,	".assume",	S_ERROR,	0,	O_ASSUME},
     {	NULL,	".error",	S_ERROR,	0,	O_ERROR	},
-    {	NULL,	".msb",		S_MSB,		0,	0	},
+    {	NULL,	".msb",		S_MSB,		0,	O_MSB	},
     {	NULL,	".lohi",	S_MSB,		0,	O_LOHI	},
     {	NULL,	".hilo",	S_MSB,		0,	O_HILO	},
     {	NULL,	".8bit",	S_BITS,		0,	O_1BYTE	},
     {	NULL,	".16bit",	S_BITS,		0,	O_2BYTE	},
     {	NULL,	".24bit",	S_BITS,		0,	O_3BYTE	},
     {	NULL,	".32bit",	S_BITS,		0,	O_4BYTE	},
-    {	NULL,	".debug",	S_DEBUG,	0,	O_DBG	},
-    {	NULL,	".ndebug",	S_DEBUG,	0,	O_NDBG	},
+    {	NULL,	".trace",	S_TRACE,	0,	O_TRC	},
+    {	NULL,	".ntrace",	S_TRACE,	0,	O_NTRC	},
+/*    {	NULL,	"_______",	S_CONST,	0,	VALUE	},	*/
     {	NULL,	".end",		S_END,		0,	0	},
 
 	/* Macro Processor */
@@ -228,8 +231,14 @@ struct	mne	mne[] = {
 
     {	NULL,	".nval",	S_MACRO,	0,	O_NVAL	},
 
-    {	NULL,	".mdelete",	S_MACRO,	S_EOL,	O_MDEL	}
+    {	NULL,	".mdelete",	S_MACRO,	0,	O_MDEL	},
+
+	/* Special */
+
+    {	NULL,	".setdp",	S_SDP,		0,	0	},
 
 	/* machine */
+
+    {	NULL,	".opcode",	S_OPCODE,	S_EOL,	0	}
 
 };

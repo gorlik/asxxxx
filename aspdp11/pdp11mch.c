@@ -1,8 +1,8 @@
 /* pdp11mch.c */
 
 /*
- *  Copyright (C) 2022-2023  Alan R. Baldwin
- *  Copyright (C) 2022-2023  Nick Downing
+ *  Copyright (C) 2022-2025  Alan R. Baldwin
+ *  Copyright (C) 2022-2025  Nick Downing
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -43,9 +43,8 @@ int	bb[NB];
 /*
  * Process a machine op.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	a_uint op, opcode;
 	int rf, cycles;
@@ -729,10 +728,7 @@ struct mne *mp;
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp, v, n)
-struct expr *esp;
-int *v;
-int n;
+mchpcr(struct expr *esp, int *v, int n)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		if (v != NULL) {
@@ -775,8 +771,7 @@ int n;
  * If no room, force the longer form of the offset.
  */
 int
-setbit(b)
-int b;
+setbit(int b)
 {
 	if (bp >= &bb[NB])
 		return(1);
@@ -815,8 +810,7 @@ getbit()
  * Machine specific expression terms.
  */
 int
-mchterm(esp)
-struct expr *esp;
+mchterm(struct expr *esp)
 {
 	char *p;
 
@@ -858,9 +852,7 @@ struct expr *esp;
  * Machine specific .enabl/.dsabl terms.
  */
 int
-mchoptn(id, v)
-char *id;
-int v;
+mchoptn(char *id, int v)
 {
 	/* Floating Point Truncation */
 	if (symeq(id, "fpt", 1)) { fpt = v; } else
@@ -880,8 +872,8 @@ int v;
 /*
  * Machine specific initialization.
  */
-VOID
-minit()
+void
+minit(void)
 {
 	int i;
 

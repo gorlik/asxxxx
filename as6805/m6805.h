@@ -1,7 +1,7 @@
 /* m6805.h */
 
 /*
- *  Copyright (C) 1989-2021  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -97,8 +97,6 @@ struct adsym
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* m05adr.c */
 extern	struct	adsym	ax[];
 extern	int		addr(struct expr *esp);
@@ -107,23 +105,7 @@ extern	int		srch(char *str);
 
 	/* m05mch.c */
 extern	struct  area	*zpg;
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
-extern	VOID		minit(void);
-
-#else
-
-	/* m05adr.c */
-extern	struct	adsym	ax[];
-extern	int		addr();
-extern	int		admode();
-extern	int		srch();
-
-	/* m05mch.c */
-extern	struct  area	*zpg;
-extern	VOID		machine();
-extern	int		mchpcr();
-extern	VOID		minit();
-
-#endif
+extern	void		minit(void);
 

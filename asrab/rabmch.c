@@ -1,7 +1,7 @@
 /* rabmch.c */
 
 /*
- *  Copyright (C) 1989-2021  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -529,9 +529,8 @@ static char *z80Page[7] = {
 /*
  * Process a machine op.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	int op, t1, t2;
 	struct expr e1, e2;
@@ -1947,10 +1946,7 @@ struct mne *mp;
  * return(esp->e_mode)
  */
 int
-genop(pop, op, esp, f)
-int pop, op;
-struct expr *esp;
-int f;
+genop(int pop, int op, struct expr *esp, int f)
 {
 	int t1;
 	/*
@@ -2006,8 +2002,7 @@ int f;
  * IX and IY prebyte check
  */
 int
-gixiy(v)
-int v;
+gixiy(int v)
 {
 	if (v == IX) {
 		v = HL;
@@ -2025,17 +2020,16 @@ int v;
 	return(v);
 }
 
-VOID 
-clrPreByte()
+void 
+clrPreByte(void)
 {
 	preByte.altd = 0;
 	preByte.ioi  = 0;
 	preByte.ioe  = 0;
 }
 
-VOID
-chkIOPreByte(addrMode)
-int addrMode;
+void
+chkIOPreByte(int addrMode)
 {
 	if (preByte.ioi || preByte.ioe) {
 		if ((addrMode != S_IDHL) && (addrMode != S_IDIX) && (addrMode != S_IDIY))
@@ -2043,9 +2037,8 @@ int addrMode;
 	}
 }
 
-VOID
-chkPreByte(mp)
-struct mne *mp;
+void
+chkPreByte(struct mne *mp)
 {
 	if (preByte.altd) {
 		outab(preByte.altd);
@@ -2068,10 +2061,7 @@ struct mne *mp;
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp, v, n)
-struct expr *esp;
-int *v;
-int n;
+mchpcr(struct expr *esp, int *v, int n)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		if (v != NULL) {
@@ -2110,8 +2100,8 @@ int n;
 /*
  * Machine dependent initialization
  */
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * Byte Order

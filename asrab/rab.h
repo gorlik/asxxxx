@@ -1,7 +1,7 @@
 /* rab.h */
 
 /*
- *  Copyright (C) 1989-2014  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -221,8 +221,6 @@ extern	int		mchtyp;
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
         /* rabadr.c */
 extern	int		addr(struct expr *esp);
 extern	int		admode(struct adsym *sp);
@@ -232,29 +230,10 @@ extern	int		srch(char *str);
 	/* rabmch.c */
 extern	int		genop(int pop, int op, struct expr *esp, int f);
 extern	int		gixiy(int v);
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
-extern	VOID		minit(void);
-extern  VOID            clrPreByte(void);
-extern  VOID            chkPreByte(struct mne *mp);
-extern  VOID            chkIOPreByte(int addrMode);
-#else
-
-	/* rabadr.c */
-extern	int		addr();
-extern	int		admode();
-extern	int		any();
-extern	int		srch();
-
-	/* rabmch.c */
-extern	int		genop();
-extern	int		gixiy();
-extern	VOID		machine();
-extern	int		mchpcr();
-extern	VOID		minit();
-extern  VOID            clrPreByte();
-extern  VOID            chkPreByte();
-extern  VOID            chkIOPreByte();
-
-#endif
+extern	void		minit(void);
+extern  void            clrPreByte(void);
+extern  void            chkPreByte(struct mne *mp);
+extern  void            chkIOPreByte(int addrMode);
 

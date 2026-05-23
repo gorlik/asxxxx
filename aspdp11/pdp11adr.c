@@ -1,8 +1,8 @@
 /* pdp11adr.c */
 
 /*
- *  Copyright (C) 2022-2023  Alan R. Baldwin
- *  Copyright (C) 2022-2023  Nick Downing
+ *  Copyright (C) 2022-2025  Alan R. Baldwin
+ *  Copyright (C) 2022-2025  Nick Downing
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -30,8 +30,7 @@ int aindx;
 int pcrel;
 
 int
-addr(esp)
-struct expr *esp;
+addr(struct expr *esp)
 {
 	int c, d;
 	char *p, *q, *r;
@@ -176,8 +175,7 @@ struct expr *esp;
 }
 
 int
-tst50(c)
-int c;
+tst50(int c)
 {
 	if ((c == ' ') ||
 	   ((c >= 'A') && (c <= 'Z')) ||
@@ -272,8 +270,7 @@ rad50()
  * 'aindx' contains the value of the addressing mode.
  */
 int
-admode(sp)
-struct adsym *sp;
+admode(struct adsym *sp)
 {
 	char *ptr;
 	int i;
@@ -298,8 +295,7 @@ struct adsym *sp;
  *      srch --- does string match ?
  */
 int
-srch(str)
-char *str;
+srch(char *str)
 {
 	char *ptr;
 	ptr = ip;
@@ -327,9 +323,7 @@ char *str;
  *      any --- does str contain c?
  */
 int
-any(c,str)
-int c;
-char *str;
+any(int c, char *str)
 {
 	while (*str)
 		if(*str++ == c)

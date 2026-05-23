@@ -1,7 +1,7 @@
 /* ds8mch.c */
 
 /*
- *  Copyright (C) 1998-2024  Alan R. Baldwin
+ *  Copyright (C) 1998-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -87,9 +87,8 @@ static char ds8pg1[256] = {
 /*
  * Process machine ops.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	char *p, *str;
 	char pid[NINPUT], id[NINPUT];
@@ -875,10 +874,7 @@ struct mne *mp;
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp, v, n)
-struct expr *esp;
-int *v;
-int n;
+mchpcr(struct expr *esp, int *v, int n)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		if (v != NULL) {
@@ -918,8 +914,8 @@ int n;
  * Machine specific initialization
  */
 
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * Byte Order

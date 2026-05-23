@@ -1,7 +1,7 @@
 /* lkhead.c */
 
 /*
- *  Copyright (C) 1989-2014  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -32,14 +32,14 @@
  *	and newmode() which loads the linker merge modes.
  *
  *	lkhead.c contains the following functions:
- *		VOID	newhead()
- *		VOID	newmode()
- *		VOID	module()
+ *		void	newhead()
+ *		void	newmode()
+ *		void	module()
  *
  *	lkhead.c contains no local variables.
  */
 
-/*)Function	VOID	newhead()
+/*)Function	void	newhead(void)
  *
  *	The function newhead() creates a head structure.  All head
  *	structures are linked to form a linked list of head structures
@@ -64,9 +64,9 @@
  *	functions called:
  *		a_uint	expr()		lkeval.c
  *		a_uint	eval()		lkeval.c
- *		VOID	getid()		lklex.c
- *		VOID *	new()		lksym.c
- *		VOID	lkparea()	lkarea.c
+ *		void	getid()		lklex.c
+ *		void *	new()		lksym.c
+ *		void	lkparea()	lkarea.c
  *		int	more()		lklex.c
  *		int	symeq()		lksym.c
  *
@@ -93,8 +93,8 @@
  *   `-------------------------------------- hp->h_narea
  *
  */
-VOID
-newhead()
+void
+newhead(void)
 {
 	int i;
 	char id[NCPS];
@@ -162,7 +162,7 @@ newhead()
 }
 
 
-/*)Function	VOID	newmode()
+/*)Function	void	newmode(void)
  *
  *	The function newmode() creates / fills in a merge mode
  *	definition for this module.
@@ -199,7 +199,7 @@ newhead()
  *	functions called:
  *		a_uint	eval()		lkexpr.c
  *		int	fprintf()	c_library
- *		VOID	lkexit()	lkmain.c
+ *		void	lkexit()	lkmain.c
  *		int	more()		lklex.c
  *		char *	new()		lksym.c
  *
@@ -208,8 +208,8 @@ newhead()
  *		the definition values.
  */
 
-VOID
-newmode()
+void
+newmode(void)
 {
 	int index, n;
 	a_uint v;
@@ -272,7 +272,7 @@ newmode()
 }
 
 
-/*)Function	VOID	module()
+/*)Function	void	module(void)
  *
  *	The function module() copies the module name into
  *	the current head structure.
@@ -290,15 +290,15 @@ newmode()
  *
  *	functions called:
  *		int	fprintf()	c_library
- *		VOID	getid()		lklex.c
+ *		void	getid()		lklex.c
  *		char *	strsto()	lksym.c
  *
  *	side effects:
  *		The module name is copied into the head structure.
  */
 
-VOID
-module()
+void
+module(void)
 {
 	char id[NCPS];
 

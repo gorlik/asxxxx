@@ -1,7 +1,7 @@
 /* z280adr.c */
 
 /*
- *  Copyright (C) 1989-2021  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -35,8 +35,8 @@
 
 #if DEBUG
 
-VOID dump_expr(ep)
-struct expr *ep;
+void
+dump_expr(struct expr *ep)
 {
 	PRINTF("EXPR:  mode %d   flag %d   addr %d %08X   rlcf %02X   base_ptr %08lX\n", 
 	(int)(ep->e_mode), (int)(ep->e_flag), ep->e_addr, ep->e_addr,
@@ -55,8 +55,8 @@ static char *iname[32] = {
 };
 
 
-VOID list_indx(indx)
-INT32 indx;
+void
+list_indx(INT32 indx)
 {
 	unsigned INT32 mask;
 	int i;
@@ -82,8 +82,7 @@ INT32 indx;
 
 
 INT32
-new_addr(esp)	/* from addr */
-struct expr *esp;
+new_addr(struct expr *esp)	/* from addr */
 {
 	int c;
 	INT32 mode;	/* ARB */
@@ -299,8 +298,7 @@ struct expr *esp;
  * zero for no match.
  */
 INT32
-admode(sp)
-struct adsym *sp;
+admode(struct adsym *sp)
 {
 	char *ptr;
 	int i;
@@ -326,8 +324,7 @@ struct adsym *sp;
  *      srch --- does string match ?
  */
 int
-srch(str)
-char *str;
+srch(char *str)
 {
 	char *ptr;
 	ptr = ip;

@@ -1,7 +1,7 @@
 /* cop8mch.c */
 
 /*
- *  Copyright (C) 2021-2023  Alan R. Baldwin
+ *  Copyright (C) 2021-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -74,9 +74,8 @@ a_uint xtnd;
 /*
  * Process machine ops.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	unsigned int op,c;
 	char id[NCPS];
@@ -501,9 +500,8 @@ struct mne *mp;
 
 char errstr[80];
 
-VOID
-icheck(op)
-unsigned int op;
+void
+icheck(unsigned int op)
 {
 	char *id;
 
@@ -529,9 +527,8 @@ unsigned int op;
 /*
  * Make Number Relocatable
  */
-VOID
-setgbl(esp)
-struct expr *esp;
+void
+setgbl(struct expr *esp)
 {
 	if (esp->e_flag==0 && esp->e_base.e_ap==NULL) {
 		/*
@@ -551,10 +548,7 @@ struct expr *esp;
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp, v, n)
-struct expr *esp;
-int *v;
-int n;
+mchpcr(struct expr *esp, int *v, int n)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		if (v != NULL) {
@@ -594,8 +588,8 @@ int n;
  *Machine specific initialization.
  */
 
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * Byte Order

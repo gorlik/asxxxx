@@ -1,7 +1,7 @@
 /* pic.h */
 
 /*
- *  Copyright (C) 2001-2021  Alan R. Baldwin
+ *  Copyright (C) 2001-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -186,49 +186,23 @@ struct CpuFix
 extern struct CpuDef picDef[];
 extern struct CpuFix picFix[];
 
-#ifdef	OTHERSYSTEM
-
 	/* picmch.c */
-extern	VOID		machine(struct mne *mp);
-extern	VOID		mch12fsr(struct expr *esp);
-extern	VOID		mch14fsr(struct expr *esp);
-extern	VOID		mch16fsr(struct expr *esp);
-extern	VOID		mchdpm(struct expr *esp);
+extern	void		machine(struct mne *mp);
+extern	void		mch12fsr(struct expr *esp);
+extern	void		mch14fsr(struct expr *esp);
+extern	void		mch16fsr(struct expr *esp);
+extern	void		mchdpm(struct expr *esp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
 extern	int		mchramchk(struct expr *esp);
-extern	VOID		minit(void);
-extern	VOID		pic12bit(struct mne *mp);
-extern	VOID		pic14bit(struct mne *mp);
-extern	VOID		pic16bit(struct mne *mp);
-extern	VOID		pic20bit(struct mne *mp);
+extern	void		minit(void);
+extern	void		pic12bit(struct mne *mp);
+extern	void		pic14bit(struct mne *mp);
+extern	void		pic16bit(struct mne *mp);
+extern	void		pic20bit(struct mne *mp);
 
 	/* picadr.c */
 extern	struct	adsym	regfw[];
 extern	int		addr(struct expr *esp);
 extern	int		admode(struct adsym *sp);
 extern	int		srch(char *str);
-
-#else
-
-	/* picmch.c */
-extern	VOID		machine();
-extern	VOID		mch12fsr();
-extern	VOID		mch14fsr();
-extern	VOID		mch16fsr();
-extern	VOID		mchdpm();
-extern	int		mchpcr();
-extern	int		mchramchk();
-extern	VOID		minit();
-extern	VOID		pic12bit();
-extern	VOID		pic14bit();
-extern	VOID		pic16bit();
-extern	VOID		pic20bit();
-
-	/* picadr.c */
-extern	struct	adsym	regfw[];
-extern	int		addr();
-extern	int		admode();
-extern	int		srch();
-
-#endif
 

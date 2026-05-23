@@ -1,7 +1,7 @@
 /* st8mch.c */
 
 /*
- *  Copyright (C) 2010-2023  Alan R. Baldwin
+ *  Copyright (C) 2010-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -167,7 +167,7 @@ static char *Page[5] = {
 /*
  * Process a machine op.
  */
-VOID
+void
 machine(mp)
 struct mne *mp;
 {
@@ -2185,8 +2185,8 @@ int n;
 /*
  * Machine specific initialization.
  */
-VOID
-minit()
+void
+minit(void)
 {
 	int i;
 
@@ -2243,7 +2243,7 @@ int b;
  * This will force the longer form of the offset.
  */
 int
-getbit()
+getbit(void)
 {
 	int f;
 

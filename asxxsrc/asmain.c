@@ -1,7 +1,7 @@
 /* asmain.c */
 
 /*
- *  Copyright (C) 1989-2022  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -44,15 +44,15 @@
  *
  *	asmain.c contains the following functions:
  *		int	main(argc, argv)
- *		VOID	asexit(n)
- *		VOID	asmbl()
- *		VOID	equate(id, *e1, equtype);
+ *		void	asexit(n)
+ *		void	asmbl()
+ *		void	equate(id, *e1, equtype);
  *		FILE *	afile(fn, ft, wf)
  *		int	fndidx(str)
  *		int	intsiz()
- *		VOID	newdot(nap)
- *		VOID	phase(ap, a)
- *		VOID	usage()
+ *		void	newdot(nap)
+ *		void	phase(ap, a)
+ *		void	usage()
  *
  *	asmain.c contains the array char *usetxt[] which
  *	references the usage text strings printed by usage().
@@ -161,32 +161,32 @@
  *
  *	called functions:
  *		FILE *	afile()		asmain.c
- *		VOID	allglob()	assym.c
- *		VOID	asexit()	asmain.c
- *		VOID	diag()		assubr.c
- *		VOID	err()		assubr.c
- *		VOID	exprmasks()	asexpr.c
+ *		void	allglob()	assym.c
+ *		void	asexit()	asmain.c
+ *		void	diag()		assubr.c
+ *		void	err()		assubr.c
+ *		void	exprmasks()	asexpr.c
  *		char *	filespec()	asmain.c
  *		int	fprintf()	c_library
  *		int	int32siz()	asmain.c
- *		VOID	list()		aslist.c
- *		VOID	lstsym()	aslist.c
- *		VOID	mcrinit()	asmcro.c
- *		VOID	minit()		___mch.c
- *		VOID	multipass()	asmain.c
- *		VOID *	new()		assym.c
- *		VOID	newdot()	asmain.c
+ *		void	list()		aslist.c
+ *		void	lstsym()	aslist.c
+ *		void	mcrinit()	asmcro.c
+ *		void	minit()		___mch.c
+ *		void	multipass()	asmain.c
+ *		void *	new()		assym.c
+ *		void	newdot()	asmain.c
  *		int	nxtline()	aslex.c
- *		VOID	outbuf()	asout.c
- *		VOID	outchk()	asout.c
- *		VOID	outgsd()	asout.c
+ *		void	outbuf()	asout.c
+ *		void	outchk()	asout.c
+ *		void	outgsd()	asout.c
  *		int	rewind()	c_library
  *		int	setjmp()	c_library
  *		char *	strcpy()	c_library
- *		VOID	symglob()	assym.c
- *		VOID	syminit()	assym.c
+ *		void	symglob()	assym.c
+ *		void	syminit()	assym.c
  *		time_t	time()		c_library
- *		VOID	usage()		asmain.c
+ *		void	usage()		asmain.c
  *
  *	side effects:
  *		Completion of main() completes the assembly process.
@@ -194,9 +194,7 @@
  */
 
 int
-main(argc, argv)
-int argc;
-char *argv[];
+main(int argc, char *argv[])
 {
 	char *p;
 	int c, i, v;
@@ -590,7 +588,7 @@ char *argv[];
 	return(0);
 }
 
-/*)Function	VOID	multipass()
+/*)Function	void	multipass(void)
  *
  *	The function multipass() compares the values of all
  *	symbols and labels from pass to pass.  At the end of
@@ -604,7 +602,7 @@ char *argv[];
  *	that support variable size instructions.  Any assembler
  *	using the setbit()/getbit() construct for variable size
  *	instructions must add the following code in the machine
- *	function mimit(), where passlmt is the maximum # of passes:
+ *	function minit(), where passlmt is the maximum # of passes:
  *
  *	passlmt = 100;
  *	if (pass < 2) {
@@ -639,8 +637,8 @@ char *argv[];
  *		may output warnings about changing values
  *		and update sp->p_addr on each pass
  */
-VOID
-multipass()
+void
+multipass(void)
 {
 	int i, cflg, plmt;
 	struct sym *sp;
@@ -733,14 +731,8 @@ multipass()
  *		evaluates an option for a file name and/or extension
  *		and loads relfil/relext respectively
  */
-char *filespec(argc, argv, i, p, nam, ext, opt)
-int  argc;
-char *argv[];
-int  *i;
-char *p;
-char **nam;
-char **ext;
-int opt;
+char *
+filespec(int argc, char *argv[], int *i, char *p, char **nam, char **ext, int opt)
 {
 	char *q;
 	int pFile;
@@ -786,7 +778,7 @@ int opt;
 	return(p);
 }
 
-/*)Function	VOID	fixrelfil(p, nam)
+/*)Function	void	fixrelfil(p, nam)
  *
  *		char *		p	pointer to first path/file/ext
  *		char **		nam	pointer to address of filename address
@@ -820,9 +812,8 @@ int opt;
  *			output files will use their
  *			defaults: .lst, .sym and .hlr
  */
-VOID fixrelfil(p, relfil)
-char *p;
-char **relfil;
+void
+fixrelfil(char *p, char **relfil)
 {
 	char *q;
 	int i, pFile;
@@ -842,7 +833,7 @@ char **relfil;
 	}
 }
 
-/*)Function	int	intsiz()
+/*)Function	int	intsiz(void)
  *
  *	The function intsiz() returns the size of INT32
  *
@@ -860,12 +851,12 @@ char **relfil;
  */
 
 int
-intsiz()
+intsiz(void)
 {
 	return(sizeof(INT32));
 }
 
-/*)Function	VOID	insline(str,i)
+/*)Function	void	insline(str,i)
  *
  *		char *		str	-i command line string
  *		int		i	listing allowed - (0-No/1-Yes)
@@ -890,10 +881,8 @@ intsiz()
  *		created which will be appended to any previously
  *		created T_INSERT assembly file structures.
  */
-VOID
-insline(str,i)
-char *str;
-int i;
+void
+insline(char *str, int i)
 {
 	if (asmo == NULL) {
 		asmo = (struct asmf *)
@@ -916,7 +905,7 @@ int i;
 	asmc->afp =0;
 }
 
-/*)Function	VOID	asexit(i)
+/*)Function	void	asexit(i)
  *
  *		int	i	exit code
  *
@@ -940,18 +929,17 @@ int i;
  *		int	mcrblk		macro allocation in 1K blocks
  *
  *	functions called:
- *		VOID	asfree()	asmcro.c
+ *		void	asfree()	asmcro.c
  *		int	fclose()	c_library
  *		int	fprintf()	c_library
- *		VOID	exit()		c_library
+ *		void	exit()		c_library
  *
  *	side effects:
  *		All files closed. Program terminates.
  */
 
-VOID
-asexit(i)
-int i;
+void
+asexit(int i)
 {
 	if (lfp != NULL) fclose(lfp);
 	if (hfp != NULL) fclose(hfp);
@@ -995,7 +983,7 @@ int i;
 	exit(i);
 }
 
-/*)Function	VOID	asmbl()
+/*)Function	void	asmbl(void)
  *
  *	The function asmbl() scans the assembler-source text for
  *	(1) labels, global labels, equates, global equates, and local
@@ -1078,47 +1066,47 @@ int i;
  *		area *	alookup()	assym.c
  *		bank *	blookup()	assym.c
  *		def *	dlookup()	assym.c
- *		VOID	clrexpr()	asexpr.c
+ *		void	clrexpr()	asexpr.c
  *		int	digit()		asexpr.c
  *		char	endline()	aslex.c
- *		VOID	equate()	asmain.c
- *		VOID	err()		assubr.c
- *		VOID	expr()		asexpr.c
+ *		void	equate()	asmain.c
+ *		void	err()		assubr.c
+ *		void	expr()		asexpr.c
  *		int	fndidx()	asmain.c
  *		FILE *	fopen()		c_library
  *		int	fseek()		c_library
  *		int	get()		aslex.c
- *		VOID	getid()		aslex.c
+ *		void	getid()		aslex.c
  *		int	getmap()	aslex.c
  *		int	getnb()		aslex.c
- *		VOID	getst()		aslex.c
- *		VOID	getxstr()	asmcro.c
+ *		void	getst()		aslex.c
+ *		void	getxstr()	asmcro.c
  *		sym *	lookup()	assym.c
- *		VOID	machine()	___mch.c
+ *		void	machine()	___mch.c
  *		int	macro()		asmcro.c
  *		int	mcrprc()	asmcro.c
  *		mne *	mlookup()	assym.c
  *		int	more()		aslex.c
  *		mcrdef *nlookup()	asmcro.c
- *		VOID *	new()		assym.c
- *		VOID	newdot()	asmain.c
- *		VOID	outall()	asout.c
- *		VOID	outab()		asout.c
- *		VOID	outchk()	asout.c
- *		VOID	outrb()		asout.c
- *		VOID	outrw()		asout.c
- *		VOID	phase()		asmain.c
- *		VOID	qerr()		assubr.c
+ *		void *	new()		assym.c
+ *		void	newdot()	asmain.c
+ *		void	outall()	asout.c
+ *		void	outab()		asout.c
+ *		void	outchk()	asout.c
+ *		void	outrb()		asout.c
+ *		void	outrw()		asout.c
+ *		void	phase()		asmain.c
+ *		void	qerr()		assubr.c
  *		int	skpcomma()	aslex.c
  *		int	strcmp()	c_library
  *		char *	strcpy()	c_library
  *		char *	strncpy()	c_library
  *		char *	strsto()	assym.c
- *		VOID	unget()		aslex.c
+ *		void	unget()		aslex.c
  */
 
-VOID
-asmbl()
+void
+asmbl(void)
 {
 	struct mne *mp, *xp;
 	struct mcrdef *np;
@@ -2066,11 +2054,7 @@ loop:
 			/*
 			 * Open File
 			 */
-#ifdef	DECUS
-			p = "rn";
-#else
 			p = "rb";
-#endif
     			if ((fp = fopen(afntmp, p)) == NULL) {
 				xerr('i', "File not found.");
 				break;
@@ -2847,7 +2831,7 @@ loop:
 	goto loop;
 }
 
-/*)Function	VOID	pckchr(size, c, v, cnt)
+/*)Function	void	pckchr(size, c, v, cnt)
  *
  *		a_uint		size		machine size
  *		int		c		character to pack
@@ -2864,22 +2848,18 @@ loop:
  *		int		hilo		machine byte order
  *
  *	functions called:
- *		VOID		outab()		asout.c
- *		VOID		outaw()		asout.c
- *		VOID		outa3b()	asout.c
- *		VOID		outa4b()	asout.c
+ *		void		outab()		asout.c
+ *		void		outaw()		asout.c
+ *		void		outa3b()	asout.c
+ *		void		outa4b()	asout.c
  *
  *	side effects:
  *		The function updates the packed value and the
  *		character count.  When enough characters have
  *		been packed the packed value is output.
  */
-VOID
-pckchr(size, c, v, cnt)
-a_uint size;
-int c;
-a_uint *v;
-a_uint *cnt;
+void
+pckchr(a_uint size, int c, a_uint *v, a_uint *cnt)
 {
 	if ((int) hilo) {
 		*cnt += 1;
@@ -2901,7 +2881,7 @@ a_uint *cnt;
 	}
 }
 
-/*)Function	VOID	boundary(n)
+/*)Function	void	boundary(n)
  *
  *		a_uint		n		boundary value
  *
@@ -2923,7 +2903,7 @@ a_uint *cnt;
  *		dot.s_area		current area pointer
  *
  *	functions called:
- *		VOID	err()		assubr.c
+ *		void	err()		assubr.c
  *              char *	new()		assym.c
  *
  *	side effects:
@@ -2933,9 +2913,8 @@ a_uint *cnt;
  *		and saved in the current area structure.
  */
 
-VOID
-boundary(n)
-a_uint n;
+void
+boundary(a_uint n)
 {
 	struct area *ap;
 	struct bndry *bn, *ibn, *jbn, *kbn;
@@ -3032,7 +3011,7 @@ a_uint n;
 	}
 }
 
-/*)Function	VOID	equate(id,e1,equtype)
+/*)Function	void	equate(id, e1, equtype)
  *
  *		char *		id		ident to equate
  *		struct expr *	e1		value of equate
@@ -3050,22 +3029,19 @@ a_uint n;
  *		lmode                   set to ELIST
  *
  *	functions called:
- *              VOID    abscheck()      asexpr.c
- *		VOID	err()		assubr.c
+ *              void    abscheck()      asexpr.c
+ *		void	err()		assubr.c
  *		sym  *	lookup()	assym.c
- *              VOID    outall()        asout.c
- *		VOID	rerr()		assubr.c
+ *              void    outall()        asout.c
+ *		void	rerr()		assubr.c
  *
  *	side effects:
  *		A new symbol may be created.
  *		Symbol parameters are updated.
  */
 
-VOID
-equate(id,e1,equtype)
-char *id;
-struct expr *e1;
-a_uint equtype;
+void
+equate(char *id, struct expr *e1, a_uint equtype)
 {
 	struct sym *sp;
 
@@ -3141,7 +3117,7 @@ a_uint equtype;
  *		int	afptmp		afilex() constructed path length
  *
  *	functions called:
- *		VOID	afilex()	asmain.c
+ *		void	afilex()	asmain.c
  *		int	fndidx()	asmain.c
  *		FILE *	fopen()		c_library
  *		int	fprintf()	c_library
@@ -3152,10 +3128,7 @@ a_uint equtype;
  */
 
 FILE *
-afile(fn, ft, wf)
-char *fn;
-char *ft;
-int wf;
+afile(char *fn, char *ft, int wf)
 {
 	FILE *fp;
 	char *frmt;
@@ -3169,13 +3142,8 @@ int wf;
 	default:
 	case 0:	frmt = "r";	break;
 	case 1:	frmt = "w";	break;
-#ifdef	DECUS
-	case 2:	frmt = "rn";	break;
-	case 3:	frmt = "wn";	break;
-#else
 	case 2:	frmt = "rb";	break;
 	case 3:	frmt = "wb";	break;
-#endif
 	}
 
 	if ((fp = fopen(afntmp, frmt)) == NULL) {
@@ -3189,7 +3157,7 @@ int wf;
 	return (fp);
 }
 
-/*)Function	VOID	afilex(fn, ft, wf)
+/*)Function	void	afilex(fn, ft, wf)
  *
  *		char *	fn		file specification string
  *		char *	ft		file type string
@@ -3225,7 +3193,7 @@ int wf;
  *		char	dsft[]		default assembler file type string
  *
  *	functions called:
- *		VOID	asexit()	asmain.c
+ *		void	asexit()	asmain.c
  *		int	fndidx()	asmain.c
  *		int	fprintf()	c_library
  *		char *	strcpy()	c_library
@@ -3234,11 +3202,8 @@ int wf;
  *		File specification string may be modified.
  */
 
-VOID
-afilex(fn, ft, wf)
-char *fn;
-char *ft;
-int wf;
+void
+afilex(char *fn, char *ft, int wf)
 {
 	char *p1, *p2;
 	int c;
@@ -3316,8 +3281,7 @@ int wf;
  */
 
 int
-fndidx(str)
-char *str;
+fndidx(char *str)
 {
 	char *p1, *p2;
 
@@ -3332,7 +3296,7 @@ char *str;
 	return((int) (p1 - str));
 }
 
-/*)Function	VOID	newdot(nap)
+/*)Function	void	newdot(nap)
  *
  *		area *	nap		pointer to the new area structure
  *
@@ -3355,9 +3319,8 @@ char *str;
  *		Area changed and buffers flushed.
  */
 
-VOID
-newdot(nap)
-struct area *nap;
+void
+newdot(struct area *nap)
 {
 	struct area *oap;
 
@@ -3370,7 +3333,7 @@ struct area *nap;
 	outall();
 }
 
-/*)Function	VOID	phase(ap, a)
+/*)Function	void	phase(ap, a)
  *
  *		area *	ap		pointer to area
  *		a_uint	a		address in area
@@ -3394,10 +3357,8 @@ struct area *nap;
  *		has changed.
  */
 
-VOID
-phase(ap, a)
-struct area *ap;
-a_uint a;
+void
+phase(struct area *ap, a_uint a)
 {
 	if (ap != dot.s_area || a != dot.s_addr)
 		err('p');
@@ -3455,7 +3416,7 @@ char *usetxt[] = {
  *	'hunk' allocations required during the assembly.
  */
 
-/*)Function	VOID	usage()
+/*)Function	void	usage(void)
  *
  *	The function usage() outputs to the stderr device the
  *	assembler name and version and a list of valid assembler options.
@@ -3475,8 +3436,8 @@ char *usetxt[] = {
  *		none
  */
 
-VOID
-usage()
+void
+usage(void)
 {
 	char   **dp;
 

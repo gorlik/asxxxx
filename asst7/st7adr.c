@@ -1,7 +1,7 @@
 /* st7adr.c */
 
 /*
- *  Copyright (C) 2010-2021  Alan R. Baldwin
+ *  Copyright (C) 2010-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -66,8 +66,7 @@
 int rcode;
 
 int
-addr(esp)
-struct expr *esp;
+addr(struct expr *esp)
 {
 	int c;
 	char *p;
@@ -149,8 +148,7 @@ struct expr *esp;
 }
 
 int
-addr1(esp)
-struct expr *esp;
+addr1(struct expr *esp)
 {
 	int c;
 
@@ -166,8 +164,7 @@ struct expr *esp;
 }
 
 int
-addrsl(esp)
-struct expr *esp;
+addrsl(struct expr *esp)
 {
 	int c, d;
 
@@ -207,8 +204,7 @@ struct expr *esp;
  * zero for no match.
  */
 int
-admode(sp)
-struct adsym *sp;
+admode(struct adsym *sp)
 {
 	char *ptr;
 	int i;
@@ -232,8 +228,7 @@ struct adsym *sp;
  *      srch --- does string match ?
  */
 int
-srch(str)
-char *str;
+srch(char *str)
 {
 	char *ptr;
 	ptr = ip;

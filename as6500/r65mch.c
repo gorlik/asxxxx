@@ -1,7 +1,7 @@
 /* r65mch.c */
 
 /*
- *  Copyright (C) 1995-2023  Alan R. Baldwin
+ *  Copyright (C) 1995-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -157,9 +157,8 @@ int autodpsmbl;
 /*
  * Process a machine op.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	int op, t1;
 	struct expr e1,e2;
@@ -690,10 +689,7 @@ struct mne *mp;
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp, v, n)
-struct expr *esp;
-int *v;
-int n;
+mchpcr(struct expr *esp, int *v, int n)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		if (v != NULL) {
@@ -733,9 +729,7 @@ int n;
  * Machine specific .enable/.dsable terms.
  */
 int
-mchoptn(id, v)
-char *id;
-int v;
+mchoptn(char *id, int v)
 {
 	/* Automatic Direct Page (Constants) */
 	if (symeq(id, "autodpcnst", 1)) { autodpcnst = v; } else
@@ -749,8 +743,8 @@ int v;
 /*
  * Machine dependent initialization
  */
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * Byte Order

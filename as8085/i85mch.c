@@ -1,7 +1,7 @@
 /* i85mch.c */
 
 /*
- *  Copyright (C) 1989-2021  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -125,9 +125,8 @@ static char x85pg1[256] = {
 /*
  * Process machine ops.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	unsigned op, rd, rs;
 	struct expr e;
@@ -272,10 +271,8 @@ struct mne *mp;
 /*
  * Output a | (b<<3);
  */
-VOID
-out3(a, b)
-int a;
-int b;
+void
+out3(int a, int b)
 {
 	outab(a | (b<<3));
 }
@@ -286,9 +283,7 @@ int b;
  * register (code 3) is `s'.
  */
 int
-regpair(r, s)
-int r;
-int s;
+regpair(int r, int s)
 {
 	if (r < M) {
 		if (r&01)
@@ -322,8 +317,8 @@ reg()
 /*
  *Machine specific initialization.
  */
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * Byte Order

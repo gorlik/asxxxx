@@ -1,7 +1,7 @@
 /* i08sadr.c */
 
 /*
- *  Copyright (C) 2018-2019  Alan R. Baldwin
+ *  Copyright (C) 2018-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,8 +26,7 @@
 #include "i08s.h"
 
 int
-addr(esp)
-struct expr *esp;
+addr(struct expr *esp)
 {
 	int c;
 	char *p;

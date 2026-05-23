@@ -335,7 +335,7 @@ struct	bank	*bp;	/*	Pointer to the current
  *	in at the end of the first pass through the REL files.
  *	The area structure also contains a link to the bank
  *	this area is a part of and a data output file handle
- *	pointer which is loaded from from the bank structure.
+ *	pointer which is loaded from the bank structure.
  *	As A directives are read from the REL files a linked
  *	list of unique area structures is created by placing a
  *	link to the new area structure in the previous area structure.

@@ -1,7 +1,7 @@
 /* cop8.h */
 
 /*
- *  Copyright (C) 2021  Alan R. Baldwin
+ *  Copyright (C) 2021-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -115,8 +115,6 @@ struct adsym
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* cop8adr.c */
 extern	struct adsym	rega[];
 extern	struct adsym	regn[];
@@ -126,28 +124,9 @@ extern	int		admode(struct adsym *sp);
 extern	int		srch(char *str);
 
 	/* cop8mch.c */
-extern	VOID		icheck(unsigned int op);
-extern	VOID		machine(struct mne *mp);
+extern	void		icheck(unsigned int op);
+extern	void		machine(struct mne *mp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
-extern	VOID		minit(void);
-extern	VOID		setgbl(struct expr *esp);
-
-#else
-
-	/* cop8adr.c */
-extern	struct adsym	rega[];
-extern	struct adsym	regn[];
-extern	struct adsym	regx[];
-extern	int		addr();
-extern	int		admode();
-extern	int		srch();
-
-	/* cop8mch.c */
-extern	VOID		icheck();
-extern	VOID		machine();
-extern	int		mchpcr();
-extern	VOID		minit();
-extern	VOID		setgbl();
-
-#endif
+extern	void		minit(void);
+extern	void		setgbl(struct expr *esp);
 

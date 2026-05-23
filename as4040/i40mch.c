@@ -1,7 +1,7 @@
 /* i40mch.c */
 
 /*
- *  Copyright (C) 2021-2023  Alan R. Baldwin
+ *  Copyright (C) 2021-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -70,9 +70,8 @@ int cputype;
 /*
  * Process machine ops.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	unsigned int op;
 	struct expr e1,e2;
@@ -316,8 +315,8 @@ struct mne *mp;
  *Machine specific initialization.
  */
 
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * Byte Order

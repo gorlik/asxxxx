@@ -1,7 +1,7 @@
 /* asdata.c */
 
 /*
- *  Copyright (C) 1989-2021  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@
 
 /*
  *	The number of cycle count digits to display.
- *	The valid range is bounded be >= 2 and <= 4.
+ *	The valid range is bounded to be >= 2 and <= 4.
  *	An assembler requiring other than the default
  *	of 2 digits should set this value in minit().
  */
@@ -208,7 +208,7 @@ struct mcrdef *	mcrp;	/*	link to list of defined macros
  *
  *	struct	memlnk {
  *		struct memlnk *	next;		link to next memlnk
- *		VOID *		ptr;		pointer to allocated memory
+ *		void *		ptr;		pointer to allocated memory
  *	};
  */
 struct memlnk * asxmem;	/*	Assembler Memory Allocation Structure

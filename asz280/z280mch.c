@@ -1,7 +1,7 @@
 /* z280mch.c */
 
 /*
- *  Copyright (C) 1989-2023  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -419,9 +419,8 @@ static char *hd64Page[7] = {
 /*
  * Process a machine op.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	char **popcy[7];
 	
@@ -490,8 +489,7 @@ a_uint   marg1, marg2;
  *
  */
 
-int new_machine(mp)
-struct mne *mp;
+int new_machine(struct mne *mp)
 {
 	int instr, narg;
 	struct a_table *at;
@@ -618,16 +616,11 @@ struct mne *mp;
 
 
 
-
-
-
-
 #define DONE 0x100
-int generate(arg, marg, op, byt)
-struct expr *arg;
-a_uint marg;
-INT32 op;	/* ARB */
-int byt;
+
+
+int generate(struct expr *arg, a_uint marg, INT32 op, int byt)
+/* INT32 op	ARB */
 {
 	int tmp;
 	
@@ -719,12 +712,8 @@ int byt;
 }
 
 
-
-
-
-VOID
-emit(op)
-INT32 op;
+void
+emit(INT32 op)
 {
 	int byt;
 	
@@ -740,8 +729,7 @@ INT32 op;
 
 
 int
-arg_match(class, arg)
-a_uint class, arg;
+arg_match(a_uint class, a_uint arg)
 {
 	a_uint am_class, am_arg;
 	int okay;
@@ -762,8 +750,7 @@ a_uint class, arg;
  * returns the register number or condition of the lowest order bit set
  * returns -1 if no bits set (error condition)
  */
-int nreg(mask)
-a_uint mask;
+int nreg(a_uint mask)
 {
 	int n;
 	
@@ -786,10 +773,7 @@ a_uint mask;
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp, v, n)
-struct expr *esp;
-int *v;
-int n;
+mchpcr(struct expr *esp, int *v, int n)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		if (v != NULL) {
@@ -828,8 +812,8 @@ int n;
 /*
  * Machine dependent initialization
  */
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * Byte Order

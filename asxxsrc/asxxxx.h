@@ -1,7 +1,7 @@
 /* asxxxx.h */
 
 /*
- *  Copyright (C) 1989-2023  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -53,8 +53,8 @@
  * Local Definitions
  */
 
-#define	VERSION	"V05.50"
-#define	COPYRIGHT "2023"
+#define	VERSION	"V05.50.4"
+#define	COPYRIGHT "2025"
 
 /*
  * To include NoICE Debugging set non-zero
@@ -113,32 +113,9 @@
  *	 compiler/operating system specific definitions
  */
 
-#undef	VOID
-
-/* DECUS C void definition */
 /* File/extension seperator */
 
-#ifdef	DECUS
-#define	VOID	char
 #define	FSEPX	'.'
-#endif
-
-/* PDOS C void definition */
-/* File/extension seperator */
-
-#ifdef	PDOS
-#define	VOID	char
-#define	FSEPX	':'
-#endif
-
-/* Default void definition */
-/* File/extension seperator */
-
-#ifndef	VOID
-#define	VOID	void
-#define	FSEPX	'.'
-#define	OTHERSYSTEM
-#endif
 
 /*
  * Error definitions
@@ -944,7 +921,7 @@ struct	strlst {
 struct mstack {
 	int		mcrcnt;		/* macros created */
 	struct memlnk *	mcrmem;		/* pointer to memory block */
-	VOID	      * pnext;		/* pointer to available bytes */
+	void	      * pnext;		/* pointer to available bytes */
 	int		bytes;		/* bytes available */
 	int		xarg;		/* number of macro expansion arguments */
 	struct strlst * bgnxrg;		/* link to first macro expansion argument */
@@ -970,7 +947,7 @@ struct mstack {
  */
 struct	memlnk {
 	struct memlnk *	next;		/* link to next memlnk */
-	VOID *		ptr;		/* pointer to allocated memory */
+	void *		ptr;		/* pointer to allocated memory */
 };
 
 /*
@@ -1249,9 +1226,9 @@ extern	int		fclose();
 extern	char *		fgets();
 extern	FILE *		fopen();
 extern	int		fprintf();
-extern	VOID		free();
-extern	VOID		longjmp();
-extern	VOID *		malloc();
+extern	void		free();
+extern	void		longjmp();
+extern	void *		malloc();
 extern	int		printf();
 extern	char		putc();
 extern	int		rewind();
@@ -1266,77 +1243,75 @@ extern	char *		strrchr();
 
 /* Machine independent functions */
 
-#ifdef	OTHERSYSTEM
-
 /* C Library functions */
-extern	VOID		exit(int n);
+extern	void		exit(int n);
 
 /* asmain.c */
 extern	FILE *		afile(char *fn, char *ft, int wf);
-extern	VOID		afilex(char *fn, char *ft, int wf);
-extern	VOID		asexit(int i);
-extern	VOID		asmbl(void);
-extern	VOID		boundary(a_uint n);
-extern	VOID		equate(char *id,struct expr *e1,a_uint equtype);
+extern	void		afilex(char *fn, char *ft, int wf);
+extern	void		asexit(int i);
+extern	void		asmbl(void);
+extern	void		boundary(a_uint n);
+extern	void		equate(char *id,struct expr *e1,a_uint equtype);
 extern	char *		filespec(int argc, char *argv[], int *i, char *p, char **nam, char **ext, int opt);
-extern	VOID		fixrelfil(char *p, char **relfil);
+extern	void		fixrelfil(char *p, char **relfil);
 extern	int		fndidx(char *str);
 extern	int		intsiz(void);
-extern	VOID		insline(char *str, int i);
+extern	void		insline(char *str, int i);
 /*
 extern	int		main(int argc, char *argv[]);
 */
-extern	VOID		multipass(void);
-extern	VOID		newdot(struct area *nap);
-extern	VOID		pckchr(a_uint size, int c, a_uint *v, a_uint *cnt);
-extern	VOID		phase(struct area *ap, a_uint a);
+extern	void		multipass(void);
+extern	void		newdot(struct area *nap);
+extern	void		pckchr(a_uint size, int c, a_uint *v, a_uint *cnt);
+extern	void		phase(struct area *ap, a_uint a);
 extern	char *		usetxt[];
-extern	VOID		usage(void);
+extern	void		usage(void);
 
 /* asmcro.c */
 extern	char *		fgetm(char *ptr, int len, FILE *fp);
-extern	VOID		getdarg(struct mcrdef *np);
-extern	VOID		getdfarg(struct mcrdef *np);
-extern	VOID		getinline(struct mcrdef *np);
-extern	VOID		getxarg(struct mcrdef *np);
-extern	VOID		getxnum(char *id);
-extern	VOID		getxstr(char *id);
-extern	VOID		macro(struct mcrdef * np);
-extern	VOID		macroscn(struct macrofp *nfp);
+extern	void		getdarg(struct mcrdef *np);
+extern	void		getdfarg(struct mcrdef *np);
+extern	void		getinline(struct mcrdef *np);
+extern	void		getxarg(struct mcrdef *np);
+extern	void		getxnum(char *id);
+extern	void		getxstr(char *id);
+extern	void		macro(struct mcrdef * np);
+extern	void		macroscn(struct macrofp *nfp);
 extern	int		macrosub(char *id, struct macrofp *nfp);
-extern	VOID		mcrinit(void);
+extern	void		mcrinit(void);
 extern	int		mcrprc(int code);
-extern	VOID *		mhunk(void);
+extern	void *		mhunk(void);
 extern	char *		mstring(char *str);
 extern	char *		mstruct(int n);
 extern	struct mcrdef *	newdef(int code, char *id);
 extern	struct mcrdef *	nlookup(char *id);
-extern	VOID		pshmstk(struct mcrdef *np);
-extern	VOID		popmstk(struct mcrdef *np);
+extern	void		pshmstk(struct mcrdef *np);
+extern	void		popmstk(struct mcrdef *np);
 
 /* aslex.c */
-extern	VOID		chopcrlf(char *str);
+extern	void		chopcrlf(char *str);
 extern	int		comma(int flag);
 extern	char		endline(void);
 extern	int		get(void);
 extern	int		getdlm(void);
-extern	VOID		getdstr(char *str, int slen);
-extern	VOID		getid(char *id, int c);
+extern	void		getdstr(char *str, int slen);
+extern	void		getid(char *id, int c);
 extern	int		getmap(int d);
 extern	int		getnb(void);
 extern	int		getlnm(void);
-extern	VOID		getst(char *id, int c);
+extern	void		getst(char *id, int c);
 extern	int		more(void);
 extern	int		nxtline(void);
 extern	int		replace(char *id);
-extern	VOID		scanline(void);
-extern	VOID		unget(int c);
+extern	void		scanline(void);
+extern	void		unget(int c);
 extern	int		skpcomma(void);
 
 /* assym.c */
-extern	VOID		allglob(void);
+extern	void		allglob(void);
 extern	struct	area *	alookup(char *id);
-extern	VOID		asfree(void);
+extern	void		asfree(void);
 extern	struct	bank *	blookup(char *id);
 extern	struct	def *	dlookup(char *id);
 extern	int		hash(char *p, int flag);
@@ -1346,87 +1321,87 @@ extern	char *		new(unsigned int n);
 extern	struct	sym *	slookup(char *id);
 extern	char *		strsto(char *str);
 extern	int		symeq(char *p1, char *p2, int flag);
-extern	VOID		syminit(void);
-extern	VOID		symglob(void);
+extern	void		syminit(void);
+extern	void		symglob(void);
 
 /* assubr.c */
-extern	VOID		aerr(void);
-extern	VOID		diag(void);
-extern	VOID		err(int c);
-extern	VOID		xerr(int c, char *str);
+extern	void		aerr(void);
+extern	void		diag(void);
+extern	void		err(int c);
+extern	void		xerr(int c, char *str);
 extern	char *		errors[];
 extern	char *		geterr(int c);
-extern	VOID		qerr(void);
-extern	VOID		rerr(void);
+extern	void		qerr(void);
+extern	void		rerr(void);
 
 /* asexpr.c */
-extern	VOID		abscheck(struct expr *esp);
+extern	void		abscheck(struct expr *esp);
 extern	a_uint		absexpr(void);
-extern	VOID		clrexpr(struct expr *esp);
+extern	void		clrexpr(struct expr *esp);
 extern	int		digit(int c, int r);
 extern	int		is_digit(int c, int r);
-extern	VOID		exprmasks(int n);
-extern	VOID		expr(struct expr *esp, int n);
-extern	VOID		binop(int c, struct expr *esp, struct expr *re);
+extern	void		exprmasks(int n);
+extern	void		expr(struct expr *esp, int n);
+extern	void		binop(int c, struct expr *esp, struct expr *re);
 extern	int		is_abs(struct expr *esp);
 extern	int		oprio(int c);
 extern	a_uint		rngchk(a_uint n);
-extern	VOID		term(struct expr *esp);
+extern	void		term(struct expr *esp);
 
 /* asdbg */
 extern	char *		BaseFileName(struct asmf *currFile);
-extern	VOID		DefineNoICE_Line(void);
-extern	VOID		DefineSDCC_Line(void);
+extern	void		DefineNoICE_Line(void);
+extern	void		DefineSDCC_Line(void);
 
 /* aslist.c */
-extern	VOID		list(void);
-extern	VOID		list1(char *wp, int *wpt, int nb);
-extern	VOID		list2(int t);
-extern	VOID		listhlr(int hlr_lst, int hlr_mode, int hlr_nb);
-extern	VOID		lstsym(FILE *fp);
-extern	VOID		slew(FILE *fp, int flag);
+extern	void		list(void);
+extern	void		list1(char *wp, int *wpt, int nb);
+extern	void		list2(int t);
+extern	void		listhlr(int hlr_lst, int hlr_mode, int hlr_nb);
+extern	void		lstsym(FILE *fp);
+extern	void		slew(FILE *fp, int flag);
 
 /* asout.c */
 extern	int		lobyte(a_uint v);
 extern	int		hibyte(a_uint v);
 extern	int		thrdbyte(a_uint v);
 extern	int		frthbyte(a_uint v);
-extern	VOID		out(char *p, int n);
-extern	VOID		outarea(struct area *ap);
-extern	VOID		outbank(struct bank *bp);
-extern	VOID		outmode(int index, struct mode *sdp);
-extern	VOID		outmline(char *p, char *q);
-extern	VOID		outdp(struct area *carea, struct expr *esp, int r);
-extern	VOID		outall(void);
-extern	VOID		outdot(void);
-extern	VOID		outbuf(char *s);
-extern	VOID		outchk(int nt, int nr);
-extern	VOID		outgsd(void);
-extern	VOID		outsym(struct sym *sp);
-extern	VOID		outab(a_uint v);
-extern	VOID		outaw(a_uint v);
-extern	VOID		outa3b(a_uint v);
-extern	VOID		outa4b(a_uint v);
-extern	VOID		outaxb(int i, a_uint v);
-extern	VOID		outatxb(int i, a_uint v);
-extern	VOID		outrb(struct expr *esp, int r);
-extern	VOID		outrw(struct expr *esp, int r);
-extern	VOID		outr3b(struct expr *esp, int r);
-extern	VOID		outr4b(struct expr *esp, int r);
-extern	VOID		outrxb(int i, struct expr *esp, int r);
-extern	VOID		outrbm(struct expr *esp, int r, a_uint v);
-extern	VOID		outrwm(struct expr *esp, int r, a_uint v);
-extern	VOID		outr3bm(struct expr *esp, int r, a_uint v);
-extern	VOID		outr4bm(struct expr *esp, int r, a_uint v);
-extern	VOID		outrxbm(int i, struct expr *esp, int r, a_uint v);
+extern	void		out(char *p, int n);
+extern	void		outarea(struct area *ap);
+extern	void		outbank(struct bank *bp);
+extern	void		outmode(int index, struct mode *sdp);
+extern	void		outmline(char *p, char *q);
+extern	void		outdp(struct area *carea, struct expr *esp, int r);
+extern	void		outall(void);
+extern	void		outdot(void);
+extern	void		outbuf(char *s);
+extern	void		outchk(int nt, int nr);
+extern	void		outgsd(void);
+extern	void		outsym(struct sym *sp);
+extern	void		outab(a_uint v);
+extern	void		outaw(a_uint v);
+extern	void		outa3b(a_uint v);
+extern	void		outa4b(a_uint v);
+extern	void		outaxb(int i, a_uint v);
+extern	void		outatxb(int i, a_uint v);
+extern	void		outrb(struct expr *esp, int r);
+extern	void		outrw(struct expr *esp, int r);
+extern	void		outr3b(struct expr *esp, int r);
+extern	void		outr4b(struct expr *esp, int r);
+extern	void		outrxb(int i, struct expr *esp, int r);
+extern	void		outrbm(struct expr *esp, int r, a_uint v);
+extern	void		outrwm(struct expr *esp, int r, a_uint v);
+extern	void		outr3bm(struct expr *esp, int r, a_uint v);
+extern	void		outr4bm(struct expr *esp, int r, a_uint v);
+extern	void		outrxbm(int i, struct expr *esp, int r, a_uint v);
 extern	a_uint		outmerge(a_uint esp, int r, a_uint v);
-extern	VOID		out_lb(a_uint v, int t);
-extern	VOID		out_lw(a_uint v, int t);
-extern	VOID		out_l3b(a_uint v, int t);
-extern	VOID		out_l4b(a_uint v, int t);
-extern	VOID		out_lxb(int i, a_uint v, int t);
-extern	VOID		out_rw(a_uint v);
-extern	VOID		out_txb(int i, a_uint v);
+extern	void		out_lb(a_uint v, int t);
+extern	void		out_lw(a_uint v, int t);
+extern	void		out_l3b(a_uint v, int t);
+extern	void		out_l4b(a_uint v, int t);
+extern	void		out_lxb(int i, a_uint v, int t);
+extern	void		out_rw(a_uint v);
+extern	void		out_txb(int i, a_uint v);
 
 /* Machine dependent variables */
 
@@ -1439,8 +1414,8 @@ extern	struct	mode *	modep[16];
 
 /* Machine dependent functions */
 
-extern	VOID		machine(struct mne *mp);
-extern	VOID		minit(void);
+extern	void		machine(struct mne *mp);
+extern	void		minit(void);
 
 /*
  *	The number of cycle count digits to display.
@@ -1486,219 +1461,20 @@ extern	int	passfuz;
 /* asxcnv.c */
 
 /* Defined under asmain.c above
-extern	VOID		asexit(int i);
+extern	void		asexit(int i);
 extern	int		main(int argc, char *argv[]);
 extern	char *		usetxt[];
-extern	VOID		usage(void);
+extern	void		usage(void);
 */
-extern	VOID		linout(char *str, unsigned int n);
+extern	void		linout(char *str, unsigned int n);
 
 /* asxscn.c */
 
 /* Defined under asmain.c above
-extern	VOID		asexit(int i);
+extern	void		asexit(int i);
 extern	int		main(int argc, char *argv[]);
 extern	char *		usetxt[];
-extern	VOID		usage(void);
+extern	void		usage(void);
 */
 extern	int		dgt(int rdx, char *str, int n);
-
-#else
-
-/* C Library functions */
-extern	VOID		exit();
-
-/* asmain.c */
-extern	FILE *		afile();
-extern	VOID		afilex();
-extern	char *		argvscan();
-extern	VOID		asexit();
-extern	VOID		asmbl();
-extern	VOID		boundary);
-extern	VOID		equate();
-extern	char *		filespec();
-extern	VOID		fixrelfil();
-extern	int		fndidx();
-extern	int		intsiz();
-extern	VOID		insline();
-/*
-extern	int		main();
-*/
-extern	VOID		multipass();
-extern	VOID		newdot();
-extern	VOID		pckchr();
-extern	VOID		phase();
-extern	char *		usetxt[];
-extern	VOID		usage();
-
-/* asmcro.c */
-extern	char *		fgetm();
-extern	VOID		getdarg();
-extern	VOID		getdfarg();
-extern	VOID		getinline();
-extern	VOID		getxarg();
-extern	VOID		getxnum();
-extern	VOID		getxstr();
-extern	VOID		macro();
-extern	VOID		macroscn();
-extern	int		macrosub();
-extern	VOID		mcrinit();
-extern	int		mcrprc();
-extern	VOID *		mhunk();
-extern	char *		mstring();
-extern	char *		mstruct();
-extern	struct mcrdef *	newdef();
-extern	struct mcrdef *	nlookup();
-extern	VOID		pshmstk();
-extern	VOID		popmstk();
-
-/* aslex.c */
-extern	VOID		chopcrlf();
-extern	int		comma();
-extern	char		endline();
-extern	int		get();
-extern	int		getdlm();
-extern	VOID		getdstr();
-extern	VOID		getid();
-extern	int		getmap();
-extern	int		getnb();
-extern	int		getlnm();
-extern	VOID		getst();
-extern	int		more();
-extern	int		nxtline();
-extern	int		replace();
-extern	VOID		scanline();
-extern	VOID		unget();
-extern	int		skpcomma();
-
-/* assym.c */
-extern	VOID		allglob();
-extern	struct	area *	alookup();
-extern	VOID		asfree();
-extern	struct	bank *	blookup();
-extern	struct	def *	dlookup();
-extern	int		hash();
-extern	struct	sym *	lookup();
-extern	struct	mne *	mlookup();
-extern	char *		new();
-extern	struct	sym *	slookup();
-extern	char *		strsto();
-extern	int		symeq();
-extern	VOID		syminit();
-extern	VOID		symglob();
-
-/* assubr.c */
-extern	VOID		aerr();
-extern	VOID		diag();
-extern	VOID		err();
-extern	VOID		xerr();
-extern	char *		errors[];
-extern	char *		geterr();
-extern	VOID		qerr();
-extern	VOID		rerr();
-
-/* asexpr.c */
-extern	VOID		abscheck();
-extern	a_uint		absexpr();
-extern	VOID		clrexpr();
-extern	int		digit();
-extern	int		is_digit();
-extern	VOID		exprmasks();
-extern	VOID		expr();
-extern	VOID		binop();
-extern	int		is_abs();
-extern	int		oprio();
-extern	a_uint		rngchk();
-extern	VOID		term();
-
-/* asdbg */
-extern	char *		BaseFileName();
-extern	VOID		DefineNoICE_Line();
-extern	VOID		DefineSDCC_Line();
-
-/* aslist.c */
-extern	VOID		list();
-extern	VOID		list1();
-extern	VOID		list2();
-extern	VOID		listhlr();
-extern	VOID		lstsym();
-extern	VOID		slew();
-
-/* asout.c */
-extern	int		lobyte();
-extern	int		hibyte();
-extern	int		thrdbyte();
-extern	int		frthbyte();
-extern	VOID		out();
-extern	VOID		outarea();
-extern	VOID		outbank();
-extern	VOID		outmode();
-extern	VOID		outmline();
-extern	VOID		outdp();
-extern	VOID		outall();
-extern	VOID		outdot();
-extern	VOID		outbuf();
-extern	VOID		outchk();
-extern	VOID		outgsd();
-extern	VOID		outsym();
-extern	VOID		outab();
-extern	VOID		outaw();
-extern	VOID		outa3b();
-extern	VOID		outa4b();
-extern	VOID		outaxb();
-extern	VOID		outatxb();
-extern	VOID		outrb();
-extern	VOID		outrw();
-extern	VOID		outr3b();
-extern	VOID		outr4b();
-extern	VOID		outrxb();
-extern	VOID		outrbm();
-extern	VOID		outrwm();
-extern	VOID		outr3bm();
-extern	VOID		outr4bm();
-extern	VOID		outrxbm();
-extern	a_uint		outmerge();
-extern	VOID		out_lb();
-extern	VOID		out_lw();
-extern	VOID		out_l3b();
-extern	VOID		out_l4b();
-extern	VOID		out_lxb();
-extern	VOID		out_rw();
-extern	VOID		out_txb();
-
-/* Machine dependent variables */
-
-extern	char *		cpu;
-extern	char *		dsft;
-extern	struct	area	area[];
-extern	struct	bank	bank[];
-extern	struct	mne	mne[];
-extern	struct	mode *	modep[16];
-
-/* Machine dependent functions */
-
-extern	VOID		machine();
-extern	VOID		minit();
-
-/* asxcnv.c */
-
-/* Defined under asmain.c above
-extern	VOID		asexit();
-extern	int		main();
-extern	char *		usetxt[];
-extern	VOID		usage();
-*/
-extern	VOID		linout();
-
-/* asxscn.c */
-
-/* Defined under asmain.c above
-extern	VOID		asexit();
-extern	int		main();
-extern	char *		usetxt[];
-extern	VOID		usage();
-*/
-extern	int		dgt();
-
-#endif
 

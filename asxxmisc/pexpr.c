@@ -1,7 +1,7 @@
 /* pexpr.c */
 
 /*
- *  Copyright (C) 1989-2014  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@
  *	pexpr.c contains no local/static variables
  */
 
-/*)Function	VOID	pexpr(esp)
+/*)Function	void	pexpr(esp)
  *
  *		expr *	esp		pointer to expression structure
  *
@@ -48,9 +48,8 @@
  *		none
  */
  
-VOID
-pexpr(esp)
-struct expr *esp;
+void
+pexpr(struct expr *esp)
 {
 	printf("%s\r\n", "printexpr() {");
 	printf("    e_mode   =       %2.2X\r\n", esp->e_mode);

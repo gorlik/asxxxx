@@ -1,7 +1,7 @@
 /* sxmch.c */
 
 /*
- *  Copyright (C) 2022-2023  Alan R. Baldwin
+ *  Copyright (C) 2022-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -42,9 +42,8 @@ char *dsft = "asm";
 /*
  * Process a machine op.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	int op, rf;
 	int t1, t2, v1, v2;
@@ -359,8 +358,8 @@ char errstr[NCPS];
 /*
  * Machine dependent initialization
  */
-VOID
-minit()
+void
+minit(void)
 {
 	int i;
 	struct sym *sp;

@@ -1,7 +1,7 @@
 /* R78K0.H */
 
 /*
- *  Copyright (C) 2019-2021  Alan R. Baldwin
+ *  Copyright (C) 2019-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -169,12 +169,10 @@ extern struct adsym rb[];
 
  	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* r78kadr.c */
 extern	int		addr(struct expr *esp, int *aindx);
 extern	int		addrext(struct expr *esp, int *aindx, int *cidx, int *eidx);
-extern	VOID		addrbit(struct expr *esp1, int *aindx1, int *amode1, struct expr *esp2, int *aindx2, int *amode2, int *eidx);
+extern	void		addrbit(struct expr *esp1, int *aindx1, int *amode1, struct expr *esp2, int *aindx2, int *amode2, int *eidx);
 extern	int		addrmode(struct expr *esp);
 extern	int		argdot(struct expr *esp, int *aindx, int flag);
 extern	int		dotarg(struct expr *esp, int *aindx, int flag);
@@ -182,38 +180,13 @@ extern	int		admode(struct adsym *sp, int *aindx);
 extern	int		srch(char *str);
 
 	/* r78kmch.c */
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
-extern	VOID		minit(void);
-extern	VOID		pcrbra(struct expr *esp);
+extern	void		minit(void);
+extern	void		pcrbra(struct expr *esp);
 extern	int		setbit(int b);
 extern	int		getbit(void);
-extern	VOID		mcherr(char *str);
+extern	void		mcherr(char *str);
 extern	struct	sdp	sdp;
 extern	struct  area	*zpg;
-
-#else
-
-	/* r78kadr.c */
-extern	int		addr();
-extern	int		addrext();
-extern	VOID		addrbit();
-extern	int		addrmode();
-extern	int		argdot();
-extern	int		dotarg();
-extern	int		admode();
-extern	int		srch();
-
-	/* r78kmch.c */
-extern	VOID		machine();
-extern	int		mchpcr();
-extern	VOID		minit();
-extern	VOID		pcrbra();
-extern	int		setbit();
-extern	int		getbit();
-extern	VOID		mcherr();
-extern	struct	sdp	sdp;
-extern	struct  area	*zpg;
-
-#endif
 

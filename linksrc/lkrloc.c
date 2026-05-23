@@ -1,7 +1,7 @@
 /* lkrloc.c */
 
 /*
- *  Copyright (C) 1989-2014  Alan R. Baldwin
+ *  Copyright (C) 1989-2024  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -45,14 +45,14 @@
  *		a_uint	adb_xb()
  *		a_uint	adw_xb()
  *		a_uint	evword()
- *		VOID	prntval()
- *		VOID	reloc()
+ *		void	prntval()
+ *		void	reloc()
  *
  *	lkrloc.c the local variable errmsg[].
  *
  */
 
-/*)Function	VOID	reloc(c)
+/*)Function	void	reloc(c)
  *
  *		int c			process code
  *
@@ -66,17 +66,16 @@
  *		ASxxxx_VERSION		ASxxxx REL file version
  *
  *	called functions:
- *		VOID	reloc3()	lkrloc3.c
- *		VOID	reloc4()	lkrloc4.c
+ *		void	reloc3()	lkrloc3.c
+ *		void	reloc4()	lkrloc4.c
  *
  *	side effects:
  *		Refer to the called relocation functions.
  *
  */
 
-VOID
-reloc(c)
-int c;
+void
+reloc(int c)
 {
 	switch(ASxxxx_VERSION) {
 	case 3:
@@ -95,7 +94,7 @@ int c;
 }
 
 
-/*)Function	a_uint 	evword()
+/*)Function	a_uint 	evword(void)
  *
  *	The function evword() combines two byte values
  *	into a single word value.
@@ -116,7 +115,7 @@ int c;
  */
 
 a_uint
-evword()
+evword(void)
 {
 	a_uint v;
 
@@ -154,9 +153,7 @@ evword()
  */
 
 a_uint
-adb_1b(v, i)
-a_uint v;
-int i;
+adb_1b(a_uint v, int i)
 {
 	a_uint j;
 
@@ -190,9 +187,7 @@ int i;
  */
 
 a_uint
-adb_2b(v, i)
-a_uint v;
-int i;
+adb_2b(a_uint v, int i)
 {
 	a_uint j;
 
@@ -234,9 +229,7 @@ int i;
  */
 
 a_uint
-adb_3b(v, i)
-a_uint v;
-int i;
+adb_3b(a_uint v, int i)
 {
 	a_uint j;
 
@@ -282,9 +275,7 @@ int i;
  */
 
 a_uint
-adb_4b(v, i)
-a_uint v;
-int i;
+adb_4b(a_uint v, int i)
 {
 	a_uint j;
 
@@ -337,9 +328,7 @@ int i;
  */
 
 a_uint
-adb_xb(v, i)
-a_uint v;
-int i;
+adb_xb(a_uint v, int i)
 {
 	a_uint j;
 
@@ -422,10 +411,7 @@ int i;
  */
 
 a_uint
-adw_xb(x, v, i)
-int x;
-a_uint v;
-int i;
+adw_xb(int x, a_uint v, int i)
 {
 	a_uint j;
 	int n;
@@ -441,7 +427,7 @@ int i;
 	return (j);
 }
 
-/*)Function	VOID	prntval(fptr, v)
+/*)Function	void	prntval(fptr, v)
  *
  *		FILE	*fptr		output file handle
  *		a_uint	v		value to output
@@ -464,10 +450,8 @@ int i;
  *
  */
 
-VOID
-prntval(fptr, v)
-FILE *fptr;
-a_uint v;
+void
+prntval(FILE *fptr, a_uint v)
 {
 	char *frmt;
 

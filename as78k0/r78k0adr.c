@@ -1,7 +1,7 @@
 /* R78K0ADR.C */
 
 /*
- *  Copyright (C) 2019-2022  Alan R. Baldwin
+ *  Copyright (C) 2019-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,9 +26,7 @@
 #include "r78k0.h"
 
 int
-addr(esp, aindx)
-struct expr *esp;
-int *aindx;
+addr(struct expr *esp, int *aindx)
 {
 	int amode;
 	int c;
@@ -111,8 +109,7 @@ int *aindx;
 }
 
 int
-addrmode(esp)
-struct expr *esp;
+addrmode(struct expr *esp)
 {
 	a_uint v;
 
@@ -182,11 +179,7 @@ struct expr *esp;
 }
 
 int
-addrext(esp, aindx, cidx, eidx)
-struct expr *esp;
-int *aindx;
-int *cidx;
-int *eidx;
+addrext(struct expr *esp, int *aindx, int *cidx, int *eidx)
 {
 	int c, t;
 	char *p, *q;
@@ -210,12 +203,8 @@ int *eidx;
 	return(t);
 }
 
-VOID
-addrbit(esp1, aindx1, amode1, esp2, aindx2, amode2, eidx)
-struct expr *esp1, *esp2;
-int *amode1, *amode2;
-int *aindx1, *aindx2;
-int *eidx;
+void
+addrbit(struct expr *esp1, int *aindx1, int *amode1, struct expr *esp2, int *aindx2, int *amode2, int *eidx)
 {
 	int c, i, j;
 	char *p, *q;
@@ -342,10 +331,7 @@ int *eidx;
 }
 
 int
-argdot(esp, aindx, flag)
-struct expr *esp;
-int *aindx;
-int flag;
+argdot(struct expr *esp, int *aindx, int flag)
 {
 	char *iptr;
 	int amode;
@@ -402,10 +388,7 @@ int flag;
 }
 
 int
-dotarg(esp, aindx, flag)
-struct expr *esp;
-int *aindx;
-int flag;
+dotarg(struct expr *esp, int *aindx, int flag)
 {
 	*aindx = 0;
 	/* ----.**** */
@@ -442,9 +425,7 @@ int flag;
  * for a match. Return 1 on a match or 0 for no match.
  */
 int
-admode(sp, aindx)
-struct adsym *sp;
-int *aindx;
+admode(struct adsym *sp, int *aindx)
 {
 	char *ptr;
 	int i;
@@ -469,8 +450,7 @@ int *aindx;
  *      srch --- does string match ?
  */
 int
-srch(str)
-char *str;
+srch(char *str)
 {
 	char *ptr;
 	ptr = ip;

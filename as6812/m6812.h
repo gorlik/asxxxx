@@ -1,7 +1,7 @@
 /* m6812.h */
 
 /*
- *  Copyright (C) 1989-2021  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -159,8 +159,6 @@ extern struct opdata mc6811[];
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* m12adr.c */
 extern	int		addr(struct expr *esp);
 extern	int		addr1(struct expr *esp);
@@ -169,33 +167,12 @@ extern	int		srch(char *str);
 
 	/* m12mch.c */
 extern	struct  area	*zpg;
-extern	VOID		machine(struct mne *mp);
-extern	VOID		genout(int cpg, int op, int rf, struct expr *esp);
-extern	VOID		movout(struct expr *esp, int indx, int offset);
-extern	VOID		m68out(int i);
+extern	void		machine(struct mne *mp);
+extern	void		genout(int cpg, int op, int rf, struct expr *esp);
+extern	void		movout(struct expr *esp, int indx, int offset);
+extern	void		m68out(int i);
 extern	int		setbit(int b);
 extern	int		getbit(void);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
-extern	VOID		minit(void);
-
-#else
-
-	/* m12adr.c */
-extern	int		addr();
-extern	int		addr1();
-extern	int		admode();
-extern	int		srch();
-
-	/* m12mch.c */
-extern	struct  area	*zpg;
-extern	VOID		machine();
-extern	VOID		genout();
-extern	VOID		movout();
-extern	VOID		m68out();
-extern	int		setbit();
-extern	int		getbit();
-extern	int		mchpcr();
-extern	VOID		minit();
-
-#endif
+extern	void		minit(void);
 

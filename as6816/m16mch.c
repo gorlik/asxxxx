@@ -1,7 +1,7 @@
 /* m16mch.c */
 
 /*
- *  Copyright (C) 1991-2021  Alan R. Baldwin
+ *  Copyright (C) 1991-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -141,9 +141,8 @@ int MCH, BRX, IDX, IMM;
 /*
  * Process a machine op.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	int op, rf, cpg;
 	struct expr e1, e2, e3;
@@ -901,9 +900,8 @@ if (MCH) fprintf(stderr, "machine(1) line = %d\n", getlnm());
  * Sign Extend A 4 Bit Argument
  * And Check Argument Range
  */
-VOID
-sgnext4(e1)
-struct expr *e1;
+void
+sgnext4(struct expr *e1)
 {
 	if ((e1->e_addr & (a_uint) ~0x07) == (a_uint) 0x08)
 		e1->e_addr |= (a_uint) ~0x07;
@@ -913,9 +911,8 @@ struct expr *e1;
 /*
  * Signed 4 Bit Range Check
  */
-VOID
-srngchk4(e1)
-struct expr *e1;
+void
+srngchk4(struct expr *e1)
 {
 	if (mchcon(e1))
 		if ((e1->e_addr > (a_uint) 0x07) &&
@@ -927,9 +924,8 @@ struct expr *e1;
 /*
  * Unsigned 4 Bit Range Check
  */
-VOID
-urngchk4(e1)
-struct expr *e1;
+void
+urngchk4(struct expr *e1)
 {
 	if (mchcon(e1)) {
 		if ((e1->e_addr & (a_uint) ~0x0F) != (a_uint) 0)
@@ -941,9 +937,8 @@ struct expr *e1;
  * Sign Extend An 8 Bit Argument
  * And Check Argument Range
  */
-VOID
-sgnext8(e1)
-struct expr *e1;
+void
+sgnext8(struct expr *e1)
 {
 	if ((e1->e_addr & (a_uint) ~0x7F) == (a_uint) 0x80)
 		e1->e_addr |= (a_uint) ~0x7F;
@@ -953,9 +948,8 @@ struct expr *e1;
 /*
  * Signed 8 Bit Range Check
  */
-VOID
-srngchk8(e1)
-struct expr *e1;
+void
+srngchk8(struct expr *e1)
 {
 	if (mchcon(e1))
 		if ((e1->e_addr > (a_uint) 0x7F) &&
@@ -967,9 +961,8 @@ struct expr *e1;
 /*
  * Unsigned 8 Bit Range Check
  */
-VOID
-urngchk8(e1)
-struct expr *e1;
+void
+urngchk8(struct expr *e1)
 {
 	if (mchcon(e1)) {
 		if ((e1->e_addr & (a_uint) ~0xFF) != (a_uint) 0)
@@ -981,9 +974,8 @@ struct expr *e1;
  * Sign Extend 16 Bit Argument
  * And Check Argument Range
  */
-VOID
-sgnext16(e1)
-struct expr *e1;
+void
+sgnext16(struct expr *e1)
 {
 	if ((e1->e_addr & (a_uint) ~0x7FFF) == (a_uint) 0x8000)
 		e1->e_addr |= (a_uint) ~0x7FFF;
@@ -993,9 +985,8 @@ struct expr *e1;
 /*
  * Signed 16 Bit Range Check
  */
-VOID
-srngchk16(e1)
-struct expr *e1;
+void
+srngchk16(struct expr *e1)
 {
 	if (mchcon(e1)) {
 		if ((e1->e_addr > (a_uint) 0x7FFF) &&
@@ -1007,9 +998,8 @@ struct expr *e1;
 /*
  * Unsigned 16 Bit Range Check
  */
-VOID
-urngchk16(e1)
-struct expr *e1;
+void
+urngchk16(struct expr *e1)
 {
 	if (mchcon(e1)) {
 #ifdef	LONGINT
@@ -1025,9 +1015,8 @@ struct expr *e1;
  * Sign Extend 20 Bit Argument
  * And Check Argument Range
  */
-VOID
-sgnext20(e1)
-struct expr *e1;
+void
+sgnext20(struct expr *e1)
 {
 #ifdef	LONGINT
 		if ((e1->e_addr & (a_uint) ~0x7FFFFl) == (a_uint) 0x80000l)
@@ -1042,9 +1031,8 @@ struct expr *e1;
 /*
  * Signed 20 Bit Range Check
  */
-VOID
-srngchk20(e1)
-struct expr *e1;
+void
+srngchk20(struct expr *e1)
 {
 	if (mchcon(e1)) {
 #ifdef	LONGINT
@@ -1061,9 +1049,8 @@ struct expr *e1;
 /*
  * Unsigned 20 Bit Range Check
  */
-VOID
-urngchk20(e1)
-struct expr *e1;
+void
+urngchk20(struct expr *e1)
 {
 	if (mchcon(e1)) {
 #ifdef	LONGINT
@@ -1079,8 +1066,7 @@ struct expr *e1;
  * Check if argument is a constant
  */
 int
-mchcon(e1)
-struct expr *e1;
+mchcon(struct expr *e1)
 {
 	if (e1->e_base.e_ap == NULL && e1->e_flag == 0) {
 		return(1);
@@ -1092,11 +1078,7 @@ struct expr *e1;
  * Configure Mode For BRCLR/BRSET (Signed 16/8 Bit and Long/Short Branch))
  */
 int
-mchbrcs(t1,e1,pc,e2)
-int t1;
-struct expr *e1;
-a_uint pc;
-struct expr *e2;
+mchbrcs(int t1, struct expr *e1, a_uint pc, struct expr *e2)
 {
 	int flag, flaga, flagb;
 	INT32 of;
@@ -1159,9 +1141,7 @@ if (BRX) fprintf(stderr, "mchbrcs(6) flag = %d\n", flag);
  * Check Index Mode (Signed 16 Bit or Unsigned 8 Bit)
  */
 int
-mchindx(t1,e1)
-int t1;
-struct expr *e1;
+mchindx(int t1, struct expr *e1)
 {
 	int flag;
 
@@ -1199,8 +1179,7 @@ if (IDX) fprintf(stderr, "mchindx(5) flag = %d\n", flag);
  * Check Signed Immediate Range (16 or 8 Bit)
  */
 int
-mchimm(e1)
-struct expr *e1;
+mchimm(struct expr *e1)
 {
 	int flag;
 
@@ -1236,8 +1215,8 @@ if (IMM) fprintf(stderr, "mchimm(5) flag = %d\n", flag);
  * Machine specific initialization.
  * Set up the bit table.
  */
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * 24-Bit Machine
@@ -1258,8 +1237,7 @@ minit()
  * If no room, force the longer form of the offset.
  */
 int
-setbit(b)
-int b;
+setbit(int b)
 {
 	if (bp >= &bb[NB])
 		return(1);
@@ -1279,7 +1257,7 @@ int b;
  * This will force the longer form of the offset.
  */
 int
-getbit()
+getbit(void)
 {
 	int f;
 
@@ -1298,8 +1276,7 @@ getbit()
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp)
-struct expr *esp;
+mchpcr(struct expr *esp)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		return(1);

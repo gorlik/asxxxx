@@ -1,7 +1,7 @@
 /* avr.h */
 
 /*
- *  Copyright (C) 2001-2021  Alan R. Baldwin
+ *  Copyright (C) 2001-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -213,8 +213,6 @@ extern struct PreDef preDef[];
 
 extern	int	aindx;
 
-#ifdef	OTHERSYSTEM
-	
 	/* avradr.c */
 extern	struct	adsym	regAVR[];
 extern	struct	adsym	xyz[];
@@ -224,24 +222,7 @@ extern	int		admode(struct adsym *sp);
 extern	int		srch(char *str);
 
 	/* avrmch.c */
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
-extern	VOID		minit(void);
-
-#else
-
-	/* avradr.c */
-extern	struct	adsym	regAVR[];
-extern	struct	adsym	xyz[];
-extern	int		addr();
-extern	int		addr1();)
-extern	int		admode();
-extern	int		srch();
-
-	/* avrmch.c */
-extern	VOID		machine();
-extern	int		mchpcr();
-extern	VOID		minit();
-
-#endif
+extern	void		minit(void);
 

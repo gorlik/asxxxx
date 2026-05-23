@@ -1,7 +1,7 @@
 /* h8.h */
 
 /*
- *  Copyright (C) 1994-2021  Alan R. Baldwin
+ *  Copyright (C) 1994-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -117,8 +117,6 @@ extern struct adsym ccr_reg[];
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* h8adr.c */
 extern	int		addr(struct expr *esp);
 extern	int		addr1(struct expr *esp);
@@ -127,35 +125,13 @@ extern	int		srch(char *str);
 
 	/* h8mch.c */
 extern	struct  area	*zpg;
-extern	VOID		machine(struct mne *mp);
-extern	VOID		normbyte(struct expr *esp);
-extern	VOID		usgnbyte(struct expr *esp);
-extern	VOID		pagebyte(struct expr *esp);
+extern	void		machine(struct mne *mp);
+extern	void		normbyte(struct expr *esp);
+extern	void		usgnbyte(struct expr *esp);
+extern	void		pagebyte(struct expr *esp);
 extern	int		abstype(struct expr *esp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
-extern	VOID		minit(void);
+extern	void		minit(void);
 extern	int		setbit(int b);
 extern	int		getbit(void);
-
-#else
-
-	/* h8adr.c */
-extern	int		addr();
-extern	int		addr1();
-extern	int		admode();
-extern	int		srch();
-
-	/* h8mch.c */
-extern	struct  area	*zpg;
-extern	VOID		machine();
-extern	VOID		normbyte();
-extern	VOID		usgnbyte();
-extern	VOID		pagebyte();
-extern	int		abstype();
-extern	int		mchpcr();
-extern	VOID		minit();
-extern	int		setbit();
-extern	int		getbit();
-
-#endif
 

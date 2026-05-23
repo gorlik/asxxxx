@@ -1,7 +1,7 @@
 /* assubr.c */
 
 /*
- *  Copyright (C) 1989-2022  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -30,18 +30,18 @@
  *	processing routines.
  *
  *	assubr.c contains the following functions:
- *		VOID	aerr()
- *		VOID	diag()
- *		VOID	err()
- *		VOID	qerr()
- *		VOID	rerr()
+ *		void	aerr()
+ *		void	diag()
+ *		void	err()
+ *		void	qerr()
+ *		void	rerr()
  *		char *	geterr()
- *		VOID	xerr()
+ *		void	xerr()
  *
  *	assubr.c contains the local array of *error[]
  */
 
-/*)Function	VOID	err(c)
+/*)Function	void	err(c)
  *
  *		int	c		error type character
  *
@@ -50,21 +50,20 @@
  *	with a NULL string.
   *
  *	functions called:
- *		VOID	xerr()		assubr.c
+ *		void	xerr()		assubr.c
  *
  *	side effects:
  *		The error code may be inserted into the
  *		error code array eb[].
  */
 
-VOID
-err(c)
-int c;
+void
+err(int c)
 {
 	xerr(c, NULL);
 }
 
-/*)Function	VOID	xerr(c, str)
+/*)Function	void	xerr(c, str)
  *
  *		int	c		error type character
  *		char *	str		the error message string
@@ -83,7 +82,7 @@ int c;
  *		char *	ex[]		array of error string pointers
  *
  *	functions called:
- *		VOID	longjmp()	c_library
+ *		void	longjmp()	c_library
  *
  *	side effects:
  *		The error code may be inserted into the
@@ -92,10 +91,8 @@ int c;
  *		array ex[], or the parse terminated.
  */
 
-VOID
-xerr(c, str)
-int c;
-char *str;
+void
+xerr(int c, char *str)
 {
 	char *p;
 
@@ -113,7 +110,7 @@ char *str;
 		longjmp(jump_env, -1);
 }
 
-/*)Function	VOID	diag()
+/*)Function	void	diag(void)
  *
  *	The function diag() prints any error codes and
  *	the source line number to the stderr output device
@@ -139,15 +136,15 @@ char *str;
  *		int	fprintf()	c_library
  *		char *	geterr()	assubr.c
  *		int	getlnm()	assubr.c
- *		VOID	listhlr()	aslist.c
+ *		void	listhlr()	aslist.c
  *
  *	side effects:
  *		Error strings output to stderr and the
  *		listing file.
  */
 
-VOID
-diag()
+void
+diag(void)
 {
 	char *p,*errstr;
 	FILE *fp;
@@ -198,9 +195,9 @@ diag()
 	}
 }
 
-/*)Functions:	VOID	aerr()
- *		VOID	qerr()
- *		VOID	rerr()
+/*)Functions:	void	aerr(void)
+ *		void	qerr(void)
+ *		void	rerr(void)
  *
  *	The functions aerr(), qerr(), and rerr() report their
  *	respective error type.  These are included only for
@@ -213,7 +210,7 @@ diag()
  *		none
  *
  *	functions called:
- *		VOID	err()		assubr.c
+ *		void	err()		assubr.c
  *
  *	side effects:
  *		The appropriate error code is inserted into the
@@ -223,8 +220,8 @@ diag()
 /*
  * Note an 'r' error.
  */
-VOID
-rerr()
+void
+rerr(void)
 {
 	err('r');
 }
@@ -232,8 +229,8 @@ rerr()
 /*
  * Note an 'a' error.
  */
-VOID
-aerr()
+void
+aerr(void)
 {
 	err('a');
 }
@@ -241,8 +238,8 @@ aerr()
 /*
  * Note a 'q' error.
  */
-VOID
-qerr()
+void
+qerr(void)
 {
 	err('q');
 }
@@ -294,8 +291,7 @@ char *errors[] = {
  *		error code string is returned.
  */
 char *
-geterr(c)
-int c;
+geterr(int c)
 {
 	int i;
 

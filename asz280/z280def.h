@@ -370,45 +370,21 @@ extern	a_uint	mchtyp;		/* ARB */
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* z280adr.c */
-extern	VOID 		dump_expr(struct expr *ep);	/* ARB */
-extern	VOID		list_indx(INT32 indx);		/* ARB */
+extern	void 		dump_expr(struct expr *ep);	/* ARB */
+extern	void		list_indx(INT32 indx);		/* ARB */
 extern	INT32		new_addr(struct expr *esp);
 extern	INT32		admode(struct adsym *sp);
 extern	int		srch(char *str);
 
 	/* z280mch.c */
 extern	a_uint		debug;	/* ARB */
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
-extern	VOID		minit(void);
+extern	void		minit(void);
 extern	int		nreg(a_uint m);
 extern	int		generate(struct expr *arg, a_uint marg, INT32 op, int byt);	/* ARB */
-extern	VOID		emit(INT32 op);
+extern	void		emit(INT32 op);
 extern	int		new_machine(struct mne *mp);
 extern	int		arg_match(a_uint class, a_uint arg);
-
-#else
-
-	/* z280adr.c */
-extern	VOID 		dump_expr();	/* ARB */
-extern	VOID		list_indx();	/* ARB */
-extern	int		new_addr();
-extern	int		admode();
-extern	int		srch();
-
-	/* z280mch.c */
-extern a_uint debug;	/* ARB */
-extern	VOID		machine();
-extern	int		mchpcr();
-extern	VOID		minit();
-extern	int		nreg();
-extern	int		generate();
-extern	VOID		emit();
-extern	int		new_machine();
-extern	int		arg_match();
-
-#endif
 

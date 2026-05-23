@@ -1,7 +1,7 @@
 /* lkmain.c */
 
 /*
- *  Copyright (C) 1989-2022  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -34,21 +34,21 @@
  *
  *	lkmain.c contains the following functions:
  *		FILE *	afile()
- *		VOID	areasav()
- *		VOID	banksav()
- *		VOID	glblsav()
+ *		void	areasav()
+ *		void	banksav()
+ *		void	glblsav()
  *		int	intsiz()
- *		VOID	link()
- *		VOID	lkexit()
+ *		void	link()
+ *		void	lkexit()
  *		char *	filespec()
  *		int	fndext()
  *		int	fndidx()
  *		int	main()
- *		VOID	map()
+ *		void	map()
  *		int	parse()
- *		VOID	doparse()
- *		VOID	setgbl()
- *		VOID	usage()
+ *		void	doparse()
+ *		void	setgbl()
+ *		void	usage()
  *
  *	lkmain.c contains the following local variables:
  *		char *	usetext[]	array of pointers to the
@@ -56,7 +56,7 @@
  *
  */
 
-/*)Function	int	main(argc,argv)
+/*)Function	int	main(argc, argv)
  *
  *		int	argc		number of command line arguments + 1
  *		char *	argv[]		array of pointers to the command line
@@ -117,27 +117,27 @@
  *		FILE *	stdout		c_library
  *
  *	functions called:
- *		VOID	chkbank()	lkbank.c
+ *		void	chkbank()	lkbank.c
  *		int	fclose()	c_library
  *		int	fprintf()	c_library
- *		VOID	library()	lklibr.c
- *		VOID	link()		lkmain.c
- *		VOID	lkexit()	lkmain.c
- *		VOID	lkfopen()	lkbank.c
- *		VOID	lnkarea()	lkarea.c
- *		VOID	map()		lkmain.c
- *		VOID	new()		lksym.c
+ *		void	library()	lklibr.c
+ *		void	link()		lkmain.c
+ *		void	lkexit()	lkmain.c
+ *		void	lkfopen()	lkbank.c
+ *		void	lnkarea()	lkarea.c
+ *		void	map()		lkmain.c
+ *		void	new()		lksym.c
  *		int	nxtline()	lklex.c
  *		int	parse()		lkmain.c
- *		VOID	reloc()		lkreloc.c
- *		VOID	search()	lklibr.c
- *		VOID	setarea()	lkarea.c
- *		VOID	setbank()	lkbank.c
- *		VOID	setgbl()	lkmain.c
+ *		void	reloc()		lkreloc.c
+ *		void	search()	lklibr.c
+ *		void	setarea()	lkarea.c
+ *		void	setbank()	lkbank.c
+ *		void	setgbl()	lkmain.c
  *		char *	sprintf()	c_library
- *		VOID	symdef()	lksym.c
+ *		void	symdef()	lksym.c
  *		time_t	time()		c_library
- *		VOID	usage()		lkmain.c
+ *		void	usage()		lkmain.c
  *
  *	side effects:
  *		Completion of main() completes the linking process
@@ -147,9 +147,7 @@
  */
 
 int
-main(argc, argv)
-int argc;
-char *argv[];
+main(int argc, char *argv[])
 {
 	char *p;
 	int c, i;
@@ -371,7 +369,7 @@ char *argv[];
 	return(0);
 }
 
-/*)Function	int	intsiz()
+/*)Function	int	intsiz(void)
  *
  *	The function intsiz() returns the size of INT32
  *
@@ -389,12 +387,12 @@ char *argv[];
  */
 
 int
-intsiz()
+intsiz(void)
 {
 	return(sizeof(a_uint));
 }
 
-/*)Function	VOID	lkexit(i)
+/*)Function	void	lkexit(i)
  *
  *			int	i	exit code
  *
@@ -415,16 +413,15 @@ intsiz()
  *
  *	functions called:
  *		int	fclose()	c_library
- *		VOID	exit()		c_library
- *		VOID	lkfclose()	lkbank.c
+ *		void	exit()		c_library
+ *		void	lkfclose()	lkbank.c
  *
  *	side effects:
  *		All files closed. Program terminates.
  */
 
-VOID
-lkexit(i)
-int i;
+void
+lkexit(int i)
 {
 	lkfclose();
 #if NOICE
@@ -441,7 +438,7 @@ int i;
 	exit(i);
 }
 
-/*)Function	link()
+/*)Function	link(void)
  *
  *	The function link() evaluates the directives for each line of
  *	text read from the .rel file(s).  The valid directives processed
@@ -468,13 +465,13 @@ int i;
  *	functions called:
  *		int	get()		lklex.c
  *		int	getnb()		lklex.c
- *		VOID	module()	lkhead.c
- *		VOID	newarea()	lkarea.c
- *		VOID	newhead()	lkhead.c
- *		VOID	newmode()	lkhead.c
+ *		void	module()	lkhead.c
+ *		void	newarea()	lkarea.c
+ *		void	newhead()	lkhead.c
+ *		void	newmode()	lkhead.c
  *		sym *	newsym()	lksym.c
- *		VOID	NoICEmagic()	lknoice.c
- *		VOID	reloc()		lkreloc.c
+ *		void	NoICEmagic()	lknoice.c
+ *		void	reloc()		lkreloc.c
  *		int	unget()		lklex.c
  *
  *	side effects:
@@ -482,8 +479,8 @@ int i;
  *		the radix is set as the .rel file(s) are read.
  */
 
-VOID
-link()
+void
+link(void)
 {
 	int c;
 
@@ -638,7 +635,7 @@ link()
 	}
 }
 
-/*)Function	VOID	map()
+/*)Function	void	map(void)
  *
  *	The function map() opens the output map file and calls the various
  *	routines to
@@ -685,17 +682,17 @@ link()
  *	functions called:
  *		FILE *	afile()		lkmain.c
  *		int	fprintf()	c_library
- *		VOID	lkexit()	lkmain.c
- *		VOID	lstarea()	lklist.c
- *		VOID	newpag()	lklist.c
- *		VOID	symdef()	lksym.c
+ *		void	lkexit()	lkmain.c
+ *		void	lstarea()	lklist.c
+ *		void	newpag()	lklist.c
+ *		void	symdef()	lksym.c
  *
  *	side effects:
  *		The map file is created.
  */
 
-VOID
-map()
+void
+map(void)
 {
 	int i;
 	struct head *hdp;
@@ -803,7 +800,7 @@ map()
 	symdef(mfp);
 }
 
-/*)Function	int	parse()
+/*)Function	int	parse(void)
  *
  *	The function parse() evaluates all command line or file input
  *	linker directives and updates the appropriate variables.
@@ -836,23 +833,23 @@ map()
  *		int	zflag		Enable symbol case sensitivity
  *
  *	Functions called:
- *		VOID	addlib()	lklibr.c
- *		VOID	addpath()	lklibr.c
- *		VOID	areasav()	lkmain.c
- *		VOID	banksav()	lkmain.c
- *		VOID	doparse()	lkmain.c
+ *		void	addlib()	lklibr.c
+ *		void	addpath()	lklibr.c
+ *		void	areasav()	lkmain.c
+ *		void	banksav()	lkmain.c
+ *		void	doparse()	lkmain.c
  *		char *	filespec()	lkmain.c
  *		int	fprintf()	c_library
- *		VOID	glblsav()	lkmain.c
- *		VOID	getfid()	lklex.c
+ *		void	glblsav()	lkmain.c
+ *		void	getfid()	lklex.c
  *		int	get()		lklex.c
  *		int	getnb()		lklex.c
  *		int	getnb()		lklex.c
- *		VOID	lkexit()	lkmain.c
+ *		void	lkexit()	lkmain.c
  *		char *	new()		lksym.c
  *		char *	strsto()	lksym.c
  *		int	strlen()	c_library
- *		VOID	unget()		lklex.c
+ *		void	unget()		lklex.c
  *
  *	side effects:
  *		Various linker flags are updated and the linked
@@ -1081,7 +1078,7 @@ parse()
 	return(0);
 }
 
-/*)Function	VOID	doparse()
+/*)Function	void	doparse(void)
  *
  *	The function doparse() evaluates all interactive
  *	command line or file input linker directives and
@@ -1116,8 +1113,8 @@ parse()
  *		structure lfile may be updated.
  */
 
-VOID
-doparse()
+void
+doparse(void)
 {
 	cfp = NULL;
 	sfp = NULL;
@@ -1165,8 +1162,7 @@ doparse()
  *		evaluates an option for a file name and/or extension
  *		and saves outnam/outext respectively
  */
-char *filespec(p)
-char *p;
+char *filespec(char *p)
 {
 	int opt;
 	int pFile;
@@ -1210,7 +1206,7 @@ char *p;
 	return(p);
 }
 
-/*)Function	VOID	areasav()
+/*)Function	void	areasav(void)
  *
  *	The function areasav() creates a linked structure containing
  *	the area base address strings input to the linker.
@@ -1228,17 +1224,17 @@ char *p;
  *
  *	 functions called:
  *		int	getnb()		lklex.c
- *		VOID *	new()		lksym.c
+ *		void *	new()		lksym.c
  *		int	strlen()	c_library
  *		char *	strcpy()	c_library
- *		VOID	unget()		lklex.c
+ *		void	unget()		lklex.c
  *
  *	side effects:
  *		The a_base structure is created.
  */
 
-VOID
-areasav()
+void
+areasav(void)
 {
 	if (a_basep == NULL) {
 		a_basep = (struct base *)
@@ -1255,7 +1251,7 @@ areasav()
 }
 
 
-/*)Function	VOID	banksav()
+/*)Function	void	banksav(void)
  *
  *	The function banksav() creates a linked structure containing
  *	the bank base address strings input to the linker.
@@ -1273,17 +1269,17 @@ areasav()
  *
  *	 functions called:
  *		int	getnb()		lklex.c
- *		VOID *	new()		lksym.c
+ *		void *	new()		lksym.c
  *		int	strlen()	c_library
  *		char *	strcpy()	c_library
- *		VOID	unget()		lklex.c
+ *		void	unget()		lklex.c
  *
  *	side effects:
  *		The b_base structure is created.
  */
 
-VOID
-banksav()
+void
+banksav(void)
 {
 	if (b_basep == NULL) {
 		b_basep = (struct base *)
@@ -1300,7 +1296,7 @@ banksav()
 }
 
 
-/*)Function	VOID	glblsav()
+/*)Function	void	glblsav(void)
  *
  *	The function glblsav() creates a linked structure containing
  *	the global variable strings input to the linker.
@@ -1318,17 +1314,17 @@ banksav()
  *
  *	functions called:
  *		int	getnb()		lklex.c
- *		VOID *	new()		lksym.c
+ *		void *	new()		lksym.c
  *		int	strlen()	c_library
  *		char *	strcpy()	c_library
- *		VOID	unget()		lklex.c
+ *		void	unget()		lklex.c
  *
  *	side effects:
  *		The globlp structure is created.
  */
 
-VOID
-glblsav()
+void
+glblsav(void)
 {
 	if (globlp == NULL) {
 		globlp = (struct globl *)
@@ -1345,7 +1341,7 @@ glblsav()
 }
 
 
-/*)Function	VOID	setgbl()
+/*)Function	void	setgbl(void)
  *
  *	The function setgbl() scans the global variable lines in the
  *	globlp structure, evaluates the arguments, and sets a variable
@@ -1369,7 +1365,7 @@ glblsav()
  *	 functions called:
  *		a_uint	expr()		lkeval.c
  *		int	fprintf()	c_library
- *		VOID	getid()		lklex.c
+ *		void	getid()		lklex.c
  *		int	getnb()		lklex.c
  *		sym *	lkpsym()	lksym.c
  *
@@ -1377,8 +1373,8 @@ glblsav()
  *		The value of a variable is set.
  */
 
-VOID
-setgbl()
+void
+setgbl(void)
 {
 	int v;
 	struct sym *sp;
@@ -1458,10 +1454,7 @@ setgbl()
  */
 
 FILE *
-afile(fn, ft, wf)
-char *fn;
-char *ft;
-int wf;
+afile(char *fn, char *ft, int wf)
 {
 	char *p1, *p2;
 	int c;
@@ -1523,13 +1516,8 @@ int wf;
 	default:
 	case 0:	frmt = "r";	break;
 	case 1:	frmt = "w";	break;
-#ifdef	DECUS
-	case 2:	frmt = "rn";	break;
-	case 3:	frmt = "wn";	break;
-#else
 	case 2:	frmt = "rb";	break;
 	case 3:	frmt = "wb";	break;
-#endif
 	}
 	if ((fp = fopen(afspec, frmt)) == NULL) {
 		if (wf & 4) {
@@ -1568,8 +1556,7 @@ int wf;
  */
 
 int
-fndidx(str)
-char *str;
+fndidx(char *str)
 {
 	char *p1, *p2;
 
@@ -1608,8 +1595,7 @@ char *str;
  */
 
 int
-fndext(str)
-char * str;
+fndext(char * str)
 {
 	char *p1, *p2;
 
@@ -1671,7 +1657,7 @@ char *usetxt[] = {
 	0
 };
 
-/*)Function	VOID	usage()
+/*)Function	void	usage(void)
  *
  *	The function usage() outputs to the stderr device the
  *	linker name and version and a list of valid linker options.
@@ -1690,8 +1676,8 @@ char *usetxt[] = {
  *		none
  */
 
-VOID
-usage()
+void
+usage(void)
 {
 	char	**dp;
 

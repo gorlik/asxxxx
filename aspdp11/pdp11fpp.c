@@ -1,8 +1,8 @@
 /* pdp11fpp.c */
 
 /*
- *  Copyright (C) 2022-2023  Alan R. Baldwin
- *  Copyright (C) 2022-2023  Nick Downing
+ *  Copyright (C) 2022-2025  Alan R. Baldwin
+ *  Copyright (C) 2022-2025  Nick Downing
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -87,8 +87,8 @@ int	fpt;		/*	Rounding Or Truncation */
  *	MSB - fbuf[7]
  *	LSB - fbuf[6]
  */
-VOID
-atowrd()
+void
+atowrd(void)
 {
 	int ovrf;
 
@@ -110,8 +110,8 @@ if (pass == 2) fprintf(stderr, "FLT32 = %6.6o %6.6o\n", rslt[3], rslt[2]);
  *	       ...
  *	LSB - fbuf[4]
  */
-VOID
-atoflt()
+void
+atoflt(void)
 {
 	int ovrf;
 
@@ -133,8 +133,8 @@ if (pass == 2) fprintf(stderr, "FLT32 = %6.6o %6.6o\n", rslt[3], rslt[2]);
  *	      ...
  *	LSB - fbuf[0]
  */
-VOID
-atodbl()
+void
+atodbl(void)
 {
 	int ovrf;
 
@@ -159,8 +159,7 @@ if (pass == 2) fprintf(stderr, "FLT64 = %6.6o %6.6o %6.6o %6.6o\n", rslt[3], rsl
  */
 
 int
-atofd(fd)
-int fd;
+atofd(int fd)
 {
 	int c, i, v;
 	int expv;
@@ -399,8 +398,8 @@ int fd;
 /*
  * Move 'fbuf' To 'fsav'
  */
-VOID
-fltsv()
+void
+fltsv(void)
 {
 	int i;
 
@@ -412,8 +411,8 @@ fltsv()
 /*
  * Right Shift 'fbuf'
  */
-VOID
-fltrs()
+void
+fltrs(void)
 {
 	int i;
 
@@ -430,8 +429,8 @@ fltrs()
 /*
  * Left Shift 'fbuf'
  */
-VOID
-fltls()
+void
+fltls(void)
 {
 	int	i;
 
@@ -454,8 +453,8 @@ fltls()
  * Are '1's.  Thus A Test Value of 202
  * (With A Guard Value of 1) Is Selected.
  */
-VOID
-fltm54()
+void
+fltm54(void)
 {
 	if (fbuf[7] >= 202) {
 		fltrs();
@@ -470,8 +469,8 @@ fltm54()
 /*
  * Multiply By Five
  */
-VOID
-fltm5()
+void
+fltm5(void)
 {
 	fltsv();
 	fltls();
@@ -484,8 +483,8 @@ fltm5()
  *
  * 'fcry' Is Set If (fbuf + fsav) Exceeds 64 Bits
  */
-VOID
-fltad()
+void
+fltad(void)
 {
 	int i;
 

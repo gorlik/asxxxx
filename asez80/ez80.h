@@ -1,7 +1,7 @@
 /* ez80.h */
 
 /*
- *  Copyright (C) 1989-2021  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -200,8 +200,6 @@ extern	struct	adsym	CND[];
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* ez80adr.c */
 extern	int		addr(struct expr *esp);
 extern	int		admode(struct adsym *sp);
@@ -211,26 +209,8 @@ extern	int		srch(char *str);
 extern	int		genop(int pop, int op, struct expr *esp, int f);
 extern	int		genopm(int pop, int op, struct expr *esm, struct expr *esp, int f);
 extern	int		gixiy(int v);
-extern	VOID		glilsis(int mode, int sfx, struct expr *esp);
-extern	VOID		machine(struct mne *mp);
+extern	void		glilsis(int mode, int sfx, struct expr *esp);
+extern	void		machine(struct mne *mp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
-extern	VOID		minit(void);
-
-#else
-
-	/* ez80adr.c */
-extern	int		addr();
-extern	int		admode();
-extern	int		srch();
-
-	/* ez80mch.c */
-extern	int		genop();
-extern	int		genopm();
-extern	int		gixiy();
-extern	VOID		glilsis();
-extern	VOID		machine();
-extern	int		mchpcr();
-extern	VOID		minit();
-
-#endif
+extern	void		minit(void);
 

@@ -1,7 +1,7 @@
 /* chk.h */
 
 /*
- *  Copyright (C) 2001-2021  Alan R. Baldwin
+ *  Copyright (C) 2001-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -83,8 +83,6 @@ struct adsym
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-
 	/* chkadr.c */
 extern	struct	adsym	reg[];
 extern	int		addr(struct expr *esp);
@@ -93,23 +91,7 @@ extern	int		srch(char *str);
 
 	/* chkmch.c */
 extern	struct  area	*zpg;
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
-extern	VOID		minit(void);
-
-#else
-
-	/* chkadr.c */
-extern	struct	adsym	reg[];
-extern	int		addr();
-extern	int		admode();
-extern	int		srch();
-
-	/* chkmch.c */
-extern	struct  area	*zpg;
-extern	VOID		machine();
-extern	int		mchpcr();
-extern	VOID		minit();
-
-#endif
+extern	void		minit(void);
 

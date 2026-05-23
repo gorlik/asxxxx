@@ -1,7 +1,7 @@
 /* lklist.c */
 
 /*
- *  Copyright (C) 1989-2021  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -38,24 +38,24 @@
  *	listing .rst file.
  *
  *	lklist.c contains the following functions:
- *		VOID	newpag()
- *		VOID	slew()
+ *		void	newpag()
+ *		void	slew()
  *		int	dgt()
- *		VOID	lstarea()
+ *		void	lstarea()
  *
- *		VOID	lkulist()
- *		VOID	lklist()
- *		VOID	lkalist()
- *		VOID	getlst()
+ *		void	lkulist()
+ *		void	lklist()
+ *		void	lkalist()
+ *		void	getlst()
  *
- *		VOID	hlrlist()
- *		VOID	hlralist()
- *		VOID	hlrclist()
- *		VOID	hlrelist()
- *		VOID	gethlr()
+ *		void	hlrlist()
+ *		void	hlralist()
+ *		void	hlrclist()
+ *		void	hlrelist()
+ *		void	gethlr()
  */
 
-/*)Function	VOID	newpag(fp)
+/*)Function	void	newpag(fp)
  *
  *		FILE *	fp		file handle for listing
  *
@@ -83,9 +83,8 @@
  *		The page and line counters are updated.
  */
 
-VOID
-newpag(fp)
-FILE *fp;
+void
+newpag(FILE *fp)
 {
 	char *frmt;
 	char np[80];
@@ -132,7 +131,7 @@ FILE *fp;
 	lop = 3;
 }
 
-/*)Function	int	dgt(rdx,str,n)
+/*)Function	int	dgt(rdx, str, n)
  *
  *		int	rdx		radix bit code
  *		char	*str		pointer to the test string
@@ -155,9 +154,7 @@ FILE *fp;
  */
 
 int
-dgt(rdx, str, n)
-int rdx, n;
-char *str;
+dgt(int rdx, char *str, int n)
 {
 	int i;
 
@@ -168,7 +165,7 @@ char *str;
 	return(1);
 }
 
-/*)Function	VOID	slew(xp, yp)
+/*)Function	void	slew(xp, yp)
  *
  *		area *	xp		pointer to an area structure
  *		bank *	yp		pointer to a  bank structure
@@ -197,17 +194,15 @@ char *str;
  *
  *	functions called:
  *		int	fprintf()	c_library
- *		VOID	newpag()	lklist.c
+ *		void	newpag()	lklist.c
  *		char	putc()		c_library
  *
  *	side effects:
  *		The page line and the page count may be updated.
  */
 
-VOID
-slew(xp,yp)
-struct area *xp;
-struct bank *yp;
+void
+slew(struct area *xp, struct bank *yp)
 {
 	int i, n;
 	char *frmta, *frmtb, *ptr;
@@ -361,7 +356,7 @@ struct bank *yp;
 	}
 }
 
-/*)Function	VOID	lstarea(xp, yp)
+/*)Function	void	lstarea(xp, yp)
  *
  *		area *	xp		pointer to an area structure
  *		bank *	yp		pointer to a  bank structure
@@ -398,19 +393,17 @@ struct bank *yp;
  *
  *	functions called:
  *		int	fprintf()	c_library
- *		VOID	free()		c_library
+ *		void	free()		c_library
  *		char *	malloc()	c_library
  *		char	putc()		c_library
- *		VOID	slew()		lklist.c
+ *		void	slew()		lklist.c
  *
  *	side effects:
  *		Map output generated.
  */
 
-VOID
-lstarea(xp, yp)
-struct area *xp;
-struct bank *yp;
+void
+lstarea(struct area *xp, struct bank *yp)
 {
 	struct areax *oxp;
 	int i, j, n;
@@ -637,9 +630,8 @@ struct bank *yp;
 /*) Function	lsterr(err)
 */
 
-VOID
-lsterr(err)
-int err;
+void
+lsterr(int err)
 {
 	/*
 	 * Output an error line if required
@@ -730,7 +722,7 @@ ee DDDDDDDDDD ddd ddd ddd ddd [nn]LLLLL *********	DECIMAL(32)
 		       DDDDDDDDDD
 */
 
-/*)Function	VOID	lkulist(i)
+/*)Function	void	lkulist(i)
  *
  *		int	i	i # 0	process LST to RST file
  *				i = 0	copy remainder of LST file
@@ -766,19 +758,18 @@ ee DDDDDDDDDD ddd ddd ddd ddd [nn]LLLLL *********	DECIMAL(32)
  *		a_uint	adb_xb()	lkrloc.c
  *		int	fclose()	c_library
  *		int	fprintf()	c_library
- *		VOID	lkalist()	lklist.c
- *		VOID	lklist()	lklist.c
- *		VOID	hlralist()	lklist.c
- *		VOID	hlrglist()	lklist.c
+ *		void	lkalist()	lklist.c
+ *		void	lklist()	lklist.c
+ *		void	hlralist()	lklist.c
+ *		void	hlrglist()	lklist.c
  *
  *	side effects:
  *		A .rst file is created for each available .lst
  *		file associated with a .rel file.
  */
 
-VOID
-lkulist(i)
-int i;
+void
+lkulist(int i)
 {
 	a_uint cpc;
 	int cbytes;
@@ -875,9 +866,9 @@ int i;
 	}
 }
 
-/*)Function	VOID	lkalist(cpc)
+/*)Function	void	lkalist(cpc)
  *
- *		int	cpc		current program counter value
+ *		a_uint	cpc		current program counter value
  *
  *	The function lkalist() performs the following functions:
  *
@@ -923,9 +914,8 @@ int i;
  */
 
 
-VOID
-lkalist(cpc)
-a_uint cpc;
+void
+lkalist(a_uint cpc)
 {
 	char str[16];
 	char *frmt;
@@ -1045,9 +1035,9 @@ loop:	if (getlst(1) == 0) {
 	fprintf(rfp, "%s", rb);
 }
 
-/*)Function	VOID	lklist(cpc,v,err)
+/*)Function	void	lklist(cpc, v, err)
  *
- *		int	cpc		current program counter value
+ *		a_uint	cpc		current program counter value
  *		int 	v		value of byte at this address
  *		int	err		error flag for this value
  *
@@ -1099,11 +1089,8 @@ loop:	if (getlst(1) == 0) {
  *		with updated data values and code addresses.
  */
 
-VOID
-lklist(cpc,v,err)
-a_uint cpc;
-int v;
-int err;
+void
+lklist(a_uint cpc, int v, int err)
 {
 	char str[16];
 	char *afrmt, *frmt;
@@ -1292,8 +1279,7 @@ loop:	if (gline) {
  */
 
 int
-getlst(ngline)
-int ngline;
+getlst(int ngline)
 {
 	int i;
 
@@ -1323,9 +1309,9 @@ int ngline;
 	return(tfp ? 1 : 0);
 }
 
-/*)Function	VOID	hlrlist(cpc,v,err)
+/*)Function	void	hlrlist(cpc, v, err)
  *
- *		int	cpc		current program counter value
+ *		a_uint	cpc		current program counter value
  *		int 	v		value of byte at this address
  *		int	err		error flag for this value
  *
@@ -1382,7 +1368,7 @@ int ngline;
  *	functions called:
  *		int	dgt()		lklist.c
  *		int	fclose()	c_library
- *		VOID	gethlr()	lklist.c
+ *		void	gethlr()	lklist.c
  *		int	fprintf()	c_library
  *		int	sprintf()	c_library
  *		char *	strncpy()	c_library
@@ -1392,11 +1378,8 @@ int ngline;
  *		with updated data values and code addresses.
  */
 
-VOID
-hlrlist(cpc,v,err)
-a_uint cpc;
-int v;
-int err;
+void
+hlrlist(a_uint cpc, int v, int err)
 {
  	/*
 	 * Exit if listing file is not open
@@ -1584,11 +1567,11 @@ lpLST:	if (gline) {
 	if (gline) { goto lpLST; }
 }
 
-/*)Function	VOID	setgh()
+/*)Function	void	setgh(void)
 */
 
-VOID
-setgh()
+void
+setgh(void)
 {
 	if (listing && !(listing & HLR_NLST)) {
 		gline = 1;
@@ -1596,9 +1579,9 @@ setgh()
 	hline = 1;
 }
 
-/*)Function	VOID	hlralist(cpc)
+/*)Function	void	hlralist(cpc)
  *
- *		int	cpc		current program counter value
+ *		a_uint	cpc		current program counter value
  *
  *	The function hlralist() updates the code address
  *	in the listing line to be output to the .rst file.
@@ -1630,9 +1613,8 @@ setgh()
  *		Listing Text Line Address is updated.
  */
 
-VOID
-hlralist(cpc)
-a_uint cpc;
+void
+hlralist(a_uint cpc)
 {
 	char str[16];
 	char *frmt;
@@ -1738,9 +1720,9 @@ a_uint cpc;
 	}
 }
 
-/*)Function	int	hlrclist()
+/*)Function	int	hlrclist(cpc, v)
  *
- *		int	cpc		current program counter value
+ *		a_uint	cpc		current program counter value
  *		int	v		current byte value
  *
  *	The function hlrclist() updates the code address
@@ -1780,10 +1762,8 @@ a_uint cpc;
  *		byte code is updated.
 */
 
-VOID
-hlrclist(cpc,v)
-a_uint cpc;
-int v;
+void
+hlrclist(a_uint cpc, int v)
 {
 	char str[16];
 	char *afrmt, *dfrmt;
@@ -1921,7 +1901,7 @@ int v;
 	gcntr++;
 }
 
-/*)Function	VOID	hlrelist()
+/*)Function	void	hlrelist(void)
  *
  *	The function hlrelist() verifies that a relocation is required
  *	by checking the associated eqt_id for an area name.  If the
@@ -1963,8 +1943,8 @@ int v;
  *		updated in the .rst line.
  */
 
-VOID
-hlrelist()
+void
+hlrelist(void)
 {
 	char str[16];
 	char *afrmt;
@@ -2084,7 +2064,9 @@ hlrelist()
 	}
 }
 
-/*)Function	int	gethlr()
+/*)Function	int	gethlr(nhline)
+ *
+ *			int	nhline
  *
  *	If a file having the same name as the list file but with the
  *	extension .hlr exists then the function gethlr() reads a line
@@ -2125,12 +2107,11 @@ hlrelist()
  */
 
 int
-gethlr(nhline)
-int nhline;
+gethlr(int nhline)
 {
 	char hlr[128];
 	char *frmt;
-	int line;
+	unsigned int line;
 	int a, b;
 
 	listing = 0;

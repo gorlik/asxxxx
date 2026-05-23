@@ -1,7 +1,7 @@
 /* i08s.h */
 
 /*
- *  Copyright (C) 2018-2019  Alan R. Baldwin
+ *  Copyright (C) 2018-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -86,23 +86,10 @@
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* i08adr.c */
 extern	int		addr(struct expr *esp);
 
 	/* i08mch.c */
-extern	VOID		machine(struct mne *mp);
-extern	VOID		minit(void);
-
-#else
-
-	/* i08adr.c */
-extern	int		addr();
-
-	/* i08mch.c */
-extern	VOID		machine();
-extern	VOID		minit();
-
-#endif
+extern	void		machine(struct mne *mp);
+extern	void		minit(void);
 

@@ -1,7 +1,7 @@
 /* i08mch.c */
 
 /*
- *  Copyright (C) 2018-2021  Alan R. Baldwin
+ *  Copyright (C) 2018-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -68,9 +68,8 @@ static char i08pg1[256] = {
 /*
  * Process machine ops.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	unsigned int op;
 	struct expr e1,e2;
@@ -249,8 +248,8 @@ struct mne *mp;
 /*
  *Machine specific initialization.
  */
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * Byte Order

@@ -1,7 +1,7 @@
 /* s61860.h */
 
 /*
- *  Copyright (C) 2003-2014  Alan R. Baldwin
+ *  Copyright (C) 2003-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -81,26 +81,12 @@
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* s6186mch.c */
 extern	int		ascii2sbasic(int c);
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
-extern	VOID		minit(void);
+extern	void		minit(void);
 
 	/* s6186adr.c */
 extern	int		addr(struct expr *esp);
 
-#else
-
-	/* s6186mch.c */
-extern	int		ascii2sbasic();
-extern	VOID		machine();
-extern	int		mchpcr();
-extern	VOID		minit();
-
-	/* s6186adr.c */
-extern	int		addr();
-
-#endif

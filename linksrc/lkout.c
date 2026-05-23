@@ -1,7 +1,7 @@
 /* lkout.c */
 
 /*
- *  Copyright (C) 1989-2017  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -36,19 +36,19 @@
  *	code output in the required format.
  *
  *	lkout.c contains the following functions:
- *		VOID	lkout()
- *		VOID	lkflush()
- *		VOID	ixx()
- *		VOID	iflush()
- *		VOID	sxx()
- *		VOID	sflush()
- *		VOID	dbx()
- *		VOID	dflush()
+ *		void	lkout()
+ *		void	lkflush()
+ *		void	ixx()
+ *		void	iflush()
+ *		void	sxx()
+ *		void	sflush()
+ *		void	dbx()
+ *		void	dflush()
  *
  *	lkout.c contains no local variables.
  */
 
-/*)Function	lkout(i)
+/*)Function	void	lkout(i)
  *
  *		int	i		1 - process data
  *					0 - end of data
@@ -66,17 +66,16 @@
  *		int	pcb		Current pc bytes per address
  *
  *	functions called:
- *		VOID	ixx()		lkout.c
- *		VOID	sxx()		lkout.c
- *		VOID	dbx()		lkout.c
+ *		void	ixx()		lkout.c
+ *		void	sxx()		lkout.c
+ *		void	dbx()		lkout.c
  *
  *	side effects:
  *		The REL data is output in the required format.
  */
 
-VOID
-lkout(i)
-int i;
+void
+lkout(int i)
 {
 	int j;
 
@@ -111,7 +110,7 @@ int i;
 }
 
 
-/*)Function	lkflush()
+/*)Function	void	lkflush(void)
  *
  *	The function lkflush() dispatches
  *	to the required data flushing routine.
@@ -124,17 +123,17 @@ int i;
  *		FILE *	ofp		output file handle
  *
  *	functions called:
- *		VOID	iflush()	lkout.c
- *		VOID	sflush()	lkout.c
- *		VOID	dflush()	lkout.c
+ *		void	iflush()	lkout.c
+ *		void	sflush()	lkout.c
+ *		void	dflush()	lkout.c
  *
  *	side effects:
  *		Any remaining REL data is flushed
  *		to the output file.
  */
 
-VOID
-lkflush()
+void
+lkflush(void)
 {
 	if (ofp == NULL)   { return; }
 
@@ -212,7 +211,7 @@ lkflush()
  *                              first.
  */
 
-/*)Function	ixx(i)
+/*)Function	void	ixx(i)
  *
  *		int	i		1 - process data
  *					0 - end of data
@@ -245,7 +244,7 @@ lkflush()
  *
  *	functions called:
  *		int	fprintf()	c_library
- *		VOID	iflush()	lkout.c
+ *		void	iflush()	lkout.c
  *
  *	side effects:
  *		The data is placed into the output buffer.
@@ -263,9 +262,8 @@ lkflush()
  *	Plus 32 data bytes (64 characters)
  */
 
-VOID
-ixx(i)
-int i;
+void
+ixx(int i)
 {
 	int k;
 	struct sym *sp;
@@ -356,7 +354,7 @@ int i;
 	}
 }
 
-/*)Function	iflush()
+/*)Function	void	iflush(void)
  *
  *	The function iflush() outputs the relocated data
  *	in the standard Intel format.
@@ -396,8 +394,8 @@ int i;
  * to the target system is much improved.
  */
 
-VOID
-iflush()
+void
+iflush(void)
 {
 	int i, max, reclen;
 	a_uint chksum, lo_addr, hi_addr;
@@ -501,7 +499,7 @@ iflush()
  *                              characters, high digit first.  
  */
 
-/*)Function	sxx(i)
+/*)Function	void	sxx(i)
  *
  *		int	i		1 - process data
  *					0 - end of data
@@ -535,7 +533,7 @@ iflush()
  *
  *	functions called:
  *		int	fprintf()	c_library
- *		VOID	sflush()	lkout.c
+ *		void	sflush()	lkout.c
  *
  *	side effects:
  *		The data is placed into the output buffer.
@@ -552,9 +550,8 @@ iflush()
  *	Plus 32 data bytes (64 characters)
  */
 
-VOID
-sxx(i)
-int i;
+void
+sxx(int i)
 {
 	struct sym *sp;
 	char *frmt;
@@ -653,7 +650,7 @@ int i;
 }
 
 
-/*)Function	sflush()
+/*)Function	void	sflush(void)
  *
  *	The function sflush() outputs the relocated data
  *	in the standard Motorola format.
@@ -691,8 +688,8 @@ int i;
  * to the target system is much improved.
  */
 
-VOID
-sflush()
+void
+sflush(void)
 {
 	char *frmt;
 	int i, max, reclen;
@@ -776,7 +773,7 @@ sflush()
  * execution address.
  */
 
-/*)Function	dbx(i)
+/*)Function	void	dbx(i)
  *
  *		int	i		1 - process data
  *					0 - end of data
@@ -802,15 +799,14 @@ sflush()
  *
  *	functions called:
  *		int	putc()		c_library
- *		VOID	dflush()	lkout.c
+ *		void	dflush()	lkout.c
  *
  *	side effects:
  *		The data is placed into the output buffer.
  */
 
-VOID
-dbx(i)
-int i;
+void
+dbx(int i)
 {
 	struct sym *sp;
 	int k;
@@ -895,7 +891,7 @@ int i;
 }
 
 
-/*)Function	dflush()
+/*)Function	void	dflush(void)
  *
  *	The function dflush() outputs the relocated data
  *	in the Disk BASIC loadable format
@@ -921,8 +917,8 @@ int i;
  * Written by Boisy G. Pitre, boisy@boisypitre.com, 6-7-04
  */
 
-VOID
-dflush()
+void
+dflush(void)
 {
 	int i, max;
 

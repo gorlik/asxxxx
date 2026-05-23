@@ -1,7 +1,7 @@
 /* ST6.h */
 
 /*
- *  Copyright (C) 2010-2021  Alan R. Baldwin
+ *  Copyright (C) 2010-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -98,8 +98,6 @@ extern	int	rcode;
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
         /* ST6adr.c */
 extern	int		addr(struct expr *esp);
 extern	int		admode(struct adsym *sp);
@@ -107,24 +105,8 @@ extern	int		any(int c, char *str);
 extern	int		srch(char *str);
 
 	/* ST6mch.c */
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
-extern	VOID		minit(void);
+extern	void		minit(void);
 extern	int		valu_err(struct expr *e, int n);
-
-#else
-
-	/* ST6adr.c */
-extern	int		addr();
-extern	int		admode();
-extern	int		any();
-extern	int		srch();
-
-	/* ST6mch.c */
-extern	VOID		machine();
-extern	int		mchpcr();
-extern	VOID		minit();
-extern	VOID		valu_err();
-
-#endif
 

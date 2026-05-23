@@ -1,7 +1,7 @@
 /* ez8mch.c */
 
 /*
- *  Copyright (C) 2022-2023  Alan R. Baldwin
+ *  Copyright (C) 2022-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -100,9 +100,8 @@ static int l_ovrf;
 /*
  * Process a machine op.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	int op, t1, t2, t3;
 	struct expr e1, e2, e3, e4;
@@ -1080,9 +1079,8 @@ struct mne *mp;
 /*
  * Report Argument Errors
  */
-VOID
-argchk(a, v, r)
-int a, v, r;
+void
+argchk(int a, int v, int r)
 {
 	switch(r) {
 	default:
@@ -1122,10 +1120,7 @@ int a, v, r;
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp, v, n)
-struct expr *esp;
-int *v;
-int n;
+mchpcr(struct expr *esp, int *v, int n)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		if (v != NULL) {
@@ -1165,9 +1160,7 @@ int n;
  * Machine specific .enabl/.dsabl terms.
  */
 int
-mchoptn(id, v)
-char *id;
-int v;
+mchoptn(char *id, int v)
 {
 	/* ODD Address In Register Pair */
 	if (symeq(id, "odd", 1)) { odd = v; } else
@@ -1183,8 +1176,8 @@ int v;
 /*
  * Machine dependent initialization
  */
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * Byte Order

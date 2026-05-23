@@ -1,7 +1,7 @@
 /* picmch.c */
 
 /*
- *  Copyright (C) 2001-2023  Alan R. Baldwin
+ *  Copyright (C) 2001-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -66,9 +66,8 @@ static struct badram *br;
 /*
  * Process machine ops.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	int c, d;
 	a_uint op;
@@ -368,9 +367,8 @@ struct mne *mp;
 /*
  * PIC12BIT CPU Type
  */
-VOID
-pic12bit(mp)
-struct mne *mp;
+void
+pic12bit(struct mne *mp)
 {
 	a_uint op;
 	int c;
@@ -571,9 +569,8 @@ struct mne *mp;
 /*
  * Select Register File Map
  */
-VOID
-mch12fsr(esp)
-struct expr *esp;
+void
+mch12fsr(struct expr *esp)
 {
 	if ((esp->e_addr & ~((a_uint) 0x1F)) != pic_fsr) {
 		xerr('a', "FSR address mismatch.");
@@ -584,9 +581,8 @@ struct expr *esp;
 /*
  * PIC14BIT CPU Type
  */
-VOID
-pic14bit(mp)
-struct mne *mp;
+void
+pic14bit(struct mne *mp)
 {
 	a_uint op;
 	int c;
@@ -787,9 +783,8 @@ struct mne *mp;
 /*
  * Select Register File Map
  */
-VOID
-mch14fsr(esp)
-struct expr *esp;
+void
+mch14fsr(struct expr *esp)
 {
 	if ((esp->e_addr & ~((a_uint) 0x7F)) != pic_fsr) {
 		xerr('a', "FSR address mismatch.");
@@ -852,9 +847,8 @@ static char *P16Page[2] = {
 /*
  * PIC16BIT CPU Type
  */
-VOID
-pic16bit(mp)
-struct mne *mp;
+void
+pic16bit(struct mne *mp)
 {
 	a_uint op;
 	int c;
@@ -1161,9 +1155,8 @@ struct mne *mp;
 /*
  * Select Register File Map
  */
-VOID
-mch16fsr(esp)
-struct expr *esp;
+void
+mch16fsr(struct expr *esp)
 {
 	if ((esp->e_addr & ~((a_uint) 0xFF)) != pic_fsr) {
 		xerr('a', "FSR address mismatch.");
@@ -1226,9 +1219,8 @@ static char *P20Page[2] = {
 /*
  * PIC20BIT CPU Type
  */
-VOID
-pic20bit(mp)
-struct mne *mp;
+void
+pic20bit(struct mne *mp)
 {
 	a_uint op;
 	int v1;
@@ -1811,10 +1803,7 @@ struct mne *mp;
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp, v, n)
-struct expr *esp;
-int *v;
-int n;
+mchpcr(struct expr *esp, int *v, int n)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		if (v != NULL) {
@@ -1853,9 +1842,8 @@ int n;
 /*
  * Direct Page Map
  */
-VOID
-mchdpm(esp)
-struct expr *esp;
+void
+mchdpm(struct expr *esp)
 {
 	if (esp->e_flag==0 && esp->e_base.e_ap==NULL) {
 		/*
@@ -1875,8 +1863,7 @@ struct expr *esp;
  * Machine Ram Check
  */
 int
-mchramchk(esp)
-struct expr *esp;
+mchramchk(struct expr *esp)
 {
 	struct badram *brp;
 
@@ -1897,8 +1884,8 @@ struct expr *esp;
  * Machine specific initialization
  */
 
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * Byte Order

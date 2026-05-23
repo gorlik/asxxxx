@@ -1,7 +1,7 @@
 /* r65adr.c */
 
 /*
- *  Copyright (C) 1995-2021  Alan R. Baldwin
+ *  Copyright (C) 1995-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -37,8 +37,7 @@
 #include "r6500.h"
 
 int
-addr(esp)
-struct expr *esp;
+addr(struct expr *esp)
 {
 	int c;
 	char *p;
@@ -254,9 +253,7 @@ struct expr *esp;
  *	S_INDY	+ 1	->	S_DINDY
  */
 int
-espmode(esp, s)
-struct expr *esp;
-int s;
+espmode(struct expr *esp, int s)
 {
 	int mode;
 
@@ -309,8 +306,7 @@ int s;
  * zero for no match.
  */
 int
-admode(sp)
-struct adsym *sp;
+admode(struct adsym *sp)
 {
 	char *ptr;
 	int i;
@@ -334,8 +330,7 @@ struct adsym *sp;
  *      srch --- does string match ?
  */
 int
-srch(str)
-char *str;
+srch(char *str)
 {
 	char *ptr;
 	ptr = ip;

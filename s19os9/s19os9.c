@@ -1,7 +1,7 @@
 /* s19os9.c */
 
 /*
- *  Copyright (C) 2006-2014  Alan R. Baldwin
+ *  Copyright (C) 2006-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -24,13 +24,8 @@
 
 #include "asxxxx.h"
 
-#ifdef	OTHERSYSTEM
 extern	unsigned char	os9_chk(unsigned char *ptr, unsigned int sz);
 extern	int		os9_crc(unsigned char *ptr, unsigned int sz, unsigned char *crc);
-#else
-extern	unsigned char	os9_chk();
-extern	int		os9_crc();
-#endif
 
 #define OS9_HEADER_SIZE 9
 
@@ -89,14 +84,14 @@ unsigned char	os9crc[3];	/* OS9 CRC			*/
  *		FILE *	stdout		c_library
  *
  *	functions called:
- *		VOID		asexit()	s19os9.c
- *		VOID		chopcrlf()	s19os9.c
+ *		void		asexit()	s19os9.c
+ *		void		chopcrlf()	s19os9.c
  *		int		digit()		s19os9.c
  *		int		fclose()	c_library
  *		FILE		fopen()		c_library
  *		int		fprintf()	c_library
  *		int		nxtline()	s19os9.c
- *		VOID		usage()		s19os9.c
+ *		void		usage()		s19os9.c
  *		unsigned char	os9_chk()	s19os9.c
  *		int		os9_hdr()	s19os9.c
  *
@@ -109,9 +104,7 @@ unsigned char	os9crc[3];	/* OS9 CRC			*/
  */
 
 int
-main(argc, argv)
-int argc;
-char *argv[];
+main(int argc, char *argv[])
 {
 	int c, i, j, k;
 	int inpfil;
@@ -321,11 +314,7 @@ char *argv[];
 	/*
 	 * Output OS9 Binary Module
 	 */
-#ifdef	DECUS
-	outfp = fopen(argv[ofarg], "wn");
-#else
 	outfp = fopen(argv[ofarg], "wb");
-#endif
 	if (outfp == NULL) {
 		printf("\r\nOS9 Output File %s not opened.\r\n", argv[i]);
 		asexit(ER_FATAL);
@@ -362,9 +351,7 @@ char *argv[];
  */
 
 unsigned char
-os9_chk(ptr, sz)
-unsigned char *ptr;
-unsigned int sz;
+os9_chk(unsigned char *ptr, unsigned int sz)
 {
 	unsigned int	i;
 
@@ -409,10 +396,7 @@ unsigned int sz;
  */
 
 int
-os9_crc(ptr, sz, crc)
-unsigned char *ptr;
-unsigned int sz;
-unsigned char *crc;
+os9_crc(unsigned char *ptr, unsigned int sz, unsigned char *crc)
 {
 	int		ec;
 	unsigned char	a;
@@ -454,7 +438,7 @@ unsigned char *crc;
 	return (ec);
 }
 
-/*)Function	int	nxtline()
+/*)Function	int	nxtline(void)
  *
  *	The function nxtline() reads a line of text from the S19
  *	text file.  The input text line is transferred into the
@@ -470,7 +454,7 @@ unsigned char *crc;
  *		FILE	inpfp		file handle for S19 file
  *
  *	called functions:
- *		VOID	chopcrlf()	s19os9.c
+ *		void	chopcrlf()	s19os9.c
  *		int	fclose()	c-library
  *		char *	fgets()		c-library
  *
@@ -479,7 +463,7 @@ unsigned char *crc;
  */
 
 int
-nxtline()
+nxtline(void)
 {
 	if (fgets(ib, NINPUT, inpfp) == NULL) {
 		fclose(inpfp);
@@ -489,7 +473,7 @@ nxtline()
 	return (1);
 }
 
-/*)Function	VOID	chopcrlf(str)
+/*)Function	void	chopcrlf(str)
  *
  *		char	*str		string to chop
  *
@@ -515,9 +499,8 @@ nxtline()
  *		Trailing white space removed.
  */
 
-VOID
-chopcrlf(str)
-char *str;
+void
+chopcrlf(char *str)
 {
 	char *p, *q;
 	char c;
@@ -542,7 +525,7 @@ char *str;
 	}
 }
 
-/*)Function	VOID	asexit(i)
+/*)Function	void	asexit(i)
  *
  *			int	i	exit code
  *
@@ -558,15 +541,14 @@ char *str;
  *
  *	functions called:
  *		int	fclose()	c-library
- *		VOID	exit()		c-library
+ *		void	exit()		c-library
  *
  *	side effects:
  *		All files closed. Program terminates.
  */
 
-VOID
-asexit(i)
-int i;
+void
+asexit(int i)
 {
 	if (inpfp != NULL) fclose(inpfp);
 	if (outfp != NULL) fclose(outfp);
@@ -644,8 +626,7 @@ char	ccase[128] = {
  */
 
 int
-digit(c, r)
-int c, r;
+digit(int c, int r)
 {
 	if (r == 16) {
 		if (ctype[c] & RAD16) {
@@ -678,7 +659,7 @@ char *usetxt[] = {
 	NULL
 };
 
-/*)Function	VOID	usage()
+/*)Function	void	usage(void)
  *
  *	The function usage() outputs to the stderr device the
  *	program name and version and a list of valid options.
@@ -698,8 +679,8 @@ char *usetxt[] = {
  *		program is terminated
  */
 
-VOID
-usage()
+void
+usage(void)
 {
 	char   **dp;
 

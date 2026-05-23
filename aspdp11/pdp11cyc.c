@@ -1,8 +1,8 @@
 /* pdp11cyc.c */
 
 /*
- *  Copyright (C) 2022-2023  Alan R. Baldwin
- *  Copyright (C) 2022-2023  Nick Downing
+ *  Copyright (C) 2022-2025  Alan R. Baldwin
+ *  Copyright (C) 2022-2025  Nick Downing
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -275,10 +275,7 @@ static char F5L[64] = {
  * Determine Machine Cycles
  */
 int
-mchcycles(mp, opcode, cycles)
-struct mne *mp;
-a_uint opcode;
-int cycles;
+mchcycles(struct mne *mp, a_uint opcode, int cycles)
 {
 	a_uint op;
 	int rf;
@@ -865,8 +862,7 @@ struct	cyc	cyc[] = {
  * Function To Get Base Cycle Count
  */
 int
-mclookup(mp)
-struct mne *mp;
+mclookup(struct mne *mp)
 {
 	int i;
 	struct cyc *mc;

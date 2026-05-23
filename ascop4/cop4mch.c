@@ -1,7 +1,7 @@
 /* cop4mch.c */
 
 /*
- *  Copyright (C) 2021-2023  Alan R. Baldwin
+ *  Copyright (C) 2021-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -132,9 +132,8 @@ struct expr pagexpr;
 /*
  * Process machine ops.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	unsigned int op,c;
 	char id[NCPS];
@@ -698,9 +697,8 @@ struct mne *mp;
 /*
  * Make Number Relocatable
  */
-VOID
-setgbl(esp)
-struct expr *esp;
+void
+setgbl(struct expr *esp)
 {
 	if (esp->e_flag==0 && esp->e_base.e_ap==NULL) {
 		/*
@@ -719,9 +717,8 @@ struct expr *esp;
 /*
  * Set PAGN Area, Base Address, And Length Mask
  */
-VOID
-setpgl(pmsk)
-int pmsk;
+void
+setpgl(int pmsk)
 {
 	p_mask = pmsk;
 	outdp(pagarea, &pagexpr, 0);
@@ -729,9 +726,8 @@ int pmsk;
 
 char errstr[80];
 
-VOID
-icheck(op)
-unsigned int op;
+void
+icheck(unsigned int op)
 {
 	char *id;
 
@@ -809,8 +805,8 @@ coptype()
  *Machine specific initialization.
  */
 
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * Byte Order

@@ -1,7 +1,7 @@
 /* 1802.h */
 
 /*
- *  Copyright (C) 2002-2014  Alan R. Baldwin
+ *  Copyright (C) 2002-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -94,21 +94,9 @@
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* 1802mch.c */
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		mchbr(struct expr *esp);
-extern	VOID		minit(void);
+extern	void		minit(void);
 extern	int		reg(void);
-
-#else
-
-	/* 1802mch.c */
-extern	VOID		machine();
-extern	int		mchbr();
-extern	VOID		minit();
-extern	int		reg();
-
-#endif
 

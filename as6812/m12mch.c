@@ -1,7 +1,7 @@
 /* m12mch.c */
 
 /*
- *  Copyright (C) 1989-2023  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -185,9 +185,8 @@ struct area *zpg;
 /*
  * Process a machine op.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	int op, rf, cpg, c;
 	struct expr e1, e2, e3;
@@ -744,10 +743,8 @@ struct mne *mp;
 /*
  * General Output Routine
  */
-VOID
-genout(cpg, op, rf, esp)
-int cpg, op, rf;
-struct expr *esp;
+void
+genout(int cpg, int op, int rf, struct expr *esp)
 {
 	int espv;
 	struct area *espa;
@@ -948,10 +945,8 @@ struct expr *esp;
 /*
  * Mov Output Routine
  */
-VOID
-movout(esp, indx, offset)
-struct expr *esp;
-int indx, offset;
+void
+movout(struct expr *esp, int indx, int offset)
 {
 	int espv;
 	struct area *espa;
@@ -1051,9 +1046,8 @@ int indx, offset;
 /*
  * mc6811 compatibility output routine
  */
-VOID
-m68out(i)
-int i;
+void
+m68out(int i)
 {
 	char *ptr;
 	int j;
@@ -1072,8 +1066,8 @@ int i;
  * Machine specific initialization.
  * Set up the bit table.
  */
-VOID
-minit()
+void
+minit(void)
 {
 	int i;
 
@@ -1115,8 +1109,7 @@ minit()
  * If no room, force the longer form of the offset.
  */
 int
-setbit(b)
-int b;
+setbit(int b)
 {
 	if (bp >= &bb[NB])
 		return(1);
@@ -1155,10 +1148,7 @@ getbit()
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp, v, n)
-struct expr *esp;
-int *v;
-int n;
+mchpcr(struct expr *esp, int *v, int n)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		if (v != NULL) {

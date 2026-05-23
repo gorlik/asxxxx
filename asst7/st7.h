@@ -1,7 +1,7 @@
 /* ST7.h */
 
 /*
- *  Copyright (C) 2010-2021  Alan R. Baldwin
+ *  Copyright (C) 2010-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -117,8 +117,6 @@ extern	int	rcode;
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
         /* ST7adr.c */
 extern	int		addr(struct expr *esp);
 extern	int		addr1(struct expr *esp);
@@ -128,30 +126,10 @@ extern	int		any(int c, char *str);
 extern	int		srch(char *str);
 
 	/* ST7mch.c */
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
-extern	VOID		minit(void);
+extern	void		minit(void);
 extern	int		ls_mode(struct expr *e);
 extern	int		setbit(int b);
 extern	int		getbit(void);
-
-#else
-
-	/* ST7adr.c */
-extern	int		addr();
-extern	int		addr1();
-extern	int		addrsl();
-extern	int		admode();
-extern	int		any();
-extern	int		srch();
-
-	/* ST7mch.c */
-extern	VOID		machine();
-extern	int		mchpcr();
-extern	VOID		minit();
-extern	int		ls_mode();
-extern	int		setbit();
-extern	int		getbit();
-
-#endif
 

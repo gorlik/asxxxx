@@ -1,7 +1,7 @@
 /* s8x.h */
 
 /*
- *  Copyright (C) 2018-2021  Alan R. Baldwin
+ *  Copyright (C) 2018-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -137,41 +137,19 @@ extern	int	d_xdef;
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* s8xadr.c */
 extern	struct adsym	reg[];
 extern	int		addr(struct expr *esp,struct expr *nsp,struct expr *xsp);
-extern	VOID		eaddr(struct expr *esp);
-extern	VOID		naddr(struct expr *esp);
-extern	VOID		xaddr(struct expr *esp);
+extern	void		eaddr(struct expr *esp);
+extern	void		naddr(struct expr *esp);
+extern	void		xaddr(struct expr *esp);
 extern	int		admode(struct adsym *sp);
 extern	int		srch(char *str);
 
 	/* sx8mch.c */
 extern	struct adsym	regsym[];
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		regchk(int src, int dst);
-extern	VOID		xtndout(struct expr *esp);
-extern	VOID		minit(void);
-
-#else
-
-	/* s8xadr.c */
-extern	struct adsym	reg[];
-extern	int		addr();
-extern	VOID		eaddr();
-extern	VOID		naddr();
-extern	VOID		xaddr();
-extern	int		admode();
-extern	int		srch();
-
-	/* s8xmch.c */
-extern	struct adsym	regsym[];
-extern	VOID		machine();
-extern	int		regchk();
-extern	VOID		xtndout();
-extern	VOID		minit();
-
-#endif
+extern	void		xtndout(struct expr *esp);
+extern	void		minit(void);
 

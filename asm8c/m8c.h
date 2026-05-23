@@ -1,7 +1,7 @@
 /* m8c.h */
 
 /*
- *  Copyright (C) 2009-2021  Alan R. Baldwin
+ *  Copyright (C) 2009-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -99,8 +99,6 @@ struct adsym
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-
 	/* 8mcadr.c */
 extern	struct	adsym	regs[];
 extern	int		addr(struct expr *esp);
@@ -109,23 +107,7 @@ extern	int		admode(struct adsym *sp);
 extern	int		srch(char *str);
 
 	/* 8mcmch.c */
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
-extern	VOID		minit(void);
-
-#else
-
-	/* 8mcadr.c */
-extern	struct	adsym	regs[];
-extern	int		addr();
-extern	int		addr1();
-extern	int		admode();
-extern	int		srch();
-
-	/* 8mcmch.c */
-extern	VOID		machine();
-extern	int		mchpcr();
-extern	VOID		minit();
-
-#endif
+extern	void		minit(void);
 

@@ -1,7 +1,7 @@
 /* ds8.h */
 
 /*
- *  Copyright (C) 1998-2021  Alan R. Baldwin
+ *  Copyright (C) 1998-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -176,8 +176,6 @@ extern struct PreDef preDef[];
 
 #define	DS_CPU	"Dallas Semiconductor"
 
-#ifdef	OTHERSYSTEM
-	
 	/* ds8adr.c */
 extern	struct	adsym	reg51[];
 extern	int		addr(struct expr *esp);
@@ -186,23 +184,7 @@ extern	int		srch(char *str);
 extern	int		reg(void);
 
 	/* ds8mch.c */
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
-extern	VOID		minit(void);
-
-#else
-
-	/* ds8adr.c */
-extern	struct	adsym	reg51[];
-extern	int		addr();
-extern	int		admode();
-extern	int		srch();
-extern	int		reg();
-
-	/* ds8mch.c */
-extern	VOID		machine();
-extern	int		mchpcr();
-extern	VOID		minit();
-
-#endif
+extern	void		minit(void);
 

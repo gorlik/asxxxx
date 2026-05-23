@@ -1,7 +1,7 @@
 /* lkarea.c */
 
 /*
- *  Copyright (C) 1989-2022  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -31,16 +31,16 @@
  *	from the .rel file(s).
  *
  *	lkarea.c contains the following functions:
- *		VOID	lnkarea()
- *		VOID	lnksect()
- *		VOID	lkparea()
- *		VOID	newarea()
- *		VOID	setarea()
+ *		void	lnkarea()
+ *		void	lnksect()
+ *		void	lkparea()
+ *		void	newarea()
+ *		void	setarea()
  *
  *	lkarea.c contains no global variables.
  */
 
-/*)Function	VOID	newarea()
+/*)Function	void	newarea(void)
  * 
  *	The function newarea() creates and/or modifies area
  *	and areax structures for each A directive read from
@@ -84,11 +84,11 @@
  *
  *	functions called:
  *		a_uint	eval()		lkeval.c
- *		VOID	exit()		c_library
+ *		void	exit()		c_library
  *		int	fprintf()	c_library
- *		VOID	getid()		lklex.c
- *		VOID	lkparea()	lkarea.c
- *		VOID	skip()		lklex.c
+ *		void	getid()		lklex.c
+ *		void	lkparea()	lkarea.c
+ *		void	skip()		lklex.c
  *
  *	side effects:
  *		The area and areax structures are created and
@@ -111,8 +111,8 @@
  *   `-----------------------------------------  ap->a_id
  *
  */
-VOID
-newarea()
+void
+newarea(void)
 {
 	a_uint i;
 	int k, narea;
@@ -264,7 +264,7 @@ newarea()
 	lkexit(ER_FATAL);
 }
 
-/*)Function	VOID	lkparea(id)
+/*)Function	void	lkparea(id)
  *
  *		char *	id		pointer to the area name string
  *
@@ -288,7 +288,7 @@ newarea()
  *				 	areax structure
  *
  *	functions called:
- *		VOID *	new()		lksym()
+ *		void *	new()		lksym()
  *		char *	strsto()	lksym.c
  *		int	symeq()		lksym.c
  *
@@ -298,9 +298,8 @@ newarea()
  *		will terminate the linker.
  */
 
-VOID
-lkparea(id)
-char *id;
+void
+lkparea(char *id)
 {
 	struct area *tap;
 	struct areax *taxp;
@@ -334,7 +333,7 @@ char *id;
 	ap->a_id = strsto(id);
 }
 
-/*)Function	VOID	lnkarea()
+/*)Function	void	lnkarea(void)
  *
  *	The function lnkarea() resolves all area addresses.
  *	The function evaluates each area structure (and all
@@ -406,7 +405,7 @@ char *id;
  *
  *	functions called:
  *		int	fprintf()	c_library
- *		VOID	lnksect()	lkarea.c
+ *		void	lnksect()	lkarea.c
  *		symbol *lkpsym()	lksysm.c
  *		char *	strncpy()	c_library
  *		int	symeq()		lksysm.c
@@ -420,8 +419,8 @@ char *id;
 /*
  * Resolve all bank/area addresses.
  */
-VOID
-lnkarea()
+void
+lnkarea(void)
 {
 	a_uint rloc;
 	int bytes;
@@ -476,9 +475,9 @@ lnkarea()
 	}
 }
 
-/*)Function	VOID	lnksect(tap)
+/*)Function	void	lnksect(tap)
  *
- *		area *	tap		pointer to an area structure
+ *		struct area *tap	pointer to an area structure
  *
  *	The function lnksect() is the function called by
  *	lnkarea() to resolve the areax addresses.  Refer
@@ -511,9 +510,8 @@ lnkarea()
  *		A symbol is created for each areax entry.
  */
 
-VOID
-lnksect(tap)
-struct area *tap;
+void
+lnksect(struct area *tap)
 {
 	a_uint size, addr;
 	struct areax *taxp;
@@ -583,7 +581,7 @@ struct area *tap;
 }
 
 
-/*)Function	VOID	setarea()
+/*)Function	void	setarea(void)
  *
  *	The function setarea() scans the base address lines in the
  *	basep structure, evaluates the arguments, and sets the beginning
@@ -609,7 +607,7 @@ struct area *tap;
  *	 functions called:
  *		a_uint	expr()		lkeval.c
  *		int	fprintf()	c_library
- *		VOID	getid()		lklex.c
+ *		void	getid()		lklex.c
  *		int	getnb()		lklex.c
  *		int	symeq()		lksym.c
  *
@@ -617,8 +615,8 @@ struct area *tap;
  *		The base address of an area is set.
  */
 
-VOID
-setarea()
+void
+setarea(void)
 {
 	a_uint v;
 	char id[NCPS];

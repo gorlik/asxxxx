@@ -1,7 +1,7 @@
 /* asmcro.c */
 
 /*
- *  Copyright (C) 2010-2022  Alan R. Baldwin
+ *  Copyright (C) 2010-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -30,16 +30,16 @@
  *
  *	asmcro.c contains the following functions:
  *		char   *fgetm()		get a macro text line
- *		VOID	getdarg()	get a macro definition argument
- *		VOID	getdfarg()	get a macro default argument
- *		VOID	getxarg()	get a macro expansion argument
- *		VOID	getxstr()	get a macro expansion string
+ *		void	getdarg()	get a macro definition argument
+ *		void	getdfarg()	get a macro default argument
+ *		void	getxarg()	get a macro expansion argument
+ *		void	getxstr()	get a macro expansion string
  *		int	macro()		run a macro
- *		VOID	macroscn()	scan macro text line for symbols
+ *		void	macroscn()	scan macro text line for symbols
  *		int	macrosub()	substitute macro expansion arguments
- *		VOID	mcrinit()	initialize macro processing variables
+ *		void	mcrinit()	initialize macro processing variables
  *		int	mcrprc()	macro processing control
- *		VOID   *mhunk()		allocate a memory block
+ *		void   *mhunk()		allocate a memory block
  *		char   *mstring()	store a macro string
  *		char   *mstruct()	allocate macro space
  *		mcrdef *newdef()	initialize a macro definition
@@ -93,37 +93,36 @@
  *
  *	functions called:
  *		a_uint	absexpr()	asexpr.c
- *		VOID	clrexpr()	asexpr.c
+ *		void	clrexpr()	asexpr.c
  *		int	comma()		aslex.c
- *		VOID	err()		assubr.c
- *		VOID	expr()		asexpr.c
- *		VOID	getdarg()	asmcro.c
- *		VOID	getfdarg()	asmcro.c
+ *		void	err()		assubr.c
+ *		void	expr()		asexpr.c
+ *		void	getdarg()	asmcro.c
+ *		void	getfdarg()	asmcro.c
  *		int	getid()		aslex.c
  *		int	getdlm()	aslex.c
- *		VOID	getinline()	asmcro.c
+ *		void	getinline()	asmcro.c
  *		int	getmap()	aslex.c
  *		int	getnb()		aslex.c
- *		VOID	getxarg()	asmcro.c
+ *		void	getxarg()	asmcro.c
  *		sym *	lookup()	assym.c
- *		VOID	macro()		asmcro.c
+ *		void	macro()		asmcro.c
  *		mne *	mlookup()	assym.c
  *		int	more()		aslex.c
  *		char *	mstring()	asmcro.c
- *		VOID *	mstruct()	asmcro.c
+ *		void *	mstruct()	asmcro.c
  *		mcrdef *newdef()	asmcro.c
- *		VOID	qerr()		assubr.c
- *		VOID	skpcomma()	aslex.c
- *		VOID	unget()		aslex.c
- *		VOID	xerr()		assubr.c
+ *		void	qerr()		assubr.c
+ *		void	skpcomma()	aslex.c
+ *		void	unget()		aslex.c
+ *		void	xerr()		assubr.c
  *
  *	side effects:
  *		Macro directives processed and
  *		macro structures created.
  */
 int
-mcrprc(code)
-int code;
+mcrprc(int code)
 {
 	struct mcrdef *np,*nq;
 	struct macrofp *nfp;
@@ -460,7 +459,7 @@ int code;
 	return(0);
 }
 
-/*)Function	VOID	getdarg(np)
+/*)Function	void	getdarg(np)
  *
  *		struct mcrdef *np	pointer to macro definition structure
  *
@@ -482,9 +481,9 @@ int code;
  *		int	getid()		aslex.c
  *		int	getnb()		aslex.c
  *		char *	mstring()	asmcro.c
- *		VOID *	mstruct()	asmcro.c
- *		VOID	qerr()		assubr.c
- *		VOID	unget()		aslex.c
+ *		void *	mstruct()	asmcro.c
+ *		void	qerr()		assubr.c
+ *		void	unget()		aslex.c
  *
  *	side effects:
  *		Macro definition argument is added to macro definition
@@ -493,9 +492,8 @@ int code;
  *		terminate the assembler.
  */
 
-VOID
-getdarg(np)
-struct mcrdef * np;
+void
+getdarg(struct mcrdef *np)
 {
 	struct strlst *str;
 	char id[NCPS];
@@ -527,7 +525,7 @@ struct mcrdef * np;
 	np->narg += 1;
 }
 
-/*)Function	VOID	getdfarg(np)
+/*)Function	void	getdfarg(np)
  *
  *		struct mcrdef *np	pointer to macro definition structure
  *
@@ -547,8 +545,8 @@ struct mcrdef * np;
  *		int	getid()		aslex.c
  *		int	getnb()		aslex.c
  *		char *	mstring()	asmcro.c
- *		VOID *	mstruct()	asmcro.c
- *		VOID	unget()		aslex.c
+ *		void *	mstruct()	asmcro.c
+ *		void	unget()		aslex.c
  *
  *	side effects:
  *		Macro default argument is added to macro definition
@@ -557,9 +555,8 @@ struct mcrdef * np;
  *		terminate the assembler.
  */
 
-VOID
-getdfarg(np)
-struct mcrdef * np;
+void
+getdfarg(struct mcrdef *np)
 {
 	struct strlst *str;
 	char id[NCPS];
@@ -585,7 +582,7 @@ struct mcrdef * np;
 	np->darg += 1;
 }
 
-/*)Function	VOID	getxarg(np)
+/*)Function	void	getxarg(np)
  *
  *		struct mcrdef *np	pointer to macro definition structure
  *
@@ -619,12 +616,12 @@ struct mcrdef * np;
  *		int	zflag		case sensitivity flag
  *
  *	functions called:
- *		VOID	getxstr()	asmcro.c
- *		VOID	getxnum()	asmcro.c
+ *		void	getxstr()	asmcro.c
+ *		void	getxnum()	asmcro.c
  *		char *	mstring()	asmcro.c
  *		char *	strchr()	c_library
  *		int	symeq()		assym.c
- *		VOID	qerr()		assubr.c
+ *		void	qerr()		assubr.c
  *
  *	side effects:
  *		Macro expansion argument is scanned:
@@ -634,9 +631,8 @@ struct mcrdef * np;
  *		    (xarg is incremented)
  */
 
-VOID
-getxarg(np)
-struct mcrdef * np;
+void
+getxarg(struct mcrdef *np)
 {
 	struct strlst *str, *arg, *xrg;
 	char id[NCPS];
@@ -698,7 +694,7 @@ struct mcrdef * np;
 	}
 }
 
-/*)Function	VOID	getxnum(id)
+/*)Function	void	getxnum(id)
  *
  *		char *id		pointer to string
  *
@@ -722,9 +718,8 @@ struct mcrdef * np;
  *		returned in the input string.
  */
 
-VOID
-getxnum(id)
-char *id;
+void
+getxnum(char *id)
 {
 	char *sip;
 	char * frmt;
@@ -752,7 +747,7 @@ char *id;
 	}
 }
 
-/*)Function	VOID	getinline(np)
+/*)Function	void	getinline(np)
  *
  *		struct mcrdef *np	pointer to macro definition structure
  *
@@ -777,10 +772,10 @@ char *id;
  *		none
  *
  *	functions called:
- *		VOID	getxstr()	asmcro.c
- *		VOID	getxnum()	asmcro.c
+ *		void	getxstr()	asmcro.c
+ *		void	getxnum()	asmcro.c
  *		char *	mstring()	asmcro.c
- *		VOID *	mstruct()	asmcro.c
+ *		void *	mstruct()	asmcro.c
  *
  *	side effects:
  *		Inline expansion argument is added to inline definition
@@ -789,9 +784,8 @@ char *id;
  *		terminate the assembler.
  */
 
-VOID
-getinline(np)
-struct mcrdef * np;
+void
+getinline(struct mcrdef *np)
 {
 	struct strlst *str;
 	char id[NCPS];
@@ -814,7 +808,7 @@ struct mcrdef * np;
 	np->xarg += 1;
 }
 
-/*)Function	VOID	getxstr(id)
+/*)Function	void	getxstr(id)
  *
  *		char * id		pointer to string
  *
@@ -838,16 +832,15 @@ struct mcrdef * np;
  *	functions called:
  *		int	get()		aslex.c
  *		int	getnb()		aslex.c
- *		VOID	qerr()		assubr.c
- *		VOID	unget()		assym.c
+ *		void	qerr()		assubr.c
+ *		void	unget()		assym.c
  *
  *	side effects:
  *		Macro expansion argument is returned in id[].
  */
 
-VOID
-getxstr(id)
-char *id;
+void
+getxstr(char *id)
 {
 	char *p;
 	int c, dc;
@@ -891,7 +884,7 @@ char *id;
 	*p = '\0';
 }
 
-/*)Function	VOID	macro(np)
+/*)Function	void	macro(np)
  *
  *		mcrdef *np		macro definition structure
  *
@@ -916,21 +909,20 @@ char *id;
  *		int	lnlist		current LIST-NLIST flags
  *
  *	functions called:
- *		VOID	getxarg()	asmcro.c
+ *		void	getxarg()	asmcro.c
  *		char *	mstring()	asmcro.c
- *		VOID *	mstruct()	asmcro.c
+ *		void *	mstruct()	asmcro.c
  *		char *	strcpy()	c_library
  *		int	sprintf()	c_library
  *		int	strlen()	c_library
- *		VOID	qerr()		assubr.c
+ *		void	qerr()		assubr.c
  *
  *	side effects:
  *		Macro is inserted into assembler stream
  */
 
-VOID
-macro(np)
-struct mcrdef * np;
+void
+macro(struct mcrdef *np)
 {
 	struct macrofp *nfp;
 	struct strlst *str;
@@ -1054,7 +1046,7 @@ struct mcrdef * np;
 	return;
 }
 
-/*)Function	mcrdef *newdef(code, id)
+/*)Function	struct mcrdef *newdef(code, id)
  *
  *		int	code		macro type code
  *		char *	id		macro name string
@@ -1071,7 +1063,7 @@ struct mcrdef * np;
  *	functions called:
  *		mne *	mlookup()	assym.c
  *		char *	mstring()	asmcro.c
- *		VOID *	mstruct()	asmcro.c
+ *		void *	mstruct()	asmcro.c
  *		mne *	nlookup()	asmcro.c
  *
  *	side effects:
@@ -1080,9 +1072,7 @@ struct mcrdef * np;
  */
 
 struct mcrdef *
-newdef(code, id)
-int code;
-char *id;
+newdef(int code, char *id)
 {
 	struct mne *mp;
 
@@ -1132,7 +1122,7 @@ char *id;
 	return (mcrp);
 }
 
-/*)Function	mcrdef *nlookup(id)
+/*)Function	struct mcrdef *nlookup(id)
  *
  *		char *	id	macro name string
  *
@@ -1154,8 +1144,7 @@ char *id;
  */
 
 struct mcrdef *
-nlookup(id)
-char *id;
+nlookup(char *id)
 {
 	struct mcrdef *	np;
 
@@ -1217,10 +1206,7 @@ char *id;
  */
 
 char *
-fgetm(ptr, len, fp)
-char *ptr;
-int len;
-FILE *fp;
+fgetm(char *ptr, int len, FILE *fp)
 {
 	struct macrofp *nfp;
 	struct mcrdef *np;
@@ -1293,7 +1279,7 @@ FILE *fp;
 	return(ptr);
 }
 
-/*)Function	VOID	mcroscn(nfp)
+/*)Function	void	mcroscn(nfp)
  *
  *		struct	macrofp * nfp	a Macro 'FILE Handle'
  *
@@ -1325,9 +1311,8 @@ FILE *fp;
  *		and a substitution made for the string id[].
  */
 
-VOID
-macroscn(nfp)
-struct	macrofp *nfp;
+void
+macroscn(struct macrofp *nfp)
 {
 	int c;
 	char id[NINPUT];
@@ -1388,9 +1373,7 @@ struct	macrofp *nfp;
  */
 
 int
-macrosub(id, nfp)
-char *id;
-struct	macrofp *nfp;
+macrosub(char *id, struct macrofp *nfp)
 {
 	char *p;
 	char xrgstr[NINPUT*2];
@@ -1485,7 +1468,7 @@ struct	macrofp *nfp;
 	return(0);
 }
 
-/*)Function	VOID *	mhunk()
+/*)Function	void *	mhunk(void)
  *
  *	Allocate space.
  *	Return a pointer to the allocated space.
@@ -1507,7 +1490,7 @@ struct	macrofp *nfp;
  *		memlnk	pmcrmem		pointer to first 1K Byte block allocated
  *
  *	functions called:
- *		VOID *	new()		assym.c
+ *		void *	new()		assym.c
  *
  *	side effects:
  *		Space allocated for object.
@@ -1535,8 +1518,8 @@ struct	macrofp *nfp;
 static	char *	pnext;
 static	int	bytes;
 
-VOID *
-mhunk()
+void *
+mhunk(void)
 {
 	struct memlnk *lnk;
 
@@ -1545,7 +1528,7 @@ mhunk()
 	 */
 	if (pmcrmem == NULL) {
 		lnk = (struct memlnk *) new (sizeof(struct memlnk));
-		lnk->ptr = (VOID *) new (MCR_SPC);
+		lnk->ptr = (void *) new (MCR_SPC);
 		lnk->next = NULL;
 		pmcrmem = mcrmem = lnk;
 		mcrblk = 1;
@@ -1561,7 +1544,7 @@ mhunk()
 	 */
 	if (mcrmem->next == NULL) {
 		lnk = (struct memlnk *) new (sizeof(struct memlnk));
-		lnk->ptr = (VOID *) new (MCR_SPC);
+		lnk->ptr = (void *) new (MCR_SPC);
 		lnk->next = NULL;
 		mcrmem->next = lnk;
 		mcrmem = lnk;
@@ -1601,7 +1584,7 @@ mhunk()
  *		none
  *
  *	functions called:
- *		VOID *	mhunk()		asmcro.c
+ *		void *	mhunk()		asmcro.c
  *		char *	strcpy()	c_library
  *		int	strlen()	c_library
  *
@@ -1611,8 +1594,7 @@ mhunk()
  */
  
 char *
-mstring(str)
-char *str;
+mstring(char *str)
 {
 	int  len;
 	char *p;
@@ -1658,7 +1640,7 @@ char *str;
  *		MCR_MSK			memory boundary mask
  *
  *	functions called:
- *		VOID *	mhunk()		asmcro.c
+ *		void *	mhunk()		asmcro.c
  *
  *	side effects:
  *		Space allocated.
@@ -1666,8 +1648,7 @@ char *str;
  */
  
 char *
-mstruct(n)
-int n;
+mstruct(int n)
 {
 	int  bofst;
 	char *p;
@@ -1691,7 +1672,7 @@ int n;
 	return(p);
 }
 
-/*)Function	VOID	pshmstk(np)
+/*)Function	void	pshmstk(np)
  *
  *		struct mcrdef np	pointer to macro
  *
@@ -1724,9 +1705,8 @@ int n;
  *		Argument and memory state saved.
  */
 
-VOID
-pshmstk(np)
-struct mcrdef * np;
+void
+pshmstk(struct mcrdef *np)
 {
 	struct mstack * mcrstk;
 
@@ -1748,7 +1728,7 @@ struct mcrdef * np;
 	}
 }
 
-/*)Function	VOID	popmstk(np)
+/*)Function	void	popmstk(np)
  *
  *		struct mcrdef np	pointer to macro
  *
@@ -1787,9 +1767,8 @@ struct mcrdef * np;
  *		Argument and memory state restored.
  */
 
-VOID
-popmstk(np)
-struct mcrdef * np;
+void
+popmstk(struct mcrdef *np)
 {
 	struct mstack * mcrstk;
 
@@ -1816,7 +1795,7 @@ struct mcrdef * np;
 	}
 }
 
-/*)Function	VOID	mcrinit()
+/*)Function	void	mcrinit(void)
  *
  *	Initialize Macro Processor Variables
  *
@@ -1841,8 +1820,8 @@ struct mcrdef * np;
  *		Prepares values for next assembler pass.
  */
  
-VOID
-mcrinit()
+void
+mcrinit(void)
 {
 	mls.s_addr = 10000;
 

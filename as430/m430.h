@@ -1,7 +1,7 @@
 /* m430.h */
 
 /*
- *  Copyright (C) 2003-2021  Alan R. Baldwin
+ *  Copyright (C) 2003-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -89,31 +89,14 @@ extern struct adsym reg[];
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* m430adr.c */
 extern	int		addr(struct expr *esp);
 extern	int		admode(struct adsym *sp);
 extern	int		srch(char *str);
 
 	/* m430mch.c */
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		abstype(struct expr *esp);
 extern	int		mchpcr(struct expr *esp);
-extern	VOID		minit(void);
-
-#else
-
-	/* m430adr.c */
-extern	int		addr();
-extern	int		admode();
-extern	int		srch();
-
-	/* m430mch.c */
-extern	VOID		machine();
-extern	int		abstype();
-extern	int		mchpcr();
-extern	VOID		minit();
-
-#endif
+extern	void		minit(void);
 

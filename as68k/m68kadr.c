@@ -1,8 +1,8 @@
 /* m68kadr.c */
 
 /*
- *  Copyright (C) 2022-2024  Alan R. Baldwin
- *  Copyright (C) 2022-2024  Nick Downing
+ *  Copyright (C) 2022-2025  Alan R. Baldwin
+ *  Copyright (C) 2022-2025  Nick Downing
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -148,11 +148,7 @@ int aindx;	/* Value Of Element Found With admode() */
  * Unless Explicitly Set By .W Or .L
  */
 int
-addr(esp, espxi, sz, vx, px, xx)
-struct expr *esp;
-struct expr *espxi;
-int sz;
-int *vx, *px, *xx;
+addr(struct expr *esp, struct expr *espxi, int sz, int *vx, int *px, int *xx)
 {
 	int c, d, s;
 	char *p, *ptr, *ips;
@@ -630,10 +626,7 @@ int *vx, *px, *xx;
 unsigned char fpack[12];
 
 int
-faddr(esp, fsz, vx)
-struct expr *esp;
-int fsz;
-int *vx;
+faddr(struct expr *esp, int fsz, int *vx)
 {
 	int c;
 
@@ -673,9 +666,7 @@ int *vx;
  * Evaluate For Direct Page Modes
  */
 int
-espmode(esp, vx, px)
-struct expr *esp;
-int *vx, *px;
+espmode(struct expr *esp, int *vx, int *px)
 {
 	int mode;
 
@@ -742,10 +733,7 @@ int *vx, *px;
 }
 
 int
-anpcidx(esp, xx, p, ptr)
-struct expr *esp;
-int *xx;
-char *p, *ptr;
+anpcidx(struct expr *esp, int *xx, char *p, char *ptr)
 {
 	char *ips;
 	int mode;
@@ -900,8 +888,7 @@ xi()
  * 'aindx' contains the value of the addressing mode.
  */
 int
-admode(sp)
-struct adsym *sp;
+admode(struct adsym *sp)
 {
 	char *ptr;
 	int i;
@@ -926,8 +913,7 @@ struct adsym *sp;
  *	srch --- does string match ?
  */
 int
-srch(str)
-char *str;
+srch(char *str)
 {
 	char *ptr;
 	ptr = ip;

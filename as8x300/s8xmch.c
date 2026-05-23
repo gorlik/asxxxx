@@ -1,7 +1,7 @@
 /* s8xmch.c */
 
 /*
- *  Copyright (C) 2018-2021  Alan R. Baldwin
+ *  Copyright (C) 2018-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -54,9 +54,8 @@ a_uint cdot;
 /*
  * Process machine ops.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	unsigned int op;
 	struct expr e1,n1,x1;
@@ -719,9 +718,7 @@ struct mne *mp;
 }
 
 int
-regchk(src,dst)
-int src;
-int dst;
+regchk(int src, int dst)
 {
 	if (sym[2].s_addr == X_300) {
 		/* SRC - 7/12/13/14/15/16/17 Not Allowed */
@@ -758,9 +755,8 @@ int dst;
 	return(0);
 }
 
-VOID
-xtndout(esp)
-struct expr *esp;
+void
+xtndout(struct expr *esp)
 {
 	if ((xtndap != NULL) && (d_xdef != 0)) {
 		newdot(xtndap);
@@ -825,8 +821,8 @@ struct	adsym	regsym[] = {
 /*
  *Machine specific initialization.
  */
-VOID
-minit()
+void
+minit(void)
 {
 	int i;
 	struct sym *sp;

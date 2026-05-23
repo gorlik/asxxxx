@@ -1,7 +1,7 @@
 /* cop4.h */
 
 /*
- *  Copyright (C) 2023  Alan R. Baldwin
+ *  Copyright (C) 2023-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -192,8 +192,6 @@ struct adsym
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* cop4adr.c */
 extern	struct adsym	reg[];
 extern	int		addr(struct expr *esp);
@@ -205,30 +203,9 @@ extern	struct cop	cop[];
 
 	/* cop4mch.c */
 extern	int		coptype(void);
-extern	VOID		icheck(unsigned int op);
-extern	VOID		machine(struct mne *mp);
-extern	VOID		minit(void);
-extern	VOID		setgbl(struct expr *esp);
-extern	VOID		setpgl(int pmsk);
-
-#else
-
-	/* cop4adr.c */
-extern	struct adsym	reg[];
-extern	int		addr();
-extern	int		admode();
-extern	int		srch();
-
-	/* cop4pst.c */
-extern	struct cop	cop[];
-
-	/* cop4mch.c */
-extern	int		coptype();
-extern	VOID		icheck();
-extern	VOID		machine();
-extern	VOID		minit();
-extern	VOID		setgbl();
-extern	VOID		setpgl();
-
-#endif
+extern	void		icheck(unsigned int op);
+extern	void		machine(struct mne *mp);
+extern	void		minit(void);
+extern	void		setgbl(struct expr *esp);
+extern	void		setpgl(int pmsk);
 

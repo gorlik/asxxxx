@@ -1,7 +1,7 @@
 /* aslink.h */
 
 /*
- *  Copyright (C) 1989-2022  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -39,8 +39,8 @@
  * Local Definitions
  */
 
-#define	VERSION "V05.50"
-#define	COPYRIGHT "2022"
+#define	VERSION "V05.50.4"
+#define	COPYRIGHT "2025"
 
 /*
  * To include NoICE Debugging set non-zero
@@ -116,32 +116,9 @@
 	$(STACK) = 2000
 */
 
-#undef	VOID
-
-/* DECUS C void definition */
 /* File/extension seperator */
 
-#ifdef	DECUS
-#define	VOID	char
 #define	FSEPX	'.'
-#endif
-
-/* PDOS C void definition */
-/* File/extension seperator */
-
-#ifdef	PDOS
-#define	VOID	char
-#define	FSEPX	':'
-#endif
-
-/* Default void definition */
-/* File/extension seperator */
-
-#ifndef	VOID
-#define	VOID	void
-#define	FSEPX	'.'
-#define	OTHERSYSTEM
-#endif
 
 /*
  *	Common Definitions
@@ -1085,13 +1062,13 @@ extern	struct lbfile *lbfhead;	/*	pointer to the first
 
 /* C Library function definitions */
 /* for reference only
-extern	VOID		exit();
+extern	void		exit();
 extern	int		fclose();
 extern	char *		fgets();
 extern	FILE *		fopen();
 extern	int		fprintf();
-extern	VOID		free();
-extern	VOID *		malloc();
+extern	void		free();
+extern	void *		malloc();
 extern	char		putc();
 extern	char *		sprintf();
 extern	char *		strcpy();
@@ -1102,63 +1079,61 @@ extern	char *		strrchr();
 
 /* Program function definitions */
 
-#ifdef	OTHERSYSTEM
-
 /* C Library */
 extern	int		delete(char *str);
-extern	VOID		exit(int n);
+extern	void		exit(int n);
 
 /* lkmain.c */
 extern	FILE *		afile(char *fn, char *ft, int wf);
-extern	VOID		areasav(void);
-extern	VOID		banksav(void);
+extern	void		areasav(void);
+extern	void		banksav(void);
 extern	char *		filespec(char *p);
 extern	int		fndidx(char *str);
 extern	int		fndext(char *str);
-extern	VOID		glblsav(void);
+extern	void		glblsav(void);
 extern	int		intsiz(void);
-extern	VOID		link(void);
-extern	VOID		lkexit(int i);
+extern	void		link(void);
+extern	void		lkexit(int i);
 extern	int		main(int argc, char *argv[]);
-extern	VOID		map(void);
+extern	void		map(void);
 extern	int		parse(void);
-extern	VOID		doparse(void);
-extern	VOID		setgbl(void);
-extern	VOID		usage(void);
+extern	void		doparse(void);
+extern	void		setgbl(void);
+extern	void		usage(void);
 
 /* lklex.c */
-extern	VOID		chopcrlf(char *str);
+extern	void		chopcrlf(char *str);
 extern	char		endline(void);
 extern	int		get(void);
-extern	VOID		getfid(char *str, int c);
-extern	VOID		getid(char *id, int c);
+extern	void		getfid(char *str, int c);
+extern	void		getid(char *id, int c);
 extern	int		getmap(int d);
 extern	int		getnb(void);
 extern	int		more(void);
 extern	int		nxtline(void);
-extern	VOID		skip(int c);
-extern	VOID		unget(int c);
+extern	void		skip(int c);
+extern	void		unget(int c);
 
 /* lkarea.c */
-extern	VOID		lkparea(char *id);
-extern	VOID		lnkarea(void);
-extern	VOID		lnksect(struct area *tap);
-extern	VOID		lnkserr(char *frmt, char *str);
-extern	VOID		newarea(void);
-extern	VOID		setarea(void);
+extern	void		lkparea(char *id);
+extern	void		lnkarea(void);
+extern	void		lnksect(struct area *tap);
+extern	void		lnkserr(char *frmt, char *str);
+extern	void		newarea(void);
+extern	void		setarea(void);
 
 /* lkbank.c */
-extern	VOID		chkbank(FILE *fp);
-extern	VOID		lkfclose(void);
-extern	VOID		lkfopen(void);
-extern	VOID		lkpbank(char * id);
-extern	VOID		newbank(void);
-extern	VOID		setbank(void);
+extern	void		chkbank(FILE *fp);
+extern	void		lkfclose(void);
+extern	void		lkfopen(void);
+extern	void		lkpbank(char * id);
+extern	void		newbank(void);
+extern	void		setbank(void);
 
 /* lkhead.c */
-extern	VOID		module(void);
-extern	VOID		newhead(void);
-extern	VOID		newmode(void);
+extern	void		module(void);
+extern	void		newhead(void);
+extern	void		newmode(void);
 
 /* lksym.c */
 extern	int		hash(char *p, int cflag);
@@ -1166,10 +1141,10 @@ extern	struct	sym *	lkpsym(char *id, int f);
 extern	char *		new(unsigned int n);
 extern	struct	sym *	newsym(void);
 extern	char *		strsto(char *str);
-extern	VOID		symdef(FILE *fp);
+extern	void		symdef(FILE *fp);
 extern	int		symeq(char *p1, char *p2, int cflag);
-extern	VOID		syminit(void);
-extern	VOID		symmod(FILE *fp, struct sym *tsp);
+extern	void		syminit(void);
+extern	void		symmod(FILE *fp, struct sym *tsp);
 extern	a_uint		symval(struct sym *tsp);
 
 /* lkeval.c */
@@ -1183,36 +1158,36 @@ extern	a_uint		term(void);
 extern	int		dgt(int rdx, char *str, int n);
 extern	int		gethlr(int nhline);
 extern	int		getlst(int ngline);
-extern	VOID		newpag(FILE *fp);
-extern	VOID		slew(struct area *xp, struct bank *yp);
-extern	VOID		lstarea(struct area *xp, struct bank *yp);
-extern	VOID		lkulist(int i);
-extern	VOID		lklist(a_uint cpc, int v, int err);
-extern	VOID		lkalist(a_uint cpc);
-extern	VOID		hlrlist(a_uint cpc, int v, int err);
-extern	VOID		hlralist(a_uint cpc);
-extern	VOID		hlrelist(void);
-extern	VOID		hlrclist(a_uint cpc, int v);
-extern	VOID		setgh(void);
-extern	VOID		lsterr(int err);
+extern	void		newpag(FILE *fp);
+extern	void		slew(struct area *xp, struct bank *yp);
+extern	void		lstarea(struct area *xp, struct bank *yp);
+extern	void		lkulist(int i);
+extern	void		lklist(a_uint cpc, int v, int err);
+extern	void		lkalist(a_uint cpc);
+extern	void		hlrlist(a_uint cpc, int v, int err);
+extern	void		hlralist(a_uint cpc);
+extern	void		hlrelist(void);
+extern	void		hlrclist(a_uint cpc, int v);
+extern	void		setgh(void);
+extern	void		lsterr(int err);
 
 /* lknoice.c */
-extern	VOID		NoICEfopen(void);
-extern	VOID		NoICEmagic(void);
-extern	VOID		DefineNoICE(char *name, a_uint value, struct bank *yp);
-extern	VOID		DefineGlobal(char *name, a_uint value, struct bank *yp);
-extern	VOID		DefineScoped(char *name, a_uint value, struct bank *yp);
-extern	VOID		DefineFile(char *name, a_uint value, struct bank *yp);
-extern	VOID		DefineFunction(char *name, a_uint value, struct bank *yp);
-extern	VOID		DefineStaticFunction(char *name, a_uint value, struct bank *yp);
-extern	VOID		DefineEndFunction(a_uint value, struct bank *yp);
-extern	VOID		DefineLine(char *lineString, a_uint value, struct bank *yp);
-extern	VOID		PagedAddress(a_uint value, struct bank *yp);
+extern	void		NoICEfopen(void);
+extern	void		NoICEmagic(void);
+extern	void		DefineNoICE(char *name, a_uint value, struct bank *yp);
+extern	void		DefineGlobal(char *name, a_uint value, struct bank *yp);
+extern	void		DefineScoped(char *name, a_uint value, struct bank *yp);
+extern	void		DefineFile(char *name, a_uint value, struct bank *yp);
+extern	void		DefineFunction(char *name, a_uint value, struct bank *yp);
+extern	void		DefineStaticFunction(char *name, a_uint value, struct bank *yp);
+extern	void		DefineEndFunction(a_uint value, struct bank *yp);
+extern	void		DefineLine(char *lineString, a_uint value, struct bank *yp);
+extern	void		PagedAddress(a_uint value, struct bank *yp);
 
 /* lksccdb.c */
-extern	VOID		SDCDBfopen(void);
-extern	VOID		SDCDBcopy(char * str);
-extern	VOID		DefineSDCDB(char *name, a_uint value);
+extern	void		SDCDBfopen(void);
+extern	void		SDCDBcopy(char * str);
+extern	void		DefineSDCDB(char *name, a_uint value);
 
 /* lkrloc.c */
 extern	a_uint		adb_1b(a_uint v, int i);
@@ -1222,28 +1197,28 @@ extern	a_uint		adb_4b(a_uint v, int i);
 extern	a_uint		adb_xb(a_uint v, int i);
 extern	a_uint		adw_xb(int x, a_uint v, int i);
 extern	a_uint		evword(void);
-extern	VOID		prntval(FILE *fptr, a_uint v);
-extern	VOID		reloc(int c);
+extern	void		prntval(FILE *fptr, a_uint v);
+extern	void		reloc(int c);
 
 /* lkrloc3.c */
 extern	a_uint		adb_hi(a_uint v, int i);
 extern	a_uint		adb_lo(a_uint v, int i);
 extern	char *		errmsg3[];
-extern	VOID		errdmp3(FILE *fptr, char *str);
-extern	VOID		erpdmp3(FILE *fptr, char *str);
-extern	VOID		rele3(void);
-extern	VOID		reloc3(int c);
-extern	VOID		relt3(void);
-extern	VOID		relr3(void);
-extern	VOID		relp3(void);
-extern	VOID		relerr3(char *str);
-extern	VOID		relerp3(char *str);
+extern	void		errdmp3(FILE *fptr, char *str);
+extern	void		erpdmp3(FILE *fptr, char *str);
+extern	void		rele3(void);
+extern	void		reloc3(int c);
+extern	void		relt3(void);
+extern	void		relr3(void);
+extern	void		relp3(void);
+extern	void		relerr3(char *str);
+extern	void		relerp3(char *str);
 
 /* lkrloc4.c */
 extern	a_uint		adb_byte(int p, a_uint v, int i);
 extern	char *		errmsg4[];
-extern	VOID		errdmp4(FILE *fptr, char *str);
-extern	VOID		erpdmp4(FILE *fptr, char *str);
+extern	void		errdmp4(FILE *fptr, char *str);
+extern	void		erpdmp4(FILE *fptr, char *str);
 extern	a_uint		gtb_1b(int i);
 extern	a_uint		gtb_2b(int i);
 extern	a_uint		gtb_3b(int i);
@@ -1255,212 +1230,30 @@ extern	a_uint		ptb_2b(a_uint v, int i);
 extern	a_uint		ptb_3b(a_uint v, int i);
 extern	a_uint		ptb_4b(a_uint v, int i);
 extern	a_uint		ptb_xb(a_uint v, int i);
-extern	VOID		rele4(void);
-extern	VOID		reloc4(int c);
-extern	VOID		relt4(void);
-extern	VOID		relr4(void);
-extern	VOID		relp4(void);
-extern	VOID		relerr4(char *str);
-extern	VOID		relerp4(char *str);
+extern	void		rele4(void);
+extern	void		reloc4(int c);
+extern	void		relt4(void);
+extern	void		relr4(void);
+extern	void		relp4(void);
+extern	void		relerr4(char *str);
+extern	void		relerp4(char *str);
 
 /* lklibr.c */
-extern	VOID		addfile(char *path, char *libfil);
-extern	VOID		addlib(void);
-extern	VOID		addpath(void);
+extern	void		addfile(char *path, char *libfil);
+extern	void		addlib(void);
+extern	void		addpath(void);
 extern	int		fndsym(char *name);
-extern	VOID		library(void);
-extern	VOID		loadfile(char *filspc);
-extern	VOID		search(void);
+extern	void		library(void);
+extern	void		loadfile(char *filspc);
+extern	void		search(void);
 
 /* lkout.c */
-extern	VOID		lkout(int i);
-extern	VOID		lkflush(void);
-extern	VOID		ixx(int i);
-extern	VOID		iflush(void);
-extern	VOID		sxx(int i);
-extern	VOID		sflush(void);
-extern	VOID		dbx(int i);
-extern	VOID		dflush(void);
-
-#else
-
-/* C Library */
-extern	int		delete();
-extern	VOID		exit();
-
-/* lkmain.c */
-extern	FILE *		afile();
-extern	VOID		areasav();
-extern	VOID		banksav();
-extern	char *		filespec();
-extern	int		fndext();
-extern	int		fndidx();
-extern	VOID		glblsav();
-extern	int		intsiz();
-extern	VOID		link();
-extern	VOID		lkexit();
-extern	int		main();
-extern	VOID		map();
-extern	int		parse();
-extern	VOID		doparse();
-extern	VOID		setgbl();
-extern	VOID		usage();
-
-/* lklex.c */
-extern	VOID		chopcrlf();
-extern	char		endline();
-extern	int		get();
-extern	VOID		getfid();
-extern	VOID		getid();
-extern	int		getmap();
-extern	int		getnb();
-extern	int		more();
-extern	int		nxtline();
-extern	VOID		skip();
-extern	VOID		unget();
-
-/* lkarea.c */
-extern	VOID		lkparea();
-extern	VOID		lnkarea();
-extern	VOID		lnksect();
-extern	VOID		lnkserr();
-extern	VOID		newarea();
-extern	VOID		setarea();
-
-/* lkbank.c */
-extern	VOID		chkbank();
-extern	VOID		lkfclose();
-extern	VOID		lkfopen();
-extern	VOID		lkpbank();
-extern	VOID		newbank();
-extern	VOID		setbank();
-
-/* lkhead.c */
-extern	VOID		module();
-extern	VOID		newhead();
-extern	VOID		newbank();
-extern	VOID		newmode();
-extern	VOID		lkpbank();
-
-/* lksym.c */
-extern	int		hash();
-extern	struct	sym *	lkpsym();
-extern	VOID *		new();
-extern	struct	sym *	newsym();
-extern	char *		strsto();
-extern	VOID		symdef();
-extern	int		symeq();
-extern	VOID		syminit();
-extern	VOID		symmod();
-extern	a_uint		symval();
-
-/* lkeval.c */
-extern	int		digit();
-extern	a_uint		eval();
-extern	a_uint		expr();
-extern	int		oprio();
-extern	a_uint		term();
-
-/* lklist.c */
-extern	int		dgt();
-extern	int		gethlr();
-extern	int		getlst();
-extern	VOID		newpag();
-extern	VOID		slew();
-extern	VOID		lstarea();
-extern	VOID		lkulist();
-extern	VOID		lkalist();
-extern	VOID		lkglist();
-extern	VOID		hlrelist();
-extern	VOID		hlrclist();
-extern	VOID		setgh();
-extern	VOID		lsterr();
-
-/* lknoice.c */
-extern	VOID		NoICEfopen();
-extern	VOID		NoICEmagic();
-extern	VOID		DefineNoICE();
-extern	VOID		DefineGlobal();
-extern	VOID		DefineScoped();
-extern	VOID		DefineFile();
-extern	VOID		DefineFunction();
-extern	VOID		DefineStaticFunction();
-extern	VOID		DefineEndFunction();
-extern	VOID		DefineLine();
-extern	VOID		PagedAddress();
-
-/* lksdcdb.c */
-extern	VOID		SDCDBfopen();
-extern	VOID		SDCDBcopy();
-extern	VOID		DefineSDCDB();
-
-/* lkrloc.c */
-extern	a_uint		adb_1b();
-extern	a_uint		adb_2b();
-extern	a_uint		adb_3b();
-extern	a_uint		adb_4b();
-extern	a_uint		adb_xb();
-extern	a_uint		adw_xb();
-extern	a_uint		evword();
-extern	VOID		prntval();
-extern	VOID		reloc();
-
-/* lkrloc3.c */
-extern	a_uint		adb_hi();
-extern	a_uint		adb_lo();
-extern	char *		errmsg3[];
-extern	VOID		errdmp3();
-extern	VOID		erpdmp3();
-extern	VOID		rele3();
-extern	VOID		reloc3();
-extern	VOID		relt3();
-extern	VOID		relr3();
-extern	VOID		relp3();
-extern	VOID		relerr3();
-extern	VOID		relerp3(c);
-
-/* lkrloc4.c */
-extern	a_uint		adb_byte();
-extern	char *		errmsg4[];
-extern	VOID		errdmp4();
-extern	VOID		erpdmp4();
-extern	a_uint		gtb_1b();
-extern	a_uint		gtb_2b();
-extern	a_uint		gtb_3b();
-extern	a_uint		gtb_4b();
-extern	a_uint		gtb_xb();
-extern	int		lkmerge();
-extern	a_uint		ptb_1b();
-extern	a_uint		ptb_2b();
-extern	a_uint		ptb_3b();
-extern	a_uint		ptb_4b();
-extern	a_uint		ptb_xb();
-extern	VOID		rele4();
-extern	VOID		reloc4();
-extern	VOID		relt4(v);
-extern	VOID		relr4();
-extern	VOID		relp4();
-extern	VOID		relerr4();
-extern	VOID		relerp4();
-
-/* lklibr.c */
-extern	VOID		addfile();
-extern	VOID		addlib();
-extern	VOID		addpath();
-extern	int		fndsym();
-extern	VOID		library();
-extern	VOID		loadfile();
-extern	VOID		search();
-
-/* lkout.c */
-extern	VOID		lkout();
-extern	VOID		lkflush();
-extern	VOID		ixx();
-extern	VOID		iflush();
-extern	VOID		sxx();
-extern	VOID		sflush();
-extern	VOID		dbx();
-extern	VOID		dflush();
-
-#endif
+extern	void		lkout(int i);
+extern	void		lkflush(void);
+extern	void		ixx(int i);
+extern	void		iflush(void);
+extern	void		sxx(int i);
+extern	void		sflush(void);
+extern	void		dbx(int i);
+extern	void		dflush(void);
 

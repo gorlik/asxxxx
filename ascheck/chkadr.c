@@ -1,7 +1,7 @@
 /* chkadr.c */
 
 /*
- *  Copyright (C) 2001-2021  Alan R. Baldwin
+ *  Copyright (C) 2001-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,8 +26,7 @@
 #include "chk.h"
 
 int
-addr(esp)
-register struct expr *esp;
+addr(struct expr *esp)
 {
 	return (esp->e_mode);
 }
@@ -55,8 +54,7 @@ register struct expr *esp;
  * zero for no match.
  */
 int
-admode(sp)
-struct adsym *sp;
+admode(struct adsym *sp)
 {
 	char *ptr;
 	int i;
@@ -80,8 +78,7 @@ struct adsym *sp;
  *      srch --- does string match ?
  */
 int
-srch(str)
-char *str;
+srch(char *str)
 {
 	register char *ptr;
 	ptr = ip;

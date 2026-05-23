@@ -1,7 +1,7 @@
 /* s6186mch.c */
 
 /*
- *  Copyright (C) 2003-2021
+ *  Copyright (C) 2003-2025
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -66,9 +66,8 @@ static char  s61860[256] = {
 /*
  * Process machine ops.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	unsigned int op;
 	struct expr e1, e2;
@@ -288,8 +287,7 @@ struct mne *mp;
  * Covert ascii characters to SBASIC characters
  */
 int
-ascii2sbasic(c)
-int c;
+ascii2sbasic(int c)
 {
 	if (((c >= '0') && (c <= '9')) ||
 	    ((c >= 'A') && (c <= 'Z'))) {
@@ -341,10 +339,7 @@ int c;
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp, v, n)
-struct expr *esp;
-int *v;
-int n;
+mchpcr(struct expr *esp, int *v, int n)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		if (v != NULL) {
@@ -383,8 +378,8 @@ int n;
 /*
  * Machine specific init.
  */
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * Byte Order

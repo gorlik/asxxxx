@@ -1,7 +1,7 @@
 /* m430mch.c */
 
 /*
- *  Copyright (C) 2003-2023  Alan R. Baldwin
+ *  Copyright (C) 2003-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -44,9 +44,8 @@ char	*dsft	= "asm";
 /*
  * Process a machine op.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	int op;
 	int rf;
@@ -550,8 +549,7 @@ struct mne *mp;
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp)
-struct expr *esp;
+mchpcr(struct expr *esp)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		return(1);
@@ -576,8 +574,8 @@ struct expr *esp;
  * Set up the bit table.
  * Process any setup code.
  */
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * Byte Order

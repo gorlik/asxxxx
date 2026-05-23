@@ -1,7 +1,7 @@
 /* lkrloc3.c */
 
 /*
- *  Copyright (C) 1989-2021  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -40,21 +40,21 @@
  *	lkrloc.c contains the following functions:
  *		a_uint	adb_lo()
  *		a_uint	adb_hi()
- *		VOID	erpdmp3()
- *		VOID	errdmp3()
- *		VOID	rele3()
- *		VOID	relerr3()
- *		VOID	relerp3()
- *		VOID	reloc3()
- *		VOID	relp3()
- *		VOID	relr3()
- *		VOID	relt3()
+ *		void	erpdmp3()
+ *		void	errdmp3()
+ *		void	rele3()
+ *		void	relerr3()
+ *		void	relerp3()
+ *		void	reloc3()
+ *		void	relp3()
+ *		void	relr3()
+ *		void	relt3()
  *
  *	lkrloc3.c the local variable errmsg3[].
  *
  */
 
-/*)Function	VOID	reloc3(c)
+/*)Function	void	reloc3(c)
  *
  *		int c			process code
  *
@@ -69,9 +69,9 @@
  *
  *	called functions:
  *		int	fprintf()	c_library
- *		VOID	rele3()		lkrloc3.c
- *		VOID	relp3()		lkrloc3.c
- *		VOID	relr3()		lkrloc3.c
+ *		void	rele3()		lkrloc3.c
+ *		void	relp3()		lkrloc3.c
+ *		void	relr3()		lkrloc3.c
  *		VOId	relt3()		lkrloc3.c
  *
  *	side effects:
@@ -79,9 +79,8 @@
  *
  */
 
-VOID
-reloc3(c)
-int c;
+void
+reloc3(int c)
 {
 	switch(c) {
 
@@ -110,7 +109,7 @@ int c;
 }
 
 
-/*)Function	VOID	relt3()
+/*)Function	void	relt3(void)
  *
  *	The function relt3() evaluates a T line read by
  *	the linker. Each byte value read is saved in the
@@ -156,8 +155,8 @@ int c;
  *
  */
 
-VOID
-relt3()
+void
+relt3(void)
 {
 	rtcnt = 0;
 	while (more()) {
@@ -170,7 +169,7 @@ relt3()
 	}
 }
 
-/*)Function	VOID	relr3()
+/*)Function	void	relr3(void)
  *
  *	The function relr3() evaluates a R line read by
  *	the linker.  The R line data is combined with the
@@ -254,10 +253,10 @@ relt3()
  *		a_uint	evword()	lkrloc.c
  *		int	eval()		lkeval.c
  *		int	fprintf()	c_library
- *		VOID	lkout()		lkout.c
- *		VOID	lkulist		lklist.c
+ *		void	lkout()		lkout.c
+ *		void	lkulist		lklist.c
  *		int	more()		lklex.c
- *		VOID	relerr3()	lkrloc3.c
+ *		void	relerr3()	lkrloc3.c
  *		int	symval()	lksym.c
  *
  *	side effects:
@@ -267,8 +266,8 @@ relt3()
  *
  */
 
-VOID
-relr3()
+void
+relr3(void)
 {
 	int mode;
 	a_uint reli, relv;
@@ -598,7 +597,7 @@ char *errmsg3[] = {
 };
 
 
-/*)Function	VOID	relp3()
+/*)Function	void	relp3(void)
  *
  *	The function relp3() evaluates a P line read by
  *	the linker.  The P line data is combined with the
@@ -652,8 +651,8 @@ char *errmsg3[] = {
  *
  */
 
-VOID
-relp3()
+void
+relp3(void)
 {
 	int aindex, rindex;
 	int mode, rtp;
@@ -730,7 +729,7 @@ relp3()
 		relerp3("Page Definition Boundary Error");
 }
 
-/*)Function	VOID	rele3()
+/*)Function	void	rele3(void)
  *
  *	The function rele3() closes all open output files
  *	at the end of the linking process.
@@ -743,17 +742,17 @@ relp3()
  *		int	uflag		relocation listing flag
  *
  *	called functions:
- *		VOID	lkfclose()	lkbank.c
- *		VOID	lkflush()	lkout.c
- *		VOID	lkulist()	lklist.c
+ *		void	lkfclose()	lkbank.c
+ *		void	lkflush()	lkout.c
+ *		void	lkulist()	lklist.c
  *
  *	side effects:
  *		All open output files are closed.
  *
  */
 
-VOID
-rele3()
+void
+rele3(void)
 {
 	if (uflag != 0) {
 		lkulist(0);
@@ -764,7 +763,7 @@ rele3()
 	}
 }
 
-/*)Function	VOID	relerr3(str)
+/*)Function	void	relerr3(str)
  *
  *		char	*str		error string
  *
@@ -778,23 +777,22 @@ rele3()
  *		FILE	*mfp		handle for the map file
  *
  *	called functions:
- *		VOID	errdmp3()	lkrloc3.c
+ *		void	errdmp3()	lkrloc3.c
  *
  *	side effects:
  *		Error message inserted into map file.
  *
  */
 
-VOID
-relerr3(str)
-char *str;
+void
+relerr3(char *str)
 {
 	errdmp3(stderr, str);
 	if (mfp)
 		errdmp3(mfp, str);
 }
 
-/*)Function	VOID	errdmp3(fptr, str)
+/*)Function	void	errdmp3(fptr, str)
  *
  *		FILE	*fptr		output file handle
  *		char	*str		error string
@@ -818,17 +816,15 @@ char *str;
  *
  *	called functions:
  *		int	fprintf()	c_library
- *		VOID	prntval()	lkrloc.c
+ *		void	prntval()	lkrloc.c
  *
  *	side effects:
  *		Error reported.
  *
  */
 
-VOID
-errdmp3(fptr, str)
-FILE *fptr;
-char *str;
+void
+errdmp3(FILE *fptr, char *str)
 {
 	int mode, aindex, rindex;
 	struct sym **s;
@@ -896,7 +892,7 @@ char *str;
 	}
 }
 
-/*)Function	VOID	relerp3(str)
+/*)Function	void	relerp3(str)
  *
  *		char	*str		error string
  *
@@ -910,23 +906,22 @@ char *str;
  *		FILE	*mfp		handle for the map file
  *
  *	called functions:
- *		VOID	erpdmp3()	lkrloc3.c
+ *		void	erpdmp3()	lkrloc3.c
  *
  *	side effects:
  *		Error message inserted into map file.
  *
  */
 
-VOID
-relerp3(str)
-char *str;
+void
+relerp3(char *str)
 {
 	erpdmp3(stderr, str);
 	if (mfp)
 		erpdmp3(mfp, str);
 }
 
-/*)Function	VOID	erpdmp3(fptr, str)
+/*)Function	void	erpdmp3(fptr, str)
  *
  *		FILE	*fptr		output file handle
  *		char	*str		error string
@@ -943,17 +938,15 @@ char *str;
  *
  *	called functions:
  *		int	fprintf()	c_library
- *		VOID	prntval()	lkrloc.c
+ *		void	prntval()	lkrloc.c
  *
  *	side effects:
  *		Error reported.
  *
  */
 
-VOID
-erpdmp3(fptr, str)
-FILE *fptr;
-char *str;
+void
+erpdmp3(FILE *fptr, char *str)
 {
 	struct head *thp;
 
@@ -1009,9 +1002,7 @@ char *str;
  */
 
 a_uint
-adb_lo(v, i)
-a_uint	v;
-int	i;
+adb_lo(a_uint v, int i)
 {
 	a_uint j;
 	int m, n;
@@ -1055,9 +1046,7 @@ int	i;
  */
 
 a_uint
-adb_hi(v, i)
-a_uint	v;
-int	i;
+adb_hi(a_uint v, int i)
 {
 	a_uint j;
 	int m, n;

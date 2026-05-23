@@ -1,7 +1,7 @@
 /* i6100.h */
 
 /*
- *  Copyright (C) 2013-2014  Alan R. Baldwin
+ *  Copyright (C) 2013-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -94,8 +94,6 @@ struct adsym
  * machine dependent functions
  */
 
-#ifdef	OTHERSYSTEM
-
 	/* i61adr.c */
 extern	struct	adsym	ind[];
 extern	int		addr(struct expr *esp);
@@ -104,23 +102,7 @@ extern	int		srch(char *str);
 extern	int		zpage(struct expr *esp);
 
 	/* i61mch.c */
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		mapchr(int c);
-extern	VOID		minit(void);
-
-#else
-
-	/* i61adr.c */
-extern	struct	adsym	ind[];
-extern	int		addr();
-extern	int		admode();
-extern	int		srch();
-extern	int		zpage();
-
-	/* i61mch.c */
-extern	VOID		machine();
-extern	int		mapchr();
-extern	VOID		minit();
-
-#endif
+extern	void		minit(void);
 

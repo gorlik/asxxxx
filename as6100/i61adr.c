@@ -1,7 +1,7 @@
 /* i61adr.c */
 
 /*
- *  Copyright (C) 2013-2021  Alan R. Baldwin
+ *  Copyright (C) 2013-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,8 +26,7 @@
 #include "i6100.h"
 
 int
-addr(esp)
-struct expr *esp;
+addr(struct expr *esp)
 {
 	int c, d, e_mode;
 	char *p;
@@ -118,8 +117,7 @@ struct expr *esp;
  * zero for no match.
  */
 int
-admode(sp)
-struct adsym *sp;
+admode(struct adsym *sp)
 {
 	char *ptr;
 	int i;
@@ -143,8 +141,7 @@ struct adsym *sp;
  *	srch --- does string match ?
  */
 int
-srch(str)
-char *str;
+srch(char *str)
 {
 	char *ptr;
 	ptr = ip;
@@ -176,8 +173,7 @@ struct adsym	ind[] = {	/* i for indirect */
 /*
  *	zpage --- check for direct page address equivalent
  */
-int zpage(esp)
-struct expr *esp;
+int zpage(struct expr *esp)
 {
 	return((!esp->e_flag) && (esp->e_base.e_ap==NULL) && !(esp->e_addr & ~0x7F));
 }

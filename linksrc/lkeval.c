@@ -1,7 +1,7 @@
 /* lkeval.c */
 
 /*
- *  Copyright (C) 1989-2014  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@
  *	lkeval.c contains no local/static variables
  */
 
-/*)Function	a_uint	eval()
+/*)Function	a_uint	eval(void)
  *
  *	The function eval() evaluates a character string to a
  *	numerical value.
@@ -69,7 +69,7 @@
  *		int	digit()		lkeval.c
  *		int	get()		lklex.c
  *		int	getnb()		lklex.c
- *		VOID	unget()		lklex.c
+ *		void	unget()		lklex.c
  *
  *	side effects:
  *		Input test is scanned and evaluated to a
@@ -77,7 +77,7 @@
  */
 
 a_uint
-eval()
+eval(void)
 {
 	int c, v;
 	a_uint n;
@@ -122,12 +122,12 @@ eval()
  *		FILE *	stderr		c_library
  *
  *	functions called:
- *		VOID	expr()		lkeval.c
+ *		void	expr()		lkeval.c
  *		int	fprintf()	c_library
  *		int	getnb()		lklex.c
  *		int	oprio()		lkeval.c
- *		VOID	term()		lkeval.c
- *		VOID	unget()		lklex.c
+ *		void	term()		lkeval.c
+ *		void	unget()		lklex.c
  *
  *
  *	side effects:
@@ -136,8 +136,7 @@ eval()
  */
 
 a_uint
-expr (n)
-int n;
+expr (int n)
 {
 	int c, p;
 	a_uint v, ve;
@@ -214,7 +213,7 @@ int n;
 	return(v);
 }
 
-/*)Function	a_uint	term()
+/*)Function	a_uint	term(void)
  *
  *	The function term() evaluates a single constant
  *	or symbol value prefaced by any unary operator
@@ -242,22 +241,22 @@ int n;
  *
  *	functions called:
  *		int	digit()		lkeval.c
- *		VOID	expr()		lkeval.c
+ *		void	expr()		lkeval.c
  *		int	fprintf()	c_library
  *		int	get()		lklex.c
- *		VOID	getid()		lklex.c
+ *		void	getid()		lklex.c
  *		int	getmap()	lklex.c
  *		int	getnb()		lklex.c
  *		sym *	lkpsym()	lksym.c
  *		a_uint	symval()	lksym.c
- *		VOID	unget()		lklex.c
+ *		void	unget()		lklex.c
  *
  *	side effects:
  *		An arithmetic term is evaluated by scanning input text.
  */
 
 a_uint
-term()
+term(void)
 {
 	int c, r, n;
 	a_uint v;
@@ -411,8 +410,7 @@ term()
  */
 
 int
-digit(c, r)
-int c, r;
+digit(int c, int r)
 {
 	if (r == 16) {
 		if (ctype[c] & RAD16) {
@@ -459,8 +457,7 @@ int c, r;
  */
  
 int
-oprio(c)
-int c;
+oprio(int c)
 {
 	if (c == '*' || c == '/' || c == '%')
 		return (10);

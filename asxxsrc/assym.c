@@ -1,7 +1,7 @@
 /* assym.c */
 
 /*
- *  Copyright (C) 1989-2021  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -35,20 +35,20 @@
  *	on the mnemonic/directive and symbol structures.
  *
  *	assym.c contains the following functions:
- *		VOID	allglob()
+ *		void	allglob()
  *		area *	alookup()
- *		VOID	asfree()
+ *		void	asfree()
  *		bank *	blookup()
  *		def *	dlookup()
  *		int	hash()
  *		sym *	lookup()
  *		mne *	mlookup()
- *		VOID *	new()
+ *		void *	new()
  *		sym *	slookup()
  *		char *	strsto()
  *		int	symeq()
- *		VOID	syminit()
- *		VOID	symglob()
+ *		void	syminit()
+ *		void	symglob()
  *
  *	assym.c contains the static variables:
  *		char *	pnext
@@ -56,7 +56,7 @@
  *	used by the string store function.
  */
 
-/*)Function	VOID	syminit()
+/*)Function	void	syminit(void)
  *
  *	The function syminit() is called early in the game
  *	to set up the hashtables.  First all buckets in a
@@ -92,8 +92,8 @@
  *			file ___pst.c.
  */
 
-VOID
-syminit()
+void
+syminit(void)
 {
 	struct mne  *mp;
 	struct mne **mpp;
@@ -150,8 +150,7 @@ syminit()
  */
 
 struct area *
-alookup(id)
-char *id;
+alookup(char *id)
 {
 	struct area *ap;
 
@@ -189,8 +188,7 @@ char *id;
  */
 
 struct bank *
-blookup(id)
-char *id;
+blookup(char *id)
 {
 	struct bank *bp;
 
@@ -228,8 +226,7 @@ char *id;
  */
 
 struct def *
-dlookup(id)
-char *id;
+dlookup(char *id)
 {
 	struct def *dp;
 
@@ -267,8 +264,7 @@ char *id;
  */
 
 struct mne *
-mlookup(id)
-char *id;
+mlookup(char *id)
 {
 	struct mne *mp;
 	int h;
@@ -312,8 +308,7 @@ char *id;
  */
 
 struct sym *
-slookup(id)
-char *id;
+slookup(char *id)
 {
 	struct sym *sp;
 	int h;
@@ -349,7 +344,7 @@ char *id;
  *
  *	functions called:
  *		int	hash()		assym.c
- *		VOID *	new()		assym.c
+ *		void *	new()		assym.c
  *		char *	strsto()	assym.c
  *		int	symeq()		assym.c
  *
@@ -359,8 +354,7 @@ char *id;
  */
 
 struct sym *
-lookup(id)
-char *id;
+lookup(char *id)
 {
 	struct sym *sp;
 	int h;
@@ -385,7 +379,7 @@ char *id;
 	return (sp);
 }
 
-/*)Function	VOID	symglob()
+/*)Function	void	symglob(void)
  *
  *	The function symglob() will mark all symbols of
  *	type S_NEW and not local as global.  Called at
@@ -407,8 +401,8 @@ char *id;
  *		Symbol types changed.
  */
 
-VOID
-symglob()
+void
+symglob(void)
 {
 	struct sym *sp;
 	int i;
@@ -423,7 +417,7 @@ symglob()
 	}
 }
 
-/*)Function	VOID	allglob()
+/*)Function	void	allglob(void)
  *
  *	The function allglob() will mark all symbols of
  *	type S_USER and not local as global.  Called at
@@ -445,8 +439,8 @@ symglob()
  *		Symbol types changed.
  */
 
-VOID
-allglob()
+void
+allglob(void)
 {
 	struct sym *sp;
 	int i;
@@ -489,9 +483,7 @@ allglob()
  */
 
 int
-symeq(p1, p2, flag)
-char *p1, *p2;
-int flag;
+symeq(char *p1, char *p2, int flag)
 {
 	int n;
 	n = strlen(p1) + 1;
@@ -541,9 +533,7 @@ int flag;
  */
  
 int
-hash(p, flag)
-char *p;
-int flag;
+hash(char *p, int flag)
 {
 	int h;
 
@@ -587,7 +577,7 @@ int flag;
  *		int	bndry		structure alignment
  *
  *	functions called:
- *		VOID *	new()		assym.c
+ *		void *	new()		assym.c
  *		char *	strcpy()	c_library
  *		int *	strlen()	c_library
  *
@@ -608,8 +598,7 @@ static	char *	pnext = NULL;
 static	int	bytes = 0;
 
 char *
-strsto(str)
-char *str;
+strsto(char *str)
 {
 	int  len;
 	char *p;
@@ -652,15 +641,15 @@ char *str;
  *
  *	local variables:
  *		memlnk *lnk		an allocation structure link
- *		VOID *	p		a general pointer
+ *		void *	p		a general pointer
  *
  *	global variables:
  *		memlnk *asxmem		a linked list of allocation structures
  *
  *	functions called:
- *		VOID	asexit()	asmain.c
+ *		void	asexit()	asmain.c
  *		int	fprintf()	c_library
- *		VOID *	malloc()	c_library
+ *		void *	malloc()	c_library
  *
  *	side effects:
  *		Memory is allocated, if allocation fails
@@ -670,11 +659,10 @@ char *str;
  */
 
 char *
-new(n)
-unsigned int n;
+new(unsigned int n)
 {
 	struct memlnk *lnk;
-	VOID *p;
+	void *p;
 
 	if ((lnk = (struct memlnk *) malloc (sizeof(struct memlnk))) == NULL) {
 		fprintf(stderr, "?ASxxxx-Error-Out of space!\n");
@@ -684,7 +672,7 @@ unsigned int n;
 	lnk->ptr = NULL;
 	asxmem = lnk;
 
-	if ((p = (VOID *) malloc (n)) == NULL) {
+	if ((p = (void *) malloc (n)) == NULL) {
 		fprintf(stderr, "?ASxxxx-Error-Out of space!\n");
 		asexit(ER_FATAL);
 	}
@@ -692,12 +680,12 @@ unsigned int n;
 	return (p);
 }
 
-/*)Function	VOID	asfree()
+/*)Function	void	asfree(void)
  *
  *	The function asfree() frees all space allocated by new().
  *
  *	local variables:
- *		VOID *	p		a general pointer
+ *		void *	p		a general pointer
  *
  *	global variables:
  *		memlnk *asxmem		a linked list of allocation structures
@@ -709,16 +697,16 @@ unsigned int n;
  *		Memory is freed.
  */
 
-VOID
-asfree()
+void
+asfree(void)
 {
-	VOID *p;
+	void *p;
 
 	while (asxmem != NULL) {
 		if ((p = asxmem->ptr) != NULL) {
 			free(p);
 		}
-		p = (VOID *) asxmem;
+		p = (void *) asxmem;
 		asxmem = asxmem->next;
 		free(p);
 	}

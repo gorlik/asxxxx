@@ -1,7 +1,7 @@
 /* m68cf.h */
 
 /*
- *  Copyright (C) 2023-2024  Alan R. Baldwin
+ *  Copyright (C) 2023-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -221,8 +221,6 @@ struct adsym
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-
 	/* m68cfadr.c */
 extern	struct	adsym	Dn[];
 extern	struct	adsym	DnW[];
@@ -262,15 +260,15 @@ extern	int		coid;
 extern	struct	area	*zpg;
 extern	struct	area	*dpglo;
 extern	struct	area	*dpghi;
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		asize(struct mne *mp);
-extern	VOID		im(struct expr *e1, a_uint opcode, int opflg);
-extern	VOID		ea(struct expr *e1, int t1, int p1, int x1, a_uint pcofst, a_uint opcode, int opflg);
-extern	VOID		chkbrng(INT32 v1, char *p);
-extern	VOID		chkwrng(INT32 v1, char *p);
+extern	void		im(struct expr *e1, a_uint opcode, int opflg);
+extern	void		ea(struct expr *e1, int t1, int p1, int x1, a_uint pcofst, a_uint opcode, int opflg);
+extern	void		chkbrng(INT32 v1, char *p);
+extern	void		chkwrng(INT32 v1, char *p);
 extern	int		setwl(INT32 v1);
 extern	int		setbwl(INT32 v1);
-extern	VOID		fimm(struct expr *e1, int fsz);
+extern	void		fimm(struct expr *e1, int fsz);
 extern	int		mvlist(int *rc);
 extern	int		fmvlist(int *rc);
 extern	int		fcrlist(int *rc);
@@ -278,112 +276,28 @@ extern	int		mchpcr(struct expr *esp);
 extern	int		setbit(int b);
 extern	int		getbit(void);
 extern	int		mchoptn(char *id, int v);
-extern	VOID		minit(void);
+extern	void		minit(void);
 
 	/* m68cffpp.c */
 extern	int		fpt;
 extern	unsigned short	rslt[5];
-extern	VOID		atowrd(void);
-extern	VOID		atoflt(void);
-extern	VOID		atodbl(void);
-extern	VOID		atoext(void);
+extern	void		atowrd(void);
+extern	void		atoflt(void);
+extern	void		atodbl(void);
+extern	void		atoext(void);
 extern	int		atofd(int fd);
-extern	VOID		atoint(void);
-extern	VOID		fltzr(void);
+extern	void		atoint(void);
+extern	void		fltzr(void);
 extern	int		fltnz(void);
-extern	VOID		fltsv(void);
-extern	VOID		fltld2(void);
-extern	VOID		fltsv2(void);
-extern	VOID		fltrs(void);
-extern	VOID		fltrs8(void);
-extern	VOID		fltls(void);
-extern	VOID		fltls8(void);
-extern	VOID		fltnd(int base, int digit);
-extern	VOID		fltad(void);
-extern	VOID		fltsq(void);
-extern	VOID		fltml(void);
-
-#else
-
-	/* m68cfadr.c */
-extern	struct	adsym	Dn[];
-extern	struct	adsym	DnW[];
-extern	struct	adsym	DnL[];
-extern	struct	adsym	DnU[];
-extern	struct	adsym	An[];
-extern	struct	adsym	AnW[];
-extern	struct	adsym	AnL[];
-extern	struct	adsym	AnU[];
-extern	struct	adsym	Sreg[];
-extern	struct	adsym	Creg[];
-extern	struct	adsym	PCreg[];
-extern	struct	adsym	ACCn[];
-extern	struct	adsym	MACR[];
-extern	struct	adsym	FPn[];
-extern	struct	adsym	FCR[];
-extern	struct	adsym	SHL[];
-extern	int		aindx;
-extern	int		paged;
-extern	int		autodpcnst;
-extern	int		autodpsmbl;
-extern	int		addr();
-extern	int		faddr();
-extern	int		espmode();
-extern	int		anpcidx();
-extern	int		xi();
-extern	int		admode();
-extern	int		srch();
-
-	/* m68cfmch.c */
-extern	int		m68k;
-extern	int		m68f;
-extern	int		rc;
-extern	int		sz;
-extern	int		fsz;
-extern	int		coid;
-extern	struct	area	*zpg;
-extern	struct	area	*dpglo;
-extern	struct	area	*dpghi;
-extern	VOID		machine();
-extern	int		asize();
-extern	VOID		im();
-extern	VOID		ea();
-extern	VOID		chkbrng();
-extern	VOID		chkwrng();
-extern	int		setwl();
-extern	int		setbwl();
-extern	VOID		fimm();
-extern	int		mvlist();
-extern	int		fmvlist();
-extern	int		fcrlist();
-extern	int		mchpcr();
-extern	int		setbit();
-extern	int		getbit();
-extern	int		mchoptn();
-extern	VOID		minit();
-
-	/* m68cffpp.c */
-extern	int		fpt;
-extern	unsigned short	rslt[5];
-extern	VOID		atowrd();
-extern	VOID		atoflt();
-extern	VOID		atodbl();
-extern	VOID		atoext();
-extern	int		atofd();
-extern	VOID		atoint();
-extern	VOID		fltzr();
-extern	int		fltnz();
-extern	VOID		fltsv();
-extern	VOID		fltld2();
-extern	VOID		fltsv2();
-extern	VOID		fltrs();
-extern	VOID		fltrs8();
-extern	VOID		fltls();
-extern	VOID		fltls8();
-extern	VOID		fltnd();
-extern	VOID		fltad();
-extern	VOID		fltsq();
-extern	VOID		fltml();
-
-#endif
+extern	void		fltsv(void);
+extern	void		fltld2(void);
+extern	void		fltsv2(void);
+extern	void		fltrs(void);
+extern	void		fltrs8(void);
+extern	void		fltls(void);
+extern	void		fltls8(void);
+extern	void		fltnd(int base, int digit);
+extern	void		fltad(void);
+extern	void		fltsq(void);
+extern	void		fltml(void);
  

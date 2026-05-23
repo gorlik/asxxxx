@@ -1,7 +1,7 @@
 /* ez80mch.c */
 
 /*
- *  Copyright (C) 1989-2023  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -217,9 +217,8 @@ static char *ez80Page[7] = {
 /*
  * Process a machine op.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	int op, of, t1, t2;
 	struct expr e1, e2;
@@ -2207,10 +2206,7 @@ struct mne *mp;
  * return(esp->e_mode)
  */
 int
-genop(pop, op, esp, f)
-int pop, op;
-struct expr *esp;
-int f;
+genop(int pop, int op, struct expr *esp, int f)
 {
 	register int t1;
 	if ((t1 = esp->e_mode) == S_R8) {
@@ -2252,10 +2248,7 @@ int f;
  * return(esp->e_mode)
  */
 int
-genopm(pop, op, esm, esp, f)
-int pop, op;
-struct expr *esm, *esp;
-int f;
+genopm(int pop, int op, struct expr *esm, struct expr *esp, int f)
 {
 	register int t1;
 	if ((t1 = esp->e_mode) == S_R8) {
@@ -2295,8 +2288,7 @@ int f;
  * IX and IY prebyte check
  */
 int
-gixiy(v)
-int v;
+gixiy(int v)
 {
 	if (v == IX) {
 		v = HL;
@@ -2317,10 +2309,8 @@ int v;
 /*
  * .IL/.LIL and .IS/.SIS checks
  */
-VOID
-glilsis(mode, sfx, esp)
-int mode, sfx;
-struct expr *esp;
+void
+glilsis(int mode, int sfx, struct expr *esp)
 {
 	switch(mode) {
 	case MM_ADL:
@@ -2363,10 +2353,7 @@ struct expr *esp;
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp, v, n)
-struct expr *esp;
-int *v;
-int n;
+mchpcr(struct expr *esp, int *v, int n)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		if (v != NULL) {
@@ -2405,8 +2392,8 @@ int n;
 /*
  * Machine dependent initialization
  */
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * Byte Order

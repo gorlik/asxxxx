@@ -1,7 +1,7 @@
 /* h8mch.c */
 
 /*
- *  Copyright (C) 1994-2023  Alan R. Baldwin
+ *  Copyright (C) 1994-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -76,9 +76,8 @@ struct area *zpg;
 /*
  * Process a machine op.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	int op, opflag;
 	int oplb, ophb;
@@ -824,9 +823,8 @@ struct mne *mp;
 	if (opcycles  & OPCY_NONE) { opcycles |= (CYCL_NONE | 0x3F00); }
 }
 
-VOID
-normbyte(esp)
-struct expr *esp;
+void
+normbyte(struct expr *esp)
 {
 	int v;
 
@@ -838,9 +836,8 @@ struct expr *esp;
 	}
 }
 
-VOID
-usgnbyte(esp)
-struct expr *esp;
+void
+usgnbyte(struct expr *esp)
 {
 	if (esp->e_flag == 0 && esp->e_base.e_ap == NULL) {
 		if (esp->e_addr & ~0x00FF) {
@@ -849,9 +846,8 @@ struct expr *esp;
 	}
 }
 
-VOID
-pagebyte(esp)
-struct expr *esp;
+void
+pagebyte(struct expr *esp)
 {
 	if (esp->e_flag == 0 && esp->e_base.e_ap == NULL) {
 		if ((esp->e_addr & ~0x00FF) != ~0x00FF) {
@@ -861,8 +857,7 @@ struct expr *esp;
 }
 
 int
-abstype(esp)
-struct expr *esp;
+abstype(struct expr *esp)
 {
 	a_uint espv;
 	struct area *espa;
@@ -891,8 +886,7 @@ struct expr *esp;
  * If no room, force the longer form of the offset.
  */
 int
-setbit(b)
-int b;
+setbit(int b)
 {
 	if (bp >= &bb[NB])
 		return(1);
@@ -931,10 +925,7 @@ getbit()
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp, v, n)
-struct expr *esp;
-int *v;
-int n;
+mchpcr(struct expr *esp, int *v, int n)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		if (v != NULL) {
@@ -975,8 +966,8 @@ int n;
  * Set up the bit table.
  * Process any setup code.
  */
-VOID
-minit()
+void
+minit(void)
 {
 	int i;
 

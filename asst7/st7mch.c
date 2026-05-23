@@ -1,7 +1,7 @@
 /* st7mch.c */
 
 /*
- *  Copyright (C) 2010-2023  Alan R. Baldwin
+ *  Copyright (C) 2010-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -145,9 +145,8 @@ static char *Page[4] = {
 /*
  * Process a machine op.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	struct expr e1, e2, e3;
 	char *p1, *p2;
@@ -1355,8 +1354,7 @@ struct mne *mp;
  * based upon the expression type and value.
  */
 int
-ls_mode(e)
-struct expr *e;
+ls_mode(struct expr *e)
 {
 	int flag, v;
 
@@ -1389,10 +1387,7 @@ struct expr *e;
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp, v, n)
-struct expr *esp;
-int *v;
-int n;
+mchpcr(struct expr *esp, int *v, int n)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		if (v != NULL) {
@@ -1431,8 +1426,8 @@ int n;
 /*
  * Machine specific initialization.
  */
-VOID
-minit()
+void
+minit(void)
 {
 	int i;
 
@@ -1463,8 +1458,7 @@ minit()
  * If no room, force the longer form of the offset.
  */
 int
-setbit(b)
-int b;
+setbit(int b)
 {
 	if (bp >= &bb[NB])
 		return(1);
@@ -1484,7 +1478,7 @@ int b;
  * This will force the longer form of the offset.
  */
 int
-getbit()
+getbit(void)
 {
 	int f;
 

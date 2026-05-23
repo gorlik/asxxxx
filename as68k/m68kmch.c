@@ -1,8 +1,8 @@
 /* m68kmch.c */
 
 /*
- *  Copyright (C) 2022-2024  Alan R. Baldwin
- *  Copyright (C) 2022-2024  Nick Downing
+ *  Copyright (C) 2022-2025  Alan R. Baldwin
+ *  Copyright (C) 2022-2025  Nick Downing
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -66,9 +66,8 @@ a_uint	pc;	/* Beginning Address Of Current Operation */
 /*
  * Process a machine op.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	a_uint op, opcode, op2;
 	int c, rf, cycles;
@@ -2720,11 +2719,8 @@ struct mne *mp;
 	}
 }
 
-VOID
-im(e1, opcode, opflg)
-struct expr *e1;
-a_uint opcode;
-int opflg;
+void
+im(struct expr *e1, a_uint opcode, int opflg)
 {
 	if (opflg) outaw(opcode);
 
@@ -2736,13 +2732,8 @@ int opflg;
 	}
 }
 
-VOID
-ea(e1, e1xi, t1, p1, x1, pcofst, opcode, opflg)
-struct expr *e1, *e1xi;
-int t1, p1, x1;
-a_uint pcofst;
-a_uint opcode;
-int opflg;
+void
+ea(struct expr *e1, struct expr *e1xi, int t1, int p1, int x1, a_uint pcofst, a_uint opcode, int opflg)
 {
 	INT32 v1;
 	struct expr dp;
@@ -3398,10 +3389,8 @@ int opflg;
 	}
 }
 
-VOID
-chkbrng(v1, p)
-INT32 v1;
-char *p;
+void
+chkbrng(INT32 v1, char *p)
 {
 #ifdef LONGINT
 	if ((v1 < -128l) || (v1 > 127l)) {
@@ -3412,10 +3401,8 @@ char *p;
 	}
 }
 
-VOID
-chkwrng(v1, p)
-INT32 v1;
-char *p;
+void
+chkwrng(INT32 v1, char *p)
 {
 #ifdef LONGINT
 	if ((v1 < -32768l) || (v1 > 32767l)) {
@@ -3427,8 +3414,7 @@ char *p;
 }
 
 int
-setwl(v1)
-INT32 v1;
+setwl(INT32 v1)
 {
 	int wl;
 
@@ -3446,8 +3432,7 @@ INT32 v1;
 }
 
 int
-setbwl(v1)
-INT32 v1;
+setbwl(INT32 v1)
 {
 	int bwl;
 
@@ -3474,7 +3459,7 @@ INT32 v1;
 /*
  * Translate fsz to sz
  */
-VOID
+void
 fsz2sz()
 {
 	if (fsz == F_B) { sz = A_B; } else
@@ -3486,10 +3471,8 @@ fsz2sz()
 /*
  * Floating Immediates
  */
-VOID
-fimm(e1, fsz)
-struct expr *e1;
-int fsz;
+void
+fimm(struct expr *e1, int fsz)
 {
 	switch(fsz) {
 	case F_B:	/* __.B */
@@ -3519,9 +3502,7 @@ int fsz;
  *  A7  A6  A5  A4  A3  A2  A1  A0  D7  D6  D5  D4  D3  D2  D1  D0
  */
 int
-mvlist(esp, rc)
-struct expr *esp;
-int *rc;
+mvlist(struct expr *esp, int *rc)
 {
 	int c;
 	char *p;
@@ -3611,8 +3592,7 @@ int *rc;
  * FP0 FP1 FP2 FP3 FP4 FP5 FP6 FP7
  */
 int
-fmvlist(rc)
-int *rc;
+fmvlist(int *rc)
 {
 	int c;
 	char *p;
@@ -3668,8 +3648,7 @@ int *rc;
  *  FPCR  FPSR FPIAR
  */
 int
-fcrlist(rc)
-int *rc;
+fcrlist(int *rc)
 {
 	int c;
 	char *p;
@@ -3703,7 +3682,7 @@ int *rc;
  * Create A 96-Bit
  * Packed Floating Point Element
  */
-VOID
+void
 fltpk()
 {
 	int c, i, j, v;
@@ -3806,8 +3785,7 @@ fltpk()
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp)
-struct expr *esp;
+mchpcr(struct expr *esp)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		return(1);
@@ -3832,8 +3810,7 @@ struct expr *esp;
  * If no room, force the longer form of the offset.
  */
 int
-setbit(b)
-int b;
+setbit(int b)
 {
 	if (bp >= &bb[NB])
 		return(1);
@@ -3872,9 +3849,7 @@ getbit()
  * Machine specific .enabl/.dsabl terms.
  */
 int
-mchoptn(id, v)
-char *id;
-int v;
+mchoptn(char *id, int v)
 {
 	/* Substitute Alternate Instruction */
 	if (symeq(id, "alt", 1)) { alt = v; } else
@@ -3892,8 +3867,8 @@ int v;
 /*
  * Machine specific initialization.
  */
-VOID
-minit()
+void
+minit(void)
 {
 	int i;
 

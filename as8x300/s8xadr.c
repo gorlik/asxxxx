@@ -1,7 +1,7 @@
 /* s8xadr.c */
 
 /*
- *  Copyright (C) 2018-2021  Alan R. Baldwin
+ *  Copyright (C) 2018-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -28,10 +28,7 @@
 int aindx;
 
 int
-addr(esp,nsp,xsp)
-struct expr *esp;
-struct expr *nsp;
-struct expr *xsp;
+addr(struct expr *esp, struct expr *nsp, struct expr *xsp)
 {
 	char c;
 	char *p;
@@ -63,9 +60,8 @@ struct expr *xsp;
 	return (esp->e_mode);
 }
 
-VOID
-eaddr(esp)
-struct expr *esp;
+void
+eaddr(struct expr *esp)
 {
 	int c,cp;
 	char id[NCPS];
@@ -124,9 +120,8 @@ struct expr *esp;
 	}
 }
 
-VOID
-naddr(esp)
-struct expr *esp;
+void
+naddr(struct expr *esp)
 {
 	int c;
 	a_uint v;
@@ -173,9 +168,8 @@ struct expr *esp;
 	}
 }
 
-VOID
-xaddr(esp)
-struct expr *esp;
+void
+xaddr(struct expr *esp)
 {
 	int c;
 	char *ips;
@@ -266,8 +260,7 @@ struct expr *esp;
  * zero for no match.
  */
 int
-admode(sp)
-struct adsym *sp;
+admode(struct adsym *sp)
 {
 	char *ptr;
 	int i;
@@ -292,8 +285,7 @@ struct adsym *sp;
  *      srch --- does string match ?
  */
 int
-srch(str)
-char *str;
+srch(char *str)
 {
 	char *ptr;
 

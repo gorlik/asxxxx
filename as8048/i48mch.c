@@ -1,7 +1,7 @@
 /* i48mch.c */
 
 /*
- *  Copyright (C) 2009-2018  Alan R. Baldwin
+ *  Copyright (C) 2009-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -72,9 +72,8 @@ static char i48pg1[256] = {
 /*
  * Process machine ops.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	int op, t1, t2, v1, v2;
 	struct expr e1, e2;
@@ -822,9 +821,8 @@ struct mne *mp;
 /*
  * Make Branch/Jump Relative to .__.ABS.
  */
-VOID
-mchrel(esp)
-struct expr *esp;
+void
+mchrel(struct expr *esp)
 {
 	if (esp->e_flag==0 && esp->e_base.e_ap==NULL) {
 		/*
@@ -843,8 +841,8 @@ struct expr *esp;
 /*
  * Machine specific initialization
  */
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * Byte Order

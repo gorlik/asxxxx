@@ -1,7 +1,7 @@
 /* ez8.h */
 
 /*
- *  Copyright (C) 2022  Alan R. Baldwin
+ *  Copyright (C) 2022-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -155,33 +155,15 @@ extern	struct	adsym	CND[];
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* ez8adr.c */
 extern	int		addr(struct expr *esp);
 extern	int		admode(struct adsym *sp);
 extern	int		srch(char *str);
 
 	/* ez8mch.c */
-extern	VOID		argchk(int a, int v, int r);
-extern	VOID		machine(struct mne *mp);
+extern	void		argchk(int a, int v, int r);
+extern	void		machine(struct mne *mp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
 extern	int		mchoptn(char *id, int v);
-extern	VOID		minit(void);
-
-#else
-
-	/* ez8adr.c */
-extern	int		addr();
-extern	int		admode();
-extern	int		srch();
-
-	/* ez8mch.c */
-extern	VOID		argchk();
-extern	VOID		machine();
-extern	int		mchpcr();
-extern	int		mchoptn();
-extern	VOID		minit();
-
-#endif
+extern	void		minit(void);
 

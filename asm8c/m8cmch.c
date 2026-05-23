@@ -1,7 +1,7 @@
 /* m8cmch.c */
 
 /*
- *  Copyright (C) 2009-2023  Alan R. Baldwin
+ *  Copyright (C) 2009-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -67,9 +67,8 @@ static char m8ccyc[256] = {
 /*
  * Process a machine op.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	int op;
 	int t1, v1;
@@ -540,10 +539,7 @@ struct mne *mp;
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp, v, n)
-struct expr *esp;
-int *v;
-int n;
+mchpcr(struct expr *esp, int *v, int n)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		if (v != NULL) {
@@ -582,8 +578,8 @@ int n;
 /*
  * Machine Dependent Initialization
  */
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * Byte Order

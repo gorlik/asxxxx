@@ -1,8 +1,8 @@
 /* m68kcyc.c */
 
 /*
- *  Copyright (C) 2022-2024  Alan R. Baldwin
- *  Copyright (C) 2022-2024  Nick Downing
+ *  Copyright (C) 2022-2025  Alan R. Baldwin
+ *  Copyright (C) 2022-2025  Nick Downing
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -30,11 +30,7 @@
  * Dispatcher
  */
 int
-mchcycles(mp, opcode, op2, x1, x2, rc, cycles)
-struct mne *mp;
-a_uint opcode, op2;
-int x1, x2, rc;
-int cycles;
+mchcycles(struct mne *mp, a_uint opcode, a_uint op2, int x1, int x2, int rc, int cycles)
 {
 	int rf;
 
@@ -57,8 +53,7 @@ int cycles;
  * Effective Address Mode in <5:0> Of Opcode
  */
 int
-eamlo(opcode)
-a_uint opcode;
+eamlo(a_uint opcode)
 {
 	int am;
 
@@ -73,8 +68,7 @@ a_uint opcode;
  * Effective Address Mode in <11:6> Of Opcode
  */
 int
-eamhi(opcode)
-a_uint opcode;
+eamhi(a_uint opcode)
 {
 	int am;
 
@@ -296,11 +290,7 @@ static unsigned char D13[1][2][2] = {
  * Determine Machine Cycles
  */
 int
-mc68000cycles(mp, opcode, rc, cycles)
-struct mne *mp;
-a_uint opcode;
-int rc;
-int cycles;
+mc68000cycles(struct mne *mp, a_uint opcode, int rc, int cycles)
 {
 	a_uint op;
 	int rf, sz;
@@ -943,11 +933,7 @@ static unsigned char E14[1][2][2] = {
  * Determine Machine Cycles
  */
 int
-mc68008cycles(mp, opcode, rc, cycles)
-struct mne *mp;
-a_uint opcode;
-int rc;
-int cycles;
+mc68008cycles(struct mne *mp, a_uint opcode, int rc, int cycles)
 {
 	a_uint op;
 	int rf, sz;
@@ -1579,11 +1565,7 @@ static unsigned char F20[1][2][2] = {
  * Determine Machine Cycles
  */
 int
-mc68010cycles(mp, opcode, rc, cycles)
-struct mne *mp;
-a_uint opcode;
-int rc;
-int cycles;
+mc68010cycles(struct mne *mp, a_uint opcode, int rc, int cycles)
 {
 	a_uint op;
 	int rf, sz;
@@ -2020,8 +2002,7 @@ static unsigned char efamtx[4][8] = {
 };
 
 int
-xefaindx(ea, sz, x)
-int ea, sz, x;
+xefaindx(int ea, int sz, int x)
 {
 	int indx;
 	int t, v, bs, is;
@@ -2076,9 +2057,7 @@ int ea, sz, x;
 }
 
 int
-xefacycles(tbl, ea, sz, x)
-unsigned char *tbl;
-int ea, sz, x;
+xefacycles(unsigned char *tbl, int ea, int sz, int x)
 {
 	return(tbl[xefaindx(ea, sz, x)]);
 }
@@ -2120,8 +2099,7 @@ static unsigned char fefa[25] = {
 };
 
 int
-fefacycles(ea, sz, x)
-int ea, sz, x;
+fefacycles(int ea, int sz, int x)
 {
 	return(xefacycles(fefa, ea, sz, x));
 }
@@ -2163,8 +2141,7 @@ static unsigned char cefa[25] = {
 };
 
 int
-cefacycles(ea, sz, x)
-int ea, sz, x;
+cefacycles(int ea, int sz, int x)
 {
 	return(xefacycles(cefa, ea, sz, x));
 }
@@ -2242,8 +2219,7 @@ static unsigned char filefa[25] = {
 };
 
 int
-fiwefacycles(ea, sz, x)
-int ea, sz, x;
+fiwefacycles(int ea, int sz, int x)
 {
 	int cycles;
 
@@ -2255,8 +2231,7 @@ int ea, sz, x;
 }
 
 int
-filefacycles(ea, sz, x)
-int ea, sz, x;
+filefacycles(int ea, int sz, int x)
 {
 	int cycles;
 
@@ -2268,8 +2243,7 @@ int ea, sz, x;
 }
 
 int
-fiefacycles(ea, sz, x)
-int ea, sz, x;
+fiefacycles(int ea, int sz, int x)
 {
 	int cycles;
 
@@ -2354,8 +2328,7 @@ static unsigned char cilefa[25] = {
 };
 
 int
-ciwefacycles(ea, sz, x)
-int ea, sz, x;
+ciwefacycles(int ea, int sz, int x)
 {
 	int cycles;
 
@@ -2367,8 +2340,7 @@ int ea, sz, x;
 }
 
 int
-cilefacycles(ea, sz, x)
-int ea, sz, x;
+cilefacycles(int ea, int sz, int x)
 {
 	int cycles;
 
@@ -2380,8 +2352,7 @@ int ea, sz, x;
 }
 
 int
-ciefacycles(ea, sz, x)
-int ea, sz, x;
+ciefacycles(int ea, int sz, int x)
 {
 	int cycles;
 
@@ -2430,8 +2401,7 @@ static unsigned char jefa[25] = {
 };
 
 int
-jefacycles(ea, sz, x)
-int ea, sz, x;
+jefacycles(int ea, int sz, int x)
 {
 	return(xefacycles(jefa, ea, sz, x));
 }
@@ -2494,11 +2464,7 @@ static unsigned char shrocyc[8][2] = {
  * Determine Machine Cycles
  */
 int
-mc68020cycles(mp, op1, op2, x1, x2, rc, cycles)
-struct mne *mp;
-a_uint op1, op2;
-int x1, x2, rc;
-int cycles;
+mc68020cycles(struct mne *mp, a_uint op1, a_uint op2, int x1, int x2, int rc, int cycles)
 {
 	a_uint op;
 	int opcode;
@@ -2991,9 +2957,7 @@ static unsigned char fidx[4][8] = {
 };
 
 int
-feacycles(xop, x1, x2)
-int xop;
-int x1, x2;
+feacycles(int xop, int x1, int x2)
 {
 	int cycles;
 	int t, v, x, bs, is;
@@ -3182,8 +3146,7 @@ static unsigned short T8_3[64][6] = {
 };
 
 int
-fppcycles(xop)
-int xop;
+fppcycles(int xop)
 {
 	int cycles, src;
 
@@ -3213,11 +3176,7 @@ int xop;
  * Determine Machine Cycles (Worst Case)
  */
 int
-mc6888xcycles(mp, op1, op2, x1, x2, rc, cycles)
-struct mne *mp;
-a_uint op1, op2;
-int x1, x2, rc;
-int cycles;
+mc6888xcycles(struct mne *mp, a_uint op1, a_uint op2, int x1, int x2, int rc, int cycles)
 {
 	int rf;
 	int xop1, xop2;

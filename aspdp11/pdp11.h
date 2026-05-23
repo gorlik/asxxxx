@@ -1,8 +1,8 @@
 /* pdp11.h */
 
 /*
- *  Copyright (C) 2022-2023  Alan R. Baldwin
- *  Copyright (C) 2022-2023  Nick Downing
+ *  Copyright (C) 2022-2025  Alan R. Baldwin
+ *  Copyright (C) 2022-2025  Nick Downing
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -161,8 +161,6 @@ struct adsym
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* pdp11adr.c */
 extern	struct adsym	reg[];
 extern	int		aindx;
@@ -176,13 +174,13 @@ extern	int		srch(char *str);
 
 	/* pdp11mch.c */
 extern	int		rtyp;
-extern	VOID		machine(struct mne *mp);
+extern	void		machine(struct mne *mp);
 extern	int		mchpcr(struct expr *esp, int *v, int n);
 extern	int		setbit(int b);
 extern	int		getbit(void);
 extern	int		mchterm(struct expr *esp);
 extern	int		mchoptn(char *id, int v);
-extern	VOID		minit(void);
+extern	void		minit(void);
 
 	/* pdp11cyc.c */
 extern	int		mchcycles(struct mne *mp, a_uint opcode, int cycles);
@@ -192,57 +190,14 @@ extern	int		mclookup(struct mne *mp);
 	/* pdp11fpp.c */
 extern	int		fpt;
 extern	unsigned int	rslt[4];
-extern	VOID		atowrd(void);
-extern	VOID		atoflt(void);
-extern	VOID		atodbl(void);
+extern	void		atowrd(void);
+extern	void		atoflt(void);
+extern	void		atodbl(void);
 extern	int		atofd(int fd);
-extern	VOID		fltsv(void);
-extern	VOID		fltrs(void);
-extern	VOID		fltls(void);
-extern	VOID		fltm54(void);
-extern	VOID		fltm5(void);
-extern	VOID		fltad(void);
-
-#else
-
-	/* pdp11adr.c */
-extern	struct adsym	reg[];
-extern	int		aindx;
-extern	int		pcrel;
-extern	int		addr();
-extern	int		rad50();
-extern	int		tst50();
-extern	int		admode();
-extern	int		any;
-extern	int		srch();
-
-	/* pdp11mch.c */
-extern	int		rtyp;
-extern	VOID		machine();
-extern	int		mchpcr();
-extern	int		setbit();
-extern	int		getbit();
-extern	int		mchterm();
-extern	int		mchoptn();
-extern	VOID		minit();
-
-	/* pdp11cyc.c */
-extern	int		mchcycles();
-extern	int		mclookup();
-
-	/* pdp11fpp.c */
-extern	int		fpt;
-extern	unsigned int	rslt[];
-extern	VOID		atowrd();
-extern	VOID		atoflt();
-extern	VOID		atodbl();
-extern	int		atofd();
-extern	VOID		fltsv();
-extern	VOID		fltrs();
-extern	VOID		fltls();
-extern	VOID		fltm54();
-extern	VOID		fltm5();
-extern	VOID		fltad();
-
-#endif
+extern	void		fltsv(void);
+extern	void		fltrs(void);
+extern	void		fltls(void);
+extern	void		fltm54(void);
+extern	void		fltm5(void);
+extern	void		fltad(void);
 

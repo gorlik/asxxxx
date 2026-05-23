@@ -1,7 +1,7 @@
 /* m6816.h */
 
 /*
- *  Copyright (C) 1991-2021  Alan R. Baldwin
+ *  Copyright (C) 1991-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -126,65 +126,31 @@ extern struct adsym pulm[];
 
 	/* machine dependent functions */
 
-#ifdef	OTHERSYSTEM
-	
 	/* m16adr.c */
 extern	int		addr(struct expr *esp);
 extern	int		admode(struct adsym *sp);
 extern	int		srch(char *str);
 
 	/* m16mch.c */
-extern	VOID		machine(struct mne *mp);
-extern	VOID		sgnext4(struct expr *e1);
-extern	VOID		sgnext8(struct expr *e1);
-extern	VOID		sgnext16(struct expr *e1);
-extern	VOID		sgnext20(struct expr *e1);
-extern	VOID		srngchk4(struct expr *e1);
-extern	VOID		srngchk8(struct expr *e1);
-extern	VOID		srngchk16(struct expr *e1);
-extern	VOID		srngchk20(struct expr *e1);
-extern	VOID		urngchk4(struct expr *e1);
-extern	VOID		urngchk8(struct expr *e1);
-extern	VOID		urngchk16(struct expr *e1);
-extern	VOID		urngchk20(struct expr *e1);
+extern	void		machine(struct mne *mp);
+extern	void		sgnext4(struct expr *e1);
+extern	void		sgnext8(struct expr *e1);
+extern	void		sgnext16(struct expr *e1);
+extern	void		sgnext20(struct expr *e1);
+extern	void		srngchk4(struct expr *e1);
+extern	void		srngchk8(struct expr *e1);
+extern	void		srngchk16(struct expr *e1);
+extern	void		srngchk20(struct expr *e1);
+extern	void		urngchk4(struct expr *e1);
+extern	void		urngchk8(struct expr *e1);
+extern	void		urngchk16(struct expr *e1);
+extern	void		urngchk20(struct expr *e1);
 extern	int		mchcon(struct expr *e1);
 extern	int		mchbrcs(int t1, struct expr *e1, a_uint pc, struct expr *e2);
 extern	int		mchindx(int t1, struct expr *e1);
 extern	int		mchimm(struct expr *e1);
-extern	VOID		minit(void);
+extern	void		minit(void);
 extern	int		setbit(int b);
 extern	int		getbit(void);
 extern	int		mchpcr(struct expr *esp);
-
-#else
-
-	/* m16adr.c */
-extern	int		addr();
-extern	int		admode();
-extern	int		srch();
-
-	/* m16mch.c */
-extern	VOID		machine();
-extern	VOID		sgnext4();
-extern	VOID		sgnext8();
-extern	VOID		sgnext16();
-extern	VOID		sgnext20();
-extern	VOID		srngchk4();
-extern	VOID		srngchk8();
-extern	VOID		srngchk16();
-extern	VOID		srngchk20();
-extern	VOID		urngchk4();
-extern	VOID		urngchk8();
-extern	VOID		urngchk16();
-extern	VOID		urngchk20();
-extern	int		mchcon();
-extern	int		mchbrcs();
-extern	int		mchindx();
-extern	int		mchimm();
-extern	VOID		minit();
-extern	int		setbit();
-extern	int		getbit();
-extern	int		mchpcr();
-
-#endif
 

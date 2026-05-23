@@ -1,7 +1,7 @@
 /* asout.c */
 
 /*
- *  Copyright (C) 1989-2021  Alan R. Baldwin
+ *  Copyright (C) 1989-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -236,47 +236,47 @@
  *		int	hibyte();
  *		int	thrdbyte();
  *		int	frthbyte();
- *		VOID	out();
- *		VOID	outall();
- *		VOID	outarea();
- *		VOID	outbank();
- *		VOID	outbuf();
- *		VOID	outchk();
- *		VOID	outdp();
- *		VOID	outdot();
- *		VOID	outgsd();
- *		VOID	outmerge();
- *		VOID	outmode();
- *		VOID	outsym();
- *		VOID	outab();
- *		VOID	outaw();
- *		VOID	outa3b();
- *		VOID	outa4b();
- *		VOID	outaxb();
- *		VOID	outatxb();
- *		VOID	outrb();
- *		VOID	outrw();
- *		VOID	outr3b();
- *		VOID	outr4b();
- *		VOID	outrxb();
- *		VOID	outrbm();
- *		VOID	outrwm();
- *		VOID	outr3bm();
- *		VOID	outr4bm();
- *		VOID	outrxbm();
- *		VOID	out_lb();
- *		VOID	out_lw();
- *		VOID	out_l3b();
- *		VOID	out_l4b();
- *		VOID	out_lxb();
- *		VOID	out_rw();
- *		VOID	out_txb();
+ *		void	out();
+ *		void	outall();
+ *		void	outarea();
+ *		void	outbank();
+ *		void	outbuf();
+ *		void	outchk();
+ *		void	outdp();
+ *		void	outdot();
+ *		void	outgsd();
+ *		void	outmerge();
+ *		void	outmode();
+ *		void	outsym();
+ *		void	outab();
+ *		void	outaw();
+ *		void	outa3b();
+ *		void	outa4b();
+ *		void	outaxb();
+ *		void	outatxb();
+ *		void	outrb();
+ *		void	outrw();
+ *		void	outr3b();
+ *		void	outr4b();
+ *		void	outrxb();
+ *		void	outrbm();
+ *		void	outrwm();
+ *		void	outr3bm();
+ *		void	outr4bm();
+ *		void	outrxbm();
+ *		void	out_lb();
+ *		void	out_lw();
+ *		void	out_l3b();
+ *		void	out_l4b();
+ *		void	out_lxb();
+ *		void	out_rw();
+ *		void	out_txb();
  */
 
-/*)Function	VOID	outab(v)
- *)Function	VOID	outaw(v)
- *)Function	VOID	outa3b(v)
- *)Function	VOID	outa4b(v)
+/*)Function	void	outab(v)
+ *)Function	void	outaw(v)
+ *)Function	void	outa3b(v)
+ *)Function	void	outa4b(v)
  *
  *		a_uint	v		assembler data
  *
@@ -289,41 +289,37 @@
  *		none
  *
  *	functions called:
- *		VOID	outatxb()	asout.c
+ *		void	outatxb()	asout.c
  *
  *	side effects:
  *		Absolute data is processed.
  */
 
-VOID
-outab(v)
-a_uint v;
+void
+outab(a_uint v)
 {
 	outaxb(1, v);
 }
 
-VOID
-outaw(v)
-a_uint v;
+void
+outaw(a_uint v)
 {
 	outaxb(2, v);
 }
 
-VOID
-outa3b(v)
-a_uint v;
+void
+outa3b(a_uint v)
 {
 	outaxb(3, v);
 }
 
-VOID
-outa4b(v)
-a_uint v;
+void
+outa4b(a_uint v)
 {
 	outaxb(4, v);
 }
 
-/*)Function	VOID	outaxb(i, v)
+/*)Function	void	outaxb(i, v)
  *
  *		int	i		output byte count
  *		int	v		assembler data
@@ -340,18 +336,16 @@ a_uint v;
  *		int	pass		assembler pass number
  *
  *	functions called:
- *		VOID	outatxb()	asout.c
- *		VOID	outchk()	asout.c
- *		VOID	out_lxb()	asout.c
+ *		void	outatxb()	asout.c
+ *		void	outchk()	asout.c
+ *		void	out_lxb()	asout.c
  *
  *	side effects:
  *		The current assembly address is incremented by i.
  */
 
-VOID
-outaxb(i, v)
-int i;
-a_uint v;
+void
+outaxb(int i, a_uint v)
 {
 	int p_bytes;
 
@@ -374,7 +368,7 @@ a_uint v;
 	dot.s_area->a_flag |= A_OUT;
 }
 
-/*)Function	VOID	outatxb(i, v)
+/*)Function	void	outatxb(i, v)
  *
  *		int	i		number of bytes to process
  *		int	v		assembler data
@@ -398,10 +392,8 @@ a_uint v;
  *		i bytes are placed into the T Line Buffer.
  */
 
-VOID
-outatxb(i, v)
-int i;
-a_uint v;
+void
+outatxb(int i, a_uint v)
 {
 	if ((int) hilo) {
 		if (i >= 4) *txtp++ = frthbyte(v);
@@ -416,10 +408,10 @@ a_uint v;
 	}
 }
 
-/*)Function	VOID	outrb(esp, r)
- *)Function	VOID	outrw(esp, r)
- *)Function	VOID	outr3b(esp, r)
- *)Function	VOID	outr4b(esp, r)
+/*)Function	void	outrb(esp, r)
+ *)Function	void	outrw(esp, r)
+ *)Function	void	outr3b(esp, r)
+ *)Function	void	outr4b(esp, r)
  *
  *		expr *	esp		pointer to expr structure
  *		int	r		relocation mode
@@ -439,39 +431,31 @@ a_uint v;
  *	        relocatable data processed
  */
 
-VOID
-outrb(esp, r)
-struct expr *esp;
-int r;
+void
+outrb(struct expr *esp, int r)
 {
 	outrxb(1, esp, r);
 }
 
-VOID
-outrw(esp, r)
-struct expr *esp;
-int r;
+void
+outrw(struct expr *esp, int r)
 {
 	outrxb(2, esp, r);
 }
 
-VOID
-outr3b(esp, r)
-struct expr *esp;
-int r;
+void
+outr3b(struct expr *esp, int r)
 {
 	outrxb(3, esp, r);
 }
 
-VOID
-outr4b(esp, r)
-struct expr *esp;
-int r;
+void
+outr4b(struct expr *esp, int r)
 {
 	outrxb(4, esp, r);
 }
 
-/*)Function	VOID	outrxb(i, esp, r)
+/*)Function	void	outrxb(i, esp, r)
  *
  *		int	i		output byte count
  *		expr *	esp		pointer to expr structure
@@ -501,25 +485,22 @@ int r;
  *	functions called:
  *		int	hibyte()	asout.c
  *		int	lobyte()	asout.c
- *		VOID	outatxb()	asout.c
- *		VOID	outchk()	asout.c
- *		VOID	out_lb()	asout.c
- *		VOID	out_lw()	asout.c
- *		VOID	out_lxb()	asout.c
- *		VOID	out_rw()	asout.c
- *		VOID	out_txb()	asout.c
- *		VOID	xerr()		assubr.c
+ *		void	outatxb()	asout.c
+ *		void	outchk()	asout.c
+ *		void	out_lb()	asout.c
+ *		void	out_lw()	asout.c
+ *		void	out_lxb()	asout.c
+ *		void	out_rw()	asout.c
+ *		void	out_txb()	asout.c
+ *		void	xerr()		assubr.c
  *
  *	side effects:
  *		R and T Lines updated.  Listing updated.
  *		The current assembly address is incremented by i.
  */
 
-VOID
-outrxb(i, esp, r)
-int i;
-struct expr *esp;
-int r;
+void
+outrxb(int i, struct expr *esp, int r)
 {
 	a_uint m, n;
 	int p_bytes;
@@ -651,10 +632,10 @@ int r;
 	dot.s_area->a_flag |= A_OUT;
 }
 
-/*)Function	VOID	outrbm(esp, r, v)
- *)Function	VOID	outrwm(esp, r, v)
- *)Function	VOID	outr3bm(esp, r, v)
- *)Function	VOID	outr4bm(esp, r, v)
+/*)Function	void	outrbm(esp, r, v)
+ *)Function	void	outrwm(esp, r, v)
+ *)Function	void	outr3bm(esp, r, v)
+ *)Function	void	outr4bm(esp, r, v)
  *
  *		expr *	esp		pointer to expr structure
  *		int	r		relocation mode
@@ -675,43 +656,31 @@ int r;
  *	        relocatable data processed
  */
 
-VOID
-outrbm(esp, r, v)
-struct expr *esp;
-int r;
-a_uint v;
+void
+outrbm(struct expr *esp, int r, a_uint v)
 {
 	outrxbm(1, esp, r, v);
 }
 
-VOID
-outrwm(esp, r, v)
-struct expr *esp;
-int r;
-a_uint v;
+void
+outrwm(struct expr *esp, int r, a_uint v)
 {
 	outrxbm(2, esp, r, v);
 }
 
-VOID
-outr3bm(esp, r, v)
-struct expr *esp;
-int r;
-a_uint v;
+void
+outr3bm(struct expr *esp, int r, a_uint v)
 {
 	outrxbm(3, esp, r, v);
 }
 
-VOID
-outr4bm(esp, r, v)
-struct expr *esp;
-int r;
-a_uint v;
+void
+outr4bm(struct expr *esp, int r, a_uint v)
 {
 	outrxbm(4, esp, r, v);
 }
 
-/*)Function	VOID	outrxbm(i, esp, r, v)
+/*)Function	void	outrxbm(i, esp, r, v)
  *
  *		int	i		output byte count
  *		expr *	esp		pointer to expr structure
@@ -750,27 +719,23 @@ a_uint v;
  *	functions called:
  *		int	hibyte()	asout.c
  *		int	lobyte()	asout.c
- *		VOID	outatxb()	asout.c
- *		VOID	outchk()	asout.c
+ *		void	outatxb()	asout.c
+ *		void	outchk()	asout.c
  *		int	outmerge()	asout.c
- *		VOID	out_lb()	asout.c
- *		VOID	out_lw()	asout.c
- *		VOID	out_lxb()	asout.c
- *		VOID	out_rw()	asout.c
- *		VOID	out_txb()	asout.c
- *		VOID	xerr()		assubr.c
+ *		void	out_lb()	asout.c
+ *		void	out_lw()	asout.c
+ *		void	out_lxb()	asout.c
+ *		void	out_rw()	asout.c
+ *		void	out_txb()	asout.c
+ *		void	xerr()		assubr.c
  *
  *	side effects:
  *		R and T Lines updated.  Listing updated.
  *		The current assembly address is incremented by i.
  */
 
-VOID
-outrxbm(i, esp, r, v)
-int i;
-struct expr *esp;
-int r;
-a_uint v;
+void
+outrxbm(int i, struct expr *esp, int r, a_uint v)
 {
 	a_uint esprv, m;
 	int n, p_bytes;
@@ -891,7 +856,7 @@ a_uint v;
 	dot.s_area->a_flag |= A_OUT;
 }
 
-/*)Function	VOID	outmerge(esp, r, v)
+/*)Function	void	outmerge(esp, r, v)
  *
  *		a_uint	esp		expr value
  *		int	r		relocation mode
@@ -913,15 +878,12 @@ a_uint v;
  *		
  *	functions called:
  *		int	fprintf()	c_library
- *		VOID	asexit()	asmain.c
+ *		void	asexit()	asmain.c
  *
  *	side effects:
  *		none
  */
-a_uint outmerge(esp, r, base)
-a_uint esp;
-int r;
-a_uint base;
+a_uint outmerge(a_uint esp, int r, a_uint base)
 {
 	struct mode *mp;
 	char *p;
@@ -949,7 +911,7 @@ a_uint base;
 	return((base & ~mp->m_dbits) | m);
 }
 
-/*)Function	VOID	outdp(carea, esp, r)
+/*)Function	void	outdp(carea, esp, r)
  *
  *		area *	carea		pointer to current area structure
  *		expr *	esp		pointer to expr structure
@@ -972,21 +934,18 @@ a_uint base;
  *		char *	txtp		pointer to txt array
  *		
  *	functions called:
- *		VOID	outbuf()	asout.c
- *		VOID	outchk()	asout.c
- *		VOID	out_rw()	asout.c
- *		VOID	out_txb()	asout.c
+ *		void	outbuf()	asout.c
+ *		void	outchk()	asout.c
+ *		void	out_rw()	asout.c
+ *		void	out_txb()	asout.c
  *
  *	side effects:
  *		Output buffer flushed to .REL file.
  *		Paging information dumped to .REL file.
  */
 
-VOID
-outdp(carea, esp, r)
-struct area *carea;
-struct expr *esp;
-int r;
+void
+outdp(struct area *carea, struct expr *esp, int r)
 {
 	a_uint n;
 
@@ -1019,7 +978,7 @@ int r;
 	}
 }
 
-/*)Function	VOID	outall()
+/*)Function	void	outall(void)
  *
  *	The function outall() will output any bufferred assembled
  *	data and relocation information (during pass 2 if the .REL
@@ -1033,20 +992,20 @@ int r;
  *		int	pass		assembler pass number
  *
  *	functions called:
- *		VOID	outbuf()	asout.c
+ *		void	outbuf()	asout.c
  *
  *	side effects:
  *		assembled data and relocation buffers will be cleared.
  */
 
-VOID
-outall()
+void
+outall(void)
 {
 	if (oflag && pass==2)
 		outbuf("R");
 }
 
-/*)Function	VOID	outdot()
+/*)Function	void	outdot(void)
  *
  *	The function outdot() outputs information about the
  *	current program counter value (during pass 2 if the .REL
@@ -1065,14 +1024,14 @@ outall()
  *
  *	functions called:
  *		int	fprintf()	c_library
- *		VOID	out()		asout.c
+ *		void	out()		asout.c
  *
  *	side effects:
  *		assembled data and relocation buffers will be cleared.
  */
 
-VOID
-outdot()
+void
+outdot(void)
 {
 	if (oflag && pass==2) {
 		fprintf(ofp, "T");
@@ -1086,7 +1045,7 @@ outdot()
 	}
 }
 
-/*)Function	outchk(nt, nr)
+/*)Function	void	outchk(nt, nr)
  *
  *		int	nr		number of additional relocation words
  *		int	nt		number of additional data words
@@ -1108,18 +1067,16 @@ outdot()
  *		char *	txtp		pointer to txt array
  *
  *	functions called:
- *		VOID	outbuf()	asout.c
- *		VOID	out_rw()	asout.c
- *		VOID	out_txb()	asout.c
+ *		void	outbuf()	asout.c
+ *		void	out_rw()	asout.c
+ *		void	out_txb()	asout.c
  *
  *	side effects:
  *		Data and relocation buffers may be emptied and initialized.
  */
 
-VOID
-outchk(nt, nr)
-int nt;
-int nr;
+void
+outchk(int nt, int nr)
 {
 	struct area *ap;
 
@@ -1136,7 +1093,7 @@ int nr;
 	}
 }
 
-/*)Function	VOID	outbuf(s)
+/*)Function	void	outbuf(s)
  *
  *		char *	s		"R" or "P" or ("I" illegal)
  *
@@ -1156,16 +1113,15 @@ int nr;
  *
  *	functions called:
  *		int	fprintf()	c_library
- *		VOID	out()		asout.c
+ *		void	out()		asout.c
  *
  *	side effects:
  *		All bufferred data written to .REL file and
  *		buffer pointers and counters initialized.
  */
 
-VOID
-outbuf(s)
-char *s;
+void
+outbuf(char *s)
 {
 	if (txtp > &txt[a_bytes]) {
 		fprintf(ofp, "T");
@@ -1179,7 +1135,7 @@ char *s;
 	relp = rel;
 }
 
-/*)Function	VOID	outgsd()
+/*)Function	void	outgsd(void)
  *
  *	The function outgsd() performs the following:
  *	(1)	outputs the .REL file radix
@@ -1219,18 +1175,18 @@ char *s;
  *
  *	functions called:
  *		int	fprintf()	c_library
- *		VOID	outarea()	asout.c
- *		VOID	outbank()	asout.c
- *		VOID	outmode()	asout.c
- *		VOID	outsym()	asout.c
+ *		void	outarea()	asout.c
+ *		void	outbank()	asout.c
+ *		void	outmode()	asout.c
+ *		void	outsym()	asout.c
  *
  *	side effects:
  *		All symbols are given reference numbers, all symbol
  *		and area information is output to the .REL file.
  */
 
-VOID
-outgsd()
+void
+outgsd(void)
 {
 	struct area *ap;
 	struct bank *bp;
@@ -1350,7 +1306,7 @@ outgsd()
 	}
 }
 
-/*)Function	VOID	outmode(index, mp)
+/*)Function	void	outmode(index, mp)
  *
  *		int index		merge mode number (0 - 15)
  *		struct mode *mp		pointer to a merge mode structure
@@ -1375,10 +1331,8 @@ outgsd()
  *		The G line is sent to the .REL file.
  */
 
-VOID
-outmode(index, mp)
-int index;
-struct mode *mp;
+void
+outmode(int index, struct mode *mp)
 {
 	char *p;
 	int i, lines;
@@ -1401,7 +1355,7 @@ struct mode *mp;
 	}
 }
 
-/*)Function	VOID	outbank(bp)
+/*)Function	void	outbank(bp)
  *
  *		bank *	bp		pointer to a bank structure
  *
@@ -1423,9 +1377,8 @@ struct mode *mp;
  *		The B line is sent to the .REL file.
  */
 
-VOID
-outbank(bp)
-struct bank *bp;
+void
+outbank(struct bank *bp)
 {
 	char * frmt;
 
@@ -1456,7 +1409,7 @@ struct bank *bp;
 	}
 }
 
-/*)Function	VOID	outarea(ap)
+/*)Function	void	outarea(ap)
  *
  *		area *	ap		pointer to an area structure
  *
@@ -1483,9 +1436,8 @@ struct bank *bp;
  *		then default attributes are specified.
  */
 
-VOID
-outarea(ap)
-struct area *ap;
+void
+outarea(struct area *ap)
 {
 	int a_flag;
 	struct bank *bp;
@@ -1556,7 +1508,7 @@ struct area *ap;
 	fprintf(ofp, "\n");
 }
 
-/*)Function	VOID	outsym(sp)
+/*)Function	void	outsym(sp)
  *
  *		sym *	sp		pointer to a sym structure
  *
@@ -1580,9 +1532,8 @@ struct area *ap;
  *		The S line is sent to the .REL file.
  */
 
-VOID
-outsym(sp)
-struct sym *sp;
+void
+outsym(struct sym *sp)
 {
 	char *frmt;
 	a_uint s_addr;
@@ -1661,7 +1612,7 @@ struct sym *sp;
 	fprintf(ofp, frmt, s_addr);
 }
 
-/*)Function	VOID	out(p, n)
+/*)Function	void	out(p, n)
  *
  *		int	n		number of words to output
  *		int *	p		pointer to data words
@@ -1683,10 +1634,8 @@ struct sym *sp;
  *		Data is sent to the .REL file.
  */
 
-VOID
-out(p, n)
-char *p;
-int n;
+void
+out(char *p, int n)
 {
 	while (n--) {
 		if (xflag == 0) {
@@ -1701,7 +1650,7 @@ int n;
 	}
 }
 
-/*)Function	VOID	out_lb(v, t)
+/*)Function	void	out_lb(v, t)
  *
  *		a_uint	v		assembled data
  *		int	t		relocation type
@@ -1724,10 +1673,8 @@ int n;
  *		Pointers to data and relocation buffers incremented by 1.
  */
 
-VOID
-out_lb(v, t)
-a_uint v;
-int t;
+void
+out_lb(a_uint v, int t)
 {
 	if (cp < &cb[NCODE]) {
 		*cp++ = (char) v;
@@ -1735,9 +1682,9 @@ int t;
 	}
 }
 
-/*)Function	VOID	out_lw(v, t)
- *)Function	VOID	out_l3b(v, t)
- *)Function	VOID	out_l4b(v, t)
+/*)Function	void	out_lw(v, t)
+ *)Function	void	out_l3b(v, t)
+ *)Function	void	out_l4b(v, t)
  *
  *		int	v		assembled data
  *		int	t		relocation type
@@ -1757,31 +1704,25 @@ int t;
  *		Listing data processed.
  */
 
-VOID
-out_lw(v, t)
-a_uint v;
-int t;
+void
+out_lw(a_uint v, int t)
 {
 	out_lxb(2, v, t);
 }
 
-VOID
-out_l3b(v, t)
-a_uint v;
-int t;
+void
+out_l3b(a_uint v, int t)
 {
 	out_lxb(3, v, t);
 }
 
-VOID
-out_l4b(v, t)
-a_uint v;
-int t;
+void
+out_l4b(a_uint v, int t)
 {
 	out_lxb(4, v, t);
 }
 
-/*)Function	VOID	out_lxb(i, v, t)
+/*)Function	void	out_lxb(i, v, t)
  *
  *		int	i		output byte count
  *		a_uint	v		assembled data
@@ -1796,17 +1737,14 @@ int t;
  *		int	hilo		byte order
  *
  *	functions called:
- *		VOID	out_lb()	asout.c
+ *		void	out_lb()	asout.c
  *
  *	side effects:
  *		i list bytes are processed.
  */
 
-VOID
-out_lxb(i, v, t)
-int i;
-a_uint v;
-int t;
+void
+out_lxb(int i, a_uint v, int t)
 {
 	if ((int) hilo) {
 		if (i >= 4) out_lb(frthbyte(v),t&R_RELOC ? t|R_BYT4 : 0);
@@ -1821,7 +1759,7 @@ int t;
 	}
 }
 
-/*)Function	VOID	out_rw(v)
+/*)Function	void	out_rw(v)
  *
  *		a_uint	v		assembled data
  *
@@ -1842,9 +1780,8 @@ int t;
  *		Pointer to relocation buffer incremented by 2.
  */
 
-VOID
-out_rw(v)
-a_uint v;
+void
+out_rw(a_uint v)
 {
 	if ((int) hilo) {
 		*relp++ = hibyte(v);
@@ -1855,7 +1792,7 @@ a_uint v;
 	}
 }
 
-/*)Function	VOID	out_txb(i, v)
+/*)Function	void	out_txb(i, v)
  *
  *		int	i		T Line byte count
  *		a_uint	v		data word
@@ -1879,10 +1816,8 @@ a_uint v;
  *		T Line buffer updated.
  */
 
-VOID
-out_txb(i, v)
-int i;
-a_uint v;
+void
+out_txb(int i, a_uint v)
 {
 	if ((int) hilo) {
 		if (i >= 4) *txtp++ = frthbyte(v);
@@ -1921,29 +1856,25 @@ a_uint v;
  */
 
 int
-lobyte(v)
-a_uint v;
+lobyte(a_uint v)
 {
 	return ((int) (v&0377));
 }
 
 int
-hibyte(v)
-a_uint v;
+hibyte(a_uint v)
 {
 	return ((int) ((v>>8)&0377));
 }
 
 int
-thrdbyte(v)
-a_uint v;
+thrdbyte(a_uint v)
 {
 	return ((int) ((v>>16)&0377));
 }
 
 int
-frthbyte(v)
-a_uint v;
+frthbyte(a_uint v)
 {
 	return ((int) ((v>>24)&0377));
 }

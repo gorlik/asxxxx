@@ -1,7 +1,7 @@
 /* asdbg.c */
 
 /*
- *  Copyright (C) 2003-2021  Alan R. Baldwin
+ *  Copyright (C) 2003-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -41,8 +41,8 @@
  *	   remote debugger
  *
  *	asdbg.c contains the following functions:
- *		VOID	DefineSDCC_Line()
- *		VOID	DefineNoICE_Line()
+ *		void	DefineSDCC_Line()
+ *		void	DefineNoICE_Line()
  *		char *	BaseFileName()
  *
  *	asdbg.c contains the static variables:
@@ -56,7 +56,7 @@
  *	and do not track their inclusion.
  */
 
-/*)Function	VOID	DefineSDCC_Line()
+/*)Function	void	DefineSDCC_Line(void)
  *
  *	The function DefineSDCC_Line() is called to create
  *	a symbol of the form A$FILE$nnn where FILE is the
@@ -82,8 +82,8 @@
  */
 
 #if SDCDB
-VOID
-DefineSDCC_Line()
+void
+DefineSDCC_Line(void)
 {
 	char name[ NCPS + FILSPC ];
         struct sym *pSym;
@@ -102,7 +102,7 @@ DefineSDCC_Line()
 #endif
 
 
-/*)Function	VOID	DefineNoICE_Line()
+/*)Function	void	DefineNoICE_Line(void)
  *
  *	The function DefineNoICE_Line() is called to create
  *	a symbol of the form FILE.nnn where FILE is the
@@ -129,8 +129,8 @@ DefineSDCC_Line()
  */
 
 #if NOICE
-VOID
-DefineNoICE_Line()
+void
+DefineNoICE_Line(void)
 {
 	char name[ NCPS + FILSPC ];
         struct sym *pSym;
@@ -178,12 +178,11 @@ DefineNoICE_Line()
  */
 
 #if (NOICE || SDCDB)
-static	struct	asmf *	prevFile = NULL;
+static	struct	asmf *prevFile = NULL;
 static	char	baseName[FILSPC];
 
 char*
-BaseFileName(currFile)
-struct	asmf * currFile;
+BaseFileName(struct asmf *currFile)
 {
         char *p1, *p2;
 

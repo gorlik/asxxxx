@@ -1,7 +1,7 @@
 /* 1802mch.c */
 
 /*
- *  Copyright (C) 2002-2023  Alan R. Baldwin
+ *  Copyright (C) 2002-2025  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -72,9 +72,8 @@ static char pg1802[256] = {
 /*
  * Process machine ops.
  */
-VOID
-machine(mp)
-struct mne *mp;
+void
+machine(struct mne *mp)
 {
 	int op, v, rd;
 	struct expr e;
@@ -158,7 +157,7 @@ struct mne *mp;
  * Read a register name.
  */
 int
-reg()
+reg(void)
 {
 	struct mne *mp;
 	char id[NCPS];
@@ -175,8 +174,7 @@ reg()
  * Branch Mode Check
  */
 int
-mchbr(esp)
-struct expr *esp;
+mchbr(struct expr *esp)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		return(1);
@@ -199,8 +197,8 @@ struct expr *esp;
 /*
  * Dummy machine specific init.
  */
-VOID
-minit()
+void
+minit(void)
 {
 	/*
 	 * Byte Order
