@@ -1,7 +1,7 @@
 /* m68cfpst.c */
 
 /*
- *  Copyright (C) 2023  Alan R. Baldwin
+ *  Copyright (C) 2023-2024  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -452,10 +452,16 @@ struct	mne	mne[] = {
     /*---*/
     {	NULL,	"sle",		S_TYP9,		A_B,	0x5FC0	},
     {	NULL,	"sle.b",	S_TYP9,		A_B,	0x5FC0	},
-    /*---*/
+    /*-- Alternate For SLS --*/
+    {	NULL,	"slos",		S_TYP9,		A_B,	0x53C0	},
+    {	NULL,	"slos.b",	S_TYP9,		A_B,	0x53C0	},
+    /*-- Alternate For SCC --*/
     {	NULL,	"shs",		S_TYP9,		A_B,	0x54C0	},
     {	NULL,	"shs.b",	S_TYP9,		A_B,	0x54C0	},
-    /*---*/
+    /*-- Alternate For SCC --*/
+    {	NULL,	"shis",		S_TYP9,		A_B,	0x54C0	},
+    {	NULL,	"shis.b",	S_TYP9,		A_B,	0x54C0	},
+    /*-- Alternate For SCS --*/
     {	NULL,	"slo",		S_TYP9,		A_B,	0x55C0	},
     {	NULL,	"slo.b",	S_TYP9,		A_B,	0x55C0	},
 
@@ -570,13 +576,25 @@ struct	mne	mne[] = {
     {	NULL,	"ble.s",	S_BCC,		B_B,	0x6F00	},
     {	NULL,	"ble.w",	S_BCC,		B_W,	0x6F00	},
     {	NULL,	"ble.l",	S_BCC,		B_L,	0x6F00	},
-    /*---*/
+    /*-- Alternate For BLS --*/
+    {	NULL,	"blos",		S_BCC,		B_A,	0x6300	},
+    {	NULL,	"blos.b",	S_BCC,		B_B,	0x6300	},
+    {	NULL,	"blos.s",	S_BCC,		B_B,	0x6300	},
+    {	NULL,	"blos.w",	S_BCC,		B_W,	0x6300	},
+    {	NULL,	"blos.l",	S_BCC,		B_L,	0x6300	},
+    /*-- Alternate For BCC --*/
     {	NULL,	"bhs",		S_BCC,		B_A,	0x6400	},
     {	NULL,	"bhs.b",	S_BCC,		B_B,	0x6400	},
     {	NULL,	"bhs.s",	S_BCC,		B_B,	0x6400	},
     {	NULL,	"bhs.w",	S_BCC,		B_W,	0x6400	},
     {	NULL,	"bhs.l",	S_BCC,		B_L,	0x6400	},
-    /*---*/
+    /*-- Alternate For BCC --*/
+    {	NULL,	"bhis",		S_BCC,		B_A,	0x6400	},
+    {	NULL,	"bhis.b",	S_BCC,		B_B,	0x6400	},
+    {	NULL,	"bhis.s",	S_BCC,		B_B,	0x6400	},
+    {	NULL,	"bhis.w",	S_BCC,		B_W,	0x6400	},
+    {	NULL,	"bhis.l",	S_BCC,		B_L,	0x6400	},
+    /*-- Alternate For BCS --*/
     {	NULL,	"blo",		S_BCC,		B_A,	0x6500	},
     {	NULL,	"blo.b",	S_BCC,		B_B,	0x6500	},
     {	NULL,	"blo.s",	S_BCC,		B_B,	0x6500	},

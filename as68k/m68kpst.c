@@ -1,8 +1,8 @@
 /* m68kpst.c */
 
 /*
- *  Copyright (C) 2022-2023  Alan R. Baldwin
- *  Copyright (C) 2022-2023  Nick Downing
+ *  Copyright (C) 2022-2024  Alan R. Baldwin
+ *  Copyright (C) 2022-2024  Nick Downing
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -545,6 +545,7 @@ struct	mne	mne[] = {
     /*---*/
     {	NULL,	"bls",		S_BCC,		B_A,	0x6300	},
     {	NULL,	"bls.b",	S_BCC,		B_S,	0x6300	},
+    {	NULL,	"bls.s",	S_BCC,		B_S,	0x6300	},
     {	NULL,	"bls.w",	S_BCC,		B_W,	0x6300	},
     {	NULL,	"bls.l",	S_BCC,		B_L,	0x6300	},
     /*---*/
@@ -568,6 +569,7 @@ struct	mne	mne[] = {
     /*---*/
     {	NULL,	"beq",		S_BCC,		B_A,	0x6700	},
     {	NULL,	"beq.b",	S_BCC,		B_S,	0x6700	},
+    {	NULL,	"beq.s",	S_BCC,		B_S,	0x6700	},
     {	NULL,	"beq.w",	S_BCC,		B_W,	0x6700	},
     {	NULL,	"beq.l",	S_BCC,		B_L,	0x6700	},
    /*---*/
@@ -618,13 +620,25 @@ struct	mne	mne[] = {
     {	NULL,	"ble.s",	S_BCC,		B_S,	0x6F00	},
     {	NULL,	"ble.w",	S_BCC,		B_W,	0x6F00	},
     {	NULL,	"ble.l",	S_BCC,		B_L,	0x6F00	},
-    /*---*/
+    /*-- Alternate For BLS --*/
+    {	NULL,	"blos",		S_BCC,		B_A,	0x6300	},
+    {	NULL,	"blos.b",	S_BCC,		B_S,	0x6300	},
+    {	NULL,	"blos.s",	S_BCC,		B_S,	0x6300	},
+    {	NULL,	"blos.w",	S_BCC,		B_W,	0x6300	},
+    {	NULL,	"blos.l",	S_BCC,		B_L,	0x6300	},
+    /*-- Alternate For BCC --*/
     {	NULL,	"bhs",		S_BCC,		B_A,	0x6400	},
     {	NULL,	"bhs.b",	S_BCC,		B_S,	0x6400	},
     {	NULL,	"bhs.s",	S_BCC,		B_S,	0x6400	},
     {	NULL,	"bhs.w",	S_BCC,		B_W,	0x6400	},
     {	NULL,	"bhs.l",	S_BCC,		B_L,	0x6400	},
-    /*---*/
+    /*-- Alternate For BCC --*/
+    {	NULL,	"bhis",		S_BCC,		B_A,	0x6400	},
+    {	NULL,	"bhis.b",	S_BCC,		B_S,	0x6400	},
+    {	NULL,	"bhis.s",	S_BCC,		B_S,	0x6400	},
+    {	NULL,	"bhis.w",	S_BCC,		B_W,	0x6400	},
+    {	NULL,	"bhis.l",	S_BCC,		B_L,	0x6400	},
+    /*-- Alternate For BCS --*/
     {	NULL,	"blo",		S_BCC,		B_A,	0x6500	},
     {	NULL,	"blo.b",	S_BCC,		B_S,	0x6500	},
     {	NULL,	"blo.s",	S_BCC,		B_S,	0x6500	},
@@ -680,15 +694,21 @@ struct	mne	mne[] = {
     /*---*/
     {	NULL,	"dble",		S_DBCC,		A_W,	0x5FC8	},
     {	NULL,	"dble.w",	S_DBCC,		A_W,	0x5FC8	},
-    /*---*/
+    /*-- Alternate For DBF --*/
     {	NULL,	"dbra",		S_DBCC,		A_W,	0x51C8	},
     {	NULL,	"dbra.w",	S_DBCC,		A_W,	0x51C8	},
-    /*---*/
+    /*-- Alternate For DBCC --*/
     {	NULL,	"dbhs",		S_DBCC,		A_W,	0x54C8	},
     {	NULL,	"dbhs.w",	S_DBCC,		A_W,	0x54C8	},
-    /*---*/
+    /*-- Alternate For DBCS --*/
     {	NULL,	"dblo",		S_DBCC,		A_W,	0x55C8	},
     {	NULL,	"dblo.w",	S_DBCC,		A_W,	0x55C8	},
+    /*-- Alternate For DBCC --*/
+    {	NULL,	"dbhis",	S_DBCC,		A_W,	0x54C8	},
+    {	NULL,	"dbhis.w",	S_DBCC,		A_W,	0x54C8	},
+    /*-- Alternate For DBLS --*/
+    {	NULL,	"dblos",	S_DBCC,		A_W,	0x53C8	},
+    {	NULL,	"dblos.w",	S_DBCC,		A_W,	0x53C8	},
 
 	/* Set If Condition True Else Clear */
 
@@ -739,12 +759,18 @@ struct	mne	mne[] = {
     /*---*/
     {	NULL,	"sle",		S_SCC,		A_B,	0x5FC0	},
     {	NULL,	"sle.b",	S_SCC,		A_B,	0x5FC0	},
-    /*---*/
+    /*-- Alternate For SCC --*/
     {	NULL,	"shs",		S_SCC,		A_B,	0x54C0	},
     {	NULL,	"shs.b",	S_SCC,		A_B,	0x54C0	},
-    /*---*/
+    /*-- Alternate For SCS --*/
     {	NULL,	"slo",		S_SCC,		A_B,	0x55C0	},
     {	NULL,	"slo.b",	S_SCC,		A_B,	0x55C0	},
+    /*-- Alternate For SCC --*/
+    {	NULL,	"shis",		S_SCC,		A_B,	0x54C0	},
+    {	NULL,	"shis.b",	S_SCC,		A_B,	0x54C0	},
+    /*-- Alternate For SLS --*/
+    {	NULL,	"slos",		S_SCC,		A_B,	0x53C0	},
+    {	NULL,	"slos.b",	S_SCC,		A_B,	0x53C0	},
 
 	/* Bit Instructions */
 
@@ -827,8 +853,6 @@ struct	mne	mne[] = {
     {	NULL,	"ext.b",	S_EXT,		A_B,	0x4880	},
     {	NULL,	"ext.w",	S_EXT,		A_W,	0x4880	},
     {	NULL,	"ext.l",	S_EXT,		A_L,	0x48C0	},
-    /*---*/
-/*    {	NULL,	"link",		S_LINK,		A_W,	0x4E50	},    */
     /*---*/
     {	NULL,	"rtd",		S_STOP,		A_U,	0x4E74	},
     /*---*/

@@ -2536,7 +2536,7 @@
 	;*  S_BCC:						*
 	;*	BRA, BSR, BHI, BLS, BCC, BCS, BNE, BEQ		*
 	;*	BVC, BVS, BPL, BMI, BGE, BLT, BGT, BLE		*
-	;*	BHS, BLO					*
+	;*	BHS, BLO, BHIS, BLOS				*
 	;*							*
 	;******-----*****-----*****-----*****-----*****-----*****
 
@@ -2810,6 +2810,36 @@
 	blo.l	. + 0x1002		; 65 FF 00 00 10 00
 	blo.l	. + 0x20002		; 65 FF 00 02 00 00
 
+	bhis	10018$			; 64 02
+	bhis	. - 0x7E		; 64 80
+10018$:	bhis	.			; 64 FE
+	bhis	. + 0x04		; 64 02
+	bhis	. + 0x80		; 64 7E
+	bhis	. + 0x82		; 64 00 00 80
+	bhis	. + 0x1002		; 64 00 10 00
+	bhis	. + 0x20002		; 64 FF 00 02 00 00
+	bhis.b	. + 0x12		; 64 10
+	bhis.w	. + 0x12		; 64 00 00 10
+	bhis.l	. + 0x12		; 64 FF 00 00 00 10
+	bhis.w	. + 0x1002		; 64 00 10 00
+	bhis.l	. + 0x1002		; 64 FF 00 00 10 00
+	bhis.l	. + 0x20002		; 64 FF 00 02 00 00
+
+	blos	10019$			; 63 02
+	blos	. - 0x7E		; 63 80
+10019$:	blos	.			; 63 FE
+	blos	. + 0x04		; 63 02
+	blos	. + 0x80		; 63 7E
+	blos	. + 0x82		; 63 00 00 80
+	blos	. + 0x1002		; 63 00 10 00
+	blos	. + 0x20002		; 63 FF 00 02 00 00
+	blos.b	. + 0x12		; 63 10
+	blos.w	. + 0x12		; 63 00 00 10
+	blos.l	. + 0x12		; 63 FF 00 00 00 10
+	blos.w	. + 0x1002		; 63 00 10 00
+	blos.l	. + 0x1002		; 63 FF 00 00 10 00
+	blos.l	. + 0x20002		; 63 FF 00 02 00 00
+
 	.sbttl	Type S_DBCC Instructions: DBT, DBF, Plus Conditional Branches
 
 	;******-----*****-----*****-----*****-----*****-----*****
@@ -2817,7 +2847,7 @@
 	;*  S_DBCC:						*
 	;*	DBT,  DBF,  DBHI, DBLS, DBCC, DBCS, DBNE, DBEQ	*
 	;*	DBVC, DBVS, DBPL, DBMI, DBGE, DBLT, DBGT, DBLE	*
-	;*	DBHS, DBLO, DBRA				*
+	;*	Alternates - DBRA, DBHS, DBLO, DBHIS, DBLOS	*
 	;*							*
 	;******-----*****-----*****-----*****-----*****-----*****
 
@@ -2949,6 +2979,14 @@
 	dble.w	D1,. + 4		; 5F C9 00 02
 	dble.w	D2,. + 0x1004		; 5F CA 10 02
 
+	dbra	D0,.			; 51 C8 FF FE
+	dbra	D1,. + 4		; 51 C9 00 02
+	dbra	D2,. + 0x1004		; 51 CA 10 02
+
+	dbra.w	D0,.			; 51 C8 FF FE
+	dbra.w	D1,. + 4		; 51 C9 00 02
+	dbra.w	D2,. + 0x1004		; 51 CA 10 02
+
 	dbhs	D0,.			; 54 C8 FF FE
 	dbhs	D1,. + 4		; 54 C9 00 02
 	dbhs	D2,. + 0x1004		; 54 CA 10 02
@@ -2965,13 +3003,21 @@
 	dblo.w	D1,. + 4		; 55 C9 00 02
 	dblo.w	D2,. + 0x1004		; 55 CA 10 02
 
-	dbra	D0,.			; 51 C8 FF FE
-	dbra	D1,. + 4		; 51 C9 00 02
-	dbra	D2,. + 0x1004		; 51 CA 10 02
+	dbhis	D0,.			; 54 C8 FF FE
+	dbhis	D1,. + 4		; 54 C9 00 02
+	dbhis	D2,. + 0x1004		; 54 CA 10 02
 
-	dbra.w	D0,.			; 51 C8 FF FE
-	dbra.w	D1,. + 4		; 51 C9 00 02
-	dbra.w	D2,. + 0x1004		; 51 CA 10 02
+	dbhis.w	D0,.			; 54 C8 FF FE
+	dbhis.w	D1,. + 4		; 54 C9 00 02
+	dbhis.w	D2,. + 0x1004		; 54 CA 10 02
+
+	dblos	D0,.			; 53 C8 FF FE
+	dblos	D1,. + 4		; 53 C9 00 02
+	dblos	D2,. + 0x1004		; 53 CA 10 02
+
+	dblos.w	D0,.			; 53 C8 FF FE
+	dblos.w	D1,. + 4		; 53 C9 00 02
+	dblos.w	D2,. + 0x1004		; 53 CA 10 02
 
 	.sbttl	Type S_SCC Instructions: ST, SF, Plus Conditional Branches
 
@@ -2980,7 +3026,7 @@
 	;*  S_SCC:						*
 	;*	ST,  SF,  SHI, SLS, SCC, SCS, SNE, SEQ		*
 	;*	SVC, SVS, SPL, SMI, SGE, SLT, SGT, SLE		*
-	;*	SHS, SLO					*
+	;*	Alternates - SHS, SLO, SHIS, SLOS		*
 	;*							*
 	;******-----*****-----*****-----*****-----*****-----*****
 
@@ -3532,6 +3578,66 @@
 	slo.b	([2,A1,A2],4)		; 55 F1 A1 22 00 02 00
 	slo.b	([6,A2],D3,8)		; 55 F2 31 26 00 06 00
 
+	shis	D7			; 54 C7
+	shis	(A1)			; 54 D1
+	shis	(A2)+			; 54 DA
+	shis	-(A3)			; 54 E3
+	shis	1(A4)			; 54 EC 00 01
+	shis	2(A5,D7.W)		; 54 F5 70 02
+	shis	2(A5,D7.L)		; 54 F5 78 02
+	shis	(0x1234).W		; 54 F8 12 34
+	shis	(0x1234).L		; 54 F9 00 00 12 34
+	shis	*0xFFFFFFF0		; 54 F8 FF F0
+	shis	 0x00010004		; 54 F9 00 01 00 04
+	shis	(0x1234,A0,D1)		; 54 F0 11 20 12 34
+	shis	([2,A1,A2],4)		; 54 F1 A1 22 00 02 00
+	shis	([6,A2],D3,8)		; 54 F2 31 26 00 06 00
+
+	shis.b	D7			; 54 C7
+	shis.b	(A1)			; 54 D1
+	shis.b	(A2)+			; 54 DA
+	shis.b	-(A3)			; 54 E3
+	shis.b	1(A4)			; 54 EC 00 01
+	shis.b	2(A5,D7.W)		; 54 F5 70 02
+	shis.b	2(A5,D7.L)		; 54 F5 78 02
+	shis.b	(0x1234).W		; 54 F8 12 34
+	shis.b	(0x1234).L		; 54 F9 00 00 12 34
+	shis.b	*0xFFFFFFF0		; 54 F8 FF F0
+	shis.b	 0x00010004		; 54 F9 00 01 00 04
+	shis.b	(0x1234,A0,D1)		; 54 F0 11 20 12 34
+	shis.b	([2,A1,A2],4)		; 54 F1 A1 22 00 02 00
+	shis.b	([6,A2],D3,8)		; 54 F2 31 26 00 06 00
+
+	slos	D7			; 53 C7
+	slos	(A1)			; 53 D1
+	slos	(A2)+			; 53 DA
+	slos	-(A3)			; 53 E3
+	slos	1(A4)			; 53 EC 00 01
+	slos	2(A5,D7.W)		; 53 F5 70 02
+	slos	2(A5,D7.L)		; 53 F5 78 02
+	slos	(0x1234).W		; 53 F8 12 34
+	slos	(0x1234).L		; 53 F9 00 00 12 34
+	slos	*0xFFFFFFF0		; 53 F8 FF F0
+	slos	 0x00010004		; 53 F9 00 01 00 04
+	slos	(0x1234,A0,D1)		; 53 F0 11 20 12 34
+	slos	([2,A1,A2],4)		; 53 F1 A1 22 00 02 00
+	slos	([6,A2],D3,8)		; 53 F2 31 26 00 06 00
+
+	slos.b	D7			; 53 C7
+	slos.b	(A1)			; 53 D1
+	slos.b	(A2)+			; 53 DA
+	slos.b	-(A3)			; 53 E3
+	slos.b	1(A4)			; 53 EC 00 01
+	slos.b	2(A5,D7.W)		; 53 F5 70 02
+	slos.b	2(A5,D7.L)		; 53 F5 78 02
+	slos.b	(0x1234).W		; 53 F8 12 34
+	slos.b	(0x1234).L		; 53 F9 00 00 12 34
+	slos.b	*0xFFFFFFF0		; 53 F8 FF F0
+	slos.b	 0x00010004		; 53 F9 00 01 00 04
+	slos.b	(0x1234,A0,D1)		; 53 F0 11 20 12 34
+	slos.b	([2,A1,A2],4)		; 53 F1 A1 22 00 02 00
+	slos.b	([6,A2],D3,8)		; 53 F2 31 26 00 06 00
+
 	.sbttl	Type S_BIT Instructions: BCHG, BCLR, BSET, BTST
 
 	;******-----*****-----*****-----*****-----*****-----*****
@@ -4024,7 +4130,7 @@
 	;******-----*****-----*****-----*****-----*****-----*****
 
 	movem	D0,(A1)			; 48 D1 00 01
-	movem	D1,-(A3)		; 48 E3 00 02
+	movem	D1,-(A3)		; 48 E3 40 00
 	movem	D2,1(A4)		; 48 EC 00 04 00 01
 	movem	A0,2(A5,D7.W)		; 48 F5 01 00 70 02
 	movem	A1,2(A5,D7.L)		; 48 F5 02 00 78 02
@@ -4037,7 +4143,7 @@
 	movem	D5,([6,A2],D3,8)	; 48 F2 00 20 31 26 00
 
 	movem	D0-D3/A0-A7,(A4)	; 48 D4 FF 0F
-	movem	D0-D7/A3/A7,-(A5)	; 48 E5 88 FF
+	movem	D0-D7/A3/A7,-(A5)	; 48 E5 FF 11
 
 	movem	(A1),D0			; 4C D1 00 01
 	movem	(A3)+,D1		; 4C DB 00 02
@@ -4060,7 +4166,7 @@
 	movem	(A5)+,D0-D7/A3/A7	; 4C DD 88 FF
 
 	movem.w	D0,(A1)			; 48 91 00 01
-	movem.w	D1,-(A3)		; 48 A3 00 02
+	movem.w	D1,-(A3)		; 48 A3 40 00
 	movem.w	D2,1(A4)		; 48 AC 00 04 00 01
 	movem.w	A0,2(A5,D7.W)		; 48 B5 01 00 70 02
 	movem.w	A1,2(A5,D7.L)		; 48 B5 02 00 78 02
@@ -4073,7 +4179,7 @@
 	movem.w	D5,([6,A2],D3,8)	; 48 B2 00 20 31 26 00
 
 	movem.w	D0-D3/A0-A7,(A4)	; 48 94 FF 0F
-	movem.w	D0-D7/A3/A7,-(A5)	; 48 A5 88 FF
+	movem.w	D0-D7/A3/A7,-(A5)	; 48 A5 FF 11
 
 	movem.w	(A1),D0			; 4C 91 00 01
 	movem.w	(A3)+,D1		; 4C 9B 00 02
@@ -4096,7 +4202,7 @@
 	movem.w	(A5)+,D0-D7/A3/A7	; 4C 9D 88 FF
 
 	movem.l	D0,(A1)			; 48 D1 00 01
-	movem.l	D1,-(A3)		; 48 E3 00 02
+	movem.l	D1,-(A3)		; 48 E3 40 00
 	movem.l	D2,1(A4)		; 48 EC 00 04 00 01
 	movem.l	A0,2(A5,D7.W)		; 48 F5 01 00 70 02
 	movem.l	A1,2(A5,D7.L)		; 48 F5 02 00 78 02
@@ -4109,7 +4215,7 @@
 	movem.l	D5,([6,A2],D3,8)	; 48 F2 00 20 31 26 00
 
 	movem.l	D0-D3/A0-A7,(A4)	; 48 D4 FF 0F
-	movem.l	D0-D7/A3/A7,-(A5)	; 48 E5 88 FF
+	movem.l	D0-D7/A3/A7,-(A5)	; 48 E5 FF 11
 
 	movem.l	(A1),D0			; 4C D1 00 01
 	movem.l	(A3)+,D1		; 4C DB 00 02
@@ -14741,17 +14847,17 @@
 
 	  ; d16(PC) / (d16,PC)
 
-	cmp	(xb+0x12)(PC),D6	; BC 7A 01 70 FF FE CB
-	cmp	(xw+0x1234)(PC),D6	; BC 7A 01 70 FF FE DE
-	cmp	((xb+0x12),PC),D7	; BE 7A 01 70 FF FE CB
-	cmp	((xw+0x1234),PC),D7	; BE 7A 01 70 FF FE DD
+	cmp	(xb+0x12)(PC),D6	; BC 7A 01 70 FF FE CA
+	cmp	(xw+0x1234)(PC),D6	; BC 7A 01 70 FF FE DC
+	cmp	((xb+0x12),PC),D7	; BE 7A 01 70 FF FE CA
+	cmp	((xw+0x1234),PC),D7	; BE 7A 01 70 FF FE DC
 
 	  ; d8(An,Xn) / (d8,An,Xn)
 
-	cmp	(xb+0x12)(PC,D1.W),D0	; B0 7B 11 30 FF FE CB
-	cmp	(xb+0x12)(PC,A7.L),D1	; B2 7B F9 30 FF FE CB
-	cmp	((xb+0x12),PC,D1.W),D2	; B4 7B 11 30 FF FE CB
-	cmp	((xb+0x12),PC,A7.L),D3	; B6 7B F9 30 FF FE CB
+	cmp	(xb+0x12)(PC,D1.W),D0	; B0 7B 11 30 FF FE CA
+	cmp	(xb+0x12)(PC,A7.L),D1	; B2 7B F9 30 FF FE CA
+	cmp	((xb+0x12),PC,D1.W),D2	; B4 7B 11 30 FF FE CA
+	cmp	((xb+0x12),PC,A7.L),D3	; B6 7B F9 30 FF FE CA
 
 	  ;
 	  ; Addressimg Modes Of Type ([bd,An,Xn],od)
@@ -14762,60 +14868,60 @@
 	cmp	([PC],(xw+0x1234)),D1	; B2 7B 01 53 00 00 12
 	cmp	([PC],(xl+0x12345678)),D1	; B2 7B 01 53 12 34 56
 
-	cmp	([(xb+0x12),PC]),D1	; B2 7B 01 71 FF FE CB
-	cmp	([(xb+0x12),PC],(xb+0x12)),D1	; B2 7B 01 73 FF FE CB
-	cmp	([(xb+0x12),PC],(xw+0x1234)),D1		; B2 7B 01 73 FF FE CB
-	cmp	([(xb+0x12),PC],(xl+0x12345678)),D1	; B2 7B 01 73 FF FE CB
+	cmp	([(xb+0x12),PC]),D1	; B2 7B 01 71 FF FE CA
+	cmp	([(xb+0x12),PC],(xb+0x12)),D1	; B2 7B 01 73 FF FE C9
+	cmp	([(xb+0x12),PC],(xw+0x1234)),D1		; B2 7B 01 73 FF FE C9
+	cmp	([(xb+0x12),PC],(xl+0x12345678)),D1	; B2 7B 01 73 FF FE C9
 
-	cmp	([(xw+0x1234),PC]),D1	; B2 7B 01 71 FF FE DD
-	cmp	([(xw+0x1234),PC],(xb+0x12)),D1		; B2 7B 01 73 FF FE DD
-	cmp	([(xw+0x1234),PC],(xw+0x1234)),D1	; B2 7B 01 73 FF FE DD
-	cmp	([(xw+0x1234),PC],(xl+0x12345678)),D1	; B2 7B 01 73 FF FE DD
+	cmp	([(xw+0x1234),PC]),D1	; B2 7B 01 71 FF FE DB
+	cmp	([(xw+0x1234),PC],(xb+0x12)),D1		; B2 7B 01 73 FF FE DB
+	cmp	([(xw+0x1234),PC],(xw+0x1234)),D1	; B2 7B 01 73 FF FE DB
+	cmp	([(xw+0x1234),PC],(xl+0x12345678)),D1	; B2 7B 01 73 FF FE DB
 
-	cmp	([(xl+0x12345678),PC]),D1	; B2 7B 01 71 12 33 21
-	cmp	([(xl+0x12345678),PC],(xb+0x12)),D1	; B2 7B 01 73 12 33 21
-	cmp	([(xl+0x12345678),PC],(xw+0x1234)),D1	; B2 7B 01 73 12 33 21
-	cmp	([(xl+0x12345678),PC],(xl+0x12345678)),D1	; B2 7B 01 73 12 33 21
+	cmp	([(xl+0x12345678),PC]),D1	; B2 7B 01 71 12 33 20
+	cmp	([(xl+0x12345678),PC],(xb+0x12)),D1	; B2 7B 01 73 12 33 20
+	cmp	([(xl+0x12345678),PC],(xw+0x1234)),D1	; B2 7B 01 73 12 33 1F
+	cmp	([(xl+0x12345678),PC],(xl+0x12345678)),D1	; B2 7B 01 73 12 33 1F
 
 	cmp	([PC,A7]),D1		; B2 7B F1 11
 	cmp	([PC,A7],(xb+0x12)),D1	; B2 7B F1 13 00 00 00
 	cmp	([PC,A7],(xw+0x1234)),D1	; B2 7B F1 13 00 00 12
 	cmp	([PC,A7],(xl+0x12345678)),D1	; B2 7B F1 13 12 34 56
 
-	cmp	([(xb+0x12),PC,A7]),D1	; B2 7B F1 31 FF FE CA
-	cmp	([(xb+0x12),PC,A7],(xb+0x12)),D1	; B2 7B F1 33 FF FE CA
-	cmp	([(xb+0x12),PC,A7],(xw+0x1234)),D1	; B2 7B F1 33 FF FE CA
-	cmp	([(xb+0x12),PC,A7],(xl+0x12345678)),D1	; B2 7B F1 33 FF FE CA
+	cmp	([(xb+0x12),PC,A7]),D1	; B2 7B F1 31 FF FE C9
+	cmp	([(xb+0x12),PC,A7],(xb+0x12)),D1	; B2 7B F1 33 FF FE C9
+	cmp	([(xb+0x12),PC,A7],(xw+0x1234)),D1	; B2 7B F1 33 FF FE C9
+	cmp	([(xb+0x12),PC,A7],(xl+0x12345678)),D1	; B2 7B F1 33 FF FE C9
 
-	cmp	([(xw+0x1234),PC,A7]),D1	; B2 7B F1 31 FF FE DC
-	cmp	([(xw+0x1234),PC,A7],(xb+0x12)),D1	; B2 7B F1 33 FF FE DC
-	cmp	([(xw+0x1234),PC,A7],(xw+0x1234)),D1	; B2 7B F1 33 FF FE DC
-	cmp	([(xw+0x1234),PC,A7],(xl+0x12345678)),D1	; B2 7B F1 33 FF FE DC
+	cmp	([(xw+0x1234),PC,A7]),D1	; B2 7B F1 31 FF FE DB
+	cmp	([(xw+0x1234),PC,A7],(xb+0x12)),D1	; B2 7B F1 33 FF FE DB
+	cmp	([(xw+0x1234),PC,A7],(xw+0x1234)),D1	; B2 7B F1 33 FF FE DB
+	cmp	([(xw+0x1234),PC,A7],(xl+0x12345678)),D1	; B2 7B F1 33 FF FE DB
 
-	cmp	([(xl+0x12345678),PC,A7]),D1	; B2 7B F1 31 12 33 21
-	cmp	([(xl+0x12345678),PC,A7],(xb+0x12)),D1	; B2 7B F1 33 12 33 20
-	cmp	([(xl+0x12345678),PC,A7],(xw+0x1234)),D1	; B2 7B F1 33 12 33 20
-	cmp	([(xl+0x12345678),PC,A7],(xl+0x12345678)),D1	; B2 7B F1 33 12 33 20
+	cmp	([(xl+0x12345678),PC,A7]),D1	; B2 7B F1 31 12 33 1F
+	cmp	([(xl+0x12345678),PC,A7],(xb+0x12)),D1	; B2 7B F1 33 12 33 1F
+	cmp	([(xl+0x12345678),PC,A7],(xw+0x1234)),D1	; B2 7B F1 33 12 33 1F
+	cmp	([(xl+0x12345678),PC,A7],(xl+0x12345678)),D1	; B2 7B F1 33 12 33 1F
 
 	cmp	([PC],A7),D1		; B2 7B F1 15
 	cmp	([PC],A7,(xb+0x12)),D1	; B2 7B F1 17 00 00 00
 	cmp	([PC],A7,(xw+0x1234)),D1	; B2 7B F1 17 00 00 12
 	cmp	([PC],A7,(xl+0x12345678)),D1	; B2 7B F1 17 12 34 56
 
-	cmp	([(xb+0x12),PC],A7),D1	; B2 7B F1 35 FF FE CA
-	cmp	([(xb+0x12),PC],A7,(xb+0x12)),D1	; B2 7B F1 37 FF FE CA
-	cmp	([(xb+0x12),PC],A7,(xw+0x1234)),D1	; B2 7B F1 37 FF FE CA
-	cmp	([(xb+0x12),PC],A7,(xl+0x12345678)),D1	; B2 7B F1 37 FF FE CA
+	cmp	([(xb+0x12),PC],A7),D1	; B2 7B F1 35 FF FE C8
+	cmp	([(xb+0x12),PC],A7,(xb+0x12)),D1	; B2 7B F1 37 FF FE C8
+	cmp	([(xb+0x12),PC],A7,(xw+0x1234)),D1	; B2 7B F1 37 FF FE C8
+	cmp	([(xb+0x12),PC],A7,(xl+0x12345678)),D1	; B2 7B F1 37 FF FE C8
 
-	cmp	([(xw+0x1234),PC],A7),D1	; B2 7B F1 35 FF FE DC
-	cmp	([(xw+0x1234),PC],A7,(xb+0x12)),D1	; B2 7B F1 37 FF FE DC
-	cmp	([(xw+0x1234),PC],A7,(xw+0x1234)),D1	; B2 7B F1 37 FF FE DC
-	cmp	([(xw+0x1234),PC],A7,(xl+0x12345678)),D1	; B2 7B F1 37 FF FE DC
+	cmp	([(xw+0x1234),PC],A7),D1	; B2 7B F1 35 FF FE DA
+	cmp	([(xw+0x1234),PC],A7,(xb+0x12)),D1	; B2 7B F1 37 FF FE DA
+	cmp	([(xw+0x1234),PC],A7,(xw+0x1234)),D1	; B2 7B F1 37 FF FE DA
+	cmp	([(xw+0x1234),PC],A7,(xl+0x12345678)),D1	; B2 7B F1 37 FF FE DA
 
-	cmp	([(xl+0x12345678),PC],A7),D1	; B2 7B F1 35 12 33 20
-	cmp	([(xl+0x12345678),PC],A7,(xb+0x12)),D1	; B2 7B F1 37 12 33 20
-	cmp	([(xl+0x12345678),PC],A7,(xw+0x1234)),D1	; B2 7B F1 37 12 33 20
-	cmp	([(xl+0x12345678),PC],A7,(xl+0x12345678)),D1	; B2 7B F1 37 12 33 20
+	cmp	([(xl+0x12345678),PC],A7),D1	; B2 7B F1 35 12 33 1E
+	cmp	([(xl+0x12345678),PC],A7,(xb+0x12)),D1	; B2 7B F1 37 12 33 1E
+	cmp	([(xl+0x12345678),PC],A7,(xw+0x1234)),D1	; B2 7B F1 37 12 33 1E
+	cmp	([(xl+0x12345678),PC],A7,(xl+0x12345678)),D1	; B2 7B F1 37 12 33 1E
 
 	.sbttl	Branch External Addressing
 
@@ -14826,7 +14932,7 @@
 	;*							*
 	;******-----*****-----*****-----*****-----*****-----*****
 
-10018$:	bra	10018$			; 60 FE
+10020$:	bra	10020$			; 60 FE
 
 		.nval	New_B_Org, .
 		.area	B
@@ -14852,7 +14958,7 @@ y1W::
 
 	bra.w	y1W			; 60 00 FF FE
 
-10019$:	bra	10019$ + 0x200		; 60 00 01 FE
+10021$:	bra	10021$ + 0x200		; 60 00 01 FE
 
 		.nval	New_B_Org, .
 		.area	B
@@ -14870,7 +14976,7 @@ y2W::
 
 	bra.w	y2W + 0x200		; 60 00 01 FE
 
-10020$:	bra	10020$ + 0x20000	; 60 FF 00 01 FF FE
+10022$:	bra	10022$ + 0x20000	; 60 FF 00 01 FF FE
 
 		.nval	New_B_Org, .
 		.area	B
@@ -14888,7 +14994,7 @@ y3L::
 
 	bra.l	y3L + 0x20000		; 60 FF 00 01 FF FE
 
-10021$:	bsr	10021$			; 61 FE
+10023$:	bsr	10023$			; 61 FE
 
 		.nval	New_B_Org, .
 		.area	B
@@ -14914,7 +15020,7 @@ y4W::
 
 	bsr.w	y4W			; 61 00 FF FE
 
-10022$:	bsr	10022$ + 0x200		; 61 00 01 FE
+10024$:	bsr	10024$ + 0x200		; 61 00 01 FE
 
 		.nval	New_B_Org, .
 		.area	B
@@ -14932,7 +15038,7 @@ y5W::
 
 	bsr.w	y5W + 0x200		; 61 00 01 FE
 
-10023$:	bsr	10023$ + 0x20000	; 61 FF 00 01 FF FE
+10025$:	bsr	10025$ + 0x20000	; 61 FF 00 01 FF FE
 
 		.nval	New_B_Org, .
 		.area	B
@@ -14950,7 +15056,7 @@ y6L::
 
 	bsr.l	y6L + 0x20000		; 61 FF 00 01 FF FE
 
-10024$:	bcc	10024$			; 64 FE
+10026$:	bcc	10026$			; 64 FE
 
 		.nval	New_B_Org, .
 		.area	B
@@ -14976,7 +15082,7 @@ y7W::
 
 	bcc.w	y7W			; 64 00 FF FE
 
-10025$:	bcc	10025$ + 0x200		; 64 00 01 FE
+10027$:	bcc	10027$ + 0x200		; 64 00 01 FE
 
 		.nval	New_B_Org, .
 		.area	B
@@ -14994,7 +15100,7 @@ y8W::
 
 	bcc.w	y8W + 0x200		; 64 00 01 FE
 
-10026$:	bcc	10026$ + 0x20000	; 64 FF 00 01 FF FE
+10028$:	bcc	10028$ + 0x20000	; 64 FF 00 01 FF FE
 
 		.nval	New_B_Org, .
 		.area	B
@@ -15028,7 +15134,7 @@ y9L::
 	;*							*
 	;******-----*****-----*****-----*****-----*****-----*****
 
-10027$:	FBT	10027$ + 0x200		; F2 8F 01 FE
+10029$:	FBT	10029$ + 0x200		; F2 8F 01 FE
 
 		.nval	New_B_Org, .
 		.area	B
@@ -15054,7 +15160,7 @@ b1L::
 
 	FBT.l	b1L + 0x200		; F2 CF 00 00 01 FE
 
-10028$:	FBT	10028$ + 0x20000	; F2 CF 00 01 FF FE
+10030$:	FBT	10030$ + 0x20000	; F2 CF 00 01 FF FE
 
 		.nval	New_B_Org, .
 		.area	B
@@ -15081,7 +15187,7 @@ b2L::
 	;*							*
 	;******-----*****-----*****-----*****-----*****-----*****
 
-10029$:	FDBT	D1,10029$ + 0x200	; F2 49 00 0F 01 FC
+10031$:	FDBT	D1,10031$ + 0x200	; F2 49 00 0F 01 FC
 
 		.nval	New_B_Org, .
 		.area	B

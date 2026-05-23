@@ -1,8 +1,8 @@
 /* m68kmch.c */
 
 /*
- *  Copyright (C) 2022-2023  Alan R. Baldwin
- *  Copyright (C) 2022-2023  Nick Downing
+ *  Copyright (C) 2022-2024  Alan R. Baldwin
+ *  Copyright (C) 2022-2024  Nick Downing
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -1215,6 +1215,7 @@ struct mne *mp;
 							v1 |= (1 << a2);
 						}
 					}
+					e1.e_addr = (a_uint) v1;
 				}
 				opcode |= ((0 << 10) | t2 | v2);
 				outaw(opcode);

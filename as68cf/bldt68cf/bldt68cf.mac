@@ -888,6 +888,7 @@
 	; Macro For S_BCC Instructions - 
 	; BRA, BSR, BHI, BLS, BCC, BCS, BNE, BEQ
 	; BVC, BVS, BPL, BMI, BGE, BLT, BGT, BLE
+	; Alternates - BHS, BLO, BHIS, BLOS
 
 	.macro	.BCC.	base ?a
 	  LIST
@@ -927,7 +928,7 @@ a':	base	.
 	;*  S_BCC:						*
 	;*	BRA, BSR, BHI, BLS, BCC, BCS, BNE, BEQ		*
 	;*	BVC, BVS, BPL, BMI, BGE, BLT, BGT, BLE		*
-	;*	BHS, BLO					*
+	;*	Alternates - BHS, BLO, BHIS, BLOS		*
 	;*							*
 	;******-----*****-----*****-----*****-----*****-----*****
 
@@ -943,7 +944,15 @@ a':	base	.
 	    .endif
 	  .endm
 	  ; Set 2
-	  .irp	base	bvc, bvs, bpl, bmi, bge, blt, bgt, ble, bhs, blo
+	  .irp	base	bvc, bvs, bpl, bmi, bge, blt, bgt, ble
+	    .ifnb base
+	      ; ---
+		.BCC.  base
+	      ; ---
+	    .endif
+	  .endm
+	  ; Set 3
+	  .irp	base	bhs, blo, bhis, blos
 	    .ifnb base
 	      ; ---
 		.BCC.  base
@@ -956,6 +965,7 @@ a':	base	.
 	; Macro For S_SCC Instructions - 
 	; ST,  SF,  SHI, SLS, SCC, SCS, SNE, SEQ
 	; SVC, SVS, SPL, SMI, SGE, SLT, SGT, SLE
+	; Alternates - SHS, SLO, SHIS, SLOS
 
 	.macro	.SCC.	mne
 	  LIST
@@ -978,7 +988,7 @@ a':	base	.
 	;*  S_SCC:						*
 	;*	ST,  SF,  SHI, SLS, SCC, SCS, SNE, SEQ		*
 	;*	SVC, SVS, SPL, SMI, SGE, SLT, SGT, SLE		*
-	;*	SHS, SLO					*
+	;*	Alternates - SHS, SLO, SHIS, SLOS		*
 	;*							*
 	;******-----*****-----*****-----*****-----*****-----*****
 
@@ -1006,7 +1016,24 @@ a':	base	.
 	    NLIST
 	  .endm
 	  ; Set 2
-	  .irp	base	svc, svs, spl, smi, sge, slt, sgt, sle, shs, slo
+	  .irp	base	svc, svs, spl, smi, sge, slt, sgt, sle
+	    .ifnb base
+	      .irp	mne base, base'.b, base'.w, base'.l
+		.OK. = 0
+		.iifidn	mne base	.OK. = 1
+		.iifidn mne base'.b	.OK. = 1
+		IFOK
+		  .SCC.  mne
+		ELSEOK
+		  IFERR
+		    .SCC.  mne
+		  ENDERR
+		ENDOK
+	      .endm
+	    .endif
+	  .endm
+	  ; Set 3
+	  .irp	base	shs, slo, shis, slos
 	    .ifnb base
 	      .irp	mne base, base'.b, base'.w, base'.l
 		.OK. = 0

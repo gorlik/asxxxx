@@ -24,8 +24,10 @@
 	.S_SHFT.  = $All + 0	; ASL, ASR, LSL, LSR
 	.S_BCC.   = $All + 0	; BRA, BSR, BHI, BLS, BCC, BCS, BNE, BEQ
 				; BVC, BVS, BPL, BMI, BGE, BLT, BGT, BLE
+				; Alternates - BHS, BLO, BHIS, BLOS
 	.S_SCC.   = $All + 0	; ST,  SF,  SHI, SLS, SCC, SCS, SNE, SEQ
 				; SVC, SVS, SPL, SMI, SGE, SLT, SGT, SLE
+				; Alternates - SHS, SLO, SHIS, SLOS
 	.S_BIT.   = $All + 0	; BCHG, BCLR, BSET, BTST
 	.S_MOV3Q. = $All + 0	; MOV3Q
 	.S_MOVE.  = $All + 0	; MOVE

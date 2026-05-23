@@ -915,7 +915,7 @@
 	;*  S_BCC:						*
 	;*	BRA, BSR, BHI, BLS, BCC, BCS, BNE, BEQ		*
 	;*	BVC, BVS, BPL, BMI, BGE, BLT, BGT, BLE		*
-	;*	BHS, BLO					*
+	;*	Alternates - BHS, BLO, BHIS, BLOS		*
 	;*							*
 	;******-----*****-----*****-----*****-----*****-----*****
 
@@ -1189,6 +1189,36 @@
 	blo.l	. + 0x1002		; 65 FF 00 00 10 00
 	blo.l	. + 0x20002		; 65 FF 00 02 00 00
 
+	bhis	10018$			; 64 02
+	bhis	. - 0x7E		; 64 80
+10018$:	bhis	.			; 64 FE
+	bhis	. + 0x04		; 64 02
+	bhis	. + 0x80		; 64 7E
+	bhis	. + 0x82		; 64 00 00 80
+	bhis	. + 0x1002		; 64 00 10 00
+	bhis	. + 0x20002		; 64 FF 00 02 00 00
+	bhis.b	. + 0x12		; 64 10
+	bhis.w	. + 0x12		; 64 00 00 10
+	bhis.l	. + 0x12		; 64 FF 00 00 00 10
+	bhis.w	. + 0x1002		; 64 00 10 00
+	bhis.l	. + 0x1002		; 64 FF 00 00 10 00
+	bhis.l	. + 0x20002		; 64 FF 00 02 00 00
+
+	blos	10019$			; 63 02
+	blos	. - 0x7E		; 63 80
+10019$:	blos	.			; 63 FE
+	blos	. + 0x04		; 63 02
+	blos	. + 0x80		; 63 7E
+	blos	. + 0x82		; 63 00 00 80
+	blos	. + 0x1002		; 63 00 10 00
+	blos	. + 0x20002		; 63 FF 00 02 00 00
+	blos.b	. + 0x12		; 63 10
+	blos.w	. + 0x12		; 63 00 00 10
+	blos.l	. + 0x12		; 63 FF 00 00 00 10
+	blos.w	. + 0x1002		; 63 00 10 00
+	blos.l	. + 0x1002		; 63 FF 00 00 10 00
+	blos.l	. + 0x20002		; 63 FF 00 02 00 00
+
 	.sbttl	Type S_SCC Instructions: ST, SF, Plus Conditional Branches
 
 	;******-----*****-----*****-----*****-----*****-----*****
@@ -1196,7 +1226,7 @@
 	;*  S_SCC:						*
 	;*	ST,  SF,  SHI, SLS, SCC, SCS, SNE, SEQ		*
 	;*	SVC, SVS, SPL, SMI, SGE, SLT, SGT, SLE		*
-	;*	SHS, SLO					*
+	;*	Alternates - SHS, SLO, SHIS, SLOS		*
 	;*							*
 	;******-----*****-----*****-----*****-----*****-----*****
 
@@ -1279,6 +1309,14 @@
 	slo	D7			; 55 C7
 
 	slo.b	D7			; 55 C7
+
+	shis	D7			; 54 C7
+
+	shis.b	D7			; 54 C7
+
+	slos	D7			; 53 C7
+
+	slos.b	D7			; 53 C7
 
 	.sbttl	Type S_BIT Instructions: BCHG, BCLR, BSET, BTST
 
@@ -2482,7 +2520,7 @@
 	;*							*
 	;******-----*****-----*****-----*****-----*****-----*****
 
-10018$:	bra	10018$			; 60 FE
+10020$:	bra	10020$			; 60 FE
 
 		.nval	New_B_Org,.
 		.area	B
@@ -2516,7 +2554,7 @@ y1L::
 
 	bra.l	y1L			; 60 FF FF FF FF FE
 
-10019$:	bra	10019$ + 0x200		; 60 00 01 FE
+10021$:	bra	10021$ + 0x200		; 60 00 01 FE
 
 		.nval	New_B_Org,.
 		.area	B
@@ -2542,7 +2580,7 @@ y2L::
 
 	bra.l	y2L + 0x200		; 60 FF 00 00 01 FE
 
-10020$:	bra	10020$ + 0x20000	; 60 FF 00 01 FF FE
+10022$:	bra	10022$ + 0x20000	; 60 FF 00 01 FF FE
 
 		.nval	New_B_Org,.
 		.area	B
@@ -2560,7 +2598,7 @@ y3L::
 
 	bra.l	y3L + 0x20000		; 60 FF 00 01 FF FE
 
-10021$:	bsr	10021$			; 61 FE
+10023$:	bsr	10023$			; 61 FE
 
 		.nval	New_B_Org,.
 		.area	B
@@ -2594,7 +2632,7 @@ y4L::
 
 	bsr.l	y4L			; 61 FF FF FF FF FE
 
-10022$:	bsr	10022$ + 0x200		; 61 00 01 FE
+10024$:	bsr	10024$ + 0x200		; 61 00 01 FE
 
 		.nval	New_B_Org,.
 		.area	B
@@ -2620,7 +2658,7 @@ y5L::
 
 	bsr.l	y5L + 0x200		; 61 FF 00 00 01 FE
 
-10023$:	bsr	10023$ + 0x20000	; 61 FF 00 01 FF FE
+10025$:	bsr	10025$ + 0x20000	; 61 FF 00 01 FF FE
 
 		.nval	New_B_Org,.
 		.area	B
@@ -2638,7 +2676,7 @@ y6L::
 
 	bsr.l	y6L + 0x20000		; 61 FF 00 01 FF FE
 
-10024$:	bcc	10024$			; 64 FE
+10026$:	bcc	10026$			; 64 FE
 
 		.nval	New_B_Org,.
 		.area	B
@@ -2672,7 +2710,7 @@ y7L::
 
 	bcc.l	y7L			; 64 FF FF FF FF FE
 
-10025$:	bcc	10025$ + 0x200		; 64 00 01 FE
+10027$:	bcc	10027$ + 0x200		; 64 00 01 FE
 
 		.nval	New_B_Org,.
 		.area	B
@@ -2698,7 +2736,7 @@ y8L::
 
 	bcc.l	y8L + 0x200		; 64 FF 00 00 01 FE
 
-10026$:	bcc	10026$ + 0x20000	; 64 FF 00 01 FF FE
+10028$:	bcc	10028$ + 0x20000	; 64 FF 00 01 FF FE
 
 		.nval	New_B_Org,.
 		.area	B
