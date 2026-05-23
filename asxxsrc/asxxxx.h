@@ -53,7 +53,7 @@
  * Local Definitions
  */
 
-#define	VERSION	"V05.50.5"
+#define	VERSION	"V06.00"
 #define	COPYRIGHT "2026"
 
 /*
@@ -145,6 +145,7 @@
 #define	MAXINC	6		/* Maximum nesting of include files */
 #define	MAXMCR	20		/* Maximum nesting of macro expansions */
 #define	MAXIF	10		/* Maximum nesting of if/else/endif */
+#define	MAXNST	40		/* Maximum nesting of an expression */
 #define	FILSPC	256		/* Chars. in filespec */
 
 #define NLIST	0		/* No listing */
@@ -481,18 +482,30 @@ struct	sym
 	int	s_ref;		/* Ref. number */
 	a_uint	s_addr;		/* Address */
 	a_uint	p_addr;		/* Previous Pass Address */
+	char	*s_expr;	/* Expression to evaluate */
 };
 
 #define	S_EOL		0x40	/* End mark for ___pst files */
 
+/*
+ * Symbol Types
+ */
 #define	S_NEW		0	/* New  Name (External) */
 #define	S_USER		1	/* User Name (Assigned) */
 
+/*
+ * Symbol Flags
+ */
 #define	S_LCL		001	/* Local Variable */
 #define	S_GBL		002	/* Global Variable */
 #define	S_ASG		004	/* Assigned Value */
 #define	S_MDF		010	/* Multiple Definition */
+#define	S_SWX		020	/* Symbol With Expression */
+#define	S_HID		040	/* Symbol Hidden */
 
+/*
+ * Assembler Directive Codes
+ */
 #define	S_OPTN		1	/* .enabl, .dsabl */
 #define	  O_ENBL     1		/* .enabl */
 #define	  O_DSBL     0		/* .dsabl */
@@ -778,7 +791,6 @@ struct	expr
 		struct sym  *e_sp;
 	} e_base;		/* Rel. base */
 	char	e_rlcf;		/* Rel. flags */
-	char	e_inhbt;	/* Inhibit 0[BOQDHX] */
 };
 
 /*
@@ -794,7 +806,8 @@ struct	expr
  *	lnlist	is the saved lnlist of the parent object
  *	fp	is the source FILE handle
  *	afp	is the file path length (excludes the files name.ext)
- *	afn[]	is the assembler/include file path/name.ext
+ *	afs	is the assembler/include file path/name/ext
+ *	afn	is the file name only
  */
 struct	asmf
 {
@@ -806,7 +819,8 @@ struct	asmf
 	int	lnlist;		/* saved lnlist */
 	FILE *	fp;		/* FILE Handle */
 	int	afp;		/* File Path Length */
-	char	afn[FILSPC];	/* File Name */
+	char *	afs;		/* File Specification */
+	char *	afn;		/* File Name Only */
 };
 
 /*
@@ -957,6 +971,14 @@ struct	memlnk {
 
 extern	int	aserr;		/*	ASxxxx error counter
 				 */
+extern	int	rlerr;		/*	Relocation error counter
+				 */
+extern	int	rprterr;	/*	report expr() errors
+				 */
+extern	int	ignrerr;	/*	ignore expr() errors
+				 */
+extern	int	rlsym;		/*	Relocation symbol counter
+				 */
 extern	int	trcflags;	/*	ASxxxx tracing flags
 				 */
 extern	jmp_buf	jump_env;	/*	compiler dependent structure
@@ -1029,11 +1051,15 @@ extern	int	ifcnd[MAXIF+1];	/*	array of IF statement condition
 extern	int	iflvl[MAXIF+1];	/*	array of IF-ELSE-ENDIF flevel
 				 *	values indexed by tlevel
 				 */
-extern	char	afn[FILSPC];	/*	current input file specification
+extern	char *	afs;		/*	current input file specification pointer
+				 */
+extern	char *	afn;		/*	current input file name pointer
 				 */
 extern	int	afp;		/*	current input file path length
 				 */
-extern	char	afntmp[FILSPC];	/*	temporary input file specification
+extern	char	afstmp[FILSPC];	/*	temporary input file specification
+				 */
+extern	char	afntmp[FILSPC];	/*	temporary input file name
 				 */
 extern	int	afptmp;		/*	temporary input file path length
 				 */
@@ -1049,6 +1075,8 @@ extern	int	radix;		/*	current number conversion radix:
 				 *	2 (binary), 8 (octal), 10 (decimal),
 				 *	16 (hexadecimal)
 				 */
+extern	int	expr_radix;	/*	expression process radix
+				 */
 extern	int	line;		/*	current assembler source line number
 				 */
 extern	int	page;		/*	current page number
@@ -1056,6 +1084,8 @@ extern	int	page;		/*	current page number
 extern	int	lop;		/*	current line number on page
 				 */
 extern	time_t	curtim;		/*	pointer to the current time string
+				 */
+extern	int	pstate;		/*	assembler pass state
 				 */
 extern	int	pass;		/*	assembler pass number
 				 */
@@ -1234,11 +1264,13 @@ extern	int		printf();
 extern	char		putc();
 extern	int		rewind();
 extern	int		setjmp();
+extern	int		sprintf()
 extern	int		strchr();
 extern	int		strcmp();
 extern	char *		strcpy();
 extern	int		strlen();
 extern	char *		strncpy();
+extern	char *		strncat();
 extern	char *		strrchr();
 */
 
@@ -1338,13 +1370,17 @@ extern	void		rerr(void);
 /* asexpr.c */
 extern	void		abscheck(struct expr *esp);
 extern	a_uint		absexpr(void);
+extern	void		binop(int c, struct expr *esp, struct expr *re);
 extern	void		clrexpr(struct expr *esp);
 extern	int		digit(int c, int r);
-extern	int		is_digit(int c, int r);
+extern	void		expr(struct expr *esp);
+extern	void		exprx(struct expr *esp, int n);
 extern	void		exprmasks(int n);
-extern	void		expr(struct expr *esp, int n);
-extern	void		binop(int c, struct expr *esp, struct expr *re);
+extern	void		exprscan(struct expr *esp, char *end, char *bgn);
+extern	void		exprsym(struct expr *esp, char *str);
 extern	int		is_abs(struct expr *esp);
+extern	int		is_digit(int c, int r);
+extern	struct sym *	newsym(char *str, char *id, struct area *ap, a_uint addr);
 extern	int		oprio(int c);
 extern	a_uint		rngchk(a_uint n);
 extern	void		term(struct expr *esp);
@@ -1353,6 +1389,11 @@ extern	void		term(struct expr *esp);
 extern	char *		BaseFileName(struct asmf *currFile);
 extern	void		DefineNoICE_Line(void);
 extern	void		DefineSDCC_Line(void);
+extern	void		prntexpr(struct expr *esp, int flg);
+extern	void		prntsym(struct sym *sp);
+extern	void		prnttsym(struct sym *sp);
+extern	void		prntarea(struct area *ap);
+extern	void		prntbank(struct bank *bp);
 
 /* aslist.c */
 extern	void		list(void);
@@ -1457,7 +1498,7 @@ extern	int	nflglmt;
 extern	int	passlmt;
 extern	int	passcnt;
 extern	int	passJLH;
-extern	int	passfuz;
+extern	a_uint	passfuz;
 
 /* asxcnv.c */
 

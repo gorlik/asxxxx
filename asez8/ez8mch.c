@@ -1,7 +1,7 @@
 /* ez8mch.c */
 
 /*
- *  Copyright (C) 2022-2025  Alan R. Baldwin
+ *  Copyright (C) 2022-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -814,7 +814,7 @@ machine(struct mne *mp)
 		t1 = addr(&e1);
 		v1 = (int) e1.e_addr;
 		comma(1);
-		expr(&e2, 0);
+		expr(&e2);
 		if (t1 == S_R) {
 			op |= (v1 << 4);
 		} else {
@@ -839,7 +839,7 @@ machine(struct mne *mp)
 		} else {
 			op |= 0x80;			/* op  T,_  */
 		}
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		if (mchpcr(&e1, &v1, 1)) {
 			if ((v1 < -128) || (v1 > 127))
@@ -912,7 +912,7 @@ machine(struct mne *mp)
 		switch(fg) {
 		default:
 		case O_BTJ:
-			expr(&e1,0);
+			expr(&e1);
 			v1 = (int) e1.e_addr;
 			a1 = is_abs(&e1);
 			comma(1);
@@ -926,14 +926,14 @@ machine(struct mne *mp)
 			a1 = 1;
 			break;
 		}
-		expr(&e2,0);
+		expr(&e2);
 		v2 = (int) e2.e_addr;
 		a2 = is_abs(&e2);
 		comma(1);
 		t3 = addr(&e3);
 		v3 = (int) e3.e_addr;
 		comma(1);
-		expr(&e4, 0);
+		expr(&e4);
 		if (a1 && (v1 & (int) ~1)) {
 			xerr('a', "Required bit value is 0 or 1.");
 		}
@@ -971,7 +971,7 @@ machine(struct mne *mp)
 		switch(fg) {
 		default:
 		case O_BIT:
-			expr(&e1,0);
+			expr(&e1);
 			v1 = (int) e1.e_addr;
 			a1 = is_abs(&e1);
 			comma(1);
@@ -985,7 +985,7 @@ machine(struct mne *mp)
 			a1 = 1;
 			break;
 		}
-		expr(&e2,0);
+		expr(&e2);
 		v2 = (int) e2.e_addr;
 		a2 = is_abs(&e2);
 		comma(1);

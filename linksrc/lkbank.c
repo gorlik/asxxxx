@@ -1,7 +1,7 @@
 /* lkbank.c */
 
 /*
- *  Copyright (C) 2001-2025  Alan R. Baldwin
+ *  Copyright (C) 2001-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -335,7 +335,7 @@ setbank(void)
 		ip = b_bsp->strp;
 		getid(id, -1);
 		if (getnb() == '=') {
-			v = expr(0) & a_mask;
+			v = expr() & a_mask;
 			for (bp = bankp; bp != NULL; bp = bp->b_bp) {
 				if (symeq(id, bp->b_id, 1))
 					break;
@@ -348,7 +348,7 @@ setbank(void)
 				bp->b_flag = B_BASE;
 			}
 		} else {
-			fprintf(stderr, "?ASlink-Error-No '=' in base expression");
+			fprintf(stderr, "?ASlink-Error-No '=' in base expression\n");
 			lkerr++;
 		}
 		b_bsp = b_bsp->link;

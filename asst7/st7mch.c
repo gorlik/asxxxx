@@ -1,7 +1,7 @@
 /* st7mch.c */
 
 /*
- *  Copyright (C) 2010-2025  Alan R. Baldwin
+ *  Copyright (C) 2010-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -1245,7 +1245,7 @@ machine(struct mne *mp)
 		/*
 		 * op   s
 		 */
-			expr(&e1, 0);
+			expr(&e1);
 			outab(op);
 			if (mchpcr(&e1, &v1, 1)) {
 				if ((v1 < -128) || (v1 > 127))
@@ -1267,7 +1267,7 @@ machine(struct mne *mp)
 		t2 = addr(&e2);
 		v2 = (int) e2.e_addr;
 		comma(1);
-		expr(&e3, 0);
+		expr(&e3);
 		if (t2 != S_IMM) {
 			xerr('a', "Second argument not #__.");
 			break;

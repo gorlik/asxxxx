@@ -47,6 +47,7 @@ make asscmp
 make asst6
 make asst7
 make asst8
+make asst9
 make assx
 make astlcs90
 make asz8

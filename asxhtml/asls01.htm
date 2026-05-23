@@ -410,9 +410,9 @@ libraries for object code inclusion or suppression.
 
 <IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
-<A NAME = "Input4"></A>
+<A NAME = "Input6"></A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Linker V5.xx (V4.xx) Input Format
+<IMG SRC = "green.gif" ALT = "-">... Linker V6 (5 and 4) Input Format
 </B></H3>
 
 <H4><B><PRE>
@@ -447,16 +447,16 @@ The object module contains the following designators:
 </PRE></B></H4>
 <A NAME = "Index"></A>
 <UL>
-<LI><A HREF= #Object4>  Object Module Format </A> 
-<LI><A HREF= #Header4>  Header Line </A>
-<LI><A HREF= #Module4>  Module Line </A>
-<LI><A HREF= #Merge4>  Merge Mode Line </A>
-<LI><A HREF= #Symbol4>  Symbol Line </A>
-<LI><A HREF= #Area4>  Area Line </A>
-<LI><A HREF= #Bank4>  Bank Line </A>
-<LI><A HREF= #TLine4>  T Line </A>
-<LI><A HREF= #RLine4>  R Line </A>
-<LI><A HREF= #PLine4>  P Line </A>
+<LI><A HREF= #Object6>  Object Module Format </A> 
+<LI><A HREF= #Header6>  Header Line </A>
+<LI><A HREF= #Module6>  Module Line </A>
+<LI><A HREF= #Merge6>  Merge Mode Line </A>
+<LI><A HREF= #Symbol6>  Symbol Line </A>
+<LI><A HREF= #Area6>  Area Line </A>
+<LI><A HREF= #Bank6>  Bank Line </A>
+<LI><A HREF= #TLine6>  T Line </A>
+<LI><A HREF= #RLine6>  R Line </A>
+<LI><A HREF= #PLine6>  P Line </A>
 <BR><BR>
 <LI><A HREF="aslink.htm#Index">  Return to the Linker Index</A>
 </UL>
@@ -464,7 +464,7 @@ The object module contains the following designators:
 <HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
 
 <H4><B><PRE>
-<A NAME = "Object4"></A><FONT COLOR="#FF0000">Object Module Format</FONT>
+<A NAME = "Object6"></A><FONT COLOR="#FF0000">Object Module Format</FONT>
 
    The   first   line   of   an   object   module  contains  the
 [XDQ][HL][234] format specifier  (i.e.   XH2  indicates  a  hex-
@@ -477,7 +477,7 @@ dressing) for the following designators.
 <HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
 
 <H4><B><PRE>
-<A NAME = "Header4"></A><FONT COLOR="#FF0000">Header Line</FONT>
+<A NAME = "Header6"></A><FONT COLOR="#FF0000">Header Line</FONT>
 
         H aa areas gg global symbols 
 
@@ -491,7 +491,7 @@ ject module segment.
 <HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
 
 <H4><B><PRE>
-<A NAME = "Module4"></A><FONT COLOR="#FF0000">Module Line</FONT>
+<A NAME = "Module6"></A><FONT COLOR="#FF0000">Module Line</FONT>
 
         M name 
 
@@ -505,7 +505,7 @@ if the .module directive was not used in the source program.
 <HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
 
 <H4><B><PRE>
-<A NAME = "Merge4"></A><FONT COLOR="#FF0000">Merge Mode Line</FONT>
+<A NAME = "Merge6"></A><FONT COLOR="#FF0000">Merge Mode Line</FONT>
 
         G nn ii 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F 
 
@@ -536,7 +536,7 @@ value.
 <HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
 
 <H4><B><PRE>
-<A NAME = "Bank4"></A><FONT COLOR="#FF0000">Bank Line</FONT>
+<A NAME = "Bank6"></A><FONT COLOR="#FF0000">Bank Line</FONT>
 
         B string base nn size nn map nn flags nn fsfx string 
 
@@ -559,7 +559,7 @@ parameters have been set.
 <HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
 
 <H4><B><PRE>
-<A NAME = "Area4"></A><FONT COLOR="#FF0000">Area Line</FONT>
+<A NAME = "Area6"></A><FONT COLOR="#FF0000">Area Line</FONT>
 
         A label size ss flags ff [bank bb] [bndry mm] 
 
@@ -590,28 +590,88 @@ crease the area (area segment) size by the same amount.
 <HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
 
 <H4><B><PRE>
-<A NAME = "Symbol3"></A><FONT COLOR="#FF0000">Symbol Line</FONT>
+<A NAME = "Symbol6"></A><FONT COLOR="#FF0000">Symbol Line</FONT>
 
-        S string Defnnnn 
+       S name Defnnnn 
 
-                or 
+               or 
 
-        S string Refnnnn 
+       S name Refnnnn 
 
-   The  symbol line defines (Def) or references (Ref) the symbol
-'string' with the value nnnn.  The defined value is relative  to
-the  current  area  base  address.   References to constants and
-external global symbols will always appear before the first area
+  The symbol line defines (Def) or references (Ref) the identi-
+fier name with the value nnnn.  The defined value is relative to
+the  current area base address.  References to constants and ex-
+ternal global symbols will always appear before the  first  area
 definition.  References to external symbols will have a value of
 zero.  
 
+  Version  6  supports a modified form of the symbol definition
+line used to pass complex expressions to the linker.  These  de-
+finitions  are  never shown in the associated symbol listings or
+generated map file.  
+
+       S name =D nnnn 
+
+               or 
+
+       S name =Rn^Z( exression ) 
+
+  The '=D ' pefixes a value normally associated with a relocat-
+able program counter value.  
+
+  The '=Rn' prefixes an expression.  The 'n' has a value from 1
+to 3 specifying the MSB byte number (1 - <15:8>, 2 - <23:16>, or
+3  - (31:24>) defined by the assembler.  This informs the linker
+how to interpret > in an expression.  
+
+  The  evaluation includes the '^Z', the enclosing parenthesis,
+and the expression.  The '^Z' will be ^Q, ^D, or  ^X  indicating
+the  default  radix  to be used when evaluating any valid arith-
+metic or logical expression.  
+
+  These are examples of symbol definitions that might be passed
+to the linker:  
+
+S N Def0012
+S xN Ref0000
+S tst9_1 =D 139A
+S tst9_2 =R1^D(tst9_1+N + xN)
+
+The  linker will evaluate the value for tst9_2 using the defined
+value of 2 for N, the defined value of 139A for tst9_1, and  the
+external value xN.  The value of xN will be supplied by an addi-
+tional linked file or a linker -g option.  
+
+S vb Ref0000
+S reloc_8 =R1^X(<(vb/2 + 20 + 1000 + vb))
+
+The  linker will evaluate the expression using hexadecimal radix
+for the 20 and 1000 constants, the external value of vb,  and  <
+to get the LSB value.  The value of vb wil be supplied by an ad-
+ditional linked file or the linker -g option.  
+
+  The  symbol  names are derived from the assembler source file
+name and labels (not from an include file name).  As an example: 
+
+3$:     jmp     3$ + va + vb
+
+generates the following symbols (in Octal) 
+
+S va Ref000000
+S vb Ref000000
+S rl_pdp11.lbl3.3$ =D 000100
+S rl_pdp11_14 =R1^D(rl_pdp11.lbl3.3$ + va + vb)
+
+rl_pdp11  is  the  file name, lbl3 is a program label, and 3$ is
+the temporary symbol following the label lbl3.   This  label  is
+created because 3$ as a temporary label cannot be made global.  
 </PRE></B></H4>
 <H5><A HREF= #Index> =&gt; Section Index</A></H5>
 
 <HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
 
 <H4><B><PRE>
-<A NAME = "TLine4"></A><FONT COLOR="#FF0000">T Line</FONT>
+<A NAME = "TLine6"></A><FONT COLOR="#FF0000">T Line</FONT>
 
         T xx xx nn nn nn nn nn ...  
 
@@ -627,7 +687,7 @@ fied by the .REL file header.)
 <HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
 
 <H4><B><PRE>
-<A NAME = "RLine4"></A><FONT COLOR="#FF0000">R Line</FONT>
+<A NAME = "RLine6"></A><FONT COLOR="#FF0000">R Line</FONT>
 
         R 0 0 nn nn n1 n2 xx xx ...  
 
@@ -668,7 +728,7 @@ cation in the preceding T line.
 <HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
 
 <H4><B><PRE>
-<A NAME = "PLine4"></A><FONT COLOR="#FF0000">P Line</FONT>
+<A NAME = "PLine6"></A><FONT COLOR="#FF0000">P Line</FONT>
 
         P 0 0 nn nn n1 n2 xx xx 
 
@@ -695,7 +755,7 @@ specify the _CODE area first, making this the default page area.
 <HR SIZE="3" WIDTH="100%" ALIGN="Center" NOSHADE>
 
 <H4><B><PRE>
-<A NAME = "Bits4"></A><FONT COLOR="#FF0000">24-Bit and 32-Bit Addressing</FONT>
+<A NAME = "Bits6"></A><FONT COLOR="#FF0000">24-Bit and 32-Bit Addressing</FONT>
 
    When  24-bit  or  32-bit  addressing is specified in the file
 format line [XDQ][HL][234] then the S and T Lines have  modified
@@ -718,9 +778,9 @@ uses the second byte of the 2, 3, or 4-byte data.
 
 <IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
-<A NAME = "Error4"></A>
+<A NAME = "Error6"></A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Linker V5.xx (V4.xx) Error Messages
+<IMG SRC = "green.gif" ALT = "-">... Linker V6 (5 and 4) Error Messages
 </B></H3>
 
 <H4><B><PRE>
@@ -831,7 +891,7 @@ area to locate the offending code.
 
 <A NAME = "Input3"></A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Linker V3.xx Input Format
+<IMG SRC = "green.gif" ALT = "-">... Linker V3 Input Format
 </B></H3>
 
 <H4><B><PRE>
@@ -1068,7 +1128,7 @@ uses the second byte of the 2, 3, or 4-byte data.
 
 <A NAME = "Error3"></A>
 <H3><B>
-<IMG SRC = "green.gif" ALT = "-">... Linker V3.xx Error Messages
+<IMG SRC = "green.gif" ALT = "-">... Linker V3 Error Messages
 </B></H3>
 
 <H4><B><PRE>
@@ -1516,6 +1576,6 @@ is the execution address.
 <B>...  Home Page</B>
 </P>
 
-<H6><B>Last Updated: March 2025</B></H6>
+<H6><B>Last Updated: May 2026</B></H6>
 </BODY> 
 </HTML>

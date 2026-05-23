@@ -1,7 +1,7 @@
 /* s26mch.c */
 
 /*
- *  Copyright (C) 2005-2025  Alan R. Baldwin
+ *  Copyright (C) 2005-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -144,7 +144,7 @@ machine(struct mne *mp)
 		} else {
 			unget(c);
 		}
-		expr(&e2, 0);
+		expr(&e2);
 		outab(op | (0x03 & a1));
 		if (mchpcr(&e2, &v2, 1)) {
 			if ((v2 < -64) || (v2 > 63)) {
@@ -294,7 +294,7 @@ machine(struct mne *mp)
 		} else {
 			unget(c);
 		}
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		if (mchpcr(&e1, &v1, 1)) {
 			if ((v1 < -64) || (v1 > 63)) {
@@ -348,7 +348,7 @@ machine(struct mne *mp)
 		} else {
 			unget(c);
 		}
-		expr(&e2, 0);
+		expr(&e2);
 		if (t1 == S_CC) {
 			v1 = op | (0x03 & a1);
 			outab(v1);
@@ -449,7 +449,7 @@ machine(struct mne *mp)
 		} else {
 			unget(c);
 		}
-		expr(&e2, 0);
+		expr(&e2);
 		outab(op | (0x03 & a1));
 		if (mchpcr(&e2, &v2, 1)) {
 			if ((v2 < -64) || (v2 > 63)) {

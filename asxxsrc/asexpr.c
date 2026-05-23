@@ -1,7 +1,7 @@
 /* asexpr.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -43,27 +43,147 @@
  *	asexpr.c contains the following functions:
  *		void	abscheck()
  *		a_uint	absexpr()
- *		int	is_abs()
+ *		void	binop()
  *		void	clrexpr()
  *		int	digit()
  *		void	expr()
  *		void	exprmasks()
+ *		void	exprscan()
+ *		void	exprsym()
+ *		int	is_abs()
+ *		int	is_digit()
+ *	struct	sym *	newsym()
  *		int	oprio()
+ *		int	rngchk()
  *		void	term()
  *
  *	asexpr.c contains no local/static variables
  */
 
-/*)Function	void	expr(esp, n)
+/*)Function	void	expr(esp)
+ *
+ *		expr *	esp		pointer to an expr structure
+ *
+ *	The function expr() initializes variables, calls
+ *	the evaluation function exprx(), and may call the
+ *	complex argument exprscan() function.  The evaluation
+ *	stores its value and relocation information into
+ *	the expr structure supplied by the user.
+ *
+ *	local variables:
+ *		int	c		current assembler-source
+ *					text character
+ *		char *	jp		pointer to first source character
+ *		char *	kp		temporary pointer
+ *
+ *	global variables:
+ *		char	ctype[]		array of character types, one per
+ *					ASCII character
+ *		int	expr_radix	expr() radix value
+ *		int	ignrerr		ignore errors flag
+ *		char *	ip		pointer to next source character
+ *		int	radix		current assembler radix
+ *		int	rprterr		report errors flag
+ *
+ *	functions called:
+ *		void	binop()		asexpr.c
+ *		void	clrexpr()	asexpr.c
+ *		void	expr()		asexpr.c
+ *		void	exprscan()	asexpr.c
+ *		int	get()		aslex.c
+ *		int	getnb()		aslex.c
+ *		int	oprio()		asexpr.c
+ *		void	xerr()		assubr.c
+ *		void	term()		asexpr.c
+ *		void	unget()		aslex.c
+ *
+ *
+ *	side effects:
+ *		An expression is evaluated modifying the user supplied
+ *		expr structure, a sym structure maybe created for an
+ *		undefined symbol, and the parse of the expression may
+ *		terminate if a 'q' error occurs.
+ */
+
+/*
+ *	Notes about the processing of complex expressions that
+ *	is now supported by ASxxxx version 6 and later:
+ *
+ *	The function expr() has been modified to trap the
+ *	relocation errors, (r), and generate special symbols
+ *	to allow the relocations to be performed by the linker.
+ *
+ *	ASxxxx versions prior to 6 allowed only these
+ *	argument options:
+ *
+ *		1)	a local  constant
+ *		2)	a local  label
+ *		3)	a local  label +/- a constant
+ *		4)	a global constant
+ *		5)	a global label
+ *		6)	a global label +/- a constant
+ *
+ *	ASxxxx versions 6 and later support any valid
+ *	arithmetic or logical expression containing
+ *	local and/or global constants and/or labels.
+ *
+ *	The valid operations are all those
+ *	natively supported by the assembler.
+ *
+ */
+
+void
+expr(struct expr *esp)
+{
+	int c;
+	char *jp, *kp;
+
+	/*
+	 * Set ignore error
+	 * Clear The Inhibit Flag
+	 * Reset Relocation Error Count
+	 * Preset expr_radix
+	 */
+	ignrerr = (rprterr ? 0 : 1);
+	expr_radix = radix;
+	rlerr = 0;
+	/*
+	 *	Skip Any Leading White Space
+	 */
+	kp = ip;
+	c = getnb();
+	unget(c);
+	jp = ip;
+	ip = kp;
+	/*
+	 * Process Expression
+	 */
+	exprx(esp, 0);
+	/*
+	 * Reset error processing
+	 */
+	rprterr = 0;
+	ignrerr = 0;
+	/*
+	 * Push Complex Relocations To Linker
+	 */
+	if ((pass != 0) && (rlerr != 0) && (jp != ip)) {
+		exprscan(esp, jp, ip);
+	}
+}
+
+/*)Function	void	exprx(esp, n)
  *
  *		expr *	esp		pointer to an expr structure
  *		int	n		a firewall priority; all top
  *					level calls (from the user)
  *					should be made with n set to 0.
  *
- *	The function expr() evaluates an expression and
+ *	The function exprx() evaluates an expression and
  *	stores its value and relocation information into
- *	the expr structure supplied by the user.
+ *	the expr structure supplied by the user. This
+ *	function should only be called after initialization
+ *	from expr() or recursively during exprx() processing.
  *
  *	local variables:
  *		int	c		current assembler-source
@@ -74,10 +194,11 @@
  *	global variables:
  *		char	ctype[]		array of character types, one per
  *					ASCII character
- *
  *	functions called:
  *		void	binop()		asexpr.c
  *		void	clrexpr()	asexpr.c
+ *		void	exprx()		asexpr.c
+ *		int	get()		aslex.c
  *		int	getnb()		aslex.c
  *		int	oprio()		asexpr.c
  *		void	xerr()		assubr.c
@@ -93,11 +214,14 @@
  */
 
 void
-expr(struct expr *esp, int n)
+exprx(struct expr *esp, int n)
 {
 	int c, p;
 	struct expr re;
 
+	/*
+	 * Process Expression
+	 */
 	term(esp);
 	while (ctype[c = getnb()] & BINOP) {
 		/*
@@ -106,14 +230,329 @@ expr(struct expr *esp, int n)
 		if ((p = oprio(c)) <= n)
 			break;
 		if ((c == '>' || c == '<') && c != get())
-			xerr('q', "Binary operator >> or << expected.");
+			xerr('q', "Binary operator >> or << expected");
 		clrexpr(&re);
-		expr(&re, p);
+		exprx(&re, p);
 		esp->e_rlcf |= re.e_rlcf;
 
 		binop(c, esp, &re);
 	}
 	unget(c);
+}
+
+/*)Function	void	exprscan(struct expr *esp, char *bgn, char *end)
+ *
+ *		struct expr *	esp	pointer to an expr structure
+ *		char *		bgn	pointer to first character of argument
+ *		char *		end	pointer to last + 1 character of argument
+ *
+ *	The function exprscan() is called when the evaluation
+ *	of the argument expression results in relocation
+ *	errors (rerr()).  Relocation errors are created
+ *	when the argument is not a symbol +/- constant.
+ *
+ *	The function scans the argument to detect those
+ *	elements that are local symbols, local equates, or
+ *	the program counter('.').  For each of these elements
+ *	a hidden global symbol is created.  These created
+ *	symbols are substituted for the original elements
+ *	in the argument.  A new hidden global symbol is
+ *	created which contains this new argument.  The
+ *	assembler outputs this special symbol to the
+ *	.rel file.  The linker then processes the supplied
+ *	argument generating the value for this argument.
+ *		
+ *	local variables:
+ *		int	c		character from argument
+ *		int	ct		character case type
+ *		int	sc		argument scanning character
+ *		int	scnt		number of '$'s in argument segment
+ *		int	i		loop counter
+ *		int	n		n$ number
+ *		int	v		digit value
+ *		char	nbufr[]		name string buffer
+ *		char	obufr[]		output string buffer
+ *		char	sbufr[]		scanning argument buffer
+ *		char *	o		obufr pointer
+ *		char *	s		generic buffer pointer
+ *		struct sym *	sp	symbol structure pointer
+ *		struct tsym *	tp	tempoary symbol structure pointer
+ *
+ *	global variables:
+ *		struct asmf *	asmc	pointer to the current input structure
+ *		char	ctype[]		character type
+ *		int	rlsym		relocatable symbol counter
+ *
+ *	functions called:
+ *		int	digit()		asexpr.c
+ *		struct sym * newsym()	asexpr.c
+ *		void	exprsym()	asexpr.c
+ *		a_uint	rngchk()	asexpr.c
+ *		struct sym * slookup()	assym.c
+ *		int	sprintf()	c_library
+ *		int	strncpy()	c_library
+ *
+ *
+ *	side effects:
+ *		An expression is evaluated modifying the user supplied
+ *		expr structure, multiple sym structures may be created.
+ */
+
+void
+exprscan(struct expr *esp, char *bgn, char *end)
+{
+	int c, ct;
+	int i, d;
+	a_uint n;
+	char sbufr[128];
+	char nbufr[128];
+	char obufr[256];
+	char *o, *s;
+	struct sym *sp;
+	struct tsym *tp;
+
+	/*
+	 * Clear buffers
+	 */
+	o = obufr;	/* output string buffer */
+	*o = 0;
+	s = sbufr;	/* argument string buffer */
+	*s = 0;
+
+	/*
+	 * Override R_MSB when linker evaluates expression
+	 */
+	esp->e_rlcf &= ~R_MSB;
+
+	while (bgn <= end) {
+		if (bgn == end) {
+			c = 0;
+			ct = 0;
+		} else {
+			ct = ctype[(c = *bgn & 0x7F)];
+		}
+		/*
+		 * Note: SPACE and ETC also have a ctype[c] of 0
+ 		 */
+		if ((ct == 0) || (ct == BINOP)) {
+			if (s != sbufr) {
+				s = sbufr;
+				/*
+				 * Determine first character type
+				 */
+				ct = ctype[*s & 0x007F];
+				/*
+				 * Evaluate digit sequences as reusable
+				 * symbols if followed by a '$'.
+				 */
+				while (ctype[*s++ & 0x007F] & RAD10) { ; }
+
+				if (((ct & RAD10) == RAD10) && (*(s-1) == '$') && (*s == 0)) {
+					s = sbufr;
+					n = 0;
+					while ((d = digit(*s++, 10)) >= 0) {
+						n = 10*n + d;
+					}
+					n = rngchk(n);
+					/*
+					 * Reusable symbol follows this symbol
+					 */
+					tp = symp->s_tsym;
+					for (i=0; i<NHASH; i++) {
+						sp = symhash[i];
+						while (sp) {
+							if (sp->s_tsym == tp) {
+								i = NHASH;
+								break;
+							}
+							sp = sp->s_sp;
+						}
+					}
+					/*
+					 * Create symbol name
+					 */
+					sprintf(nbufr, "%.32s.%.80s.%d$", asmc->afn, sp->s_id, n);
+					while (tp) {
+						if (tp->t_num == n) {
+							/*
+							 * Create/Update symbol
+							 */
+							sp = newsym(nbufr, sbufr, tp->t_area, tp->t_addr);
+							break;
+						}
+						tp = tp->t_lnk;
+					}
+					s = nbufr;
+				} else {
+					/*
+					 * Create/Update symbol
+					 */
+					sp = slookup(sbufr);
+					if (sp != NULL) {
+						if (sp == &dot) {
+							sprintf(nbufr, "%.32s_%d", asmc->afn, ++rlsym);
+							sp = newsym(nbufr, sbufr, sp->s_area, sp->s_addr);
+							s = nbufr;
+						} else {
+							sprintf(nbufr, "%.32s.%.80s", asmc->afn, sbufr);
+							if ((sp->s_flag & S_GBL) == 0) {
+								sp = newsym(nbufr, sbufr, sp->s_area, sp->s_addr);
+								s = nbufr;
+							} else {
+								sp = slookup(nbufr);
+								if (sp != NULL) {
+									sp->s_flag &= ~S_GBL;
+								}
+								s = sbufr;
+							}
+						}
+					} else {
+						s = sbufr;
+					}
+				}
+				while (*s) {
+					if (o < &obufr[250]) *o++ = *s;
+					s++;
+				}
+				s = sbufr;		/* clear symbol string */
+				*s = 0;
+			}
+			*o = c;				/* copy SPACE/ETC/BINOP or terminate string */
+			if (o < &obufr[250]) o++;	/* limit for exprsym() */
+		} else {
+			*s = c;				/* build symbol string */
+			if (s < &sbufr[126]) s++;	/* limit to buffer size */
+			*s = 0;				/* Terminate buffer */
+		}
+		bgn++;
+	}
+	/* strip trailing white space */
+	o = obufr + strlen(obufr);
+	while ((o != obufr) && (((c = *(--o)) == ' ') || (c == '\t'))) *o = 0;
+	/* create expression symbol */
+	exprsym(esp, obufr);
+}
+
+/*)Function	struct sym *newsym(char *str, struct area *ap, a_uint addr)
+ *
+ *
+ *		char *		str	contains the name of the new symbol
+ *		struct area *	ap	symbols area
+ *		a_uint		addr	symbol address
+ *
+ *	The function newsym() creates a new special symbol
+ *	with the attributes of global and hidden.
+ *	The name of the symbol is provided by the string str.
+ *	The symbols area and address values are set using
+ *	the ap and addr parameters.
+ *
+ *	local variables:
+ *		struct sym *	sp	the symbol structure
+ *
+ *	global variables:
+ *		int	rlsym		relocation symbol number
+ *
+ *	functions called:
+ *		struct sym * lookup()	assym.c
+ *		void	xerr()		assubr.c
+ *
+ *
+ *	side effects:
+ *		A new hidden global symbol may be created.
+ */
+
+struct sym *
+newsym(char *str, char *id, struct area *ap, a_uint addr)
+{
+	struct sym *sp;
+
+	sp = slookup(str);
+	if (sp == NULL) {
+		/*
+		 * Make a new global symbol but hidden
+		 */
+		sp = lookup(str);
+		sp->s_id = strsto(str);
+		sp->s_type = S_USER;
+		sp->s_flag |= (S_GBL | S_HID);
+		sp->s_expr = strsto(id);
+	}
+	sp->s_area = ap;
+	sp->s_addr = addr;
+
+	return(sp);
+}
+
+/*)Function	void	exprsym(struct expr *esp, char *str)
+ *
+ *		struct expr *	esp	pointer to the expression to modify
+ *		char *	str		pointer to the argument string
+ *
+ *	The function exprsym() creates a special symbol
+ *	to allow the linker to process complex arguments
+ *	containing more than just a constant or an external
+ *	symbol +/- a constant.
+ *
+ *	local variables:
+ *		char *	bufr		string buffer
+ *		char *	p		string pointer
+ *		sym	sp		pointer to a symbol structure
+ *
+ *	global variables:
+ *		int	rlsym		relocation symbol number
+ *		int	expr_radix	internal expr() radix value
+ *
+ *	functions called:
+ *		sym *	lookup()	assym.c
+ *		int	sprintf()	c_library
+ *		char *	strcat()	c_library
+ *		char *	strcpy()	c_library
+ *		char *	strsto()	assym.c
+ *		void	xerr()		assubr.c
+ *
+ *	side effects:
+ *		A new unique symbol is created and the expression
+ *		string required to calculate the value of the symbol
+ *		is saved in the symbol structure.
+ */
+
+void
+exprsym(struct expr *esp, char *str)
+{
+	char bufr[256];
+	char *p;
+	struct sym *sp;
+
+	/*
+	 * Create a new symbol
+	 */
+	sprintf(bufr, "%.32s_%d", asmc->afn, ++rlsym);
+	sp = lookup(bufr);
+	if ((sp->s_type == S_NEW) && (sp->s_flag == 0)) {
+		sp->s_id = strsto(bufr);
+		/*
+		 * Pass current radix to linker
+		 * when evaluating the expression.
+		 */
+		switch(expr_radix) {
+		case 2:		p = "^B(";	break;
+		case 8:		p = "^O(";	break;
+		case 10:	p = "^D(";	break;
+		case 16:	p = "^X(";	break;
+		default:	p = "";		break;
+		}
+		strcpy(bufr, p);
+		strcat(bufr, str);
+		if (*p) strcat(bufr, ")");
+		sp->s_expr = strsto(bufr);
+		/*
+		 * Make symbol global and hidden with an expression
+		 */
+		sp->s_flag |= (S_GBL | S_SWX | S_HID);
+	}
+	esp->e_flag = 1;
+	esp->e_addr = 0;
+	esp->e_base.e_sp = sp;
 }
 
 /*)Function	void	binop(c, esp, re)
@@ -148,6 +587,7 @@ void
 binop(int c, struct expr *esp, struct expr *re)
 {
 	a_uint ae, ar;
+	int re_is_abs;
 	struct area *ap;
 
 	/*
@@ -197,6 +637,7 @@ binop(int c, struct expr *esp, struct expr *re)
 		/*
 		 * Both operands (esp and re) must be constants
 		 */
+		re_is_abs = is_abs(re);
 		abscheck(esp);
 		abscheck(re);
 		switch (c) {
@@ -211,7 +652,13 @@ binop(int c, struct expr *esp, struct expr *re)
 		case '/':
 			if (ar == 0) {
 				ae = 0;
-				err('z');
+				if (re_is_abs && ignrerr) {
+					ignrerr = 0;
+					err('z');
+					ignrerr = 1;
+				} else {
+					err('z');
+				}
 			} else {
 				ae /= ar;
 			}
@@ -228,7 +675,13 @@ binop(int c, struct expr *esp, struct expr *re)
 		case '%':
 			if (ar == 0) {
 				ae = 0;
-				err('z');
+				if (re_is_abs && ignrerr) {
+					ignrerr = 0;
+					err('z');
+					ignrerr = 1;
+				} else {
+					err('z');
+				}
 			} else {
 				ae %= ar;
  			}
@@ -252,7 +705,7 @@ binop(int c, struct expr *esp, struct expr *re)
  		}
  	}
 	esp->e_addr = rngchk(ae);
- }
+}
 
  /*)Function	a_uint	absexpr()
  *
@@ -282,7 +735,7 @@ absexpr(void)
 	struct expr e;
 
 	clrexpr(&e);
-	expr(&e, 0);
+	expr(&e);
 	abscheck(&e);
 	return (e.e_addr);
 }
@@ -310,6 +763,7 @@ absexpr(void)
  *		char *	jp		pointer to assembler-source text
  *		a_uint	n		constant evaluation running sum
  *		int	r		current evaluation radix
+ *		int	t		temporary radix flag & value
  *		mne	mp		pointer to a mne structure
  *		sym *	sp		pointer to a sym structure
  *		tsym *	tp		pointer to a tsym structure
@@ -318,6 +772,7 @@ absexpr(void)
  *	global variables:
  *		char	ctype[]		array of character types, one per
  *					ASCII character
+ *		int	expr_radix	internal expression radix
  *		sym *	symp		pointer to a symbol structure
  *
  *	functions called:
@@ -343,16 +798,16 @@ absexpr(void)
 void
 term(struct expr *esp)
 {
-	int c;
+	int c, d;
 	char *jp;
 	char id[NCPS];
 	struct mne  *mp;
 	struct sym  *sp;
 	struct tsym *tp;
-	int r, s, t, v;
+	int r, t;
 	a_uint n;
 
- 	r = radix;
+ 	r = expr_radix;
 	c = getnb();
 	/*
  	 * Discard the unary '+' at this point and
@@ -363,10 +818,10 @@ term(struct expr *esp)
 
 	/*
  	 * Evaluate all binary operators
-	 * by recursively calling expr().
+	 * by recursively calling exprx().
 	 */
 	if (c == LFTERM) {
-		expr(esp, 0);
+		exprx(esp, 0);
 		if (getnb() != RTTERM)
 			qerr();
 		return;
@@ -389,13 +844,13 @@ term(struct expr *esp)
 
 	c = getnb();
 	if (c == '-') {
-		expr(esp, 100);
+		exprx(esp, 100);
 		abscheck(esp);
 		esp->e_addr = ~esp->e_addr + 1;
 		return;
 	}
 	if (c == '~') {
-		expr(esp, 100);
+		exprx(esp, 100);
 		abscheck(esp);
 		esp->e_addr = ~esp->e_addr;
 		return;
@@ -422,7 +877,7 @@ term(struct expr *esp)
 		return;
 	}
 	if (c == '>' || c == '<') {
-		expr(esp, 100);
+		exprx(esp, 100);
 		if (is_abs (esp)) {
 			/*
 			 * evaluate byte selection directly
@@ -451,8 +906,8 @@ term(struct expr *esp)
 		}
 		if (*jp == '$') {
 			n = 0;
-			while ((v = digit(c, 10)) >= 0) {
-				n = 10*n + v;
+			while ((d = digit(c, 10)) >= 0) {
+				n = 10*n + d;
 				c = get();
 			}
 			n = rngchk(n);
@@ -472,22 +927,22 @@ term(struct expr *esp)
 		jp = ip;
 	}
 	/*
-	 * Temporary Radix Type 0[BOQHX]
+	 * Temporary Radix Type ^[BOQDHX]
+	 * Temporary Radix Type 0[BOQDHX]
 	 * 'C' Style Option When (csn != 0)
 	 *     0nnn (Octal), 0xnnn (Hex), Else Decimal
 	 */
-	s = 0;
-	if ((c == '0') && !esp->e_inhbt) {
+	t = 0;
+	if ((c == '^') || (c == '0')) {
 		jp = ip;
 		switch (ccase[get()]) {
-		case 'b':  if (!csn) s = 2;	break;	/* 0B */
+		case 'b':  if (!csn) t = 2;	break;	/* 0B */
 		case 'o':				/* 0O */
-		case 'q':  if (!csn) s = 8;	break;	/* 0Q */
-		case 'd':  if (!csn) s = 10;	break;	/* 0D */
+		case 'q':  if (!csn) t = 8;	break;	/* 0Q */
+		case 'd':  if (!csn) t = 10;	break;	/* 0D */
 		case 'h':  if ( csn)		break;	/* 0H */
-		case 'x':	     s = 16;	break;	/* 0X */
-		default:   if ( csn) s = 8;		/* 0O */
-			c = '0';
+		case 'x':	     t = 16;	break;	/* 0X */
+		default:
 			ip = jp;
 			break;
 		}
@@ -499,72 +954,17 @@ term(struct expr *esp)
 	if (c == '$') {
 		jp = ip;
 		switch (get()) {
-		case '%':	s = 2;	break;
-		case '&':	s = 8;	break;
-		case '#':	s = 10;	break;
-		case '@':	s = 16;	break;
+		case '%':	t = 2;	break;
+		case '&':	t = 8;	break;
+		case '#':	t = 10;	break;
+		case '@':	t = 16;	break;
 		default:
-			c = '$';
 			ip = jp;
 			break;
 		}
 	}
 	/*
-	 * Process Type '0' and '$' Temporary Radixes
-	 */
-	if (s) {
-		/*
-		 * Check For Decimal Point Radix 10 Override
-		 */
-		c = get();
-		if (ctype[c] & DIGIT) {
-			jp = ip;
-			v = c;
-			while ((c >= '0') && (c <= '9')) {
-				c = get();
-			}
-			if (c == '.') {
-				s = 10;
-			}
-			c = v;
-			ip = jp;
-		}
-		/*
-		 * Process Number
-		 */
-		n = 0;
-		while ((v = digit(c, s)) >= 0) {
-			n = s*n + v;
-			c = get();
-		}
-		if (c != '.') {
-			unget(c);
-		}
-		esp->e_mode = S_USER;
-		esp->e_addr = rngchk(n);
-		return;
-	}
-	/*
-	 * Temporary Radix Type ^[BOQDHX]
-	 */
-	t = 0;
-	if (c == '^') {
-		jp = ip;
-		switch (ccase[get()]) {
-		case 'b':	t = 2;	break;	/* ^B */
-		case 'o':			/* ^O */
-		case 'q':	t = 8;	break;	/* ^Q */
-		case 'd':	t = 10;	break;	/* ^D */
-		case 'h':			/* ^H */
-		case 'x':	t = 16;	break;	/* ^X */
-		default:
-			c = '^';
-			ip = jp;
-			break;
-		}
-	}
-	/*
-	 * Process Type '^' Temporary Radixes
+	 * Process Temporary Radixes
 	 */
 	if (t) {
 		/*
@@ -573,8 +973,8 @@ term(struct expr *esp)
 		jp = ip;
 		if (is_digit((c = getnb()), t)) {
 			n = 0;
-			while ((v = digit(c, t)) >= 0) {
-				n = t*n + v;
+			while ((d = digit(c, t)) >= 0) {
+				n = t*n + d;
 				c = get();
 			}
 			unget(c);
@@ -582,20 +982,21 @@ term(struct expr *esp)
 			esp->e_addr = rngchk(n);
 			return;
 		}
+		/*
+		 * Else Evaluate As An Expression
+		 */
 		ip = jp;
-		c = radix;
-		radix = t;
-		esp->e_inhbt += 1;
-		expr(esp,100);
-		esp->e_inhbt -= 1;
-		radix = c;
+		c = expr_radix;
+		expr_radix = t;
+		exprx(esp, 100);
+		expr_radix = c;
 		return;
 	}
 	/*
 	 * Evaluate Numbers
 	 * 	1) Beginning With Decimal Digits (0 - 9)
 	 *	2) Beginning With Hex Digits (A - F)
-	 *		If (r = 16) And (esp->e_inhbt != 0) And
+	 *		If (r = 16) And
 	 *		Does Not Contain (G - Z), ($), (_) Or (.)
 	 *		And The String Is Not A Symbol/Label
 	 */
@@ -605,21 +1006,21 @@ term(struct expr *esp)
 		 * Check For Decimal Point Radix 10 Override
 		 */
 		jp = ip;
-		v = c;
+		d = c;
 		while ((c >= '0') && (c <= '9')) {
 			c = get();
 		}
 		if (c == '.') {
 			r = 10;
 		}
-		c = v;
+		c = d;
 		ip = jp;
 		/*
 		 * Process Number
 		 */
 		n = 0;
-		while ((v = digit(c, r)) >= 0) {
-			n = r*n + v;
+		while ((d = digit(c, r)) >= 0) {
+			n = r*n + d;
 			c = get();
 		}
 		if (c != '.') {
@@ -630,9 +1031,9 @@ term(struct expr *esp)
 		return;
 	}
 	/* 2) */
-	if ((ctype[c] & RAD16) && (r == 16) && !esp->e_inhbt) {
+	if ((ctype[c] & RAD16) && (r == 16)) {
 		jp = ip;
-		v = c;
+		d = c;
 		/*
 		 * Scan For Non RAD16 LETTERs
 		 * (G - Z), (.), ($), And (_)
@@ -641,19 +1042,22 @@ term(struct expr *esp)
 		ip = id;
 		while (is_digit(c, 16)) { c = get(); }
 		if ((c == 0) && !slookup(id)) {
+			c = d;
+			ip = jp;
 			/*
 			 * Process Number
 			 */
 			n = 0;
-			while ((v = digit(c, r)) >= 0) {
-				n = r*n + v;
+			while ((d = digit(c, r)) >= 0) {
+				n = r*n + d;
 				c = get();
 			}
+			unget(c);
 			esp->e_mode = S_USER;
 			esp->e_addr = rngchk(n);
 			return;
 		}
-		c = v;
+		c = d;
 		ip = jp;
 	}
 	/*
@@ -916,7 +1320,6 @@ clrexpr(struct expr *esp)
 	esp->e_addr = 0;
 	esp->e_base.e_ap = NULL;
 	esp->e_rlcf = 0;
-	esp->e_inhbt = 0;
 }
 
 /*)Function	a_uint	rngchk(n)

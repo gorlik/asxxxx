@@ -1,7 +1,7 @@
 /* asmcro.c */
 
 /*
- *  Copyright (C) 2010-2025  Alan R. Baldwin
+ *  Copyright (C) 2010-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -338,7 +338,7 @@ mcrprc(int code)
 		sp->s_area = NULL;
 		comma(0);
 		clrexpr(&e1);
-		expr(&e1, 0);
+		expr(&e1);
 		lmode = ELIST;
 		laddr = sp->s_addr = (e1.e_flag || e1.e_base.e_ap) ? 1 : 0;
 		break;
@@ -355,7 +355,8 @@ mcrprc(int code)
 		sp->s_area = NULL;
 		comma(0);
 		clrexpr(&e1);
-		expr(&e1, 0);
+		rprterr = 1;
+		expr(&e1);
 		lmode = ELIST;
 		laddr = sp->s_addr = e1.e_addr;
 		break;
@@ -1031,7 +1032,8 @@ macro(struct mcrdef *np)
 	asmq->tlevel = tlevel;
 	asmq->lnlist = lnlist;
 	asmq->afp = 0;
-	strcpy(asmq->afn,np->fname);
+	asmq->afs = np->fname;
+	asmq->afn = asmc->afn;
 	/*
 	 * Fill in nfp elements
 	 */
@@ -1048,7 +1050,7 @@ macro(struct mcrdef *np)
 
 /*)Function	struct mcrdef *newdef(code, id)
  *
- *		int	code		macro type code
+ *		int	code		type code
  *		char *	id		macro name string
  *
  *	The function mcrdef() creates a new macro
@@ -1112,7 +1114,7 @@ newdef(int code, char *id)
 	mcrp->xarg = 0;
 	mcrp->bgnxrg = NULL;
 	mcrp->endxrg = NULL;
-	mcrp->fname = asmc->afn;
+	mcrp->fname = asmc->afs;
 	mcrp->fline = srcline;
 	if (code == O_MACRO) {
 		mcrcnt++;

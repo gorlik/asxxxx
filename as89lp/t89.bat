@@ -6,6 +6,6 @@ asxscn t89.lst
 as89lp -gloaxff t89r
 asxscn t89r.lst
 as89lp -gloaxff t89rl
-aslink -u t89rl
+aslink -nu t89rl
 asxscn t89rl.rst
 

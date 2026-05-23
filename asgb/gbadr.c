@@ -1,7 +1,7 @@
 /* gbadr.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -60,7 +60,7 @@ addr(struct expr *esp)
 	ip = p;
 
 	if ((c = getnb()) == '#') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMMED;
 	} else
 	if (c == LFIND) {
@@ -76,12 +76,12 @@ addr(struct expr *esp)
 		} else
 		if ((c = getnb()) == '*') {
 			mode = S_IDIR;
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = mode;
 		} else {
 			unget(c);
 			mode = S_INDM;
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = mode;
 		}
 		if (indx) {
@@ -101,12 +101,12 @@ addr(struct expr *esp)
 			mode = S_R16X;
 		} else
 		if ((c = getnb()) == '*') {
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = S_DIR;
 		} else {
 			unget(c);
 			mode = S_EXT;
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = mode;
 		}
 		if (indx) {

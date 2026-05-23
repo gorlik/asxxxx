@@ -1,7 +1,7 @@
 /* r65adr.c */
 
 /*
- *  Copyright (C) 1995-2025  Alan R. Baldwin
+ *  Copyright (C) 1995-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -83,7 +83,7 @@ addr(struct expr *esp)
 
 
 	if ((c = getnb()) == '#') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMMED;
 	} else
 	if (c == '*') {
@@ -100,7 +100,7 @@ addr(struct expr *esp)
 				break;
 			}
 		} else {
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = S_DIR;	/* ___  *arg */
 			if (more()) {
 				comma(1);
@@ -132,7 +132,7 @@ addr(struct expr *esp)
 				break;
 			}
 		} else {
-			expr(esp, 0);
+			expr(esp);
 			comma(1);
 			if (admode(axy) != S_X)
 				qerr();		/* ___  (arg,Y)  Is Illegal */
@@ -181,7 +181,7 @@ addr(struct expr *esp)
 				qerr();
 			if ((c = getnb()) != '*')
 				unget(c);
-			expr(esp, 0);
+			expr(esp);
 			if ((c = getnb()) != rdlm)
 				qerr();
 			if (more()) {
@@ -218,7 +218,7 @@ addr(struct expr *esp)
 						break;
 					}
 				} else {
-					expr(esp, 0);
+					expr(esp);
 					if (more()) {
 						comma(1);
 						switch(admode(axy)) {

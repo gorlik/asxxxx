@@ -1,7 +1,7 @@
 /* s6186adr.c */
 
 /*
- *  Copyright (C) 2003-2015  Alan R. Baldwin
+ *  Copyright (C) 2003-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -48,12 +48,12 @@ addr(struct expr *esp)
 
 	if ((c = getnb()) == '#') {
 		/*  Immediate mode */
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMM;
 	} else {
 		unget(c);
 		/* Must be an expression */
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_EXT;
 	}
 	return (esp->e_mode);

@@ -935,6 +935,12 @@ A:	mov	#A,r0		; 300 025 200 001
 
 	mov	#^RABC,r0	; 300 025 223 006
 	mov	#^C2,r0		; 300 025 375 377
+
+	mov	#^CXA,r0	; 300 025r000s000
+	mov	#^C(XA),r0	; 300 025r000s000
+
+	.word	#^CXA		;r000s000
+	.word	#^C(XA)		;r000s000
 .endif
 
 .ifdef	.rst	; Values After Linking
@@ -957,6 +963,12 @@ A:	mov	#A,r0		; 300 025 200 001
 
 	mov	#^RABC,r0	; 300 025 223 006
 	mov	#^C2,r0		; 300 025 375 377
+
+	mov	#^CXA,r0	; 300 025r377s377
+	mov	#^C(XA),r0	; 300 025r377s377
+
+	.word	#^CXA		;r377s377
+	.word	#^C(XA)		;r377s377
 .endif
 
 

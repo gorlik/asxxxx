@@ -1,7 +1,7 @@
 /* m8cadr.c */
 
 /*
- *  Copyright (C) 2009-2025  Alan R. Baldwin
+ *  Copyright (C) 2009-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -54,7 +54,7 @@ addr(struct expr *esp)
 
 	/* Immediate Data */
 	if ((c = getnb()) == '#') {
-		expr(esp, 0);
+		expr(esp);
 		return(esp->e_mode = S_IMM);
 	} else
 	/* Extended, Indexed, and Indirect Indexed (++) Mode */
@@ -76,7 +76,7 @@ addr(struct expr *esp)
 	/* Immediate Data */
 	{
 		unget(c);
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMM;
 	}
 	return (esp->e_mode);
@@ -90,7 +90,7 @@ addr1(struct expr *esp)
 
 	ips = ip;
 	if ((c = getnb()) == '[') {
-		expr(esp, 0);
+		expr(esp);
 		mode = S_EXTIAU;
 		if (((c = getnb()) != ']') ||
 		    ((c = getnb()) != '+') ||
@@ -107,7 +107,7 @@ addr1(struct expr *esp)
 		mode = S_EXT;
 		ip = ips;
 	}
-	expr(esp, 0);
+	expr(esp);
 	return(esp->e_mode = mode);
 }
 

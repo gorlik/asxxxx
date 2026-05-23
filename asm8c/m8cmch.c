@@ -1,7 +1,7 @@
 /* m8cmch.c */
 
 /*
- *  Copyright (C) 2009-2025  Alan R. Baldwin
+ *  Copyright (C) 2009-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -500,13 +500,13 @@ machine(struct mne *mp)
 		break;
 
 	case S_JMP:
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		outrw(&e1, R_NORM);
 		break;
 
 	case S_BRA:
-		expr(&e1, 0);
+		expr(&e1);
 		if (mchpcr(&e1, &v1, 1)) {
 			if ((v1 < -2048) || (v1 > 2047)) {
 				xerr('a', "Branching Range Exceeded.");

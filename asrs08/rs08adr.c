@@ -1,7 +1,7 @@
 /* rs08adr.c */
 
 /*
- *  Copyright (C) 2021-2025  Alan R. Baldwin
+ *  Copyright (C) 2021-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ addr(struct expr *esp)
 
 	switch(c = getnb()) {
 	case '#':
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMM;
 		break;
 
@@ -60,14 +60,14 @@ addr(struct expr *esp)
 		break;
 
 	case '*':
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_DIR;
 		break;
 
 	case '<':
 		c = getnb();
 		if (c =='*') {
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = S_FRC;
 			break;
 		}
@@ -93,7 +93,7 @@ addr(struct expr *esp)
 		if ((esp->e_mode = admode(ax)) != 0) {
 			;
 		} else {
-			expr(esp, 0);
+			expr(esp);
 			if ((!esp->e_flag) && (esp->e_base.e_ap == NULL)) {
 				if (!(esp->e_addr & ~0x0F)) {
 					esp->e_mode = S_TNY;

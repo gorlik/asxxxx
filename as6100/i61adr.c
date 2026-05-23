@@ -1,7 +1,7 @@
 /* i61adr.c */
 
 /*
- *  Copyright (C) 2013-2025  Alan R. Baldwin
+ *  Copyright (C) 2013-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -78,7 +78,7 @@ addr(struct expr *esp)
 	/*
 	 * Evaluate Expresion
 	 */
-	expr(esp, 0);
+	expr(esp);
 	/*
 	 * End of Indirect Addressing Mode
 	 */

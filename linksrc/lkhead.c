@@ -1,7 +1,7 @@
 /* lkhead.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -62,7 +62,6 @@
  *				 	head structure
  *
  *	functions called:
- *		a_uint	expr()		lkeval.c
  *		a_uint	eval()		lkeval.c
  *		void	getid()		lklex.c
  *		void *	new()		lksym.c

@@ -1,7 +1,7 @@
 /* lkdata.c */
 
 /*
- *  Copyright (C) 1989-2017  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -141,6 +141,12 @@ int	obj_flag = 0;	/*	Linked file/library object output flag
 int	a_bytes;	/*	REL file T Line address length
 			 */
 int	hilo;		/*	REL file byte ordering
+			 */
+char	*expr_ip;	/*	initial expression ip
+			 */
+int	expr_radix;	/*	expression default radix
+			 */
+int	as_msb;		/*	Assembler selected MSB
 			 */
 a_uint	a_mask;		/*	Address Mask
 			 */
@@ -409,6 +415,7 @@ struct	areax	*axp;	/*	Pointer to the current
  *		a_uint	s_addr;			Address
  *		char	*s_id;			Name (JLH)
  *		char	*m_id;			Module
+ *		char	*s_expr;		Expression
  *	};
  */
 struct	sym *symhash[NHASH]; /*	array of pointers to NHASH

@@ -1,7 +1,7 @@
 /* st8adr.c */
 
 /*
- *  Copyright (C) 2010-2025  Alan R. Baldwin
+ *  Copyright (C) 2010-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -90,7 +90,7 @@ addr(struct expr *esp)
 
 	rcode = 0;
 	if ((c = getnb()) == '#') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMM;
 	} else
 	if (c == '[') {
@@ -212,11 +212,11 @@ addr1(struct expr *esp)
 	int c;
 
 	if ((c = getnb()) == '*') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_SHORT;
 	} else {
 		unget(c);
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_LONG;
 	}
 	return (esp->e_mode);

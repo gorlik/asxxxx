@@ -1,7 +1,7 @@
 /* m08pst.c */
 
 /*
- *  Copyright (C) 1993-2023  Alan R. Baldwin
+ *  Copyright (C) 1993-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

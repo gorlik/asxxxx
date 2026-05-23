@@ -1,7 +1,7 @@
 /* lkarea.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -626,7 +626,7 @@ setarea(void)
 		ip = a_bsp->strp;
 		getid(id, -1);
 		if (getnb() == '=') {
-			v = expr(0);
+			v = expr();
 			for (ap = areap; ap != NULL; ap = ap->a_ap) {
 				if (symeq(id, ap->a_id, 1))
 					break;
@@ -639,7 +639,7 @@ setarea(void)
 				ap->a_bset = 1;
 			}
 		} else {
-			fprintf(stderr, "?ASlink-Error-No '=' in base expression");
+			fprintf(stderr, "?ASlink-Error-No '=' in base expression\n");
 			lkerr++;
 		}
 		a_bsp = a_bsp->link;

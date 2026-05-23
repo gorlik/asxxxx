@@ -1,7 +1,7 @@
 /* t90mch.c */
 
 /*
- *  Copyright (C) 2026 Alan R. Baldwin
+ *  Copyright (C) 2026  Alan R. Baldwin
  *
  *  A rewrite of the
  *    Port to the SDAS fork of ASxxxx by Rainer Keuchel (C) 2013
@@ -233,7 +233,7 @@ machine(struct mne *mp)
 		e1.e_addr = 0xFF00;
 		zpg = dot.s_area;
 		if (more()) {
-			expr(&e1, 0);
+			expr(&e1);
 			if (e1.e_flag == 0 && e1.e_base.e_ap == NULL) {
 				if (e1.e_addr != 0xFF00) {
 					e1.e_addr = 0xFF00;
@@ -709,7 +709,7 @@ machine(struct mne *mp)
 	case S_RES:	/* RES */
 	case S_SET:	/* SET */
 	case S_TSET:	/* TEST == TSET */
-		expr(&e1, 0);
+		expr(&e1);
 		comma(1);
 		t2 = addr(&e2);
 		v2 = aindx;
@@ -766,7 +766,7 @@ machine(struct mne *mp)
 			if (rf == S_JP)   outab((op = 0xC0 | v1));
 			if (rf == S_CALL) outab((op = 0xD0 | v1));
 		} else {	/* mn */ 
-			expr(&e2, 0);
+			expr(&e2);
 			outab(op);
 			outrw(&e2, 0);
 		}
@@ -778,7 +778,7 @@ machine(struct mne *mp)
 	case S_CALR:	/* CALR */
 	case S_JRL:	/* JRL */
 		if (admode(PC) != 0) { *--ip = ' '; *--ip = '.'; }
-		expr(&e2, 0);
+		expr(&e2);
 
 		outab(op);
 		if (mchpcr(&e2, &v2, 1)) {
@@ -800,7 +800,7 @@ machine(struct mne *mp)
 			v1 = T;
 		}
 		if (admode(PC) != 0) { *--ip = ' '; *--ip = '.'; }
-		expr(&e2, 0);
+		expr(&e2);
 
 		op |= v1; outab(op);
 		if (mchpcr(&e2, &v2, 1)) {
@@ -825,7 +825,7 @@ machine(struct mne *mp)
 			comma(1);
 		}
 		if (admode(PC) != 0) { *--ip = ' '; *--ip = '.'; }
-		expr(&e2, 0);
+		expr(&e2);
 
 		outab(op);
 		if (mchpcr(&e2, &v2, 1)) {
@@ -865,6 +865,11 @@ machine(struct mne *mp)
 			opcycles = t90Page[opcycles & OPCY_MASK][op];
 		}
 	}
+	/*
+	 * Translate To External Format
+	 */
+	if (opcycles == OPCY_NONE) { opcycles  =  CYCL_NONE; } else
+	if (opcycles  & OPCY_NONE) { opcycles |= (CYCL_NONE | 0x3F00); }
 }
 
 /*

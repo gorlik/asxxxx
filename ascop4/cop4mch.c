@@ -1,7 +1,7 @@
 /* cop4mch.c */
 
 /*
- *  Copyright (C) 2021-2025  Alan R. Baldwin
+ *  Copyright (C) 2021-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -162,7 +162,7 @@ machine(struct mne *mp)
 		pagarea = dot.s_area;
 		e1.e_addr = 0x0080;
 		if (more()) {
-			expr(&e1, 0);
+			expr(&e1);
 			if (e1.e_flag == 0 && e1.e_base.e_ap == NULL) {
 				if (e1.e_addr != 0x80) {
 					e1.e_addr = 0x80;
@@ -212,7 +212,7 @@ machine(struct mne *mp)
 		opcycles = OPCY_SKP;
 		lmode = SLIST;
 		if (more()) {
-			expr(&e1, 0);
+			expr(&e1);
 			xad = e1.e_addr;
 		} else {
 			xad = 0;

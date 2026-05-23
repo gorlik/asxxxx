@@ -1,7 +1,7 @@
 /* lkrloc4.c */
 
 /*
- *  Copyright (C) 2003-2025  Alan R. Baldwin
+ *  Copyright (C) 2003-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -708,6 +708,13 @@ fprintf(stdout, "RELR4-MERGE: relv = %X\n", relv);
 #if DEBUG
 fprintf(stdout, "RELR4-MERGE: v = %X\n", v);
 #endif
+
+			/*
+			 * Merge modes use argb bytes of data
+			 * from a_bytes of data in the T line.
+			 */
+			rtofst += (a_bytes - argb);
+			rtpofst += a_bytes;
 
 			/*
 			 * Source Bit Masks

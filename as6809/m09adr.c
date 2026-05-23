@@ -1,7 +1,7 @@
 /* M09ADR.C */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ addr(struct expr *esp)
 
 	aindx = 0;
 	if ((c = getnb()) == '#') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMMED;
 	} else
 	if (c == '[') {
@@ -94,7 +94,7 @@ addr1(struct expr *esp)
 		esp->e_mode = S_IND;
 	} else
 	if (c == '*') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_DIR;
 		if (comma(0)) {
 			if (admode(auto2)) {
@@ -117,7 +117,7 @@ addr1(struct expr *esp)
 		}
 	} else {
 		unget(c);
-		expr(esp, 0);
+		expr(esp);
 		if ((!esp->e_flag)
 			&& (esp->e_base.e_ap == NULL)
 			&& ((esp->e_addr & ~0xFF) == zpgadr)) {

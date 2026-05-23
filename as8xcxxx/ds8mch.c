@@ -1,7 +1,7 @@
 /* ds8mch.c */
 
 /*
- *  Copyright (C) 1998-2025  Alan R. Baldwin
+ *  Copyright (C) 1998-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -178,7 +178,7 @@ machine(struct mne *mp)
 		sp->s_flag |= S_ASG;
 
 		if (more()) {
-			expr(&e, 0);
+			expr(&e);
 			abscheck(&e);
 			sp->s_addr = e.e_addr;
 		} else {
@@ -196,7 +196,7 @@ machine(struct mne *mp)
 			xerr('o', "Not a 16 or 24 Bit machine.");
 			break;
 		}
-		expr(&e, 0);
+		expr(&e);
 		abscheck(&e);
 		amode = (int) e.e_addr;
 		if ((amode < 0) || (amode > 2)) {
@@ -204,7 +204,7 @@ machine(struct mne *mp)
 			xerr('o', "Valid values are 0 -> 2.");
 		}
 		if ((c = getnb()) == ',') {
-			expr(&e1, 0);
+			expr(&e1);
 			abscheck(&e1);
 			if (e1.e_addr != 0) {
 /* mov	ta,#0aah */		outab(0x075);	outab(0x0C7);	outab(0x0AA);
@@ -236,7 +236,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_JMP11:
-		expr(&e, 0);
+		expr(&e);
 		if (amode == 2) {
 			outr3bm(&e, R_PAGX3 | R_J19, op << 16);
 		} else {
@@ -245,7 +245,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_JMP16:
-		expr(&e, 0);
+		expr(&e);
 		outab(op);
 		if (amode == 2) {
 			outr3b(&e, R_NORM);
@@ -590,7 +590,7 @@ machine(struct mne *mp)
 		outrb(&e, R_PAG0);
 
 		comma(1);
-		expr(&e1, 0);
+		expr(&e1);
 		if (mchpcr(&e1, &v1, 1)) {
 			if ((v1 < -128) || (v1 > 127))
 				xerr('a', "Branching Range Exceeded.");
@@ -605,7 +605,7 @@ machine(struct mne *mp)
 	case S_BR:
 		/* Relative branch */
 		outab(op);
-		expr(&e1, 0);
+		expr(&e1);
 		if (mchpcr(&e1, &v1, 1)) {
 			if ((v1 < -128) || (v1 > 127))
 				xerr('a', "Branching Range Exceeded.");
@@ -656,7 +656,7 @@ machine(struct mne *mp)
 
 		/* branch destination */
 		comma(1);
-		expr(&e1, 0);
+		expr(&e1);
 		if (mchpcr(&e1, &v1, 1)) {
 			if ((v1 < -128) || (v1 > 127))
 				xerr('a', "Branching Range Exceeded.");
@@ -689,7 +689,7 @@ machine(struct mne *mp)
 
 		/* branch destination */
 		comma(1);
-		expr(&e1, 0);
+		expr(&e1);
 		if (mchpcr(&e1, &v1, 1)) {
 			if ((v1 < -128) || (v1 > 127))
 				xerr('a', "Branching Range Exceeded.");

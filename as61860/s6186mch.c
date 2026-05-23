@@ -1,7 +1,7 @@
 /* s6186mch.c */
 
 /*
- *  Copyright (C) 2003-2025
+ *  Copyright (C) 2003-2026
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -233,24 +233,24 @@ machine(struct mne *mp)
 		break;
 
 	case S_PTC:
-		expr(&e1, 0);
+		expr(&e1);
 		comma(1);
-		expr(&e2, 0);
+		expr(&e2);
 		outab(op);
 		outrb(&e1, 0);
 		outrw(&e2, 0);
 		break;
 
 	case S_CASE:
-		expr(&e1, 0);
+		expr(&e1);
 		comma(1);
-		expr(&e2, 0);
+		expr(&e2);
 		outrb(&e1, 0);
 		outrw(&e2, 0);
 		break;
 
         case S_DEFA:
-		expr(&e1, 0);
+		expr(&e1);
 		outrw(&e1, 0);
 		break;
 

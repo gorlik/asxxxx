@@ -1,7 +1,7 @@
 /* rs08mch.c */
 
 /*
- *  Copyright (C) 2021-2025  Alan R. Baldwin
+ *  Copyright (C) 2021-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -90,7 +90,7 @@ machine(struct mne *mp)
 	switch (type) {
 
 	case S_BRN:
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		if (mchpcr(&e1, &v1, 1)) {
 			if ((v1 < -128) || (v1 > 127))
@@ -102,7 +102,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_BRA:	/* BRA | BRN | BCC | BHS | BCS | BLO | BNE | BEQ */
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		if (mchpcr(&e1, &v1, 1)) {
 			if ((v1 < -128) || (v1 > 127))
@@ -116,7 +116,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_JMP:	/* JMP | JSR */
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		outrw(&e1,0);
 		break;
@@ -299,7 +299,7 @@ machine(struct mne *mp)
 		comma(1);
 		t2 = addr(&e2);
 		comma(1);
-		expr(&e3, 0);
+		expr(&e3);
 		if (t2 != S_A && t2 != S_IMM) {
 			switch(t1) {
 			case S_FRC:
@@ -352,7 +352,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_CBEQX:	/* CBEQX */
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		outab(0x0F);
 		if (mchpcr(&e1, &v1, 1)) {
@@ -377,7 +377,7 @@ machine(struct mne *mp)
 			}
 		}
 		comma(1);
-		expr(&e2, 0);
+		expr(&e2);
 		switch(t1) {
 		case S_X:	outab(0x31);	outab(0x0F);	break;
 		case S_IX:
@@ -403,7 +403,7 @@ machine(struct mne *mp)
 
 	case S_DBNZA:	/* DBNZA */
 	case S_DBNZX:	/* DBNZX */
-		expr(&e1, 0);
+		expr(&e1);
 		switch(type) {
 		case S_DBNZA:	outab(0x4B);	break;
 		case S_DBNZX:	outab(0x3B);	outab(0x0F);	break;
@@ -424,7 +424,7 @@ machine(struct mne *mp)
 	case S_DBNZ:	/* DBNZ */
 		t1 = addr(&e1);
 		comma(1);
-		expr(&e2, 0);
+		expr(&e2);
 		switch(t1) {
 		case S_A:	outab(0x4B);	break;
 		case S_X:	outab(0x3B);	outab(0x0F);	break;

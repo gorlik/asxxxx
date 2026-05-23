@@ -1,7 +1,7 @@
 /* picadr.c */
 
 /*
- *  Copyright (C) 2001-2025  Alan R. Baldwin
+ *  Copyright (C) 2001-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -52,12 +52,12 @@ addr(struct expr *esp)
 
 	if ((c = getnb()) == '#') {
 		/*  Immediate mode */
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMMED;
 	} else
 	if (c == '*') {
 		/* Force direct page */
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_DIR;
 	} else {
 		unget(c);
@@ -66,7 +66,7 @@ addr(struct expr *esp)
 			esp->e_mode = c;
 		} else {
 			/* Must be an expression */
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = S_EXT;
 		}
 	}

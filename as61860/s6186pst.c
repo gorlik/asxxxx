@@ -1,7 +1,7 @@
 /* s6186pst.c */
 
 /*
- *  Copyright (C) 2003-2023  Alan R. Baldwin
+ *  Copyright (C) 2003-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

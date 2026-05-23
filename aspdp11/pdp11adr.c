@@ -1,8 +1,8 @@
 /* pdp11adr.c */
 
 /*
- *  Copyright (C) 2022-2025  Alan R. Baldwin
- *  Copyright (C) 2022-2025  Nick Downing
+ *  Copyright (C) 2022-2026  Alan R. Baldwin
+ *  Copyright (C) 2022-2026  Nick Downing
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -80,7 +80,7 @@ addr(struct expr *esp)
 	 */
 	if ((c = getnb()) == '#') {
 		if (indirect) {
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = indirect | S_SYM;
 		} else {
 			p = ip;
@@ -97,7 +97,7 @@ addr(struct expr *esp)
 				}
 			} else {
 				ip = p;
-				expr(esp,0);
+				expr(esp);
 			}
 			esp->e_mode = S_IMM;
 		}
@@ -149,7 +149,7 @@ addr(struct expr *esp)
 		if (r != NULL) {
 			*(q-1) = 0;
 		}
-		expr(esp, 0);
+		expr(esp);
 		if (r != NULL) {
 			*(q-1) = '(';
 			ip = r;
@@ -225,7 +225,7 @@ rad50()
 				*q = 0; /* Make a terminator */
 				ip = p; /* Restore pointer to LFTERM and evaluate */
 				clrexpr(&e1);
-				expr(&e1, 0);
+				expr(&e1);
 				*q = c;	/* Restore character */
 				ip = q;	/* Restore pointer */
 				abscheck(&e1);

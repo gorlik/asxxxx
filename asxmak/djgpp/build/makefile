@@ -3,7 +3,7 @@
 #		DJGPP V02.03  'GNU make' Version
 #		================================
 #
-#   17  January  2025		GCC 4.0.1 / make 3.79.1
+#   15  April  2026		GCC 4.0.1 / make 3.79.1
 #
 ####################################################################
 
@@ -55,6 +55,7 @@ ASXXXX =	as1802		\
 		asst6		\
 		asst7		\
 		asst8		\
+		asst9		\
 		assx		\
 		astlcs90	\
 		asz8		\
@@ -139,6 +140,7 @@ SRCSCMP=	$(ASXBAS)asscmp/
 SRCST6=		$(ASXBAS)asst6/
 SRCST7=		$(ASXBAS)asst7/
 SRCST8=		$(ASXBAS)asst8/
+SRCST9=		$(ASXBAS)asst9/
 SRCSX=		$(ASXBAS)assx/
 SRCTLCS90=	$(ASXBAS)astlcs90/
 SRCZ8=		$(ASXBAS)asz8/
@@ -1109,6 +1111,25 @@ asst8 :		$(ASXX) $(ASST8)
 		$(LD) $(LDFLAGS) -o asst8 $(ASXX) $(ASST8)
 		mv asst8.exe $(DSTEXE)asst8.exe
 		strip $(DSTEXE)asst8.exe
+
+
+####################################################################
+# ASST9
+####################################################################
+
+ASST9	 =	st9pst.o st9mch.o st9adr.o
+
+st9pst.o :	$(SRCST9)st9pst.c $(SRCST9)st9.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+st9mch.o :	$(SRCST9)st9mch.c $(SRCST9)st9.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+st9adr.o :	$(SRCST9)st9adr.c $(SRCST9)st9.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+
+asst9 :		$(ASXX) $(ASST9)
+		$(LD) $(LDFLAGS) -o asst9 $(ASXX) $(ASST9)
+		mv asst9.exe $(DSTEXE)asst9.exe
+		strip $(DSTEXE)asst9.exe
 
 
 ####################################################################

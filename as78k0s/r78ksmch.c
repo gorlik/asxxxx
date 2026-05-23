@@ -1,7 +1,7 @@
 /* R78KSMCH.C */
 
 /*
- *  Copyright (C) 2014-2025  Alan R. Baldwin
+ *  Copyright (C) 2014-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -129,7 +129,7 @@ machine(struct mne *mp)
 		zpg = dot.s_area;
 		e1.e_addr = ~0x00FF;
 		if (more()) {
-			expr(&e1, 0);
+			expr(&e1);
 			if (e1.e_flag == 0 && e1.e_base.e_ap == NULL) {
 				if (e1.e_addr  != ~0x00FF) {
 					xerr('b', "Only Page 0xFF00 Allowed.");

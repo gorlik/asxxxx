@@ -1,7 +1,7 @@
 /* aslist.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -1118,7 +1118,7 @@ lstsym(FILE *fp)
 	for (i=0; i<NHASH; i++) {
 		sp = symhash[i];
 		while (sp) {
-			if (sp != &dot)
+			if ((sp != &dot) && ((sp->s_flag & S_HID) == 0))
 				++nmsym;
 			sp = sp->s_sp;
 		}
@@ -1135,7 +1135,7 @@ lstsym(FILE *fp)
 	for (i=0; i<NHASH; i++) {
 		sp = symhash[i];
 		while (sp) {
-			if (sp != &dot)
+			if ((sp != &dot) && ((sp->s_flag & S_HID) == 0))
 				p[nmsym++] = sp;
 			sp = sp->s_sp;
 		}

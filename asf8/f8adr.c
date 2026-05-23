@@ -1,7 +1,7 @@
 /* f8adr:c */
 
 /*
- *  Copyright (C) 2012-2025  Alan R. Baldwin
+ *  Copyright (C) 2012-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -49,11 +49,11 @@ addr(struct expr *esp)
 		unget(c);
 	}
 	if ((c = getnb()) == '#') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMMED;
 	} else
 	if (c == '*') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_EXT;
 	} else {
 		unget(c);
@@ -72,7 +72,7 @@ addr(struct expr *esp)
 		if (admode(reg16)) {
 			esp->e_mode = S_R16;
 		} else {
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = S_EXT;
 		}
 	}

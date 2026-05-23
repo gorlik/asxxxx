@@ -1,5 +1,85 @@
 
 
+                        ASxxxx/ASlink version 6.0
+                           Is A Major Release
+
+
+
+        2026_05_31 Version 6.0
+        
+           This is a complete release version
+           of the ASxxxx assemblers and linker.
+
+
+                          I N T E R N A L   C H A N G E S
+
+           The internal calling convention for expression evaluation has
+        been changed from 
+
+           expr(struct expr *esp, 0);
+        
+             to
+        
+           expr(struct expr *esp); 
+
+
+           The second parameter, the priority, has been removed as it is
+        always 0 when called from the machine dependant portion  of  the
+        assembler coding.  Currently the only exception is in pdp11mch.c
+        where  a  non  zero  priority  is  required  and  the   function
+        exprx(struct expr *esp, priority);  is called.  
+
+
+                                                                  Page 2
+        
+
+
+           The  second,  and more consequential, change to the assembler
+        involves  the  evaluation  of  complex  relocatable   arguments.
+        ASxxxx versions prior to 6 allowed only these argument options: 
+
+              1)      a local  constant
+              2)      a local  label
+              3)      a local  label +/- a constant
+              4)      a global constant
+              5)      a global label
+              6)      a global label +/- a constant
+
+           ASxxxx version 6 supports any valid arithmetic or logical ex-
+        pression containing local and/or global labels and/or constants. 
+
+           The  valid operations are all those natively supported by the
+        assembler.  The following examples are now legal arguments where
+        la, lb, and lc are local values or labels and xa, xb, and xc are
+        external global values or labels:  
+
+                .word   xa & 0x03, la * (lb | xb)
+                .word   xa * xc + lc, xb * (xa + la)
+        
+           or in an instruction
+        
+        entry:  jmp     entry + xa + xb
+                mv      dst,#0x10 * xa
+
+           When the assembler detects these types of expressions the ex-
+        pression is passed to the linker where  all  the  symbol  values
+        have been resolved and the expression can be evaluated.  
+
+           Any  machine  dependent  coding using the function expr() re-
+        quires no changes as the inplementation  is  entirely  contained
+        within the ASxxxx core and ASlink.  
+
+
+                          N E W   A S S E M B L E R
+
+           A   new  assembler,  asst9,  has  been  implemented  for  the
+        STMicroelectronics ST9 microprocessor.  
+
+
+                                                                  Page 3
+        
+
+
                         ASxxxx/ASlink version 5.50.5 is
                   a combined 1-4 release and updated version.
 
@@ -52,16 +132,16 @@
               style.
         
            2) The function definition change has made
+
+
+                                                                  Page 4
+        
+
+
               the code incompatable with the original
               'DECUS C' K&R format.  All conditional
               DECUS compiling options have been removed.
         
-
-
-                                                                  Page 2
-        
-
-
            3) After rebuilding the assemblers and linker
               the reported version will be V5.50.4
 
@@ -110,16 +190,16 @@
            for upper case -
         
            .macro WIT
+
+
+                                                                  Page 5
+        
+
+
              .list (mel)
            .byte    0xC2    ; WIT/SLW
              .nlist (mel)
            .endm
-
-
-                                                                  Page 3
-        
-
-
         
            .macro FST
              .list (mel)
@@ -168,16 +248,16 @@
            2) Added missing bls.s and beq.s mnemonics and
               added blos (sane as bls) and bhis (same as bhs)
               instructions to as68k and as68cf assemblers.
+
+
+                                                                  Page 6
+        
+
+
         
            3) Added dbhis (same as dbhs) and dblos (same
               as dbls) forms to as68k and as68cf assemblers.
         
-
-
-                                                                  Page 4
-        
-
-
            4) Added shis (same as shs) and slos( same as sls)
               forms to as68k and as68cf assemblers.
         
@@ -186,7 +266,10 @@
         
            You must recompile the AS68K and AS68CF
            assemblers to incorporate the update.
+
 
+                                                                  Page 7
+        
 
 
                         ASxxxx/ASlink version 5.50 is
@@ -230,12 +313,6 @@
                 .ntrace         files, macros, and repeat macros
         
                 .dl and .long   create 4-byte values
-
-
-                                                                  Page 5
-        
-
-
                 .blkl           allocate 4-byte blocks
                                 (only in specific assemblers)
 
@@ -246,6 +323,12 @@
            The  linker command argument structure has changed.  Previous
         versions specified that the first file of a  multifile  argument
         was the output file.  This has been changed:  
+
+
+
+                                                                  Page 8
+        
+
 
         THE OUTPUT FILE HAS THE NAME OF THE FIRST INPUT FILE
 
@@ -288,12 +371,6 @@
                 ASCOP4
                 ASCOP8
                 ASEZ8
-
-
-                                                                  Page 6
-        
-
-
                 ASPDP11         (with EIS, FIS, FPP, and CIS)
                 ASRS08          (reduced version of the HCS08)
                 ASSX
@@ -304,6 +381,12 @@
            The  internals  of  the AS6500 assembler have been updated to
         use  core  functionality  unavailable  when  the  assembler  was
         originally written.  
+
+
+                                                                  Page 9
+        
+
+
 
 
 
@@ -346,12 +429,6 @@
              3) Documentation updated.
         
            You must recompile the ASxxxx Assemblers and Linker
-
-
-                                                                  Page 7
-        
-
-
         to incorporate the update.xxx  
 
 
@@ -362,6 +439,12 @@
            UPDATE_02 MUST BE INSTALLED BEFORE INSTALLING THIS UPDATE.
         
              2) Assembler and Linker errors are now reported in a
+
+
+                                                                 Page 10
+        
+
+
                 more consistent manner.
         
              2) Assembler and Linker exit codes have been updated.
@@ -404,12 +487,6 @@
              lkrloc3.c - "
              aslink.h  - Version 5.41
         
-
-
-                                                                  Page 8
-        
-
-
            as8x300:
              s8xmch.c  - line 351 changed to
                          if ((v2 == 0x07) | (v2 == 0x0F)) {
@@ -420,6 +497,12 @@
         Microprocessors
              ascop8    - National Semiconductor COP800 Series Of
         Microprocessors
+
+
+                                                                 Page 11
+        
+
+
         
            Updates to build/make files, assembler test files, and do-
         cumentation.
@@ -462,12 +545,6 @@
            (4)  AS8085 assembler has been updated to support
                 the 8080.
         
-
-
-                                                                  Page 9
-        
-
-
            (5)  Assemblers flagging <# and ># as syntax errors
                 have been fixed to be equivalent to #< and #>.
         
@@ -478,6 +555,12 @@
                 for most <a>, <o>, and <q> errors.
         
            (8)  Fixed bug in macro processor related to
+
+
+                                                                 Page 12
+        
+
+
                 missing or malformed arguments.
         
            (9)  Update sections of code using strncpy() giving
@@ -520,12 +603,6 @@
                 as8048
                 Corrected bug in "sel" instruction in .8041 mode.
         
-
-
-                                                                 Page 10
-        
-
-
                 asf2mc
                 Corrected documentation for asf2mc processor types.
         
@@ -536,6 +613,12 @@
                 asst8
                 Included add/addw/sub/subw sp,#byte modes.
                 Added the int opcode.  Cleaned up st8addr.c
+
+
+                                                                 Page 13
+        
+
+
                 addressing mode comments and code.
 
 
@@ -578,12 +661,6 @@
                 The Assemblers now create a .lst to .rst hint file
                 with the extension .hlr (when both .lst and .rel
                 files are created by the assembler).
-
-
-                                                                 Page 11
-        
-
-
         
            (2)  Add as6100 assembler (Intersil IM6100 / Harris HM6100)
         
@@ -594,6 +671,12 @@
         2013_05_12 Version 5.00 Update 6
         
            This  update  for  Version  5.00  of the  ASxxxx Cross
+
+
+                                                                 Page 14
+        
+
+
         Assemblers rolls up updates 1, 2, 3, 4, and 5 with fixes
         for the following:
         
@@ -636,12 +719,6 @@
                 a PC-Relative addressing mode.  These
                 instructions include: jbc, jb, jbn, jc,
                 jnc, jz, jnz, cjne, and djnz.
-
-
-                                                                 Page 12
-        
-
-
         
         
            Update 3 Items
@@ -652,6 +729,12 @@
            (2)  Minor syntactical changes for ANSI C compatibility,
                 fix type conversion warnings, and update the
                 various build, make, and test files.
+
+
+                                                                 Page 15
+        
+
+
         
            (3)  New cross assemblers for STMicroelectronics
                 ST6, ST7, and STM8 microprocessors.
@@ -694,12 +777,6 @@
                 compilers) have defined 'getline' as a standard
                 function in 'stdio.h'.  This conflicts with the
                 function 'getline()' in the ASxxxx package.
-
-
-                                                                 Page 13
-        
-
-
                 All references to 'getline()' have been changed
                 to 'nxtline()'.
         
@@ -710,6 +787,12 @@
         
                 [asxv5pxx\asf2mc8\f8mch.c
                 [asxv5pxx\asf2mc8\f8adr.c
+
+
+                                                                 Page 16
+        
+
+
                 [asxv5pxx\asf2mc8\f8pst.c
                 [asxv5pxx\asf2mc8\f8.h
         
@@ -752,12 +835,6 @@
                 enables checking for out of range signed / unsigned
                 values in symbol equates and arithmetic operations.
                 This option has some ambiguities as internally the
-
-
-                                                                 Page 14
-        
-
-
                 assemblers use unsigned arithmetic for calculations.
                 (e.g. for a 2-byte machine -32768 and 32768 are both
                 represented as 0x8000)
@@ -768,6 +845,12 @@
            (1)  When using the assembler directive .end to specify
                 the code entry address the assembler fails to set
                 the variable .__.END. as a global.  Therefor the
+
+
+                                                                 Page 17
+        
+
+
                 value of .__.END. is not passed to the linker and
                 the start address frame is always zero.
         
@@ -810,12 +893,6 @@
 
 
 
-
-
-                                                                 Page 15
-        
-
-
         2010_03_03 Version 5.00 Update 1
         
            This  update  for  Version  5.00  of the  ASxxxx Cross
@@ -826,6 +903,12 @@
                 in the fprintf() function.  This update replaces
                 fprintf(arg1, arg2) with fprintf(arg1, "%s", arg2)
                 in each affected line of code.
+
+
+                                                                 Page 18
+        
+
+
         
         
            (2)  The newest versions of gcc (and perhaps other
@@ -868,12 +951,6 @@
         added to the ASxxxx assemblers:  
 
         e.g.    .iif    eq,arg  label:  .word   0x1234
-
-
-                                                                 Page 16
-        
-
-
 
 
            The  listing  options  for the ASxxxx assemblers has been up-
@@ -884,6 +961,12 @@
             loc         code location
             bin         assembler binary code
             eqt         symbolic equates / if evaluations
+
+
+                                                                 Page 19
+        
+
+
             cyc         machine cycles
             lin         assembler source line number
             src         assembler source code
@@ -926,12 +1009,6 @@
         the .list or .nlist directive:  
 
             .nlist   1,(!,lst)  ; enables listing even within
-
-
-                                                                 Page 17
-        
-
-
                                 ; a FALSE conditional block
 
 
@@ -942,6 +1019,12 @@
 
         e.g.    .org    0
                 .bndry  4
+
+
+                                                                 Page 20
+        
+
+
                 ; . == 0
         
                 .org    1
@@ -964,7 +1047,7 @@
            Added the SC/MP ASSCMP assembler to ASxxxx.
 
 
-                                                                 Page 18
+                                                                 Page 21
         
 
 
@@ -1010,7 +1093,7 @@
            wrong object code. Changed from 37 2A  to  37 3A.
 
 
-                                                                 Page 19
+                                                                 Page 22
         
 
 
@@ -1056,7 +1139,7 @@
                compile the s19os9 program.
 
 
-                                                                 Page 20
+                                                                 Page 23
         
 
 
@@ -1108,7 +1191,7 @@
                 aspic
 
 
-                                                                 Page 21
+                                                                 Page 24
         
 
 
@@ -1165,7 +1248,7 @@
 
 
 
-                                                                 Page 22
+                                                                 Page 25
         
 
 
@@ -1223,7 +1306,7 @@
                  Fix:  
 
 
-                                                                 Page 23
+                                                                 Page 26
         
 
 

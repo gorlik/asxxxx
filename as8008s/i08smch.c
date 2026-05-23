@@ -1,7 +1,7 @@
 /* i08smch.c */
 
 /*
- *  Copyright (C) 2018-2025  Alan R. Baldwin
+ *  Copyright (C) 2018-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -90,14 +90,14 @@ machine(struct mne *mp)
 		break;
 
 	case S_ADI:
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		outrb(&e1, 0);
 		break;
 
 	case S_RST:
 		if (more()) {
-			expr(&e1, 0);
+			expr(&e1);
 			if (is_abs(&e1)) {
 				if (e1.e_addr & ~0x07) {
 					xerr('a', "Valid argument is 0 -> 7.");
@@ -113,19 +113,19 @@ machine(struct mne *mp)
 		break;
 
 	case S_MVI:
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		outrb(&e1, 0);
 		break;
 
 	case S_JMP:
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		outrw(&e1, 0);
 		break;
 
 	case S_INP:
-		expr(&e1, 0);
+		expr(&e1);
 		if (is_abs(&e1)) {
 			if (e1.e_addr & ~0x07) {
 				xerr('a', "Valid argument is 0 -> 7.");
@@ -138,7 +138,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_OUT:
-		expr(&e1, 0);
+		expr(&e1);
 		if (is_abs(&e1)) {
 			if ((e1.e_addr & ~0x1F) || (e1.e_addr < 0x08)) {
 				outab(op | (0x08<<1));
@@ -152,7 +152,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_SHL:
-		expr(&e1, 0);
+		expr(&e1);
 		v1 = e1.e_addr;
 		outab(0x2E);
 		outrb(&e1, R_MSB);

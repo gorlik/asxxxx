@@ -1,7 +1,7 @@
 /* sxadr.c */
 
 /*
- *  Copyright (C) 2022-2025  Alan R. Baldwin
+ *  Copyright (C) 2022-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@ addr(struct expr *esp)
 
 	c = getnb();
 	if (c == '#') {
-		expr(esp, 0);
+		expr(esp);
 		return(esp->e_mode = S_IMM);
 	} else
 	if (c == '/') {
@@ -106,7 +106,7 @@ addr(struct expr *esp)
 			*(q-2) = '\0';
 			q = ip;
 			ip = str;
-			expr(esp, 0);
+			expr(esp);
 			ip = q;
 			return (esp->e_mode = S_FRW);
 		} else
@@ -115,7 +115,7 @@ addr(struct expr *esp)
 			indx = *(q-1) - '0';
 			q = ip;
 			ip = str;
-			expr(esp, 0);
+			expr(esp);
 			ip = q;
 			return(esp->e_mode = S_FRBIT + indx);
 		} else
@@ -129,7 +129,7 @@ addr(struct expr *esp)
 	/*
 	 * Evaluate Expresion
 	 */
-	expr(esp, 0);
+	expr(esp);
 	return (esp->e_mode = S_FR);
 }
 

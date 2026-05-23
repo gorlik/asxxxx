@@ -1,7 +1,7 @@
 /* rabmch.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -695,7 +695,7 @@ machine(struct mne *mp)
 		 */
 		if (mchtyp == X_R2K)
 			xerr('o', "Not A Rabbit 2000/3000 Instruction.");
-		expr(&e1, 0);
+		expr(&e1);
 		abscheck(&e1);
 		if (e1.e_addr > 2) {
 			xerr('a', "Values of 0, 1, and 2 are valid.");
@@ -706,7 +706,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_BIT:
-		expr(&e1, 0);
+		expr(&e1);
 		t1 = 0;
 		v1 = (int) e1.e_addr;
 		if (v1 > 7) {
@@ -1527,7 +1527,7 @@ machine(struct mne *mp)
 		/*
 		 * jr  e
 		 */
-		expr(&e2, 0);
+		expr(&e2);
 		outab(op);
 		if (mchpcr(&e2, &v2, 1)) {
 			if ((v2 < -128) || (v2 > 127))
@@ -1557,7 +1557,7 @@ machine(struct mne *mp)
 				op = 0xCD;
 			}
 		}
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		outrw(&e1, 0);
 		break;
@@ -1569,7 +1569,7 @@ machine(struct mne *mp)
 		if ((v1 = admode(CND)) != 0) {
 			op |= (v1&0xFF)<<3;
 			comma(1);
-			expr(&e1, 0);
+			expr(&e1);
 			outab(op);
 			outrw(&e1, 0);
 			break;

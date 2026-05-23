@@ -1,7 +1,7 @@
 /* ez80mch.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -411,7 +411,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_IM:
-		expr(&e1, 0);
+		expr(&e1);
 		abscheck(&e1);
 		if (e1.e_addr > 2) {
 			xerr('a', "Valid interrupt modes are 0, 1, and 2.");
@@ -422,7 +422,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_BIT:
-		expr(&e1, 0);
+		expr(&e1);
 		t1 = (is_abs(&e1) && (e1.e_addr & ~7)) ? 1 : 0;
 		comma(1);
 		t2 = addr(&e2);
@@ -1544,7 +1544,7 @@ machine(struct mne *mp)
 		/*
 		 * jr  e
 		 */
-		expr(&e2, 0);
+		expr(&e2);
 		outab(op);
 		if (mchpcr(&e2, &v2, 1)) {
 			if ((v2 < -128) || (v2 > 127))
@@ -1570,7 +1570,7 @@ machine(struct mne *mp)
 			 */
 			op = 0xCD;
 		}
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		switch(m_mode) {
 		case MM_ADL:
@@ -1789,7 +1789,7 @@ machine(struct mne *mp)
 			if (more()) {
 				t2 = e2.e_mode = S_INDR + v2;
 				clrexpr(&e2);
-				expr(&e2, 0);
+				expr(&e2);
 			} else {
 				while (getnb()) { ; }
 				xerr('a', "Missing argument ?");
@@ -1850,7 +1850,7 @@ machine(struct mne *mp)
 			if (more()) {
 				t1 = e1.e_mode = S_INDR + v1;
 				clrexpr(&e1);
-				expr(&e1, 0);
+				expr(&e1);
 			} else {
 				while (getnb()) { ; }
 				xerr('a', "Missing argument ?");
@@ -1872,7 +1872,7 @@ machine(struct mne *mp)
 			 * .adl	n
 			 * .z80 n
 			 */
-			expr(&e1, 0);
+			expr(&e1);
 			abscheck(&e1);
 			if (op == MM_ADL) {
 				m_mode = e1.e_addr ? MM_ADL : MM_Z80;

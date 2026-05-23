@@ -1,7 +1,7 @@
 /* 1802mch.c */
 
 /*
- *  Copyright (C) 2002-2025  Alan R. Baldwin
+ *  Copyright (C) 2002-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -93,7 +93,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_LBR:
-		expr(&e, 0);
+		expr(&e);
 		outab(op);
 		outrw(&e, 0);
 		break;
@@ -108,13 +108,13 @@ machine(struct mne *mp)
 		break;
 
 	case S_BR:
-		expr(&e, 0);
+		expr(&e);
 		mchbr(&e);
 		outrwm(&e, R_PAGX1 | R_BR, op << 8);
 		break;
 
 	case S_IMM:
-		expr(&e, 0);
+		expr(&e);
 		if (is_abs(&e)) {
 			v = (int) (e.e_addr & ~0xFF);
 			if ( ((v & ~0xFF) != 0) && ((v & ~0x7F) != ~0x7F) )
@@ -126,7 +126,7 @@ machine(struct mne *mp)
 
 	case S_INP:
 	case S_OUT:
-		expr(&e, 0);
+		expr(&e);
 		if (is_abs(&e)) {
 			if ((e.e_addr & ~0x07) || (e.e_addr == 0)) {
 				e.e_addr = 1;

@@ -1,7 +1,7 @@
 /* m12adr.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -49,7 +49,7 @@ addr(struct expr *esp)
 	 * #	- Immediate Constant
 	 */
 	if ((c = getnb()) == '#') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMMED;
 	} else
 	/*
@@ -139,7 +139,7 @@ addr1(struct expr *esp)
 		}
 	} else
 	if (c == '*') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_DIR;
 		if ((c = getnb()) == ',') {
 			if (admode(prepost)) {
@@ -155,7 +155,7 @@ addr1(struct expr *esp)
 		}
 	} else {
 		unget(c);
-		expr(esp, 0);
+		expr(esp);
 		if ((!esp->e_flag)
 		    && (esp->e_base.e_ap == NULL)
 		    && !(esp->e_addr & ~0xFF)) {

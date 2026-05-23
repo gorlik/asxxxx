@@ -1,7 +1,7 @@
 /* assubr.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -96,7 +96,14 @@ xerr(int c, char *str)
 {
 	char *p;
 
+	switch(c) {
+	case 'r':	rlerr++;
+	case 'z':       if (rlerr && ignrerr) return;
+	default:	break;
+	}
+
 	aserr++;
+
 	p = eb;
 	while (p < ep)
 		if (*p++ == c)

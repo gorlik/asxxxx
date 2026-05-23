@@ -1,7 +1,7 @@
 /* h8.h */
 
 /*
- *  Copyright (C) 1994-2025  Alan R. Baldwin
+ *  Copyright (C) 1994-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

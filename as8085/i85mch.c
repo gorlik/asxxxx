@@ -1,7 +1,7 @@
 /* i85mch.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -160,7 +160,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_ADI:
-		expr(&e, 0);
+		expr(&e);
 		outab(op);
 		outrb(&e, 0);
 		break;
@@ -173,7 +173,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_JMP:
-		expr(&e, 0);
+		expr(&e);
 		outab(op);
 		outrw(&e, 0);
 		break;
@@ -188,7 +188,7 @@ machine(struct mne *mp)
 	case S_LXI:
 		rd = reg();
 		comma(1);
-		expr(&e, 0);
+		expr(&e);
 		out3(op, regpair(rd, SP));
 		outrw(&e, 0);
 		break;
@@ -222,7 +222,7 @@ machine(struct mne *mp)
 	case S_MVI:
 		rd = reg();
 		comma(1);
-		expr(&e, 0);
+		expr(&e);
 		if (rd > A)
 			xerr('a', "SP and PSW are invalid.");
 		out3(op, rd);

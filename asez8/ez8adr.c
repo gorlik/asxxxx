@@ -1,7 +1,7 @@
 /* ez8adr.c */
 
 /*
- *  Copyright (C) 2022-2025  Alan R. Baldwin
+ *  Copyright (C) 2022-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -62,7 +62,7 @@ addr(struct expr *esp)
 
 	mode = 0;
 	if ((c = getnb()) == '#') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMMED;
 	} else
 	if ((c == '@') || (c == LFIND)) {
@@ -83,11 +83,11 @@ addr(struct expr *esp)
 				mode = S_IRRR;
 			} else {
 				unget(1);
-				expr(esp, 0);
+				expr(esp);
 				esp->e_mode = S_IRRR;
 			}
 		} else {				/* @value or (value) */
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = S_INDX;
 		}
 		if (indx) {
@@ -109,7 +109,7 @@ addr(struct expr *esp)
 				xerr('a', "Requires even numbered registers.");
 			}
 		} else {				/* value */
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = S_EXT;
 		}
 		if (indx) {

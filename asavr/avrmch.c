@@ -1,7 +1,7 @@
 /* avrmch.c */
 
 /*
- *  Copyright (C) 2001-2025  Alan R. Baldwin
+ *  Copyright (C) 2001-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -145,7 +145,7 @@ machine(struct mne *mp)
 	case S_4K:
 		opcycles = OPCY_4K;
 		lmode = SLIST;
-		expr(&e, 0);
+		expr(&e);
 		if (is_abs(&e)) {
 			avr_4k = e.e_addr ? 1 : 0;
 		} else {
@@ -508,7 +508,7 @@ machine(struct mne *mp)
 			xerr('a', "First Argument: R0 -> R31 or constant 0 -> 31.");
 		}
 		comma(1);
-		expr(&e1, 0);
+		expr(&e1);
 		if (!is_abs(&e1) || e1.e_addr > 7)
 			xerr('a', "Valid bit number: 0 -> 7."); 
 		outaw(op | ((e.e_addr & 0x1F) << 4) | (e1.e_addr & 7));
@@ -516,7 +516,7 @@ machine(struct mne *mp)
 
 	case S_BRA:	/* BR__  label */
 		/* Relative branch */
-		expr(&e, 0);
+		expr(&e);
 		if (mchpcr(&e, &v, 1)) {
 			if ((v < -64) || (v > 63))
 				xerr('a', "Branching Range Exceeded.");
@@ -530,11 +530,11 @@ machine(struct mne *mp)
 
 	case S_SBRA:	/* BR__  b,label  /  b <= 7 */
 		/* Relative branch */
-		expr(&e, 0);
+		expr(&e);
 		if (!is_abs(&e1) || e1.e_addr > 7)
 			xerr('a', "Valid bit number: 0 -> 7."); 
 		comma(1);
-		expr(&e1, 0);
+		expr(&e1);
 		if (mchpcr(&e1, &v, 1)) {
 			if ((v < -64) || (v > 63))
 				xerr('a', "Branching Range Exceeded.");
@@ -559,12 +559,12 @@ machine(struct mne *mp)
 		if (a_bytes != 4) {
 			xerr('a', "Allowed only on a 32-Bit cpu.");
 		}
-		expr(&e, 0);
+		expr(&e);
 		outr4bm(&e, R_MBRO | M_JMP, op);
 		break;
 
 	case S_RJMP:	/* label */
-		expr(&e, 0);
+		expr(&e);
 		if (mchpcr(&e, &v, 1)) {
 			if (avr_4k == 0)
 				if ((v < -2048) || (v > 2047))
@@ -588,7 +588,7 @@ machine(struct mne *mp)
 			xerr('a', "First argument must be #__ or value.");
 		}
 		comma(1);
-		expr(&e1, 0);
+		expr(&e1);
 		if (!is_abs(&e1) || e1.e_addr > 7)
 			xerr('a', "Valid bit number: 0 -> 7."); 
 		outrwm(&e, R_MBRO | M_IOR, op | (e1.e_addr & 7));

@@ -1,7 +1,7 @@
 /* m68cf.h */
 
 /*
- *  Copyright (C) 2023-2025  Alan R. Baldwin
+ *  Copyright (C) 2023-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -248,6 +248,7 @@ extern	int		espmode(struct expr *esp, int *vx, int *px);
 extern	int		anpcidx(struct expr *esp, int *xx, char *p, char *ptr);
 extern	int		xi(void);
 extern	int		admode(struct adsym *sp);
+extern	int		rgmode(int pc);
 extern	int		srch(char *str);
 
 	/* m68cfmch.c */

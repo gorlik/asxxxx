@@ -1,7 +1,7 @@
 /* R78KSADR.C */
 
 /*
- *  Copyright (C) 2014-2025  Alan R. Baldwin
+ *  Copyright (C) 2014-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -59,7 +59,7 @@ addr(struct expr *esp, int *aindx)
 		}
 		c = getnb();
 		if ((c == '+') || (c == ',')) {
-			expr(esp,0);
+			expr(esp);
 			amode = S_IDXB;
 		} else {
 			unget(c);
@@ -70,15 +70,15 @@ addr(struct expr *esp, int *aindx)
 		}
 	} else
 	if (c == '#') {
-		expr(esp, 0);
+		expr(esp);
 		amode = S_IMM;
 	} else
 	if (c == '!') {
-		expr(esp, 0);
+		expr(esp);
 		amode = S_AEXT;
 	} else
 	if (c == '@') {
-		expr(esp, 0);
+		expr(esp);
 		amode = addrmode(esp);
 		if (is_abs(esp)) {
 			if((amode != S_SADDR) && (amode != S_SADFR)) {
@@ -88,7 +88,7 @@ addr(struct expr *esp, int *aindx)
 		amode = S_SADDR;
 	} else
 	if (c == '*') {
-		expr(esp, 0);
+		expr(esp);
 		amode = addrmode(esp);
 		if (is_abs(esp)) {
 			if((amode != S_SFR) && (amode != S_SADFR)) {
@@ -98,7 +98,7 @@ addr(struct expr *esp, int *aindx)
 		amode = S_SFR;
 	} else {
 		unget(c);
-		expr(esp, 0);
+		expr(esp);
 		amode = addrmode(esp);
 	}
 	return (amode);
@@ -359,7 +359,7 @@ argdot(struct expr *esp, int *aindx, int flag)
 			return(S_EXT);
 		}
 	} else {
-		expr(esp, 0);
+		expr(esp);
 		amode = addrmode(esp);
 	}
 	return(amode);
@@ -375,7 +375,7 @@ dotarg(struct expr *esp, int *aindx, int flag)
 			return(S_IMM);
 		}
 	} else {
-		expr(esp, 0);
+		expr(esp);
 		return(S_IMM);
 	}
 	return(0);

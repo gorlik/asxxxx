@@ -1,4 +1,8 @@
 # Symantec SC++ generated .dpd file. V: 7200
+.\s6186adr.OBJ: \
+	..\..\..\as61860\s6186adr.c \
+	..\..\..\asxxsrc\asxxxx.h \
+	..\..\..\AS61860\s61860.h 
 .\s6186mch.OBJ: \
 	..\..\..\as61860\s6186mch.c \
 	..\..\..\asxxsrc\asxxxx.h \

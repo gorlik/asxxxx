@@ -1,7 +1,7 @@
 /* st8mch.c */
 
 /*
- *  Copyright (C) 2010-2025  Alan R. Baldwin
+ *  Copyright (C) 2010-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -168,8 +168,7 @@ static char *Page[5] = {
  * Process a machine op.
  */
 void
-machine(mp)
-struct mne *mp;
+machine(struct mne *mp)
 {
 	struct expr e1, e2, e3;
 	char *p1, *p2;
@@ -1968,7 +1967,7 @@ struct mne *mp;
 
 	case S_JR:
 	case S_CALLR:
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		if (mchpcr(&e1,&v1, 1)) {
 			if ((v1 < -128) || (v1 > 127))
@@ -1989,7 +1988,7 @@ struct mne *mp;
 		t2 = addr(&e2);
 		v2 = (int) e2.e_addr;
 		comma(1);
-		expr(&e3, 0);
+		expr(&e3);
 		if (((t1 != S_SHORT) && (t1 != S_LONG)) || (t2 != S_IMM)) {
 			xerr('a', "First argument must be an address.");
 			break;
@@ -2077,8 +2076,7 @@ struct mne *mp;
  * based upon the expression type and value.
  */
 int
-ls_mode(e)
-struct expr *e;
+ls_mode(struct expr *e)
 {
 	int flag, v;
 
@@ -2113,9 +2111,7 @@ struct expr *e;
  * Else return 0.
  */
 int
-valu_err(e, n)
-struct expr *e;
-int n;
+valu_err(struct expr *e, int n)
 {
 	a_uint v;
 
@@ -2143,10 +2139,7 @@ int n;
  * Branch/Jump PCR Mode Check
  */
 int
-mchpcr(esp, v, n)
-struct expr *esp;
-int *v;
-int n;
+mchpcr(struct expr *esp, int *v, int n)
 {
 	if (esp->e_base.e_ap == dot.s_area) {
 		if (v != NULL) {
@@ -2222,8 +2215,7 @@ minit(void)
  * If no room, force the longer form of the offset.
  */
 int
-setbit(b)
-int b;
+setbit(int b)
 {
 	if (bp >= &bb[NB])
 		return(1);

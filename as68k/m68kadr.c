@@ -1,8 +1,8 @@
 /* m68kadr.c */
 
 /*
- *  Copyright (C) 2022-2025  Alan R. Baldwin
- *  Copyright (C) 2022-2025  Nick Downing
+ *  Copyright (C) 2022-2026  Alan R. Baldwin
+ *  Copyright (C) 2022-2026  Nick Downing
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -152,7 +152,7 @@ addr(struct expr *esp, struct expr *espxi, int sz, int *vx, int *px, int *xx)
 {
 	int c, d, s;
 	char *p, *ptr, *ips;
-	int dl, dr;
+	int bcnt, pcnt;
 
 	/* fix order of '<', '>', and '#' */
 	p = ip;
@@ -200,7 +200,7 @@ addr(struct expr *esp, struct expr *espxi, int sz, int *vx, int *px, int *xx)
 			}
 		} else {
 			ip = p;
-			expr(esp,0);
+			expr(esp);
 		}
 		*vx = 4;
 		esp->e_mode = S_IMM;
@@ -209,7 +209,7 @@ addr(struct expr *esp, struct expr *espxi, int sz, int *vx, int *px, int *xx)
 	/*	*	*/
 	if (c == '*') {
 		*vx = 0;
-		expr(esp, 0);
+		expr(esp);
 		if ((esp->e_mode = espmode(esp, vx, px)) != S_SHRT) {
 			xerr('a', "Address Not In Page, Using Long Form");
 		}
@@ -286,19 +286,21 @@ addr(struct expr *esp, struct expr *espxi, int sz, int *vx, int *px, int *xx)
 		 *   arg / (arg).W / (arg).L
 		 */
 		ip = p;
-		dl = dr = 0;
+		pcnt = 0;	/* Count of '(' (+1) and ')' (-1) */ /* arguments and addressing */
+		bcnt = 0;	/* Count of '{' (+1) and '}' (-1) */ /* floating point options */
 		while ((c = getnb()) != 0) {
-			if (c == '(') { dl += 1; } else
-			if (c == ')') { dr += 1; }
+			if (c == '(') { pcnt ++;
+				if ((pcnt == 1) && (bcnt == 0) && rgmode(1)) break;
+			} else
+			if (c == ')') { pcnt--; } else
+			if (c == '{') { bcnt++; } else
+			if (c == '}') { bcnt--; }
 		}
+				
 		ip = p;
-		if ( ((dl == 0) && (dr == 0)) ||
-		   (  (dl == 1) && (dr == 1) && (getnb() == '(') &&
-		      !admode(Dn) && !admode(DnW) && !admode(DnL) &&
-		      !admode(An) && !admode(AnW) && !admode(AnL) &&
-		      !admode(PCreg) ) ) {
+		if (pcnt == 0) {
 			ip = p;
-			expr(esp, 0);
+			expr(esp);
 			p = ip;
 			if (getnb() == '.') {
 				switch(getnb()) {
@@ -361,6 +363,7 @@ addr(struct expr *esp, struct expr *espxi, int sz, int *vx, int *px, int *xx)
 			return (esp->e_mode);
 		}
 
+
 		/*
 		 * scan for first '(' in this string
 		 */
@@ -400,8 +403,9 @@ addr(struct expr *esp, struct expr *espxi, int sz, int *vx, int *px, int *xx)
 			return (esp->e_mode);
 		}
 
-		ip = p;
-		expr(esp, 0);
+
+ 		ip = p;
+		expr(esp);
 		esp->e_mode = espmode(esp, vx, px);
 		return (esp->e_mode);
 	}
@@ -460,11 +464,9 @@ addr(struct expr *esp, struct expr *espxi, int sz, int *vx, int *px, int *xx)
 			if (c == ',') {		/* [, */
 				break;
 			} else
-			if (!(admode(An) || admode(AnW) || admode(AnL) ||
-			      admode(Dn) || admode(DnW) || admode(DnL) ||
-			      admode(PCreg))) {	/* [bd */
+			if (!rgmode(1)) {	/* [bd */
 				*xx &= ~BD_LONG;
-				expr(esp, 0);
+				expr(esp);
 				p = ip;
 				if (getnb() == '.') {
 					switch(getnb()) {
@@ -512,8 +514,7 @@ addr(struct expr *esp, struct expr *espxi, int sz, int *vx, int *px, int *xx)
 			if (c == ',') {		/* [,,, / [bd(,),, / [bd(,)An(,), / [bd(,)PC(,), / [An(,), / [PC(,), */
 				break;
 			} else
-			if (admode(An) || admode(AnW) || admode(AnL) ||
-			    admode(Dn) || admode(DnW) || admode(DnL)) {
+			if (rgmode(0)) {
 				ip = p;		/* [,,Rn / [bd(,),Rn / [bd(,)An(,)Rn / [bd(,)PC(,)Rn / [An(,)Rn / [PC(,)Rn */
 				*xx &= ~IN_SUP;				/* Index Register Present */
 				*xx |= xi() | IN_PRE;
@@ -565,8 +566,7 @@ addr(struct expr *esp, struct expr *espxi, int sz, int *vx, int *px, int *xx)
 			if (c == ',') {		/* ](,), */
 				break;
 			} else
-			if (admode(An) || admode(AnW) || admode(AnL) ||
-			    admode(Dn) || admode(DnW) || admode(DnL)) {
+			if (rgmode(0)) {
 				ip = p;		/* ](,)Xn */
 				*xx |= xi() | IN_POST;
 				if ((*xx & IN_SUP) == IN_ADD) {
@@ -587,7 +587,7 @@ addr(struct expr *esp, struct expr *espxi, int sz, int *vx, int *px, int *xx)
 				;
 			} else {
 				*xx &= ~OD_LONG;			/* Displacement Present */
-				expr(espxi, 0);	/* ](,)Xn(,)od / ](,)od */
+				expr(espxi);	/* ](,)Xn(,)od / ](,)od */
 				p = ip;
 				if (getnb() == '.') {
 					switch(getnb()) {
@@ -623,6 +623,19 @@ addr(struct expr *esp, struct expr *espxi, int sz, int *vx, int *px, int *xx)
 	return(esp->e_mode);
 }
 
+int
+rgmode(int pc)
+{
+	int r;
+
+	r = admode(An) || admode(AnW) || admode(AnL) ||
+	    admode(Dn) || admode(DnW) || admode(DnL);
+
+	if (pc) r |= admode(PCreg);
+
+	return(r);
+}
+
 unsigned char fpack[12];
 
 int
@@ -642,7 +655,7 @@ faddr(struct expr *esp, int fsz, int *vx)
 		case F_B:	/* #__.B */
 		case F_W:	/* #__.W */
 		case F_L:	/* #__.L */
-			expr(esp, 0);
+			expr(esp);
 			break;
 		default:
 		case F_S:	/* #__.S */
@@ -756,7 +769,7 @@ anpcidx(struct expr *esp, int *xx, char *p, char *ptr)
 	 */
 	if (more()) {
 		*xx &= ~BD_LONG;
-		expr(esp, 0);
+		expr(esp);
 		p = ip;
 		if (getnb() == '.') {
 			switch(getnb()) {
@@ -844,7 +857,7 @@ xi()
 		default:	break;
 		}
 		clrexpr(&esp);
-		expr(&esp, 0);
+		expr(&esp);
 		if (is_abs(&esp)) {
 			switch(esp.e_addr) {
 			case 1:	ev |= 0x0000;	break;

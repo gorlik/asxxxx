@@ -1,7 +1,7 @@
 /* s8xadr.c */
 
 /*
- *  Copyright (C) 2018-2025  Alan R. Baldwin
+ *  Copyright (C) 2018-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -101,7 +101,7 @@ eaddr(struct expr *esp)
 			vsp = sp->s_addr;
 			sp->s_addr = (vsp >> 6) & 0xFF;
 			ip = ips;
-			expr(esp, 0);
+			expr(esp);
 			abscheck(esp);
 			esp->e_addr = ((esp->e_addr & 0x03FF) << 6) | (vsp & 0x3F);
 			sp->s_addr = vsp;
@@ -111,7 +111,7 @@ eaddr(struct expr *esp)
 	}
 	if (esp->e_mode == 0) {
 		ip = ips;
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = A_EXT;
 	}
 	if (ipr != NULL) {

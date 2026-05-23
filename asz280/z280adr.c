@@ -1,7 +1,7 @@
 /* z280adr.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -103,7 +103,7 @@ new_addr(struct expr *esp)	/* from addr */
 
 	mode = indx = 0;
 	if ((c = getnb()) == '#') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMMED;
 		indx = A_IM;
 	} else
@@ -155,7 +155,7 @@ new_addr(struct expr *esp)	/* from addr */
 				mode = S_RA;
 				indx = A_RA;
 			}
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = mode;
 		}
 #if DEBUG
@@ -166,7 +166,7 @@ new_addr(struct expr *esp)	/* from addr */
 		if ( (c = getnb()) != close ) {
 			unget(c);
 			if (IN((REG_IX|REG_IY|REG_HL|REG_SP|REG_PC), indx)) {
-				expr(esp, 0);
+				expr(esp);
 				esp->e_mode = S_INDR + nreg(indx)/2;
 				switch (indx) {
 				  case REG_HL:
@@ -215,7 +215,7 @@ new_addr(struct expr *esp)	/* from addr */
 		/*	esp->e_base.e_ap = NULL;	*/
 		} else {
 			mode = S_USER;
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = mode;
 #if 0			
 			indx = is_abs(esp) ? A_IM : A_DA ;

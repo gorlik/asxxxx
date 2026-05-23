@@ -1,7 +1,7 @@
 /* at89mch.c */
 
 /*
- *  Copyright (C) 2019-2025  Alan R. Baldwin
+ *  Copyright (C) 2019-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -168,12 +168,12 @@ machine(struct mne *mp)
 		 * 11 bit destination.
 		 * Top 3 bits become the MSBs of the op-code.
 		 */
-		expr(&e1, 0);
+		expr(&e1);
 		outrwm(&e1, R_PAGX2 | R_J11, op << 8);
 		break;
 
 	case S_JMP16:
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		outrw(&e1, R_NORM);
 		break;
@@ -679,7 +679,7 @@ machine(struct mne *mp)
 			xerr('a', "Invalid First Argument");
 
 		comma(1);
-		expr(&e2, 0);
+		expr(&e2);
 
 		outab(op);
 		outrb(&e1, R_PAG0);
@@ -697,7 +697,7 @@ machine(struct mne *mp)
 
 	case S_BR:  /* JC, JNC, JZ, JNZ */
 		/* Relative branch */
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 
 		if (mchpcr(&e1, &v1, 1)) {
@@ -720,7 +720,7 @@ machine(struct mne *mp)
 		switch (t1) {
 		case S_A:
 			clrexpr(&e1);
-			expr(&e1, 0);
+			expr(&e1);
 			switch(t2) {
 			case S_IMMED:	/* A,#imm */
 				outab(op + 4);
@@ -759,7 +759,7 @@ machine(struct mne *mp)
 		case S_AT_R:	/* @R0,#imm @R1,#imm */
 			op = (op + 6 + (int) e1.e_addr);
 			clrexpr(&e1);
-			expr(&e1, 0);
+			expr(&e1);
 			outab(op);
 			if (t2 != S_IMMED)
 				xerr('a', "An Immediate Second Argument Is Required");
@@ -769,7 +769,7 @@ machine(struct mne *mp)
 		case S_REG:	/* R0,#imm to R7,#imm */
 			op = (op + 8 + (int) e1.e_addr);
 			clrexpr(&e1);
-			expr(&e1, 0);
+			expr(&e1);
 			outab(op);
 			if (t2 != S_IMMED)
 				xerr('a', "An Immediate Second Argument Is Required");
@@ -797,7 +797,7 @@ machine(struct mne *mp)
 		/* Dir,dest;  Reg,dest */
 		t1 = addr(&e1);
 		comma(1);
-		expr(&e2, 0);
+		expr(&e2);
 
 		switch (t1) {
 		case S_A:	/* A */ /* A Direct Mode */

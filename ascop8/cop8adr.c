@@ -1,7 +1,7 @@
 /* cop8adr.c */
 
 /*
- *  Copyright (C) 2021-2025  Alan R. Baldwin
+ *  Copyright (C) 2021-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -50,7 +50,7 @@ addr(struct expr *esp)
 			esp->e_addr = aindx | 0xF0;
 		}
 		if (more()) {
-			expr(esp, 0);
+			expr(esp);
 		}
 		esp->e_mode = S_IMM;
 	} else
@@ -76,7 +76,7 @@ addr(struct expr *esp)
 			esp->e_addr = aindx;
 			esp->e_mode = S_REGN;
 		} else {
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = S_EXT;
 		}
 	}

@@ -1,7 +1,7 @@
 /* i61mch.c */
 
 /*
- *  Copyright (C) 2013-2025  Alan R. Baldwin
+ *  Copyright (C) 2013-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -71,7 +71,7 @@ machine(struct mne *mp)
 		opcycles = OPCY_SDP;
 		outall();
 		if (more()) {
-			expr(&e1, 0);
+			expr(&e1);
 			if (e1.e_flag == 0 && e1.e_base.e_ap == NULL) {
 				if (e1.e_addr & ~0x1F) {
 					xerr('b', "Paging Error: 0 -> 31 allowed, page set to 0.");
@@ -101,7 +101,7 @@ machine(struct mne *mp)
 	 */
 	case S_MPN:
 		opcycles = OPCY_SDP;
-		expr(&e1, 0);
+		expr(&e1);
 		if (e1.e_flag == 0 && e1.e_base.e_ap == NULL) {
 			if (e1.e_addr & ~0x1F) {
 				xerr('b', "Paging Error: 0 -> 31 allowed, page set to 0.");
@@ -122,7 +122,7 @@ machine(struct mne *mp)
 	 */
 	case S_MPA:
 		opcycles = OPCY_SDP;
-		expr(&e1, 0);
+		expr(&e1);
 		if (e1.e_flag == 0 && e1.e_base.e_ap == NULL) {
 			if (e1.e_addr & ~0x0F80) {
 				xerr('b', "Invalid Page Address.");
@@ -142,7 +142,7 @@ machine(struct mne *mp)
 		do {
 			clrexpr(&e1);
 			if (mp->m_valu == O_4BYTE) { exprmasks(3); }
-			expr(&e1, 0);
+			expr(&e1);
 			if (mp->m_valu == O_4BYTE) { exprmasks(2); }
 			switch(mp->m_valu) {
 			case O_1BYTE:	outrwm(&e1, R_8BIT,  0);	break;
@@ -155,7 +155,7 @@ machine(struct mne *mp)
 
 	case S_WRD:
 		clrexpr(&e1);
-		expr(&e1, 0);
+		expr(&e1);
 		outchk(HUGE,HUGE);
 		cnt = (int) e1.e_addr * mp->m_valu;
 		nc = 1 + ((dot.s_area->a_flag) & A_BYTES);
@@ -235,10 +235,10 @@ machine(struct mne *mp)
 		break;
 
 	case S_IOT:
-		expr(&e1, 0);
+		expr(&e1);
 		if (more()) {
 			comma(0);
-			expr(&e2, 0);
+			expr(&e2);
 			abscheck(&e2);
 			outrwm(&e1, R_6BIT, op | (e2.e_addr & 0x07));
 		} else {

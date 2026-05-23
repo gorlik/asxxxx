@@ -1,7 +1,7 @@
 /* M09MCH.C */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -187,7 +187,7 @@ machine(struct mne *mp)
 		opcycles = OPCY_SDP;
 		zpg = dot.s_area;
 		if (more()) {
-			expr(&e1, 0);
+			expr(&e1);
 			if (e1.e_flag == 0 && e1.e_base.e_ap == NULL) {
 				if (e1.e_addr & 0xFF) {
 					xerr('a', "A 256 Byte Boundary Required.");
@@ -233,7 +233,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_BRA:
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		if (mchpcr(&e1, &v1, 1)) {
 			if ((v1 < -128) || (v1 > 127))
@@ -250,7 +250,7 @@ machine(struct mne *mp)
 		cpg += 0x10;
 
 	case S_LBSR:
-		expr(&e1, 0);
+		expr(&e1);
 		if (cpg)
 			outab(cpg);
 		outab(op);

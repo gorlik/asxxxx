@@ -1,0 +1,726 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML lang="en-US">
+<HEAD>
+<TITLE></TITLE>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+</HEAD>
+<BODY BGCOLOR="#C0C0C0">
+
+<A href="../home.htm">
+<IMG width="343" height="58" border="0" SRC="welcom.gif" ALT="Welcome"></A>
+
+<H2>ASST9  Assembler</H2>
+
+<A NAME = "TOP"> </A> 
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
+
+<H4><B><PRE>
+ST9 REGISTER SET 
+
+The following is a list of the ST9 registers used by ASST9:  
+
+        rn      -       Working Register
+                        where n=0-15
+        rrn     -       Working Register Pair
+                        where n=0,2,4,...,14
+        Rn      -       Direct Register
+                        where n=0-255, except 208-223
+        RRn             Direct Register Pair
+                        where n=0,2,4,...,254
+                        except n=208,210,...,222
+
+
+ST9 ADDRESSING MODES 
+
+
+     The  addressing  modes are detailed in the following table.
+Each ST9 instruction may use only a subset of the shown address-
+ing modes.  
+
+        #N      a byte expression
+        #NN     a word expression
+        rn      a Working Register,
+                  n=0-15
+        Rn      a Direct Register,
+                  n=0-255, except 208-223
+        rrn     a Working Register Pair,
+                  n=0,2,4,...,14
+        RRn     a Direct Register Pair,
+                  n=0,2,4...,254,
+                  except 208,210,...,222
+        (rn)    Indirect Working Register
+                  n=0-15
+        (Rn)    Indirect Register
+                  n=0-255 except 208-223
+        (rn)+   Indirect Workin Register
+                  n=0-15,  post increment
+        N(rn)   Indirect Working Register
+                  n=0-15, with byte offset
+        N       Memory Relative Short Address
+                  in the range +127/-128
+        NN      Program label or expression
+                  in the range 0-65535
+        (rrn)   Indirect Working Register Pair
+                  n=0,2,4,...,14
+        (rrn)+  Indirect Working Register Pair
+                  n=0,2,4,...,14 post increment
+        -(rrn)  Indirect Working Register Pair
+                  n=0,2,4,...,14 pre decrement
+        N(rrn)  Indirect Working Register Pair
+                  n=0,2,4,...,14
+                  signed byte offset +127/-128
+        NN(rrn) Indirect Working Register Pair
+                  n=0,2,4,...,14
+                  word offset 0-65535
+        N(RRn)  Indirect Register Pair
+                  n=0,2,4,...,254
+                  except 208,210,...,222
+                  signed byte offset +127/-128
+        NN(RRn) Indirect Register Pair
+                  n=0,2,4,...,254
+                  except 208,210,...,222
+                  word offset 0-65535
+        rrx(rrn) Indirect Working Register Pair
+                  Indirect Working Register Pair Offset
+                  n,x=0,2,4,...,14
+
+
+     The   terms  N  and  NN  can  be  constants  or  any  valid
+arithemetic/logical expression containing  local  or  externally
+defined values.  
+
+
+                              NOTE
+
+
+          When an expression contains an external reference
+     the assembler cannot determine if the reference  is  a
+     byte  value  or a word value.  In this case the assem-
+     bler will use a long form of an instruction if it  ex-
+     ists.   For example if V is external and even if it is
+     known to have a byte value (-128/+127)  the  assembler
+     will generate code of the form 
+
+          add   r0,VV(rr4)      16-Bit Offset 
+
+          when the form could be 
+
+          add   r0,V(rr4)       8-Bit Offset 
+
+          This  default  operation  can be modified by pre-
+     ceeding the external expression or value with the  '*'
+     character.   This  will  inform the assembler that the
+     short form should be used.  If the actual value is not
+     within  the  correct  byte value range then the linker
+     will report an error.  
+
+
+
+     The bit addressing modes add a suffix of .b to signifying a
+particular bit.  To specify the complement of a  bit  value  the
+form .!b is used.  The bit value may be a constant, a local sym-
+bol, or an external symbol:  
+
+        rn.b    n=0-15, b=0-7
+
+        rn.!b   n=0-15, b=0-7
+
+        (rrn).b n=0,2,4,...,14, b=0-7
+
+        r2.5            Bit 5 of r2
+
+        r3.!BT3         Where BT3 is a local
+                        symbol with a value of 3
+
+        (rr12).PRTY     Where PRTY is of unknown
+                        value declared as global
+
+
+ST9 INSTRUCTION SET 
+
+
+     The  following  tables list all ST9 mnemonics recognized by
+the ASST9 assembler.  The destination  (dst)  and  source  (src)
+columns  are  comprehensive  for  all  instructions.   The valid
+ranges of r, rr, R, and RR can be found in the previous descrip-
+tion of the address modes.  
+
+
+Arithmetic Instruction (Byte) 
+
+                                        dst     src
+                                        ---     ---
+        ADD, ADC, CP, SUB, SBC          r       r
+        ADD, ADC, CP, SUB, SBC          R       R
+        ADD, ADC, CP, SUB, SBC          r       R
+        ADD, ADC, CP, SUB, SBC          R       r
+        ADD, ADC, CP, SUB, SBC          r       (r)
+        ADD, ADC, CP, SUB, SBC          R       (r)
+        ADD, ADC, CP, SUB, SBC          r       (rr)
+        ADD, ADC, CP, SUB, SBC          R       (rr)
+        ADD, ADC, CP, SUB, SBC          r       NN
+        ADD, ADC, CP, SUB, SBC          r       N(rrx)
+        ADD, ADC, CP, SUB, SBC          R       N(rrx)
+        ADD, ADC, CP, SUB, SBC          r       NN(rrx)
+        ADD, ADC, CP, SUB, SBC          R       NN(rrx)
+        ADD, ADC, CP, SUB, SBC          r       rr(rrx)
+        ADD, ADC, CP, SUB, SBC          r       (rr)+
+        ADD, ADC, CP, SUB, SBC          R       (rr)+
+        ADD, ADC, CP, SUB, SBC          r       -(rr)
+        ADD, ADC, CP, SUB, SBC          R       -(rr)
+        ADD, ADC, CP, SUB, SBC          (r)     r
+        ADD, ADC, CP, SUB, SBC          (r)     R
+        ADD, ADC, CP, SUB, SBC          (rr)    r
+        ADD, ADC, CP, SUB, SBC          (rr)    R
+        ADD, ADC, CP, SUB, SBC          (rr)+   r
+        ADD, ADC, CP, SUB, SBC          (rr)+   R
+        ADD, ADC, CP, SUB, SBC          NN      r
+        ADD, ADC, CP, SUB, SBC          N(rrx)  r
+        ADD, ADC, CP, SUB, SBC          N(rrx)  R
+        ADD, ADC, CP, SUB, SBC          NN(rrx) r
+        ADD, ADC, CP, SUB, SBC          NN(rrx) R
+        ADD, ADC, CP, SUB, SBC          rr(rrx) r
+        ADD, ADC, CP, SUB, SBC          -(rr)   r
+        ADD, ADC, CP, SUB, SBC          -(rr)   R
+        ADD, ADC, CP, SUB, SBC          r       #N
+        ADD, ADC, CP, SUB, SBC          R       #N
+        ADD, ADC, CP, SUB, SBC          (rr)    #N
+        ADD, ADC, CP, SUB, SBC          NN      #N
+        ADD, ADC, CP, SUB, SBC          (rr)    (rr)
+        ADD, ADC, CP, SUB, SBC          (RR)    (rr)
+
+
+Arithmetic Instructions (Word) 
+
+                                        dst     src
+                                        ---     ---
+        ADDW, ADCW, CPW, SUBW, SBCW     rr      rr
+        ADDW, ADCW, CPW, SUBW, SBCW     RR      RR
+        ADDW, ADCW, CPW, SUBW, SBCW     rr      RR
+        ADDW, ADCW, CPW, SUBW, SBCW     RR      rr
+        ADDW, ADCW, CPW, SUBW, SBCW     rr      (r)
+        ADDW, ADCW, CPW, SUBW, SBCW     RR      (r)
+        ADDW, ADCW, CPW, SUBW, SBCW     rr      (rr)
+        ADDW, ADCW, CPW, SUBW, SBCW     RR      (rr)
+        ADDW, ADCW, CPW, SUBW, SBCW     rr      NN
+        ADDW, ADCW, CPW, SUBW, SBCW     rr      N(rrx)
+        ADDW, ADCW, CPW, SUBW, SBCW     RR      N(rrx)
+        ADDW, ADCW, CPW, SUBW, SBCW     rr      NN(rrx)
+        ADDW, ADCW, CPW, SUBW, SBCW     RR      NN(rrx)
+        ADDW, ADCW, CPW, SUBW, SBCW     rr      rr(rrx)
+        ADDW, ADCW, CPW, SUBW, SBCW     rr      (rr)+
+        ADDW, ADCW, CPW, SUBW, SBCW     RR      (rr)+
+        ADDW, ADCW, CPW, SUBW, SBCW     rr      -(rr)
+        ADDW, ADCW, CPW, SUBW, SBCW     RR      -(rr)
+        ADDW, ADCW, CPW, SUBW, SBCW     (r)     rr
+        ADDW, ADCW, CPW, SUBW, SBCW     (r)     RR
+        ADDW, ADCW, CPW, SUBW, SBCW     (rr)    rr
+        ADDW, ADCW, CPW, SUBW, SBCW     (rr)    RR
+        ADDW, ADCW, CPW, SUBW, SBCW     (rr)+   rr
+        ADDW, ADCW, CPW, SUBW, SBCW     (rr)+   RR
+        ADDW, ADCW, CPW, SUBW, SBCW     NN      rr
+        ADDW, ADCW, CPW, SUBW, SBCW     N(rrx)  rr
+        ADDW, ADCW, CPW, SUBW, SBCW     N(rrx)  RR
+        ADDW, ADCW, CPW, SUBW, SBCW     NN(rrx) rr
+        ADDW, ADCW, CPW, SUBW, SBCW     NN(rrx) RR
+        ADDW, ADCW, CPW, SUBW, SBCW     rr(rrx) rr      
+        ADDW, ADCW, CPW, SUBW, SBCW     -(rr)   rr
+        ADDW, ADCW, CPW, SUBW, SBCW     -(rr)   RR
+        ADDW, ADCW, CPW, SUBW, SBCW     rr      #NN     
+        ADDW, ADCW, CPW, SUBW, SBCW     RR      #NN     
+        ADDW, ADCW, CPW, SUBW, SBCW     (rr)    #NN
+        ADDW, ADCW, CPW, SUBW, SBCW     NN      #NN     
+        ADDW, ADCW, CPW, SUBW, SBCW     N(rrx)  #NN
+        ADDW, ADCW, CPW, SUBW, SBCW     NN(rrx) #NN
+        ADDW, ADCW, CPW, SUBW, SBCW     (rr)    (rr)
+
+
+Logical Instructions (Byte) 
+
+                                        dst     src
+                                        ---     ---
+        AND, OR, XOR, TCM, TM           r       r
+        AND, OR, XOR, TCM, TM           R       R
+        AND, OR, XOR, TCM, TM           r       R
+        AND, OR, XOR, TCM, TM           R       r
+        AND, OR, XOR, TCM, TM           r       (r)
+        AND, OR, XOR, TCM, TM           R       (r)
+        AND, OR, XOR, TCM, TM           r       (rr)
+        AND, OR, XOR, TCM, TM           R       (rr)
+        AND, OR, XOR, TCM, TM           r       NN
+        AND, OR, XOR, TCM, TM           r       N(rrx)
+        AND, OR, XOR, TCM, TM           R       N(rrx)
+        AND, OR, XOR, TCM, TM           r       NN(rrx)
+        AND, OR, XOR, TCM, TM           R       NN(rrx)
+        AND, OR, XOR, TCM, TM           r       rr(rrx)
+        AND, OR, XOR, TCM, TM           r       (rr)+
+        AND, OR, XOR, TCM, TM           R       (rr)+
+        AND, OR, XOR, TCM, TM           r       -(rr)
+        AND, OR, XOR, TCM, TM           R       -(rr)
+        AND, OR, XOR, TCM, TM           (r)     r
+        AND, OR, XOR, TCM, TM           (r)     R
+        AND, OR, XOR, TCM, TM           (rr)    r
+        AND, OR, XOR, TCM, TM           (rr)    R
+        AND, OR, XOR, TCM, TM           (rr)+   r
+        AND, OR, XOR, TCM, TM           (rr)+   R
+        AND, OR, XOR, TCM, TM           NN      r
+        AND, OR, XOR, TCM, TM           N(rrx)  r
+        AND, OR, XOR, TCM, TM           N(rrx)  R
+        AND, OR, XOR, TCM, TM           NN(rrx) r
+        AND, OR, XOR, TCM, TM           NN(rrx) R
+        AND, OR, XOR, TCM, TM           rr(rrx) r
+        AND, OR, XOR, TCM, TM           -(rr)   r
+        AND, OR, XOR, TCM, TM           -(rr)   R
+        AND, OR, XOR, TCM, TM           r       #N
+        AND, OR, XOR, TCM, TM           R       #N
+        AND, OR, XOR, TCM, TM           (rr)    #N
+        AND, OR, XOR, TCM, TM           NN      #N
+        AND, OR, XOR, TCM, TM           (rr)    (rr)
+        AND, OR, XOR, TCM, TM           (RR)    (rr)
+
+
+Logical Instructions (Word) 
+
+                                        dst     src
+                                        ---     ---
+        ANDW, ORW, XORW, TCMW, TMW      rr      rr
+        ANDW, ORW, XORW, TCMW, TMW      RR      RR
+        ANDW, ORW, XORW, TCMW, TMW      rr      RR
+        ANDW, ORW, XORW, TCMW, TMW      RR      rr
+        ANDW, ORW, XORW, TCMW, TMW      rr      (r)
+        ANDW, ORW, XORW, TCMW, TMW      RR      (r)
+        ANDW, ORW, XORW, TCMW, TMW      rr      (rr)
+        ANDW, ORW, XORW, TCMW, TMW      RR      (rr)
+        ANDW, ORW, XORW, TCMW, TMW      rr      NN
+        ANDW, ORW, XORW, TCMW, TMW      rr      N(rrx)
+        ANDW, ORW, XORW, TCMW, TMW      RR      N(rrx)
+        ANDW, ORW, XORW, TCMW, TMW      rr      NN(rrx)
+        ANDW, ORW, XORW, TCMW, TMW      RR      NN(rrx)
+        ANDW, ORW, XORW, TCMW, TMW      rr      rr(rrx)
+        ANDW, ORW, XORW, TCMW, TMW      rr      (rr)+
+        ANDW, ORW, XORW, TCMW, TMW      RR      (rr)+
+        ANDW, ORW, XORW, TCMW, TMW      rr      -(rr)
+        ANDW, ORW, XORW, TCMW, TMW      RR      -(rr)
+        ANDW, ORW, XORW, TCMW, TMW      (r)     rr
+        ANDW, ORW, XORW, TCMW, TMW      (r)     RR
+        ANDW, ORW, XORW, TCMW, TMW      (rr)    rr
+        ANDW, ORW, XORW, TCMW, TMW      (rr)    RR
+        ANDW, ORW, XORW, TCMW, TMW      (rr)+   rr
+        ANDW, ORW, XORW, TCMW, TMW      (rr)+   RR
+        ANDW, ORW, XORW, TCMW, TMW      NN      rr
+        ANDW, ORW, XORW, TCMW, TMW      N(rrx)  rr
+        ANDW, ORW, XORW, TCMW, TMW      N(rrx)  RR
+        ANDW, ORW, XORW, TCMW, TMW      NN(rrx) rr
+        ANDW, ORW, XORW, TCMW, TMW      NN(rrx) RR
+        ANDW, ORW, XORW, TCMW, TMW      rr(rrx) rr      
+        ANDW, ORW, XORW, TCMW, TMW      -(rr)   rr
+        ANDW, ORW, XORW, TCMW, TMW      -(rr)   RR
+        ANDW, ORW, XORW, TCMW, TMW      rr      #NN     
+        ANDW, ORW, XORW, TCMW, TMW      RR      #NN     
+        ANDW, ORW, XORW, TCMW, TMW      (rr)    #NN
+        ANDW, ORW, XORW, TCMW, TMW      NN      #NN     
+        ANDW, ORW, XORW, TCMW, TMW      N(rrx)  #NN
+        ANDW, ORW, XORW, TCMW, TMW      NN(rrx) #NN
+        ANDW, ORW, XORW, TCMW, TMW      (rr)    (rr)
+
+
+Load Instructions (Byte) 
+
+                dst     src
+                ---     ---
+        LD      r       r
+        LD      R       R
+        LD      r       R
+        LD      R       r
+        LD      r       (r)
+        LD      R       (r)
+        LD      r       (rr)
+        LD      R       (rr)
+        LD      r       NN
+        LD      r       N(rx)
+        LD      r       N(rrx)
+        LD      R       N(rrx)
+        LD      r       NN(rrx)
+        LD      R       NN(rrx)
+        LD      r       rr(rrx)
+        LD      r       (rr)+
+        LD      R       (rr)+
+        LD      r       -(rr)
+        LD      R       -(rr)
+        LD      (r)     r
+        LD      (r)     R
+        LD      (rr)    r
+        LD      (rr)    R
+        LD      (rr)+   r
+        LD      (rr)+   R
+        LD      NN      r
+        LD      N(rx)   r
+        LD      N(rrx)  r
+        LD      N(rrx)  R
+        LD      NN(rrx) r
+        LD      NN(rrx) R
+        LD      rr(rrx) r
+        LD      -(rr)   r
+        LD      -(rr)   R
+        LD      r       #N
+        LD      R       #N
+        LD      (rr)    #N
+        LD      NN      #N
+        LD      (rr)    (rr)
+        LD      (RR)    (rr)
+        LD      (r)+    (rr)+
+        LD      (rr)+   (r)+
+
+
+Load Instructions (Word) 
+
+                dst     src
+                ---     ---
+        LDW     rr      rr
+        LDW     RR      RR
+        LDW     rr      RR
+        LDW     RR      rr
+        LDW     rr      (r)
+        LDW     RR      (r)
+        LDW     rr      (rr)
+        LDW     RR      (rr)
+        LDW     rr      NN
+        LDW     rr      N(rx)
+        LDW     rr      N(rrx)
+        LDW     RR      N(rrx)
+        LDW     rr      NN(rrx)
+        LDW     RR      NN(rrx)
+        LDW     rr      rr(rrx)
+        LDW     rr      (rr)+
+        LDW     RR      (rr)+
+        LDW     rr      -(rr)
+        LDW     RR      -(rr)
+        LDW     (r)     rr
+        LDW     (r)     RR
+        LDW     (rr)    rr
+        LDW     (rr)    RR
+        LDW     (rr)+   rr
+        LDW     (rr)+   RR
+        LDW     NN      rr
+        LDW     N(rx)   rr
+        LDW     N(rrx)  RR
+        LDW     N(rrx)  rr
+        LDW     NN(rrx) RR
+        LDW     NN(rrx) rr
+        LDW     rr(rrx) rr
+        LDW     -(rr)   rr
+        LDW     -(rr)   RR
+        LDW     rr      #NN
+        LDW     RR      #NN
+        LDW     (rr)    #NN
+        LDW     N(rrx)  #NN
+        LDW     NN(rrx) #NN
+        LDW     NN      #NN
+        LDW     (rr)    (rr)
+
+
+Other Instructions (Set 1) 
+
+                dst     src
+                ---     ---
+        BAND    rn.b    rn.b    Bit And
+        BAND    rn.b    rn.!b
+
+        BCPL    rn.b            Bit Complement
+
+        BLD     rn.b    rn.b    Bit Load
+        BLD     rn.b    rn.!b
+
+        BOR     rn.b    rn.b    Bit OR
+        BOR     rn.b    rn.!b
+
+        BRES    rn.b            Bit Reset
+
+        BSET    rn.b            Bit Set
+
+        BTJF    rn.b    N       Bit Test and Jump
+        BTJT    rn.b    N
+
+        BXOR    rn.b    rn.b    Bit XOR
+        BXOR    rn.b    rn.!b
+
+        BTSET   rn.b            Bit Test and Set
+        BTSET   (rr).b
+
+        CALL    NN              Call a Subroutine
+        CALL    (rr)
+        CALL    (RR)
+
+        CALLS   N,NN            Call a Subroutine
+        CALLS   (r),(rr)        in another segment
+        CALLS   (R),(rr)
+
+        CCF                     Complement Carry Flag
+
+        CLR     r               Clear Register
+        CLR     R
+        CLR     (r)
+        CLR     (R)
+
+        CPJFI   (rr),r  N       Compare with Post-Increment
+        CPJTI   (rr),r  N
+
+
+Other Instructions (Set 2) 
+
+                dst     src
+                ---     ---
+        CPL     r               Complement Register
+        CPL     R
+        CPL     (r)
+        CPL     (R)
+
+        DA      r
+        DA      R               Decimal Adjust
+        DA      (r)
+        DA      (R)
+
+        DEC     r               Decrement Register (byte)
+        DEC     R
+        DEC     (r)
+        DEC     (R)
+
+        DECW    rr              Decrement Register (word)
+        DECW    RR
+
+        DIV     rr      r       Divide 16 by 8
+
+        DIVWS   rr      rr      Divide Word 32 by 16
+
+        DJNZ    r       N       Decrement Register
+                                Jump if Non-Zero
+
+        DWJNZ   rr      N       Decrement Register Pair
+        DWJNZ   RR      N       Jump if Non-Zero
+
+        DI                      Disable Interrupts
+        EI                      Enable Interrupts
+
+        EXT     rr              Sign extend Register
+        EXT     RR
+
+        HALT                    Halt Operation
+
+        INC     r               Increment (byte)
+        INC     R
+        INC     (r)
+        INC     (R)
+
+        INCW    rr              Increment (word)
+        INCW    RR
+
+        IRET                    Return from Interrupt
+
+
+Other Instructions (Set 3) 
+
+                dst     src
+                ---     ---
+        JP      NN              Jump to a Routine
+        JP      (rr)
+        JP      (RR)
+
+        JPS     N,NN            Jump to a Routine
+        JPS     (r),(rr)        in another segment
+        JPS     (R),(rr)
+
+        JPcc    NN              Conditional Jump
+        JRcc    N               Conditional Relative Jump
+                                to a Routine
+                        cc = f          -------       
+                             t          -------       
+                             c           C = 1        
+                             nc          C = 0        
+                             z           Z = 1        
+                             nz          Z = 0        
+                             pl          S = 0        
+                             mi          S = 1        
+                             ov          V = 1        
+                             nov         V = 0        
+                             eq          Z = 1        
+                             ne          Z = 0        
+                             ge       (S xor V) = 1   
+                             lt       (S xor V) = 0   
+                             gt    (Z or (S xor V)) = 0
+                             le     (Z or (S xor V)) = 1
+                             uge         C = 0        
+                             ult         C = 1        
+                             ugt    (C=0 and Z=0) = 1 
+                             ule      (C or Z) = 1    
+
+        LDPP    (rr)+           Load from Program to Program
+        LDDP    (rr)+           Load from Program to Data
+        LDPD    (rr)+           Load from Data to Program
+        LDDD    (rr)+           Load from Data to Data
+
+        LINK    RR      #N      Create Stack Frame in
+        LINK    rr      #N      System Stack
+        LINKU   RR      #N      Create Stack Frame in
+        LINKU   rr      #N      User Stack
+
+        MUL     rr      r       Multiply
+
+        NOP                     No Operation
+
+
+Push And Pop Instructions 
+
+                dst     src
+                ---     ---
+        PEA             N(rrx)  Push effective address
+        PEA             NN(rrx) onto system stack
+        PEA             N(RRx)
+        PEA             NN(RRx)
+
+        PEAU            N(rrx)  Push effective address
+        PEAU            NN(rrx) onto user stack
+        PEAU            N(RRx)
+        PEAU            NN(RRx)
+
+        POP     r               Pop byte fromsystem stack
+        POP     R
+        POP     (r)
+        POP     (R)
+
+        POPU    r               Pop byte from user stack
+        POPU    R
+        POPU    (r)
+        POPU    (R)
+
+        POPUW   rr              Pop word from user stack
+        POPUW   RR
+
+        POPW    rr              pop word from system stack
+        POPW    RR
+
+        PUSH            r       Push byte onto system stack
+        PUSH            R
+        PUSH            (r)
+        PUSH            (R)
+        PUSH            #N
+
+        PUSHU           r       Push byte onto user stack
+        PUSHU           R
+        PUSHU           (r)
+        PUSHU           (R)
+        PUSHU           #N
+
+        PUSHUW          rr      Push word onto user stack
+        PUSHUW          RR
+        PUSHUW          #NN
+
+        PUSHW           rr      push word onto system stack
+        PUSHW           RR
+        PUSHW           #NN
+
+
+Other Instructions (Set 4) 
+
+                dst     src
+                ---     ---
+        RCF                     Reset carry flag
+
+        RET                     Return from subroutine
+
+        RETS                    Return from subroutine
+                                in another segment
+
+        RLC     r               Rotate byte left through carry
+        RLC     R
+        RLC     (r)
+        RLC     (R)
+
+        RLCW    rr              Rotate word left through carry
+        RLCW    RR
+
+        ROL     r               Rotate byte left
+        ROL     R
+        ROL     (r)
+        ROL     (R)
+
+        ROR     r               Rotate byte right
+        ROR     R
+        ROR     (r)
+        ROR     (R)
+
+        RRC     r               Rotate byte right through carry
+        RRC     R
+        RRC     (r)
+        RRC     (R)
+
+        RRCW    rr              Rotate word right through carry
+        RRCW    RR
+
+
+Other Instructions (Set 5) 
+
+                dst     src
+                ---     ---
+        SCF                     Set carry flag
+
+        SDM                     Set data memory
+
+        SLA     r               Shift byte left arithmetic
+        SLA     R
+        SLA     (rr)
+
+        SLAW    rr              Shift word left arithmetic
+        SLAW    RR
+        SLAW    (rr)
+
+        SPM                     Set program memory
+
+        SPP             #N      Set page pointer
+
+        SRA     r               Shift byte right arithmetic
+        SRA     R
+        SRA     (r)
+        SRA     (R)
+
+        SRAW    rr              Shift word right arithmetic
+        SRAW    RR
+
+        SRP             #N      Set register pointer
+        SRP0            #N      Set register pointer 0
+        SRP1            #N      Set register pointer 1
+
+        SWAP    r               Swap nibbles
+        SWAP    R
+        SWAP    (r)
+        SWAP    (R)
+
+        UNLINK  RR              Remove stack frame
+        UNLINK  rr              from system stack
+
+        UNLINKU RR              Remove stack frame
+        UNLINKU rr              from user stack
+
+        WFI                     Wait for interrupt
+
+</PRE></B></H4>
+<H5><A HREF="asxdoc.htm#TOP"> Go to the Documentation Index</A></H5>
+
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
+<P>
+<A HREF="asxxxx.htm#JUMP">
+<IMG width="32" height="32" border="0" SRC="spcshp.gif" ALIGN="bottom" alt="spaceship"></A>
+<B>...  Exit the ASxxxx Documentation</B>
+</P>
+
+<P>
+<A href="../home.htm">
+<IMG width="32" height="32" border="0" SRC="home.gif" ALIGN="bottom" alt="home"></A>
+<B>...  Home Page</B>
+</P>
+
+<H6><B>Last Updated: May 2026</B></H6>
+</BODY> 
+</HTML>

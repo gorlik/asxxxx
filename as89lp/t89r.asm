@@ -130,14 +130,14 @@ L8:
 	.area	Space_25
 LLLL:	NOP			; 00
 	SJMP	.		; 80 FE
-	AJMP	RN		;n01*0B
-	AJMP	.		;n01*05
-	AJMP	.+1		;n01*08
+	AJMP	RN		;v01u0B
+	AJMP	.		;v01u05
+	AJMP	.+1		;v01u08
 	.area	Space_26
 	LJMP	LLLL		; 02s00r00
 	LJMP	.		; 02s00r03
 	LCALL	.		; 12s00r06
-	ACALL	.		;n11*09
+	ACALL	.		;v11u09
 RN:	RR	A		; 03
 
 	.end

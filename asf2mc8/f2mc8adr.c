@@ -1,7 +1,7 @@
 /* f2mc8adr.c */
 
 /*
- *  Copyright (C) 2005-2025  Alan R. Baldwin
+ *  Copyright (C) 2005-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -45,17 +45,17 @@ addr(struct expr *esp)
 	ip = p;
 
 	if ((c = getnb()) == '#') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMMED;
 	} else if (c == '*') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_DIR;
 	} else {
 		if (c == '@') {
 			aindex = admode(reg);
 			if (aindex == S_IX) {
 				if ((c = getnb()) == '+') {
-					expr(esp, 0);		/* @IX+d  */
+					expr(esp);		/* @IX+d  */
 				} else {
 					unget(c);		/* @IX    */
 				}
@@ -66,7 +66,7 @@ addr(struct expr *esp)
 			if ((mode = admode(reg)) != 0) {
 				esp->e_mode = mode;
 			} else {
-				expr(esp, 0);
+				expr(esp);
 				esp->e_mode = S_EXT;
 				if ((!esp->e_flag)
 					&& (esp->e_base.e_ap==NULL)

@@ -1,7 +1,7 @@
 /* asdata.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -70,6 +70,14 @@ int	(*mchoptn_ptr)(char *id, int v);
 
 int	aserr;		/*	ASxxxx error counter
 			 */
+int	rlerr;		/*	Relocation error counter
+			 */
+int	rprterr;	/*	report expr() errors
+			 */
+int	ignrerr;	/*	ignore expr() errors
+			 */
+int	rlsym;		/*	Relocation symbol counter
+			 */
 int	trcflags;	/*	ASxxxx tracing flags
 			 */
 jmp_buf	jump_env;	/*	compiler dependent structure
@@ -88,7 +96,7 @@ int	passcnt;	/* number of passes executed
 			 */
 int	passJLH;	/* JLH output pass
 			 */
-int	passfuz;	/* residual fuss after pass == 1
+a_uint	passfuz;	/* residual fuss after pass == 1
 			 */
 
 /*
@@ -259,11 +267,15 @@ int	ifcnd[MAXIF+1];	/*	array of IF statement condition
 int	iflvl[MAXIF+1];	/*	array of IF-ELSE-ENDIF flevel
 			 *	values indexed by tlevel
 			 */
-char	afn[FILSPC];	/*	current input file specification
+char *	afs;		/*	current input file specification pointer
+			 */
+char *	afn;		/*	current input file name pointer
 			 */
 int	afp;		/*	current input file path length
 			 */
-char	afntmp[FILSPC];	/*	temporary input file specification
+char	afstmp[FILSPC];	/*	temporary input file specification
+			 */
+char	afntmp[FILSPC];	/*	temporary input file name
 			 */
 int	afptmp;		/*	temporary input file path length
 			 */
@@ -279,6 +291,12 @@ int	radix;		/*	current number conversion radix:
 			 *	2 (binary), 8 (octal), 10 (decimal),
 			 *	16 (hexadecimal)
 			 */
+int	expr_radix;	/*	expression process radix
+			 */
+int	rdxidx;		/*	index into exression radix stack
+			 */
+int	rdxval[MAXNST];	/*	expression radix stack
+			 */
 int	line;		/*	current assembler source
 			 *	line number
 			 */
@@ -287,6 +305,8 @@ int	page;		/*	current page number
 int	lop;		/*	current line number on page
 			 */
 time_t	curtim;		/*	pointer to the current time string
+			 */
+int	pstate;		/*	assembler pass state
 			 */
 int	pass;		/*	assembler pass number
 			 */

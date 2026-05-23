@@ -1,7 +1,7 @@
 /* i48mch.c */
 
 /*
- *  Copyright (C) 2009-2025  Alan R. Baldwin
+ *  Copyright (C) 2009-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -516,7 +516,7 @@ machine(struct mne *mp)
 		 * 11 bit destination.
 		 * Top 3 bits become the MSBs of the op-code.
 		 */
-		expr(&e1, 0);
+		expr(&e1);
 		mchrel(&e1);
 		outrwm(&e1, R_PAGX0 | R_J11, op << 8);
 		break;
@@ -534,7 +534,7 @@ machine(struct mne *mp)
 		/*
 		 * 8 bit destination.
 		 */
-		expr(&e1, 0);
+		expr(&e1);
 		mchrel(&e1);
 		if (mchtyp & ~(X_8041 | X_8048)) {
 			opcycles = OPCY_ERR;
@@ -548,7 +548,7 @@ machine(struct mne *mp)
 		/*
 		 * 8 bit destination.
 		 */
-		expr(&e1, 0);
+		expr(&e1);
 		mchrel(&e1);
 		switch (mchtyp) {
 		default:
@@ -594,7 +594,7 @@ machine(struct mne *mp)
 		if (t1 == S_R) {
 			v1 = (int) e1.e_addr;
 			comma(1);
-			expr(&e2, 0);
+			expr(&e2);
 			mchrel(&e2);
 			outrwm(&e2, R_PAGX0 | R_J8, (op | v1) << 8);
 		} else {

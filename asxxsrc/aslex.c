@@ -1,7 +1,7 @@
 /* aslex.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -555,7 +555,8 @@ int skpcomma(void)
  *		none
  *
  *	global variables:
- *		char	afn[]		afile() constructed filespec
+ *		char *	afs		afile() constructed filespec
+ *		char *	afs		afile() constructed file name
  *		int	afp		afile constructed path length
  *		asmf *	asmc 		pointer to current assembler file structure
  *		asmf *	asmi 		pointer to a queued include file structure
@@ -719,7 +720,7 @@ loop:	if (asmc == NULL) return(0);
 				listhlr(LIST_SRC, SLIST, 0);
 			}
 		}
-		strcpy(ib,asmc->afn);
+		strcpy(ib,asmc->afs);
 		if (asmc->lnlist != 0) {
 			srcline++;
 		}
@@ -730,7 +731,7 @@ loop:	if (asmc == NULL) return(0);
 		if (fgets(ib, NINPUT, asmc->fp) == NULL) {
 			if (trcflags & TRC_ASM) {
 				if ((pass == 2) && (lfp != NULL)) {
-					fprintf(lfp, ";A<< %s\n", asmc->afn);
+					fprintf(lfp, ";A<< %s\n", asmc->afs);
 					listhlr(LIST_SRC, SLIST, 0);
 				}
 			}
@@ -754,11 +755,12 @@ loop:	if (asmc == NULL) return(0);
 			if (asmline++ == 0) {
 				if (trcflags & TRC_ASM) {
 					if ((pass == 2) && (lfp != NULL)) {
-						fprintf(lfp, ";A>> %s\n", asmc->afn);
+						fprintf(lfp, ";A>> %s\n", asmc->afs);
 						listhlr(LIST_SRC, SLIST, 0);
 					}
 				}
-				strcpy(afn, asmc->afn);
+				afs = asmc->afs;
+				afn = asmc->afn;
 				afp = asmc->afp;
 			}
 			srcline = asmline;
@@ -769,7 +771,7 @@ loop:	if (asmc == NULL) return(0);
 		if (fgets(ib, NINPUT, asmc->fp) == NULL) {
 			if (trcflags & TRC_INC) {
 				if ((pass == 2) && (lfp != NULL)) {
-					fprintf(lfp, ";I<< (%d) %s\n", incfil, asmc->afn);
+					fprintf(lfp, ";I<< (%d) %s\n", incfil, asmc->afs);
 					listhlr(LIST_SRC, SLIST, 0);
 				}
 			}
@@ -797,7 +799,8 @@ loop:	if (asmc == NULL) return(0);
 			asmt = asmc;
 			while (asmt != NULL) {
 				if (asmt->objtyp != T_MACRO) {
-					strcpy(afn, asmt->afn);
+					afs = asmt->afs;
+					afn = asmt->afn;
 					afp = asmt->afp;
 					break;
 				}

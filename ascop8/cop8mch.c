@@ -1,7 +1,7 @@
 /* cop8mch.c */
 
 /*
- *  Copyright (C) 2021-2025  Alan R. Baldwin
+ *  Copyright (C) 2021-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -109,7 +109,7 @@ machine(struct mne *mp)
 		opcycles = OPCY_SDP;
 		zpg = dot.s_area;
 		if (more()) {
-			expr(&e1, 0);
+			expr(&e1);
 			if (e1.e_flag == 0 && e1.e_base.e_ap == NULL) {
 				if (e1.e_addr) {
 					e1.e_addr = 0;
@@ -146,7 +146,7 @@ machine(struct mne *mp)
 		opcycles = OPCY_SKP;
 		lmode = SLIST;
 		if (more()) {
-			expr(&e1, 0);
+			expr(&e1);
 			xtnd = e1.e_addr;
 		} else {
 			xtnd = 0;
@@ -331,7 +331,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_JP:	/* JP */
-		expr(&e1, 0);
+		expr(&e1);
 		if (mchpcr(&e1, &t1, 1)) {
 			if ((t1 < -32) || (t1 > 31)) {
 				xerr('a', "Branching Range Exceeded.");

@@ -1,7 +1,7 @@
 /* lksym.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -142,7 +142,7 @@ struct sym *
 newsym(void)
 {
 	a_uint ev;
-	int c, i, nsym;
+	int c1, c2, c3, i, nsym;
 	struct sym *tsp;
 	struct sym **s;
 	char id[NCPS];
@@ -156,15 +156,15 @@ newsym(void)
 	 */
 	getid(id, -1);
 	tsp = lkpsym(id, 1);
-	c = getnb();get();get();
-	if (c == 'R') {
+	c1 = getnb(); c2 = get(); c3 = get();
+	if (c1 == 'R') {
 		tsp->s_type |= S_REF;
 		if (eval()) {
 			fprintf(stderr, "?ASlink-Error-Non zero S_REF\n");
 			lkerr++;
 		}
 	} else
-	if (c == 'D') {
+	if (c1 == 'D') {
 		ev = eval();
 		if (tsp->s_type & S_DEF) {
 			if (tsp->s_addr != ev) {
@@ -180,8 +180,51 @@ newsym(void)
 		tsp->s_axp = axp;
 		tsp->s_type |= S_DEF;
 		tsp->m_id = hp->m_id;
+	} else
+	if ((c1 == '=') && (c2 == 'R')) {
+		if (tsp->s_type & S_DEF) {
+			fprintf(stderr,
+				"?ASlink-Error-Multiple definition of %s\n", id);
+			lkerr++;
+		}
+		/*
+		 * Set Assembler MSB
+		 */
+		switch(c3) {
+		case '0':	as_msb = 0;	break;
+		default:
+		case '1':	as_msb = 1;	break;
+		case '2':	as_msb = 2;	break;
+		case '3':	as_msb = 3;	break;
+		}
+		/*
+		 * Set value and area extension link.
+		 */
+		tsp->s_addr = 0;
+		tsp->s_axp = axp;
+		tsp->s_flag = m1flag ? 0 : 1;
+		tsp->s_type |= (S_DEF | S_HID | S_SWX);
+		tsp->m_id = hp->m_id;
+		tsp->s_expr = strsto(ip);
+	} else
+	if ((c1 == '=') && (c2 == 'D')) {
+		ev = eval();
+		if (tsp->s_type & S_DEF) {
+			if (tsp->s_addr != ev) {
+				fprintf(stderr,
+					"?ASlink-Error-Multiple definition of %s\n", id);
+				lkerr++;
+			}
+		}
+		/*
+		 * Set value and area extension link.
+		 */
+		tsp->s_addr = ev;
+		tsp->s_axp = axp;
+		tsp->s_type |= (S_DEF | S_HID);
+		tsp->m_id = hp->m_id;
 	} else {
-		fprintf(stderr, "?ASlink-Error-Invalid symbol type %c for %s\n", c, id);
+		fprintf(stderr, "?ASlink-Error-Invalid symbol type %c%c%c for %s\n", c1, c2, c3, id);
 		lkexit(ER_FATAL);
 	}
 	/*
@@ -198,6 +241,48 @@ newsym(void)
 	fprintf(stderr, "?ASlink-Error-Header symbol list overflow\n");
 	lkexit(ER_FATAL);
 	return(NULL);
+}
+
+/*)Function	void	prcsym(void)
+ *
+ *	The function prcsym() searches the symbol hash tables for
+ *	symbols with a type flag of S_SWX (Symbol With Expression).
+ *	If S_SWX is found then the symbols value is calculated
+ *	from the expression.
+ *
+ *	local variables:
+ *		int	i		loop index
+ *		struct sym *	sp	pointer to a sym structure
+ *
+ *	global varaibles:
+ *		sym * symhash[]		array of pointers to NHASH
+ *					linked symbol lists
+ *		char *	ip		expression string pointer
+ *
+ *	functions called:
+ *		a_uint	expr()		lkeval.c
+ *
+ *	side effects:
+ *		All symbols with expressions are calculated.
+ */
+
+void
+prcsym(void)
+{
+	struct sym *sp;
+	int i;
+
+	for (i=0; i<NHASH; ++i) {
+		sp = symhash[i];
+		while (sp) {
+			if (sp->s_type & S_SWX) {
+				ip = sp->s_expr;
+				sp->s_addr = expr();
+			}
+			sp = sp->s_sp;
+		}
+	}
+	return;
 }
 
 /*)Function	sym *	lkpsym(id, f)

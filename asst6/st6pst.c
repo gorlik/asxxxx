@@ -1,7 +1,7 @@
 /* st6pst.c */
 
 /*
- *  Copyright (C) 2010-2023  Alan R. Baldwin
+ *  Copyright (C) 2010-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -76,7 +76,7 @@ char	mode1[32] = {	/* R_3BIT */
  *
  *	#define		R_5BIT	0200		Five Bit Mode
  */
-char	mode2[32] = {	/* R_3BIT */
+char	mode2[32] = {	/* R_5BIT */
 	'\203',	'\204',	'\205',	'\206',	'\207',	'\005',	'\006',	'\007',
 	'\010',	'\011',	'\012',	'\013',	'\014',	'\015',	'\016',	'\017',
 	'\020',	'\021',	'\022',	'\023',	'\024',	'\025',	'\026',	'\027',

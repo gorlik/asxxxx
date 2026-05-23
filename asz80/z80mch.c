@@ -1,7 +1,7 @@
 /* z80mch.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -571,7 +571,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_IM:
-		expr(&e1, 0);
+		expr(&e1);
 		abscheck(&e1);
 		if (e1.e_addr > 2) {
 			xerr('a', "Values of 0, 1, and 2 are valid.");
@@ -582,7 +582,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_BIT:
-		expr(&e1, 0);
+		expr(&e1);
 		t1 = 0;
 		v1 = (int) e1.e_addr;
 		if (v1 > 7) {
@@ -631,7 +631,7 @@ machine(struct mne *mp)
 		break;
 
 	case X_ADI:
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		outrb(&e1, 0);
 		break;
@@ -926,7 +926,7 @@ machine(struct mne *mp)
 			}
 			comma(1);
 		}
-		expr(&e2, 0);
+		expr(&e2);
 		outab(op);
 		if (mchpcr(&e2, &v2, 1)) {
 			if ((v2 < -128) || (v2 > 127))
@@ -946,13 +946,13 @@ machine(struct mne *mp)
 		} else {
 			op = 0xCD;
 		}
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		outrw(&e1, 0);
 		break;
 
 	case X_JP:
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		outrw(&e1, 0);
 		break;
@@ -961,7 +961,7 @@ machine(struct mne *mp)
 		if ((v1 = admode(CND)) != 0) {
 			op |= (v1&0xFF)<<3;
 			comma(1);
-			expr(&e1, 0);
+			expr(&e1);
 			outab(op);
 			outrw(&e1, 0);
 			break;
@@ -1160,9 +1160,11 @@ machine(struct mne *mp)
 				aerr();
 				break;
 			}
-			v1 = 0x8000 + (e2.e_addr << 9) + (e1.e_addr);
+/*			v1 = 0x8000 | ((((e2.e_addr & 0x3F) << 9) | e1.e_addr) & 0x7FFF);
 			outab(v1 >> 8);
-			outab(v1 & 0xFF);
+			outab(v1 & 0xFF); */
+			outab(0x80 | ((e2.e_addr & 0x3F) << 1) | ((e1.e_addr >> 8) & 0x01));
+			outab(e1.e_addr & 0xFF);
 			opcycles = OPCY_ERR;
 			break;
 		}
@@ -1181,9 +1183,11 @@ machine(struct mne *mp)
 				aerr();
 				break;
 			}
-			v1 = (e1.e_addr << 8) + (e2.e_addr);
+/*			v1 = ((e1.e_addr & 0x7F) << 8) | (e2.e_addr & 0xFF);
 			outab(v1 >> 8);
-			outab(v1 & 0xFF);
+			outab(v1 & 0xFF); */
+			outab(e1.e_addr & 0x7F);
+			outab(e2.e_addr & 0xFF);
 			opcycles = OPCY_ERR;
 			break;
 		}

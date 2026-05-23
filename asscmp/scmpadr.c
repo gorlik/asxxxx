@@ -1,7 +1,7 @@
 /* scmpadr:c */
 
 /*
- *  Copyright (C) 2009-2025  Alan R. Baldwin
+ *  Copyright (C) 2009-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@ addr(struct expr *esp)
 	}
 	c = getnb();
 	if (c == '#') {				/* # DATA */
-		expr(esp, 0);
+		expr(esp);
 		return (S_IMM);
 	}
 	if (c == '[') {
@@ -81,7 +81,7 @@ addr(struct expr *esp)
 		}
 	}
 	unget(c);
-	expr(esp, 0);				/* _DISP_ */
+	expr(esp);				/* _DISP_ */
 	if (more()) {
 		c = getnb();
 		if (c == '[') {

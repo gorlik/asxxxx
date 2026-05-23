@@ -1,8 +1,8 @@
 /* pdp11mch.c */
 
 /*
- *  Copyright (C) 2022-2025  Alan R. Baldwin
- *  Copyright (C) 2022-2025  Nick Downing
+ *  Copyright (C) 2022-2026  Alan R. Baldwin
+ *  Copyright (C) 2022-2026  Nick Downing
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -401,7 +401,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_BRANCH:
-		expr(&e1, 0);
+		expr(&e1);
 		if (mchpcr(&e1, &v1, 2)) {
 			if ((v1 < -128) || (v1 > 127)) {
 				xerr('a', "Branching Range Exceeded");
@@ -418,7 +418,7 @@ machine(struct mne *mp)
 		t1 = addr(&e1);
 		v1 = aindx & 7;		/* mask fpreg here */
 		comma(1);
-		expr(&e2, 0);
+		expr(&e2);
 
 		if ((t1 != S_REG) || (rtyp && (aindx & S_FPR))) {
 			xerr('w', "Register 0-7 Required For First Argument");
@@ -451,7 +451,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_SPL:
-		expr(&e1, 0);
+		expr(&e1);
 		if (is_abs(&e1)) {
 			v1 = (int) e1.e_addr;
 			if (v1 & ~7) {
@@ -464,7 +464,7 @@ machine(struct mne *mp)
 		break;
  
 	case S_MARK:
-		expr(&e1, 0);
+		expr(&e1);
 		if (is_abs(&e1)) {
 			v1 = (int) e1.e_addr;
 			if (v1 & ~077) {
@@ -477,7 +477,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_SWI:
-		expr(&e1, 0);
+		expr(&e1);
 		if (is_abs(&e1)) {
 			v1 = (int) e1.e_addr;
 			if (v1 & ~0377) {
@@ -491,7 +491,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_JBR:
-		expr(&e1, 0);
+		expr(&e1);
 		switch(pass) {
 		case 2:
 			if (mchpcr(&e1, &v1, 2)) {
@@ -542,7 +542,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_JCOND:
-		expr(&e1, 0);
+		expr(&e1);
 		switch (pass) {
 		case 2:
 			if (mchpcr(&e1, &v1, 2)) {
@@ -603,7 +603,7 @@ machine(struct mne *mp)
 	case S_INT32:
 		do {
 			exprmasks(4);	/* Use 32-Bit Arithmetic */
-			expr(&e1, 0);
+			expr(&e1);
 			exprmasks(2);	/* Restore to 16-Bit Arithmetic */
 			abscheck(&e1);
 			outaw(e1.e_addr >> 16);
@@ -818,9 +818,9 @@ mchterm(struct expr *esp)
 	if (getnb() == '^') {
 		switch(ccase[*ip++ & 0x007F]) {	/* Option Must Immediately Follow ^ */
 		case 'c':	/* Complement Argument */
-			expr(esp, 100);
-			abscheck(esp);
-			esp->e_addr = ~esp->e_addr;
+			*(--ip) = '~';
+			*(--ip) = ' ';
+			exprx(esp, 100);
 			break;
 		case 'f':	/* Single Word Floating Point */
 			atowrd();

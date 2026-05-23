@@ -1,7 +1,7 @@
 /* gbmch.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -130,7 +130,7 @@ machine(struct mne *mp)
 		opcycles = OPCY_SDP;
 		espa = NULL;
 		if (more()) {
-			expr(&e1, 0);
+			expr(&e1);
 			if (e1.e_flag == 0 && e1.e_base.e_ap == NULL) {
 				if (e1.e_addr != 0xFF00) {
 					xerr('a', "Only PAGE FF (= 0xFF00) Is Allowed.");
@@ -196,7 +196,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_BIT:
-		expr(&e1, 0);
+		expr(&e1);
 		t1 = 0;
 		v1 = (int) e1.e_addr;
 		if (v1 > 7) {
@@ -336,7 +336,7 @@ machine(struct mne *mp)
 					outab(0xF8 - op);
 					if (more()) {
 						comma(0);
-						expr(&e3, 0);
+						expr(&e3);
 						outrb(&e3, 0);
 					} else {
 						outab(0x00);
@@ -589,7 +589,7 @@ machine(struct mne *mp)
 					outab(0xF8);
 					if (more()) {
 						comma(0);
-						expr(&e3, 0);
+						expr(&e3);
 						outrb(&e3, 0);
 					} else {
 						outab(0x00);
@@ -603,7 +603,7 @@ machine(struct mne *mp)
 					outab(0xF8 - op);
 					if (more()) {
 						comma(0);
-						expr(&e3, 0);
+						expr(&e3);
 						outrb(&e3, R_SGND);
 					} else {
 						outab(0x00);
@@ -656,7 +656,7 @@ machine(struct mne *mp)
 			outab(op);
 			if (more()) {
 				comma(0);
-				expr(&e2, 0);
+				expr(&e2);
 				outrb(&e2, 0);
 			} else {
 				outab(0x00);
@@ -726,7 +726,7 @@ machine(struct mne *mp)
 			}
 			comma(1);
 		}
-		expr(&e2, 0);
+		expr(&e2);
 		outab(op);
 		if (mchpcr(&e2, &v2, 1)) {
 			if ((v2 < -128) || (v2 > 127))
@@ -744,7 +744,7 @@ machine(struct mne *mp)
 		} else {
 			op = 0xCD;
 		}
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		outrw(&e1, 0);
 		break;
@@ -753,7 +753,7 @@ machine(struct mne *mp)
 		if ((v1 = admode(CND)) != 0) {
 			op |= (v1&0xFF)<<3;
 			comma(1);
-			expr(&e1, 0);
+			expr(&e1);
 			outab(op);
 			outrw(&e1, 0);
 			break;

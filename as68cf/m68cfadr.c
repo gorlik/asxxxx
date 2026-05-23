@@ -1,7 +1,7 @@
 /* m68cfadr.c */
 
 /*
- *  Copyright (C) 2023-2025  Alan R. Baldwin
+ *  Copyright (C) 2023-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -68,7 +68,7 @@ addr(struct expr *esp, int sz, int *vx, int *px, int *xx)
 {
 	int c, d, s;
 	char *p, *ptr, *ips;
-	int dl, dr;
+	int pcnt, bcnt;
 
 	/* fix order of '<', '>', and '#' */
 	p = ip;
@@ -116,7 +116,7 @@ addr(struct expr *esp, int sz, int *vx, int *px, int *xx)
 			}
 		} else {
 			ip = p;
-			expr(esp,0);
+			expr(esp);
 		}
 		*vx = 4;
 		esp->e_mode = S_IMM;
@@ -125,7 +125,7 @@ addr(struct expr *esp, int sz, int *vx, int *px, int *xx)
 	/*	*	*/
 	if (c == '*') {
 		*vx = 0;
-		expr(esp, 0);
+		expr(esp);
 		if ((esp->e_mode = espmode(esp, vx, px)) != S_SHRT) {
 			xerr('a', "Address Not In Page, Using Long Form");
 		}
@@ -192,19 +192,21 @@ addr(struct expr *esp, int sz, int *vx, int *px, int *xx)
 	 *   arg / (arg).W / (arg).L
 	 */
 	ip = p;
-	dl = dr = 0;
+	pcnt = 0;	/* Count of '(' (+1) and ')' (-1) */ /* arguments and addressing */
+	bcnt = 0;	/* Count of '{' (+1) and '}' (-1) */ /* floating point options */
 	while ((c = getnb()) != 0) {
-		if (c == '(') { dl += 1; } else
-		if (c == ')') { dr += 1; }
+		if (c == '(') { pcnt ++;
+			if ((pcnt == 1) && (bcnt == 0) && rgmode(1)) break;
+		} else
+		if (c == ')') { pcnt--; } else
+		if (c == '{') { bcnt++; } else
+		if (c == '}') { bcnt--; }
 	}
+			
 	ip = p;
-	if ( ((dl == 0) && (dr == 0)) ||
-	   (  (dl == 1) && (dr == 1) && (getnb() == '(') &&
-	      !admode(Dn) && !admode(DnW) && !admode(DnL) &&
-	      !admode(An) && !admode(AnW) && !admode(AnL) &&
-	      !admode(PCreg) ) ) {
+	if (pcnt == 0) {
 		ip = p;
-		expr(esp, 0);
+		expr(esp);
 		p = ip;
 		if (getnb() == '.') {
 			switch(getnb()) {
@@ -238,12 +240,13 @@ addr(struct expr *esp, int sz, int *vx, int *px, int *xx)
 	 *	d(An)   d(An,Xn)   d(PC)   d(PC,Xn)
 	 */
 
-	ip = ptr + 1;	/* skip '(' ---------         */
+	ip = ptr + 1;
+		/* skipped '(' --------------         */
 	if (admode(An)) {	/*           |        */
 		/* _______________________ d(An)      */
 		/* _______________________ d(An,Xn)   */
 		/* |                        |  |      */
-       	        /*  --------------------    |   -- ip */
+  	        /*  --------------------    |   -- ip */
 		/*                      |   |         */
 		switch(anpcidx(esp, xx, p, ptr)) {
 		default:
@@ -252,13 +255,12 @@ addr(struct expr *esp, int sz, int *vx, int *px, int *xx)
 		}
 		return (esp->e_mode);
 	}
-
 		/* skipped '(' --------------         */
 	if (admode(PCreg)) {	/*           |        */
 		/* _______________________ d(PC)      */
 		/* _______________________ d(PC,Xn)   */
 		/* |                        |  |      */
-       	        /*  --------------------    |   -- ip */
+  	        /*  --------------------    |   -- ip */
 		/*                      |   |         */
 		switch(anpcidx(esp, xx, p, ptr)) {
 		default:
@@ -278,12 +280,13 @@ addr(struct expr *esp, int sz, int *vx, int *px, int *xx)
 	 *	(d,An)   (d,An,Xn)   (d,PC)   (d,PC,Xn)
 	 */
 
-	ip = ips + 1;	/* skip ',' ---------------         */
+	ip = ips + 1;
+		/* skipped ',' --------------------         */
 	if (admode(An)) {	/*                 |        */
 		/* ____________________________ (d,An)      */
 		/* ____________________________ (d,An,Xn)   */
 		/*                              ||   |      */
-       	        /*                         -----+|    -- ip */
+  	        /*                         -----+|    -- ip */
 		/*                        |     |           */
 		switch(anpcidx(esp, xx, ptr+1, ptr)) {
 		default:
@@ -292,13 +295,12 @@ addr(struct expr *esp, int sz, int *vx, int *px, int *xx)
 		}
 		return (esp->e_mode);
 	}
-
 		/* skipped ',' --------------------         */
 	if (admode(PCreg)) {	/*                 |        */
 		/* ____________________________ (d,PC)      */
 		/* ____________________________ (d,PC,Xn)   */
 		/*                              ||   |      */
-       	        /*                         -----+|    -- ip */
+  	        /*                         -----+|    -- ip */
 		/*                        |     |           */
 		switch(anpcidx(esp, xx, ptr+1, ptr)) {
 		default:
@@ -309,9 +311,22 @@ addr(struct expr *esp, int sz, int *vx, int *px, int *xx)
 	}
 
 	ip = p;
-	expr(esp, 0);
+	expr(esp);
 	esp->e_mode = espmode(esp, vx, px);
 	return (esp->e_mode);
+}
+
+int
+rgmode(int pc)
+{
+	int r;
+
+	r = admode(An) || admode(AnW) || admode(AnL) ||
+	    admode(Dn) || admode(DnW) || admode(DnL);
+
+	if (pc) r |= admode(PCreg);
+
+	return(r);
 }
 
 int
@@ -331,7 +346,7 @@ faddr(struct expr *esp, int fsz, int *vx)
 		case F_B:	/* #__.B */
 		case F_W:	/* #__.W */
 		case F_L:	/* #__.L */
-			expr(esp, 0);
+			expr(esp);
 			break;
 		default:
 		case F_S:	/* #__.S */
@@ -427,7 +442,7 @@ anpcidx(struct expr *esp, int *xx, char *p, char *ptr)
 
 
 	/*
-	 * (Rn) found:
+	 * (An) found:
 	 *
 	 *	1 - default mode
 	 *	2 - save ip position
@@ -439,10 +454,10 @@ anpcidx(struct expr *esp, int *xx, char *p, char *ptr)
 	*ptr = 0;
 	ip = p;
 	/*
-	 * evaluate d of d(Rn)
+	 * evaluate d of d(An) or d,An
 	 */
 	if (more()) {
-		expr(esp, 0);
+		expr(esp);
 	}
 	/*
 	 * restore '(' and continue at separator
@@ -509,7 +524,7 @@ xi()
 
 	if (getnb() == '*') {	/* Optional Scale Factor */
 		clrexpr(&esp);
-		expr(&esp, 0);
+		expr(&esp);
 		if (is_abs(&esp)) {
 			switch(esp.e_addr) {
 			case 1:	ev |= 0x0000;	break;

@@ -68,55 +68,55 @@ REM Unknown
 goto ERROR
 
 :CYGWIN
-path=r:\asxv5pxx\asxmak\cygwin\exe
+path=..\asxmak\cygwin\exe
 goto EXIT
 
 :DJGPP
-path=r:\asxv5pxx\asxmak\djgpp\exe
+path=..\asxmak\djgpp\exe
 goto EXIT
 
 :LINUX
-path=r:\asxv5pxx\asxmak\linux\exe
+path=..\asxmak\linux\exe
 goto EXIT
 
 :SYMANTEC
-path=r:\asxv5pxx\asxmak\symantec\exe
+path=..\asxmak\symantec\exe
 goto EXIT
 
 :TURBOC
-path=r:\asxv5pxx\asxmak\turboc30\exe
+path=..\asxmak\turboc30\exe
 goto EXIT
 
 :VC6
-path=r:\asxv5pxx\asxmak\vc6\exe
+path=..\asxmak\vc6\exe
 goto EXIT
 
 :VS05
-path=r:\asxv5pxx\asxmak\vs05\exe
+path=..\asxmak\vs05\exe
 goto EXIT
 
 :VS10
-path=r:\asxv5pxx\asxmak\vs10\exe
+path=..\asxmak\vs10\exe
 goto EXIT
 
 :VS13
-path=r:\asxv5pxx\asxmak\vs13\exe
+path=..\asxmak\vs13\exe
 goto EXIT
 
 :VS15
-path=r:\asxv5pxx\asxmak\vs15\exe
+path=..\asxmak\vs15\exe
 goto EXIT
 
 :VS19
-path=r:\asxv5pxx\asxmak\vs19\exe
+path=..\asxmak\vs19\exe
 goto EXIT
 
 :VS22
-path=r:\asxv5pxx\asxmak\vs22\exe
+path=..\asxmak\vs22\exe
 goto EXIT
 
 :WATCOM
-path=r:\asxv5pxx\asxmak\watcom\exe
+path=..\asxmak\watcom\exe
 goto EXIT
 
 :ERROR

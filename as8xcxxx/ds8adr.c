@@ -1,7 +1,7 @@
 /* ds8adr.c */
 
 /*
- *  Copyright (C) 1998-2025  Alan R. Baldwin
+ *  Copyright (C) 1998-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -73,7 +73,7 @@ addr(struct expr *esp)
 
 	if ((c = getnb()) == '#') {
 		/*  Immediate mode */
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMMED;
 	} 
 	else if (c == '@') {
@@ -114,12 +114,12 @@ addr(struct expr *esp)
 	else if (c == '*') {
 		if ((c = getnb()) == '/') {
 			/* Force inverted bit */
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = S_NOT_BIT;
 		} else {
 			unget(c);
 			/* Force direct page */
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = S_DIR;
 		}
 		if (esp->e_addr & ~0xFF)
@@ -127,7 +127,7 @@ addr(struct expr *esp)
 	} 
 	else if (c == '/') {
 		/* Force inverted bit  */
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_NOT_BIT;
 	} 
 	else {
@@ -158,7 +158,7 @@ addr(struct expr *esp)
 		} else {
 			/* Must be an expression */
 			esp->e_addr = 0;		/* Vasiliy Petrov */
-			expr(esp, 0);
+			expr(esp);
 			if ((!esp->e_flag)
 				&& (esp->e_base.e_ap==NULL)
 				&& !(esp->e_addr & ~0xFF)) {

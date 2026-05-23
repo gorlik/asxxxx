@@ -92,11 +92,11 @@ addr(struct expr *esp)
 	ips = ip;
 
 	if ((c = getnb()) == '#') {
-		expr(esp, 0);
+		expr(esp);
 		mode = S_MN;
 	} else
 	if (c == '*') {
-		expr(esp, 0);
+		expr(esp);
 		if (is_abs(esp)) {
 			esp->e_addr &= a_mask;
 			if ((esp->e_addr <= 0x00FF) || (esp->e_addr >= 0xFF00)) {
@@ -131,7 +131,7 @@ addr(struct expr *esp)
 			case IY:	/* (IY+d) */
 			case SP:	/* (SP+d) */
 				mode = S_IXYS;
-				expr(esp, 0);
+				expr(esp);
 				break;
 
 			default:
@@ -193,7 +193,7 @@ addr(struct expr *esp)
 				*ptr = 0;
 				ip = ips;
 				/* evaluate X of X(IX/IY/SP) */
-				expr(esp, 0);
+				expr(esp);
 				/*
 				 * after evaluation:
 				 *
@@ -219,7 +219,7 @@ addr(struct expr *esp)
 				ipd = ip;	d = *ip;	*ip = ' ';
 			}
 			ip = ips;
-			expr(esp, 0);
+			expr(esp);
 			*ipd = d;
 			if (is_abs(esp)) {
 				esp->e_addr &= a_mask;
@@ -265,7 +265,7 @@ addr(struct expr *esp)
 					case IY:	/* IY+d */
 					case SP:	/* SP+d */
 						mode = S_XYS;
-						expr(esp, 0);
+						expr(esp);
 						break;
 
 					default:
@@ -324,7 +324,7 @@ addr(struct expr *esp)
 					*ptr = 0;
 					ip = ips;
 					/* evaluate X of X(IX/IY/SP) */
-					expr(esp, 0);
+					expr(esp);
 					/*
 					 * after evaluation:
 					 *
@@ -339,7 +339,7 @@ addr(struct expr *esp)
 				/* Restart Scan */
 				ip = ips;
 				/* regular argument */
-				expr(esp, 0);
+				expr(esp);
 				mode = S_MN;
 			}
 		}

@@ -1,7 +1,7 @@
 /* f8mch.c */
 
 /*
- *  Copyright (C) 2012-2025  Alan R. Baldwin
+ *  Copyright (C) 2012-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -301,7 +301,7 @@ machine(struct mne *mp)
 		 * bnz	addr
 		 * bno	addr
 		 */
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		if (mchpcr(&e1, &v1, 1)) {
 			if ((v1 < -128) || (v1 > 127)) {
@@ -325,7 +325,7 @@ machine(struct mne *mp)
 			xerr('a', "#__ or value required.");
 		}
 		comma(1);
-		expr(&e2, 0);
+		expr(&e2);
 		if (e2.e_mode != S_USER) {
 			rerr();
 		}
@@ -349,7 +349,7 @@ machine(struct mne *mp)
 			xerr('a', "#__ or value required.");
 		}
 		comma(1);
-		expr(&e2, 0);
+		expr(&e2);
 		if (e2.e_mode != S_USER) {
 			rerr();
 		}

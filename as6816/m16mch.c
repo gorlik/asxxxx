@@ -1,7 +1,7 @@
 /* m16mch.c */
 
 /*
- *  Copyright (C) 1991-2025  Alan R. Baldwin
+ *  Copyright (C) 1991-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -818,7 +818,7 @@ if (MCH) fprintf(stderr, "machine(1) line = %d\n", getlnm());
 
 	case S_LBSR:
 		cpg += PAGE2;
-		expr(&e1, 0);
+		expr(&e1);
 		outab(cpg);
 		outab(op);
 		if (mchpcr(&e1)) {
@@ -847,7 +847,7 @@ if (MCH) fprintf(stderr, "machine(1) line = %d\n", getlnm());
 
 	case S_BRA:
 	case S_BSR:
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		if (mchpcr(&e1)) {
 			/*

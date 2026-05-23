@@ -1,8 +1,8 @@
 /* m68cffpp.c */
 
 /*
- *  Copyright (C) 2023-2025  Alan R. Baldwin
- *  Copyright (C) 2023-2025  Nick Downing
+ *  Copyright (C) 2023-2026  Alan R. Baldwin
+ *  Copyright (C) 2023-2026  Nick Downing
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

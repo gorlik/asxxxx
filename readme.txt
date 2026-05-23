@@ -1,5 +1,5 @@
 
-       ASxxxx Cross Assemblers, Version 5.50.5, January 2026 
+       ASxxxx Cross Assemblers, Version 6.00, May 2026 
 
        The  ASxxxx  assemblers are a series of microprocessor assemblers
     written in the C programming  language.   This  collection  contains
@@ -9,7 +9,7 @@
     78K/0S, 8008, 8008S, 8048(8041/8022/8021), 8051, 8085(8080), AT89LP,
     8X300(8X305),  COP4,  COP8,  DS8XCXXX,  AVR,  EZ8,  EZ80, F2MC8L/FX,
     F8/3870, GameBoy(Z80), H8/3xx, Cypress PSoC(M8C), PDP11, PIC, Rabbit
-    2000/3000,    RS08,    ST6,    ST7,    ST8,    SX,    TLCS90,    Z8,
+    2000/3000,    RS08,    ST6,   ST7,   ST8,  ST9,  SX,   TLCS90,   Z8,
     Z80(HD64180,ZXN,8080,8085), and Z280  series  microprocessors.   The
     companion  program  ASLINK is a relocating linker supporting all the
     cross assemblers.  ASLINK also supports object  files  created  with
@@ -25,14 +25,14 @@
     and MONDEB for 8051 / AT89LP series ) are included as working  exam-
     ples of use of these assemblers.  
 
-    asxv5p50p5.zip      ASxxxx and ASlink V5.50.5 Zipped
+    asxv6p00.zip      ASxxxx and ASlink V6.00 Zipped
     
         MS-DOS:
-        Windows:        unzip asxv5p50p5.zip
-                        pkunzip -d asxv5p50p5.zip
+        Windows:        unzip asxv6p00.zip
+                        pkunzip -d asxv6p00.zip
                         unzips and restores directory structure
     
-        Linux:          unzip -L -a asxv5p50p5.zip
+        Linux:          unzip -L -a asxv6p00.zip
                         unzips to lower-case names and converts
                         ascii files to \n from \r\n form.
     
@@ -95,16 +95,16 @@
         Watcom:         \asxv5pxx\asxmak\watcom\exe\
     
     
-        Documentation (V 5.50) in pdf form is
+        Documentation (V 6.00) in pdf form is
         \asxv5pxx\asxhtml\asmlnk.pdf
     
-        Documentation (V 5.50) in rtf form is
+        Documentation (V 6.00) in rtf form is
         \asxv5pxx\asxhtml\asmlnk.rtf
     
-        Documentation (V 5.50.5) in plain text form is
+        Documentation (V 6.00) in plain text form is
         \asxv5pxx\asxhtml\asmlnk.txt
     
-        Documentation (V 5.50.5) in HTML form starts with
+        Documentation (V 6.00) in HTML form starts with
         \asxv5pxx\asxhtml\asxxxx.htm
     
     

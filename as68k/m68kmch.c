@@ -1,8 +1,8 @@
 /* m68kmch.c */
 
 /*
- *  Copyright (C) 2022-2025  Alan R. Baldwin
- *  Copyright (C) 2022-2025  Nick Downing
+ *  Copyright (C) 2022-2026  Alan R. Baldwin
+ *  Copyright (C) 2022-2026  Nick Downing
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -43,9 +43,20 @@ int	coid;	/* Co-Processor ID */
 
 /*
  * setbit() / getbit() Parameter Space
- * 4096 is sufficient for 1MB of code
+ * 2048 is sufficient for .5MB of code (For DOS Compilers)
+ * 4096 is sufficient for  1MB of code (For Other Compilers )
  */
+#ifdef	__TURBOC__ 
+#define	NB	2048
+#endif
+
+#ifdef	__SC__
+#define	NB	2048
+#endif
+
+#ifndef	NB
 #define	NB	4096
+#endif
 
 int	*bp;
 int	bm;
@@ -108,7 +119,7 @@ machine(struct mne *mp)
 		opcycles = OPCY_SDP;
 		zpg = dot.s_area;
 		if (more()) {
-			expr(&e1, 0);
+			expr(&e1);
 			if (e1.e_flag == 0 && e1.e_base.e_ap == NULL) {
 				if (!(e1.e_addr == 0) && !(e1.e_addr == ~0x7FFF)) {
 					e1.e_addr = 0;
@@ -168,7 +179,7 @@ machine(struct mne *mp)
 		case M_68881:
 		case M_68882:	flttyp = (int) op;
 			if (more()) {
-				expr(&e1, 0);
+				expr(&e1);
 				if (e1.e_addr == 0) {
 					flttyp = 0;
 				}
@@ -183,7 +194,7 @@ machine(struct mne *mp)
 		break;
 
  	case S_FCOID:
-		expr(&e1, 0);
+		expr(&e1);
 		if (e1.e_addr <= 7) {
 			coid = (int) (e1.e_addr << 9);
 		} else {
@@ -742,7 +753,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_BCC:	/* Bcc Label */
-		expr(&e1, 0);
+		expr(&e1);
 		dsplcmnt = (INT32) (e1.e_addr - dot.s_addr - 2);
 		opcode = op;
 		switch(sz) {
@@ -885,7 +896,7 @@ machine(struct mne *mp)
 		t1 = addr(&e1, &e1xi, sz, &v1, &p1, &x1);
 
 		comma(1);
-		expr(&e2, 0);
+		expr(&e2);
 		if (mchpcr(&e2)) {
 			dsplcmnt = (INT32) (e2.e_addr - dot.s_addr - 2);
 			chkwrng(dsplcmnt, "Branching Range Exceeded");
@@ -1777,7 +1788,7 @@ machine(struct mne *mp)
 			if (admode(Dn)) {
 				a1 |= 0x0800 | (aindx << 6);
 			} else {
-				expr(&e2, 0);
+				expr(&e2);
 				a1 |= (int) ((e2.e_addr & 0x001F) << 6);
 				if (!is_abs(&e2)) {
 					xerr('a', "Absolute Offset Required");
@@ -1794,7 +1805,7 @@ machine(struct mne *mp)
 			if (admode(Dn)) {
 				a1 |= 0x0020 | aindx;
 			} else {
-				expr(&e2, 0);
+				expr(&e2);
 				a1 |= (int) (e2.e_addr & 0x001F);
 				if (!is_abs(&e2)) {
 					xerr('a', "Absolute Width Required");
@@ -1837,7 +1848,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_CALLM:
-		expr(&e1, 0);
+		expr(&e1);
 		comma(1);
 		t2 = addr(&e2, &e2xi, sz, &v2, &p2, &x2);
 		switch(t2) {
@@ -2012,7 +2023,7 @@ machine(struct mne *mp)
 		} else {
 			qerr();
 		}
-		expr(&e1, 0);	/* #<adjustment> */
+		expr(&e1);	/* #<adjustment> */
 		outaw(opcode |= a1);
 		outrw(&e1, 0);
 		break;
@@ -2033,7 +2044,7 @@ machine(struct mne *mp)
 		if (mp->m_flag & A_A) {
 			if (more()) {
 				if (getnb() == '#') {
-					expr(&e1, 0);
+					expr(&e1);
 					if (pass == 0) {
 						dot.s_addr += 6;
 					} else
@@ -2065,7 +2076,7 @@ machine(struct mne *mp)
 			}
 		} else {
 			if (getnb() == '#') {
-				expr(&e1, 0);
+				expr(&e1);
 				if (sz == A_W) {
 					outaw(opcode |= 2);
 					outrw(&e1, 0);
@@ -2281,7 +2292,7 @@ machine(struct mne *mp)
 				if (admode(Dn)) {
 					outaw(op2 = 0x6000 | (7 << 10) | (v1 << 7) | (aindx << 4));
 				} else {
-					expr(&e1, 0);
+					expr(&e1);
 					outrwm(&e1, R_CRBTS | R_MBRO, op2 = 0x6000 | (3 << 10) | (v1 << 7));
 				}
 				if (getnb() != '}') {
@@ -2525,7 +2536,7 @@ machine(struct mne *mp)
 		t1 = addr(&e1, &e1xi, sz, &v1, &p1, &x1);
 		comma(1);
 
-		expr(&e2, 0);
+		expr(&e2);
 		dsplcmnt = (INT32) (e2.e_addr - (pc + 4));
 		if (mchpcr(&e2)) {
 			chkwrng(dsplcmnt, "Branching Range Exceeded");
@@ -2549,7 +2560,7 @@ machine(struct mne *mp)
 		if (fsz == F_A) {
 			if (more()) {
 				if (getnb() == '#') {
-					expr(&e1, 0);
+					expr(&e1);
 					if (pass == 0) {
 						dot.s_addr += 8;
 					} else
@@ -2585,7 +2596,7 @@ machine(struct mne *mp)
 			}
 		} else {
 			if ((c = getnb()) == '#') {
-				expr(&e1, 0);
+				expr(&e1);
 				if (fsz == F_W) {
 					outaw(opcode = 0xF07A | coid);
 					outaw(op2 = op);
@@ -2602,7 +2613,7 @@ machine(struct mne *mp)
 		break;
 			
 	case F_BCC:	/* FBcc Label */
-		expr(&e1, 0);
+		expr(&e1);
 		dsplcmnt = (INT32) (e1.e_addr - dot.s_addr - 2);
 		switch(fsz) {
 		case F_A:		/* FBcc Auto Mode */
@@ -3571,7 +3582,7 @@ mvlist(struct expr *esp, int *rc)
 		return(1);
 	} else
 	if (getnb() == '#') {
-		expr(esp, 0);
+		expr(esp);
 		if (is_abs(esp)) {
 			for (i=0,v1=1; i<=15; v1<<=1,i++) {
 				if (esp->e_addr & v1) *rc += 1;

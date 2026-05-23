@@ -1,7 +1,7 @@
 /* m430mch.c */
 
 /*
- *  Copyright (C) 2003-2025  Alan R. Baldwin
+ *  Copyright (C) 2003-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -445,7 +445,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_JXX:
-		expr(&e1, 0);
+		expr(&e1);
 		if (mchpcr(&e1)) {
 			v1 = (int) (e1.e_addr - dot.s_addr - 2);
 			v1 >>= 1;

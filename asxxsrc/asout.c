@@ -1,7 +1,7 @@
 /* asout.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -144,6 +144,34 @@
  *	ternal global symbols will always appear before the  first  area
  *	definition.  References to external symbols will have a value of
  *	zero.  
+ *
+ *		S string =Rn^Z(expression)
+ *
+ *	The symbol reference (=R) is a hidden symbol with a value
+ *	defined by an expression.  The n following the '=R' specifies
+ *	the current MSB selection of the assembler.  The value can be
+ *	1 for 16-bit arguments (upper byte),  1 or 2 for 24-bit
+ *	arguments (1 -> bits [15:8], 2 -> bits [23:16]) and
+ *	1, 2 or 3 for 32-bit arguments ( 1 -> bits [15:8],
+ *	2 -> bits [23:16], or 3 -> bits [31:24]).  The '^Z' is
+ *	the assemblers current radix and can be ^B (binary),
+ *	^O (octal), ^D (decimal), or ^X (hexadecimal).
+ *	The linker evaluates the complete argument ^Z(expression) to
+ *	determine the value for the symbol defined by 'string'.
+ *
+ *		S string =D nnnnn
+ *
+ *	The symbol defines (=D) a hidden symbol with a value of nnnnn
+ *	relative to the current area base address.  This construct is
+ *	used to pass local assembler symbol values to the linker for
+ *	evaluation in an expression.
+ *
+ *	Note:
+ *		The '=R' and '=D' symbols are hidden symbols and
+ *		are not global, they are present only to allow the
+ *		linker to process complex arguments.  These symbols
+ *		will not be listed in the assembler .sym file or in the
+ *		linker .map file.
  *
  *
  *	(7)	Area Line 
@@ -1145,9 +1173,10 @@ outbuf(char *s)
  *	(4)	outputs the merge mode specifications
  *	(5)	outputs the bank specifications
  *	(6)	set the reference number and output a symbol line
- *		for all external global variables and absolutes
+ *		for all external global variables and absolutes and
+ *		for all special symbols for linker relocation evaluation
  *	(7)	output an area name, set reference number and output
- *		a symbol line for all global relocatables in the area.
+ *		a symbol line for all global relocatables in the area
  *		Repeat this proceedure for all areas.
  *
  *	local variables:
@@ -1522,6 +1551,7 @@ outarea(struct area *ap)
  *
  *	global variables:
  *		int	a_bytes		argument size in bytes
+ *		int	as_msb		current MSB selection
  *		FILE *	ofp		relocation output file handle
  *		int	xflag		-x, listing radix flag
  *
@@ -1544,8 +1574,22 @@ outsym(struct sym *sp)
 	s_addr = sp->s_addr & a_mask;
 
 	fprintf(ofp, "S ");
-	fprintf(ofp, "%s", &sp->s_id[0]);
-	fprintf(ofp, " %s", sp->s_type==S_NEW ? "Ref" : "Def");
+	fprintf(ofp, "%s", sp->s_id);
+	/*
+	 * Push Complex Expression To Linker
+	 */
+	if ((sp->s_type == S_NEW) && (sp->s_flag & S_SWX)) {
+		fprintf(ofp, " =R%d%s\n", as_msb, sp->s_expr);
+		return;
+	}
+	if (sp->s_flag & S_HID) {
+		fprintf(ofp, " =D ");
+	} else {
+	/*
+	 * Normal Assembler Output
+	 */
+		fprintf(ofp, " %s", sp->s_type==S_NEW ? "Ref" : "Def");
+	}
 
 #ifdef	LONGINT
 	switch(xflag) {

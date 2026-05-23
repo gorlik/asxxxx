@@ -1,7 +1,7 @@
 /* m04adr.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -43,14 +43,14 @@ addr(struct expr *esp)
 	ip = p;
  
 	if ((c = getnb()) == '#') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMMED;
 	} else if (c == ',') {
 		if ((esp->e_mode = admode(xy)) == 0)
 			xerr('a', "X or Y register required.");
 	} else {
 		unget(c);
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_DIR;
 	}
 	return (esp->e_mode);

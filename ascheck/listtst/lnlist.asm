@@ -200,34 +200,35 @@
 	; Define a Macro
 	.nlist	(md)
 	.macro	adda	I
-	  ; Nothing Listed
-	  .byte	0x10,I
+	  ; Nothing Listed	; Should NOT List
+	  .byte	0x10,I		; Should NOT List
 	.endm
 
 	.list
 	.macro	addb	I
-	  ; Lists All Enabled
-	  .list	(me)
-	  ; B2
-	  .byte	0x20,I
+	  ; Lists All Enabled	; Should NOT List
+	  .list	(me)		; Should NOT List
+	  ; B2			; Should List
+	  .byte	0x20,I		; Should List
 	.endm
 
 	.list
 	.macro	addc	I
-	  ; Lists Location / Binary
-	  .list	(meb)
-	  ; C2
-	  .byte	0x30,I
+	  ; Lists Location / Binary	; Should NOT List
+	  .list	(meb)		; Should NOT List
+	  ; C2			; Should NOT List
+	  .byte	0x30,I		; Should List
 	.endm
 
 	.list
 	.macro	addd	I
-	  ; Lists Location / Binary and All Enabled
-	  .list	(mel)
-	  ; D2
-	  .byte	0x40,I
+	  ; Lists Location / Binary and All Enabled	; Should NOT List
+	  .list	(mel)		; Should NOT List
+	  ; D2			; Should List
+	  .byte	0x40,I		; Should List
 	.endm
 
+	.list
 	; Normal Listing Mode Inhibits Listing of Macro Expansion
 	adda	#1
 
@@ -240,9 +241,28 @@
 	; .list (mel) Lists Location/Binary and Enabled Fields of Macro Expansion
 	addd	#4
 
+	; Normal Listing Mode Inhibits Listing of Macro Expansion
+	.nlist
+	adda	#1
 
-	; Error Override of Macro Listing Control
 	.list
+	; .list (me) Lists Enabled Fields of Macro Expansion
+	.nlist
+	addb	#2
+
+	.list
+	; .list (meb) Lists Only Location/Binary of Macro Expansion
+	.list	(!,lin)
+	addc	#3
+
+	.list
+	; .list (mel) Lists Location/Binary and Enabled Fields of Macro Expansion
+	.list	(!,src)
+	addd	#4
+
+
+	.list
+	; Error Override of Macro Listing Control
 	adda	1-.		; Relocation error
 
 

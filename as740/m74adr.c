@@ -1,7 +1,7 @@
 /* m74adr.c */
 
 /*
- *  Copyright (C) 2005-2025  Alan R. Baldwin
+ *  Copyright (C) 2005-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -52,21 +52,21 @@ addr(struct expr *esp)
 	 * Immediate Mode
 	 */
 	if ((c = getnb()) == '#') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMMED;
 
 	/*
 	 * Special Page Mode
 	 */
 	} else if (c == '\\') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_SPEC;
 
 	/*
 	 * Explicit Direct Page Mode
 	 */
 	} else if (c == '*') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_ZP;
 		/*
 		 * Direct Page Mode with Indexing
@@ -92,7 +92,7 @@ addr(struct expr *esp)
 		if ((d = getnb()) != '*') {
 			unget(d);
 		}
-		expr(esp, 0);
+		expr(esp);
 		if (d != '*') {
 			if ((!esp->e_flag)
 			    && (esp->e_base.e_ap == NULL)
@@ -150,7 +150,7 @@ addr(struct expr *esp)
 			break;
 		default:
 			if (more()) {
-				expr(esp, 0);
+				expr(esp);
 				if ((!esp->e_flag)
 				    && (esp->e_base.e_ap == NULL)
 				    && !(esp->e_addr & ~0xFF)) {

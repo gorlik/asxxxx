@@ -1,7 +1,7 @@
 /* rabadr.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -65,7 +65,7 @@ addr(struct expr *esp)
 	ip = p;
 
 	if ((c = getnb()) == '#') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMMED;
 	} else
 	if (c == LFIND) {
@@ -92,7 +92,7 @@ addr(struct expr *esp)
 			mode = S_INDR;
 		} else {
 			mode = S_INDM;
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = mode;
 		}
 		if (indx) {
@@ -109,7 +109,7 @@ addr(struct expr *esp)
 						break;
 				case IX:
 				case IY:
-					expr(esp, 0);
+					expr(esp);
 					esp->e_mode = S_INDR + (indx&0xFF);
 					break;
 				default:
@@ -144,7 +144,7 @@ addr(struct expr *esp)
 			mode = S_R16;
 		} else {
 			mode = S_USER;
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = mode;
 		}
 		if (indx) {

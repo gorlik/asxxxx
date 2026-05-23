@@ -1,7 +1,7 @@
 /* s8xmch.c */
 
 /*
- *  Copyright (C) 2018-2025  Alan R. Baldwin
+ *  Copyright (C) 2018-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

@@ -1,7 +1,7 @@
 /* st6mch.c */
 
 /*
- *  Copyright (C) 2010-2025  Alan R. Baldwin
+ *  Copyright (C) 2010-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -356,7 +356,7 @@ machine(struct mne *mp)
 	 *	CALL, JP
 	 */
 	case S_CLJP:
-		expr(&e1, 0);
+		expr(&e1);
 		outrwm(&e1, R_CLJP, op);
 		break;
 
@@ -366,7 +366,7 @@ machine(struct mne *mp)
 	 *	JRZ, JRNZ
 	 */
 	case S_JR:
-		expr(&e1, 0);
+		expr(&e1);
 		if (mchpcr(&e1, &v1, 1)) {
 			if ((v1 < -16) || (v1 > 15))
 				xerr('a', "Branching Range Exceeded.");
@@ -384,11 +384,11 @@ machine(struct mne *mp)
 	 *	JRS, JRR
 	 */
 	case S_JRB:
-		expr(&e1, 0);
+		expr(&e1);
 		comma(1);
-		expr(&e2, 0);
+		expr(&e2);
 		comma(1);
-		expr(&e3, 0);
+		expr(&e3);
 		outrbm(&e1, R_3BIT | R_USGN, op);
 		outrb(&e2, R_USGN);
 		if (mchpcr(&e3, &v3, 1)) {
@@ -408,9 +408,9 @@ machine(struct mne *mp)
 	 *	RES, SET
 	 */
 	case S_BRS:
-		expr(&e1, 0);
+		expr(&e1);
 		comma(1);
-		expr(&e2, 0);
+		expr(&e2);
 		outrbm(&e1, R_3BIT | R_USGN, op);
 		outrb(&e2, R_USGN);
 		break;

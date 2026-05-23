@@ -1,7 +1,7 @@
 /* sxmch.c */
 
 /*
- *  Copyright (C) 2022-2025  Alan R. Baldwin
+ *  Copyright (C) 2022-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -181,7 +181,7 @@ machine(struct mne *mp)
 				default:	break;
 				}
 				clrexpr(&e2);
-				expr(&e2, 0);
+				expr(&e2);
 				outrwm(&e2, R_5BIT, op);
 				break;
 			case S_M:			/* MOV W,M */
@@ -212,7 +212,7 @@ machine(struct mne *mp)
 				break;
 			}
 			clrexpr(&e2);
-			expr(&e2, 0);
+			expr(&e2);
 			outrwm(&e2, R_5BIT, op);
 			break;
 		}
@@ -221,7 +221,7 @@ machine(struct mne *mp)
 
 
 	case S_CALL:
-		expr(&e1, 0);
+		expr(&e1);
 		outrwm(&e1, R_8BIT, op);
 		break;
 
@@ -243,12 +243,12 @@ machine(struct mne *mp)
 		break;
 
 	case S_RETW:
-		expr(&e1, 0);
+		expr(&e1);
 		outrwm(&e1, R_8BIT, op);
 		break;
 
 	case S_BNK:
-		expr(&e1, 0);
+		expr(&e1);
 		if (is_abs(&e1) && ((e1.e_addr & ~0x07) == 0)) {
 			outaw(op | (int) e1.e_addr);
 		} else {
@@ -257,7 +257,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_PAG:
-		expr(&e1, 0);
+		expr(&e1);
 		if (is_abs(&e1) && ((e1.e_addr & ~0x07) == 0)) {
 			outaw(op | (int) e1.e_addr);
 		} else {
@@ -266,7 +266,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_MODE:
-		expr(&e1, 0);
+		expr(&e1);
 		outrwm(&e1, R_4BIT, op);
 		break;
 
@@ -281,7 +281,7 @@ machine(struct mne *mp)
 	case S_SKIP:
 		p = ip;
 		ip = ". + 1";
-		expr(&e1, 0);
+		expr(&e1);
 		ip = p;
 		outrwm(&e1, R_SKIP, op + 2);
 		break;

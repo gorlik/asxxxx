@@ -1,8 +1,8 @@
 /* m68k.h */
 
 /*
- *  Copyright (C) 2022-2025  Alan R. Baldwin
- *  Copyright (C) 2022-2025  Nick Downing
+ *  Copyright (C) 2022-2026  Alan R. Baldwin
+ *  Copyright (C) 2022-2026  Nick Downing
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -298,6 +298,7 @@ extern	int		espmode(struct expr *esp, int *vx, int *px);
 extern	int		anpcidx(struct expr *esp, int *xx, char *p, char *ptr);
 extern	int		xi(void);
 extern	int		admode(struct adsym *sp);
+extern	int		rgmode(int pc);
 extern	int		srch(char *str);
 
 	/* m68kmch.c */

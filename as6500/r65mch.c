@@ -1,7 +1,7 @@
 /* r65mch.c */
 
 /*
- *  Copyright (C) 1995-2025  Alan R. Baldwin
+ *  Copyright (C) 1995-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -181,7 +181,7 @@ machine(struct mne *mp)
 		opcycles = OPCY_SDP;
 		zpg = dot.s_area;
 		if (more()) {
-			expr(&e1, 0);
+			expr(&e1);
 			if (e1.e_flag == 0 && e1.e_base.e_ap == NULL) {
 				if (e1.e_addr) {
 					e1.e_addr = 0;
@@ -268,7 +268,7 @@ machine(struct mne *mp)
 		}
 		
 	case S_BRA1:
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 		if (mchpcr(&e1, &v1, 1)) {
 			if ((v1 < -128) || (v1 > 127))
@@ -573,9 +573,9 @@ machine(struct mne *mp)
 		}
 		if ((c = getnb()) != '*')
 			unget(c);
-		expr(&e1, 0);
+		expr(&e1);
 		comma(1);
-		expr(&e2, 0);
+		expr(&e2);
 		outab(op);
 		outrb(&e1, R_PAG0);
 		if (mchpcr(&e2, &v2, 1)) {

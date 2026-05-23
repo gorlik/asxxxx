@@ -1,7 +1,7 @@
 /* aslink.h */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -39,8 +39,8 @@
  * Local Definitions
  */
 
-#define	VERSION "V05.50.4"
-#define	COPYRIGHT "2025"
+#define	VERSION "V06.00"
+#define	COPYRIGHT "2026"
 
 /*
  * To include NoICE Debugging set non-zero
@@ -151,6 +151,8 @@
  */
 #define	S_REF	1		/* referenced */
 #define	S_DEF	2		/* defined */
+#define	S_SWX	4		/* symbol with expression */
+#define	S_HID	8		/* symbol hidden */
 
 /*
  * File types
@@ -639,7 +641,8 @@ struct	sym
 	char	s_flag;		/* Flag byte */
 	a_uint	s_addr;		/* Address */
 	char	*s_id;		/* Name (JLH) */
-	char	*m_id;		/* Module symbol define in */
+	char	*m_id;		/* Module symbol defined in */
+	char	*s_expr;	/* Expression for symbol */
 };
 
 /*
@@ -1026,6 +1029,12 @@ extern	int	a_bytes;	/*	REL file T Line address length
 				 */
 extern	int	hilo;		/*	REL file byte ordering
 				 */
+extern	char	*expr_ip;	/*	initial expression ip
+				 */
+extern	int	expr_radix;	/*	expression default radix
+				 */
+extern	int	as_msb;		/*	Assembler selected MSB
+				 */
 extern	a_uint	a_mask;		/*	Address Mask
 				 */
 extern	a_uint	s_mask;		/*	Sign Mask
@@ -1140,6 +1149,7 @@ extern	int		hash(char *p, int cflag);
 extern	struct	sym *	lkpsym(char *id, int f);
 extern	char *		new(unsigned int n);
 extern	struct	sym *	newsym(void);
+extern	void		prcsym(void);
 extern	char *		strsto(char *str);
 extern	void		symdef(FILE *fp);
 extern	int		symeq(char *p1, char *p2, int cflag);
@@ -1148,11 +1158,14 @@ extern	void		symmod(FILE *fp, struct sym *tsp);
 extern	a_uint		symval(struct sym *tsp);
 
 /* lkeval.c */
+extern	a_uint		binop(int c, a_uint v, a_uint ve);
 extern	int		digit(int c, int r);
 extern	a_uint		eval(void);
-extern	a_uint		expr(int n);
+extern	a_uint		expr(void);
+extern	a_uint		exprx(a_uint v, int n);
+extern	int		is_digit(int c, int r);
 extern	int		oprio(int c);
-extern	a_uint		term(void);
+extern	a_uint		term(a_uint v);
 
 /* lklist.c */
 extern	int		dgt(int rdx, char *str, int n);

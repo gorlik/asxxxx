@@ -1,7 +1,7 @@
 /* assym.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -376,6 +376,7 @@ lookup(char *id)
 	sp->s_area = NULL;
 	sp->s_ref = 0;
 	sp->s_addr = 0;
+	sp->s_expr = NULL;
 	return (sp);
 }
 

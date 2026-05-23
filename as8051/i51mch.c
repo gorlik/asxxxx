@@ -1,7 +1,7 @@
 /* i51mch.c */
 
 /*
- *  Copyright (C) 1998-2025  Alan R. Baldwin
+ *  Copyright (C) 1998-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -104,12 +104,12 @@ machine(struct mne *mp)
 		 * 11 bit destination.
 		 * Top 3 bits become the MSBs of the op-code.
 		 */
-		expr(&e, 0);
+		expr(&e);
 		outrwm(&e, R_PAGX2 | R_J11, op << 8);
 		break;
 
 	case S_JMP16:
-		expr(&e, 0);
+		expr(&e);
 		outab(op);
 		outrw(&e, R_NORM);
 		break;
@@ -446,7 +446,7 @@ machine(struct mne *mp)
 
 		/* Benny */
 		comma(1);
-		expr(&e1, 0);
+		expr(&e1);
 
 		outab(op);
 		outrb(&e, R_PAG0);
@@ -465,7 +465,7 @@ machine(struct mne *mp)
 	case S_BR:  /* JC, JNC, JZ, JNZ */
 		/* Relative branch */
 		/* Benny */
-		expr(&e1, 0);
+		expr(&e1);
 		outab(op);
 
 		if (mchpcr(&e1, &v1, 1)) {
@@ -490,7 +490,7 @@ machine(struct mne *mp)
 		switch (t) {
 		case S_A:
 			clrexpr(&e);
-			expr(&e, 0);
+			expr(&e);
 			if (t1 == S_IMMED) {
 				outab(op + 4);
 				outrb(&e1, R_NORM);
@@ -506,7 +506,7 @@ machine(struct mne *mp)
 		case S_AT_R:
 			op = (op + 6 + (int) e.e_addr);
 			clrexpr(&e);
-			expr(&e, 0);
+			expr(&e);
 			outab(op);
 			if (t1 != S_IMMED)
 				xerr('a', "#__ is required second argument.");
@@ -516,7 +516,7 @@ machine(struct mne *mp)
 		case S_REG:
 			op = (op + 8 + (int) e.e_addr);
 			clrexpr(&e);
-			expr(&e, 0);
+			expr(&e);
 			outab(op);
 			if (t1 != S_IMMED)
 				xerr('a', "#__ is required second argument.");
@@ -545,7 +545,7 @@ machine(struct mne *mp)
 		t = addr(&e);
 		/* Benny */
 		comma(1);
-		expr(&e1, 0);
+		expr(&e1);
 
 		switch (t) {
 		case S_DIR:

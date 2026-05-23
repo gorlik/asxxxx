@@ -1,7 +1,7 @@
 /* h8adr.c */
 
 /*
- *  Copyright (C) 1994-2025  Alan R. Baldwin
+ *  Copyright (C) 1994-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ addr(struct expr *esp)
 
 	aindx = 0;
 	if ((c = getnb()) == '#') {
-		expr(esp, 0);
+		expr(esp);
 		if (esp->e_flag || esp->e_base.e_ap) {
 			esp->e_mode = S_IMMW;
 		} else {
@@ -68,7 +68,7 @@ addr(struct expr *esp)
 			esp->e_mode = S_INDM;
 		} else
 		if (c == '[') {
-			expr(esp, 0);
+			expr(esp);
 			if ((c = getnb()) == ',') {
 				if (!admode(wordreg)) {
 					xerr('a', "Valid word registers are R0 -> R7, and SP.");
@@ -178,7 +178,7 @@ addr1(struct expr *esp)
 	if (admode(ccr_reg)) {
 		esp->e_mode = S_CREG;
 	} else {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_EXT;
 		if ((!esp->e_flag)
 		    && (esp->e_base.e_ap == NULL)

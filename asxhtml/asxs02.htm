@@ -207,12 +207,12 @@ value.
         .list   (me)    ; listing options are enabled
                         ; during macro processing
 
-        .list   (meb)   ; macro processing lists only
-                        ; generated binary and location
+        .list   (meb)   ; macro processing forces listing
+                        ; of generated binary and location
 
-        .list   (mel)   ; macro processing lists only
-                        ; source lines generating
-                        ; binary output
+        .list   (mel)   ; macro processing forces listing
+                        ; of generated binary and location
+                        ; plus any other enabled listing
 
         .nlist  (src)   ; .nlist src lines not listed
 
@@ -894,7 +894,7 @@ Format:
 stack results in a stack overflow error message.  
 
    The  .poparea directive pops an area context from the 16 ele-
-ment stack.  Attemptimg a .poparea operation form an empty stack
+ment stack.  Attempting a .poparea operation from an empty stack
 results in a stack underflow error message.  
 
    These  directives  can  be  useful  when calling macros which
@@ -2328,6 +2328,6 @@ record formats described in the linker section for details.
 <B>...  Home Page</B>
 </P>
 
-<H6><B>Last Updated: March 2025</B></H6>
+<H6><B>Last Updated: May 2026</B></H6>
 </BODY> 
 </HTML>

@@ -1,7 +1,7 @@
 /* asmain.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -465,8 +465,9 @@ main(int argc, char *argv[])
 				asmc->tlevel = 0;
 				asmc->lnlist = LIST_NORM;
 				asmc->fp = afile(p, dsft, 8);
-				strcpy(asmc->afn,afn);
-				asmc->afp = afp;
+				asmc->afp = afptmp;
+				asmc->afs = strsto(afstmp);
+				asmc->afn = strsto(afntmp);
 			}
 		}
 	}
@@ -493,6 +494,7 @@ main(int argc, char *argv[])
 	}
 	for (pass=0; pass<3; ++pass) {
 		aserr = 0;
+		rlsym = 0;
 		if (gflag && pass == 1)
 			symglob();
 		if (aflag && pass == 1)
@@ -521,7 +523,8 @@ main(int argc, char *argv[])
 		incline = 0;
 		trcflags = 0;
 		asmc = asmp;
-		strcpy(afn, asmc->afn);
+		afs = asmc->afs;
+		afn = asmc->afn;
 		afp = asmc->afp;
 		while (asmc) {
 			if (asmc->fp)
@@ -726,6 +729,7 @@ multipass(void)
  *		fprintf()		c_library
  *		strchr()		c_library
  *		strlen()		c_library
+ *		strsto()		assym.c
  *
  *	side effects:
  *		evaluates an option for a file name and/or extension
@@ -748,7 +752,7 @@ filespec(int argc, char *argv[], int *i, char *p, char **nam, char **ext, int op
 		if ((q = strchr(p + pFile, FSEPX)) != NULL) {
 			if ((p == q) && (*p == FSEPX)) {
 				if (*(++p)) {
-					*ext = p;
+					*ext = strsto(p);
 					p += strlen(p);
 				} else {
 					fprintf(stderr, "?ASxxxx-Error-Blank File Extension For -%c+\n", opt);
@@ -757,18 +761,18 @@ filespec(int argc, char *argv[], int *i, char *p, char **nam, char **ext, int op
 			} else {
 				*q = '\0';
 				if (*p) {
-					*nam = p;
+					*nam = strsto(p);
 					p += strlen(p);
 				}
 				if (*(++q)) {
-					*ext = q;
+					*ext = strsto(q);
 					p = q + strlen(q);
 				}
 			}
 		} else
 		/* Form -*+name */
 		if (*p != '\0') {
-			*nam = p;
+			*nam = strsto(p);
 			p += strlen(p);
 		} else {
 			fprintf(stderr, "?ASxxxx-Error-Missing [name][.ext] After -%c+", opt);
@@ -778,15 +782,15 @@ filespec(int argc, char *argv[], int *i, char *p, char **nam, char **ext, int op
 	return(p);
 }
 
-/*)Function	void	fixrelfil(p, nam)
+/*)Function	void	fixrelfil(p, pthnam)
  *
  *		char *		p	pointer to first path/file/ext
- *		char **		nam	pointer to address of filename address
+ *		char **		pthnam	pointer to address of path/file address
  *
  *	local variables:
  *		char *		q	temporary string pointer
  *		int		i	looping variable
- *		int		pFile	index to beginninf of p filename
+ *		int		pFile	index to beginning of p filename
  *
  *	global variables:
  *		char		ib[]	string
@@ -798,7 +802,7 @@ filespec(int argc, char *argv[], int *i, char *p, char **nam, char **ext, int op
  *
  *	side effects:
  *		evaluates an option for a file name / extension
- *		(1) if relfil has a path/name - use it
+ *		(1) if pthnam has a path/name - use it
  *		      else use p path/name
  *
  *		[Notes]
@@ -813,12 +817,12 @@ filespec(int argc, char *argv[], int *i, char *p, char **nam, char **ext, int op
  *			defaults: .lst, .sym and .hlr
  */
 void
-fixrelfil(char *p, char **relfil)
+fixrelfil(char *p, char **pthnam)
 {
 	char *q;
 	int i, pFile;
 
- 	if (**relfil == '\0') {
+ 	if (**pthnam == '\0') {
 		ip = ib;		/* Use as temporary string */
 		pFile = fndidx(p);	/* Index to file name of p */
 		for (i=0,q=p; i<pFile; i++) {
@@ -829,7 +833,7 @@ fixrelfil(char *p, char **relfil)
 			*ip++ = *q++;
 		}
 		*ip = '\0';
-		*relfil = strsto(ib);
+		*pthnam = strsto(ib);
 	}
 }
 
@@ -900,9 +904,9 @@ insline(char *str, int i)
 	asmc->tlevel = 0;
 	asmc->lnlist = i;
 	asmc->fp = NULL;
-	asmc->afp =0;
-	strcpy(asmc->afn,str);
-	asmc->afp =0;
+	asmc->afp = 0;
+	asmc->afs = strsto(str);
+	asmc->afn = "";
 }
 
 /*)Function	void	asexit(i)
@@ -1193,7 +1197,7 @@ loop:
 			 */
 			if (awg) {
 	                	ip = equ_ip;
-				expr(&e1, 0);
+				expr(&e1);
 				switch(awg) {
 				case 1:	outrb(&e1, 0);	break;
 				case 2:	outrw(&e1, 0);	break;
@@ -1362,7 +1366,7 @@ loop:
 		 */
 		if (awg) {
 			ip = p;
-			expr(&e1, 0);
+			expr(&e1);
 			switch(awg) {
 			case 1:	outrb(&e1, 0);	break;
 			case 2:	outrw(&e1, 0);	break;
@@ -1978,7 +1982,7 @@ loop:
 			/*
 			 * Copy path of file opening the include file
 			 */
-			strncpy(fn,afn,afp);
+			strncpy(fn,afs,afp);
 			/*
 			 * Concatenate the .include file specification
 			 */
@@ -1997,7 +2001,7 @@ loop:
 			/*
 			 * Open File
 			 */
-    			if ((fp = fopen(afntmp, "r")) == NULL) {
+    			if ((fp = fopen(afstmp, "r")) == NULL) {
 				--incfil;
 				err('i');
 			} else {
@@ -2010,7 +2014,9 @@ loop:
 				asmi->lnlist = lnlist;
 				asmi->fp = fp;
 				asmi->afp = afptmp;
-				strcpy(asmi->afn,afntmp);
+				asmi->afs = strsto(afstmp);
+				asmi->afn = asmc->afn;
+
 				if (lnlist & LIST_PAG) {
 					lop = NLPP;
 				}
@@ -2021,7 +2027,7 @@ loop:
 			/*
 			 * Copy path of file opening the .incbin file
 			 */
-			strncpy(fn,afn,afp);
+			strncpy(fn,afs,afp);
 			/*
 			 * Concatenate the .incbin file specification
 			 */
@@ -2055,7 +2061,7 @@ loop:
 			 * Open File
 			 */
 			p = "rb";
-    			if ((fp = fopen(afntmp, p)) == NULL) {
+    			if ((fp = fopen(afstmp, p)) == NULL) {
 				xerr('i', "File not found.");
 				break;
 			}
@@ -2353,7 +2359,7 @@ loop:
 			case 'x':	radix = 16;	break;	/* X */
 			default:				/* 2, 8, 10, 16 */
 				unget(c);
-				expr(&e1, 0);
+				expr(&e1);
 				if (is_abs(&e1)) {
 					v = e1.e_addr;
 					if ((v == 2) || (v == 8) ||
@@ -2438,7 +2444,7 @@ loop:
 		if ((n == 1) || (n == size)) {
 			do {
 				clrexpr(&e1);
-				expr(&e1, 0);
+				expr(&e1);
 				/*
 				 * MSB coercion is not allowed
 				 */
@@ -2465,7 +2471,7 @@ loop:
 			v = 0;
 			do {
 				clrexpr(&e1);
-				expr(&e1, 0);
+				expr(&e1);
 				/*
 				 * MSB coercion is not allowed
 				 */
@@ -2509,7 +2515,7 @@ loop:
 		{
 			do {
 				clrexpr(&e1);
-				expr(&e1, 0);
+				expr(&e1);
 				/*
 				 * MSB coercion is not allowed
 				 */
@@ -2532,7 +2538,7 @@ loop:
 			err('o');
 		}
 		clrexpr(&e1);
-		expr(&e1, 0);
+		expr(&e1);
 		outchk(HUGE,HUGE);
 		size = e1.e_addr*mp->m_valu;
 		n = 1 + ((dot.s_area->a_flag) & A_BYTES);
@@ -2566,7 +2572,7 @@ loop:
 				*q = 0; /* Make a terminator */
 				ip = p; /* Restore pointer to LFTERM and evaluate */
 				clrexpr(&e1);
-				expr(&e1, 0);
+				expr(&e1);
 				*q = c;	/* Restore character */
 				ip = q;	/* Restore pointer */
 				abscheck(&e1);
@@ -2731,7 +2737,7 @@ loop:
 	case S_ERROR:
 		clrexpr(&e1);
 		if (more()) {
-			expr(&e1, 0);
+			expr(&e1);
 		}
 		if (e1.e_addr != 0) {
 			err('e');
@@ -2746,7 +2752,7 @@ loop:
 		default:
 		case O_MSB:
 			clrexpr(&e1);
-			expr(&e1, 0);
+			expr(&e1);
 			if (!is_abs(&e1)) {
 				err('o');
 			}
@@ -3046,39 +3052,62 @@ equate(char *id, struct expr *e1, a_uint equtype)
 	struct sym *sp;
 
 	clrexpr(e1);
-	expr(e1, 0);
+	rprterr = 1;
+	expr(e1);
 
 	sp = lookup(id);
-
 	if (sp == &dot) {
 		outall();
 		if (e1->e_flag || e1->e_base.e_ap != dot.s_area)
 			err('.');
-	} else {
+	}
+
+#if 0
+	if (aflag == 0) {	/* Inhibit When All Are Global (-a) */
 		switch(equtype) {
-		case O_EQU:
+		case O_EQU:	/* Assumes Previous Type - Check Global */
+		case O_GBLEQU:	/* Redefiniton Of Type Must Have Same Value */
+			if ((sp->s_type != S_NEW) && (sp->s_flag & S_GBL) &&
+			   ((sp->s_addr != e1->e_addr) || (sp->s_area != e1->e_base.e_ap))) {
+				sp->s_flag |=  S_MDF;
+			} else {
+				sp->s_flag &= ~S_MDF;
+			}
+			break;
+	
+		case O_LCLEQU:	/* Redefiniton Of Type Inhibits Global Output */
 		default:
 			break;
-
-		case O_GBLEQU:
-			sp->s_flag &= ~S_LCL;
-			sp->s_flag |=  S_GBL;
-			break;
-
-		case O_LCLEQU:
-			sp->s_flag &= ~S_GBL;
-			sp->s_flag |=  S_LCL;
-			break;
 		}
-
-		if (e1->e_flag && (e1->e_base.e_sp->s_type == S_NEW)) {
-			rerr();
-		} else {
-			sp->s_area = e1->e_base.e_ap;
-		}
-		sp->s_flag |= S_ASG;
-		sp->s_type = S_USER;
+		if (sp->s_flag & S_MDF)
+			xerr('m', "Declared global has multiple values");
 	}
+#endif
+
+	switch(equtype) {
+	default:
+	case O_EQU:
+		break;
+
+	case O_GBLEQU:
+		sp->s_flag &= ~S_LCL;
+		sp->s_flag |=  S_GBL;
+		break;
+
+	case O_LCLEQU:
+		sp->s_flag &= ~S_GBL;
+		sp->s_flag |=  S_LCL;
+		break;
+	}
+
+	if (e1->e_flag && (e1->e_base.e_sp->s_type == S_NEW)) {
+		rerr();
+		xerr('x', "global argument NOT ALLOWED in an equate");
+	} else {
+		sp->s_area = e1->e_base.e_ap;
+	}
+	sp->s_flag |= S_ASG;
+	sp->s_type = S_USER;
 
 	sp->s_addr = laddr = e1->e_addr;
 	lmode = ELIST;
@@ -3089,9 +3118,9 @@ equate(char *id, struct expr *e1, a_uint equtype)
 	}
 }
 
-/*)Function	FILE *	afile(fn, ft, wf)
+/*)Function	FILE *	afile(fs, ft, wf)
  *
- *		char *	fn		file specification string
+ *		char *	fs		file specification string
  *		char *	ft		file type string
  *		int	wf		0 ==>> read
  *					1 ==>> write
@@ -3110,12 +3139,6 @@ equate(char *id, struct expr *e1, a_uint equtype)
  *		FILE *	fp		file handle for opened file
  *		char *	frmt		read/write format string
  *
- *	global variables:
- *		char	afn[]		afile() constructed filespec
- *		int	afp		afile() constructed path length
- *		char	afntmp[]	afilex() constructed filespec
- *		int	afptmp		afilex() constructed path length
- *
  *	functions called:
  *		void	afilex()	asmain.c
  *		int	fndidx()	asmain.c
@@ -3128,12 +3151,12 @@ equate(char *id, struct expr *e1, a_uint equtype)
  */
 
 FILE *
-afile(char *fn, char *ft, int wf)
+afile(char *fs, char *ft, int wf)
 {
 	FILE *fp;
 	char *frmt;
 
-	afilex(fn, ft, wf);
+	afilex(fs, ft, wf);
 
 	/*
 	 * Select (Binary) Read/Write
@@ -3146,20 +3169,17 @@ afile(char *fn, char *ft, int wf)
 	case 3:	frmt = "wb";	break;
 	}
 
-	if ((fp = fopen(afntmp, frmt)) == NULL) {
-	    fprintf(stderr, "?ASxxxx-Error-<cannot %s> : \"%s\"\n", (frmt[0] == 'w')?"create":"open", afntmp);
+	if ((fp = fopen(afstmp, frmt)) == NULL) {
+	    fprintf(stderr, "?ASxxxx-Error-<cannot %s> : \"%s\"\n", (frmt[0] == 'w')?"create":"open", afstmp);
 	    asexit(ER_FATAL);
 	}
-
-	strcpy(afn, afntmp);
-	afp = afptmp;
 
 	return (fp);
 }
 
-/*)Function	void	afilex(fn, ft, wf)
+/*)Function	void	afilex(fs, ft, wf)
  *
- *		char *	fn		file specification string
+ *		char *	fs		file specification string
  *		char *	ft		file type string
  *		int	wf		0 ==>> read
  *					1 ==>> write
@@ -3172,11 +3192,11 @@ afile(char *fn, char *ft, int wf)
  *	The function afilex() processes the file specification string:
  *		(1)	If the file type specification string ft
  *			is not NULL then a file specification is
- *			constructed with the file path\name in fn
+ *			constructed with the file path\name in fs
  *			and the extension in ft.
  *		(2)	If the file type specification string ft
  *			is NULL then the file specification is
- *			constructed from fn.  If fn does not have
+ *			constructed from fs.  If fs does not have
  *			a file type then the default source file
  *			type dsft is appended to the file specification.
  *
@@ -3184,11 +3204,12 @@ afile(char *fn, char *ft, int wf)
  *
  *	local variables:
  *		int	c		character value
- *		char *	p1		pointer into filespec string afntmp
+ *		char *	p1		pointer into filespec string afstmp
  *		char *	p2		pointer into filespec string fn
  *
  *	global variables:
- *		char	afntmp[]	afilex() constructed filespec
+ *		char *	afstmp		afilex() constructed filespec
+ *		char *	afntmp		afilex() constructed filename
  *		int	afptmp		afilex() constructed path length
  *		char	dsft[]		default assembler file type string
  *
@@ -3203,26 +3224,38 @@ afile(char *fn, char *ft, int wf)
  */
 
 void
-afilex(char *fn, char *ft, int wf)
+afilex(char *fs, char *ft, int wf)
 {
 	char *p1, *p2;
 	int c;
 
-	if (strlen(fn) > (FILSPC-7)) {
-		fprintf(stderr, "?ASxxxx-Error-<filspc to long> : \"%s\"\n", fn);
+	if (strlen(fs) > (FILSPC-7)) {
+		fprintf(stderr, "?ASxxxx-Error-<filspc to long> : \"%s\"\n", fs);
 		asexit(ER_FATAL);
 	}
 
 	/*
-	 * Save the File Name Index
+	 * Save the Filespec and Name Index
 	 */
-	strcpy(afntmp, fn);
-	afptmp = fndidx(afntmp);
+	strcpy(afstmp, fs);
+	afptmp = fndidx(afstmp);
 
 	/*
 	 * Skip to File Extension separator
 	 */
-	p1 = strrchr(&afntmp[afptmp], FSEPX);
+	p1 = strrchr(&afstmp[afptmp], FSEPX);
+
+	/*
+	 * Save File Name
+	 */
+	if (p1 == NULL) {
+		strcpy(afntmp, &afstmp[afptmp]);
+	} else {
+		*p1 = 0;
+		strcpy(afntmp, &afstmp[afptmp]);
+		*p1 = FSEPX;
+	}
+
 	/*
 	 * Allow any extension if FSEPX
 	 * is present. <path><name><FSEPX>...
@@ -3244,11 +3277,11 @@ afilex(char *fn, char *ft, int wf)
 		 */
 		p2 = ft;
 		if (p1 == NULL) {
-			p1 = &afntmp[strlen(afntmp)];
+			p1 = &afstmp[strlen(afstmp)];
 		}
 		*p1++ = FSEPX;
 		while ((c = *p2++) != 0) {
-			if (p1 < &afntmp[FILSPC-1])
+			if (p1 < &afstmp[FILSPC-1])
 				*p1++ = c;
 		}
 		*p1++ = 0;

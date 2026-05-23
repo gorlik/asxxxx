@@ -1,0 +1,4 @@
+-u
+-a TEST=0x1000
+tk.rel
+-e

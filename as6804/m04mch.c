@@ -1,7 +1,7 @@
 /* m04mch.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -95,7 +95,7 @@ machine(struct mne *mp)
 		opcycles = OPCY_SDP;
 		zpg = dot.s_area;
 		if (more()) {
-			expr(&e1, 0);
+			expr(&e1);
 			if (e1.e_flag == 0 && e1.e_base.e_ap == NULL) {
 				if (e1.e_addr) {
 					e1.e_addr = 0;
@@ -121,7 +121,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_BRA:
-		expr(&e1, 0);
+		expr(&e1);
 		if (mchpcr(&e1, &v1, 1)) {
 			if ((v1 < -16) || (v1 > 15))
 				xerr('a', "Branching Range Exceeded.");
@@ -134,7 +134,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_TYP1:
-		expr(&e1, 0);
+		expr(&e1);
 		if (is_abs(&e1)) {
 			v1 = (int) e1.e_addr;
 			if ((v1 & ~0x0FFF) != 0)
@@ -233,7 +233,7 @@ machine(struct mne *mp)
 			v1 = 0x80;
 		if (type == S_BYPM)
 			v1 = 0x81;
-		expr(&e2, 0);
+		expr(&e2);
 		outab(op);
 		outab(v1);
 		if (mchpcr(&e2, &v2, 1)) {
@@ -256,7 +256,7 @@ machine(struct mne *mp)
 			xerr('a', "Invalid Addressing Mode.");
 		if (type == S_BTB) {
 			comma(1);
-			expr(&e3, 0);
+			expr(&e3);
 		}
 		if (is_abs(&e1)) {
 			if (e1.e_addr & ~0x07)

@@ -1,7 +1,7 @@
 /* i08adr.c */
 
 /*
- *  Copyright (C) 2018-2025  Alan R. Baldwin
+ *  Copyright (C) 2018-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ addr(struct expr *esp)
 
 	aindx = 0;
 	if ((c = getnb()) == '#') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMMED;
 		return (esp->e_mode);
 	}
@@ -55,7 +55,7 @@ addr(struct expr *esp)
 		esp->e_addr = aindx;
 		esp->e_mode = S_REG;
 	} else {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_EXT;
 	}
 	return (esp->e_mode);

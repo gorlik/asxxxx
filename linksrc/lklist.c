@@ -1,7 +1,7 @@
 /* lklist.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -422,7 +422,7 @@ lstarea(struct area *xp, struct bank *yp)
 		for (i=0; i<NHASH; i++) {
 			sp = symhash[i];
 			while (sp != NULL) {
-				if ((oxp == sp->s_axp) && !sp->s_flag) {
+				if ((oxp == sp->s_axp) && !sp->s_flag && !(sp->s_type & S_HID)) {
 					++nmsym;
 				}
 				sp = sp->s_sp;
@@ -456,7 +456,7 @@ lstarea(struct area *xp, struct bank *yp)
 		for (i=0; i<NHASH; i++) {
 			sp = symhash[i];
 			while (sp != NULL) {
-				if ((oxp == sp->s_axp) && !sp->s_flag) {
+				if ((oxp == sp->s_axp) && !sp->s_flag && !(sp->s_type & S_HID)) {
 					p[nmsym++] = sp;
 				}
 				sp = sp->s_sp;

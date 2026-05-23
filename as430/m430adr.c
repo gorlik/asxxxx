@@ -1,7 +1,7 @@
 /* m430adr.c */
 
 /*
- *  Copyright (C) 2003-2025  Alan R. Baldwin
+ *  Copyright (C) 2003-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -54,12 +54,12 @@ addr(struct expr *esp)
 	} else
 	/*	&Addr 	 */
 	if ((c = getnb()) == '&') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_ABS;
 	} else
 	/*	#N	*/
 	if (c == '#') {
-		expr(esp, 0);
+		expr(esp);
 		esp->e_mode = S_IMM;
 	} else
 	/*	@Rn / @Rn+	*/
@@ -132,7 +132,7 @@ addr(struct expr *esp)
 				/*
 				 * evaluate X of X(Rn)
 				 */
-				expr(esp, 0);
+				expr(esp);
 				esp->e_mode = S_RIDX;
 				/*
 				 * after evaluation:
@@ -148,14 +148,14 @@ addr(struct expr *esp)
 				 * assume regular argument of form (...)
 				 */
 				ip = ips;
-				expr(esp, 0);
+				expr(esp);
 				esp->e_mode = S_SYM;
 			}
 		} else {
 			/*
 			 * regular argument
 			 */
-			expr(esp, 0);
+			expr(esp);
 			esp->e_mode = S_SYM;
 		}
 	}

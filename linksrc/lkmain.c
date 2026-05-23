@@ -1,7 +1,7 @@
 /* lkmain.c */
 
 /*
- *  Copyright (C) 1989-2025  Alan R. Baldwin
+ *  Copyright (C) 1989-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -336,6 +336,10 @@ main(int argc, char *argv[])
 			 * Process global definitions.
 			 */
 			setgbl();
+			/*
+			 * Process symbol expression
+			 */
+			prcsym();
 			/*
 			 * Check for undefined globals.
 			 */
@@ -1199,7 +1203,7 @@ char *filespec(char *p)
 			outnam = strsto(p);
 			p += strlen(p);
 		} else {
-			fprintf(stderr, "?ASlink-Error-Missing [name][.ext] After -%c+", opt);
+			fprintf(stderr, "?ASlink-Error-Missing [name][.ext] After -%c+\n", opt);
 			lkexit(ER_FATAL);
 		}
 	}
@@ -1376,7 +1380,7 @@ glblsav(void)
 void
 setgbl(void)
 {
-	int v;
+	a_uint v;
 	struct sym *sp;
 	char id[NCPS];
 
@@ -1385,7 +1389,7 @@ setgbl(void)
 		ip = gsp->g_strp;
 		getid(id, -1);
 		if (getnb() == '=') {
-			v = (int) expr(0);
+			v = expr();
 			sp = lkpsym(id, 0);
 			if (sp == NULL) {
 				fprintf(stderr,
@@ -1402,7 +1406,7 @@ setgbl(void)
 				sp->s_type |= S_DEF;
 			}
 		} else {
-			fprintf(stderr, "?ASlink-Error-No '=' in global expression");
+			fprintf(stderr, "?ASlink-Error-No '=' in global expression\n");
 			lkerr++;
 		}
 		gsp = gsp->g_globl;
