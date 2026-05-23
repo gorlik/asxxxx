@@ -1,7 +1,7 @@
 /* ds8mch.c */
 
 /*
- *  Copyright (C) 1998-2023  Alan R. Baldwin
+ *  Copyright (C) 1998-2024  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -824,6 +824,13 @@ struct mne *mp;
 	/* direct */
 	case S_DIRECT: 
 		t = addr(&e);
+		if (t == S_A) {
+			e.e_addr = 0xE0;
+			e.e_mode = S_DIR;
+		} else
+		if (t == S_REG) {
+			e.e_mode = S_DIR;
+		} else
 		if ((t != S_DIR) && (t != S_EXT)) {
 			xerr('a', "Argument must be an address.");
 			break;
