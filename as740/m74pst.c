@@ -306,8 +306,10 @@ struct	mne	mne[] = {
 
     {	NULL,	"clt",		S_INH,		0,	0x12	},
     {	NULL,	"set",		S_INH,		0,	0x32	},
-    {	NULL,	"wit",		S_INH,		0,	0xC2	},
     {	NULL,	"stp",		S_INH,		0,	0x42	},
+    {	NULL,	"wit",		S_INH,		0,	0xC2	},
+    {	NULL,	"slw",		S_INH,		0,	0xC2	},
+    {	NULL,	"fst",		S_INH,		0,	0xE2	},
 
     {	NULL,	"cpx",		S_CP,		0,	0xE0	},
     {	NULL,	"cpy",		S_CP,		0,	0xC0	},
