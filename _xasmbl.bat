@@ -14,6 +14,9 @@ cd ..
 cd as2650
 call ..\_xfiles.bat
 cd ..
+cd as370
+call ..\_xfiles.bat
+cd ..
 cd as4040
 call ..\_xfiles.bat
 cd ..
@@ -135,6 +138,9 @@ cd ..
 cd asm8c
 call ..\_xfiles.bat
 cd ..
+cd asolms40
+call ..\_xfiles.bat
+cd ..
 cd aspdp11
 call ..\_xfiles.bat
 cd ..
@@ -172,6 +178,9 @@ cd asst7
 call ..\_xfiles.bat
 cd ..
 cd asst8
+call ..\_xfiles.bat
+cd ..
+cd asst9
 call ..\_xfiles.bat
 cd ..
 cd assx

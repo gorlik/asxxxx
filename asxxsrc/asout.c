@@ -667,7 +667,7 @@ outrxb(int i, struct expr *esp, int r)
  *
  *		expr *	esp		pointer to expr structure
  *		int	r		relocation mode
- *		int	v		data to merge into
+ *		a_uint	v		data to merge into
  *
  *	Dispatch functions for processing relocatable data.
  *

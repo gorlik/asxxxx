@@ -21,6 +21,7 @@ rem  Remove Non-Distribution Directories
 rem
 zip -d asxs6pxx.zip asxv6pxx\asxdoc\asxrno\* asxv6pxx\asxhtmw\*
 zip -d asxs6pxx.zip asxv6pxx\updater\* asxv6pxx\misc\*
+zip -d asxs6pxx.zip asxv6pxx\stbyst\*
 rem
 zip -d asxs6pxx.zip asxv6pxx\asxmak\cygwin\exe\*.exe
 zip -d asxs6pxx.zip asxv6pxx\asxmak\djgpp\exe\*.exe

@@ -1,2 +1,2 @@
 set cygwin=nodosfilewarning
-tstscn.bat 2>&1 | ..\..\tee32.exe tstwtee.lst
+cyg_tstscn.bat 2>&1 | ..\..\tee32.exe cyg_tstwtee.lst

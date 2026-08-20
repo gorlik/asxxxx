@@ -1,19 +1,19 @@
 
-       ASxxxx Cross Assemblers, Version 6.00, May 2026 
+       ASxxxx Cross Assemblers, Version 6.1, May 2026 
 
        The  ASxxxx  assemblers are a series of microprocessor assemblers
     written in the C programming  language.   This  collection  contains
-    cross  assemblers  for  the  1802, S2650, 4040(4004), SC/MP, MPS430,
+    cross  assemblers  for  the 1802, S2650, TMS370, 4040(4004), MPS430,
     6100, 61860, 6500, 6800(6802/6808), 6801(6803/HD6303),  6804,  6805,
     68HC(S)08,  6809,  68HC11, 68HC(S)12, 68HC16, 68CF, 68K, 740, 78K/0,
     78K/0S, 8008, 8008S, 8048(8041/8022/8021), 8051, 8085(8080), AT89LP,
-    8X300(8X305),  COP4,  COP8,  DS8XCXXX,  AVR,  EZ8,  EZ80, F2MC8L/FX,
-    F8/3870, GameBoy(Z80), H8/3xx, Cypress PSoC(M8C), PDP11, PIC, Rabbit
-    2000/3000,    RS08,    ST6,   ST7,   ST8,  ST9,  SX,   TLCS90,   Z8,
-    Z80(HD64180,ZXN,8080,8085), and Z280  series  microprocessors.   The
-    companion  program  ASLINK is a relocating linker supporting all the
-    cross assemblers.  ASLINK also supports object  files  created  with
-    the 4.xx and 3.xx assemblers.  
+    8X300(8X305),  DS8XCXXX,  AVR,  COP4,  COP8,  EZ8,  EZ80, F2MC8L/FX,
+    F8/3870, GameBoy(Z80), H8/3xx, Cypress  PSoC(M8C),  OLMS-40,  PDP11,
+    PIC,  Rabbit 2000/3000, RS08, SC/MP, ST6, ST7, ST8, ST9, SX, TLCS90,
+    Z8, Z80(HD64180,ZXN,8080,8085),  and  Z280  series  microprocessors.
+    The  companion  program ASLINK is a relocating linker supporting all
+    the cross assemblers.  ASLINK also  supports  object  files  created
+    with the 4.xx and 3.xx assemblers.  
 
        The assemblers and linker have been tested using Linux and DJGPP,
     Cygwin, Symantec C/C++  V7.2,  Borland  Turbo C++ 3.0,  Open  Watcom
@@ -25,87 +25,87 @@
     and MONDEB for 8051 / AT89LP series ) are included as working  exam-
     ples of use of these assemblers.  
 
-    asxv6p00.zip      ASxxxx and ASlink V6.00 Zipped
+    asxv6p10.zip        ASxxxx and ASlink V6.10 Zipped
     
         MS-DOS:
-        Windows:        unzip asxv6p00.zip
-                        pkunzip -d asxv6p00.zip
+        Windows:        unzip asxv6p10.zip
+                        pkunzip -d asxv6p10.zip
                         unzips and restores directory structure
     
-        Linux:          unzip -L -a asxv6p00.zip
+        Linux:          unzip -L -a asxv6p10.zip
                         unzips to lower-case names and converts
                         ascii files to \n from \r\n form.
     
     
     Makefiles or Build command files are in directories:
     
-        Linux:          /asxv5pxx/asxmak/linux/build/
+        Linux:          /asxv6pxx/asxmak/linux/build/
     
-        Cygwin:         \asxv5pxx\asxmak\cygwin\build\
+        Cygwin:         \asxv6pxx\asxmak\cygwin\build\
     
-        DJGPP:          \asxv5pxx\asxmak\djgpp\build\
+        DJGPP:          \asxv6pxx\asxmak\djgpp\build\
     
-        Symantec:       \asxv5pxx\asxmak\symantec\build\
+        Symantec:       \asxv6pxx\asxmak\symantec\build\
     
-        TurboC:         \asxv5pxx\asxmak\TurboC30\build\
+        TurboC:         \asxv6pxx\asxmak\TurboC30\build\
     
-        VC6:            \asxv5pxx\asxmak\vc6\build\
+        VC6:            \asxv6pxx\asxmak\vc6\build\
     
-        VS05:           \asxv5pxx\asxmak\vs05\build\
+        VS05:           \asxv6pxx\asxmak\vs05\build\
     
-        VS10:           \asxv5pxx\asxmak\vs10\build\
+        VS10:           \asxv6pxx\asxmak\vs10\build\
     
-        VS13:           \asxv5pxx\asxmak\vs13\build\
+        VS13:           \asxv6pxx\asxmak\vs13\build\
     
-        VS15:           \asxv5pxx\asxmak\vs15\build\
+        VS15:           \asxv6pxx\asxmak\vs15\build\
     
-        VS19:           \asxv5pxx\asxmak\vs19\build\
+        VS19:           \asxv6pxx\asxmak\vs19\build\
     
-        VS22:           \asxv5pxx\asxmak\vs22\build\
+        VS22:           \asxv6pxx\asxmak\vs22\build\
     
-        Watcom:         \asxv5pxx\asxmak\watcom\build\
+        Watcom:         \asxv6pxx\asxmak\watcom\build\
     
     
     The Make or Build Exectutable directories are:
     
-        Linux:          /asxv5pxx/asxmak/linux/exe/
+        Linux:          /asxv6pxx/asxmak/linux/exe/
     
-        Cygwin:         \asxv5pxx\asxmak\cygwin\exe\
+        Cygwin:         \asxv6pxx\asxmak\cygwin\exe\
     
-        DJGPP:          \asxv5pxx\asxmak\djgpp\exe\
+        DJGPP:          \asxv6pxx\asxmak\djgpp\exe\
     
-        Symantec:       \asxv5pxx\asxmak\symantec\exe\
+        Symantec:       \asxv6pxx\asxmak\symantec\exe\
     
-        TurboC:         \asxv5pxx\asxmak\TurboC30\exe\
+        TurboC:         \asxv6pxx\asxmak\TurboC30\exe\
     
-        VC6:            \asxv5pxx\asxmak\vc6\exe\
+        VC6:            \asxv6pxx\asxmak\vc6\exe\
     
-        VS05:           \asxv5pxx\asxmak\vs05\exe\
+        VS05:           \asxv6pxx\asxmak\vs05\exe\
     
-        VS10:           \asxv5pxx\asxmak\vs10\exe\
+        VS10:           \asxv6pxx\asxmak\vs10\exe\
     
-        VS13:           \asxv5pxx\asxmak\vs13\exe\
+        VS13:           \asxv6pxx\asxmak\vs13\exe\
     
-        VS15:           \asxv5pxx\asxmak\vs15\exe\
+        VS15:           \asxv6pxx\asxmak\vs15\exe\
     
-        VS19:           \asxv5pxx\asxmak\vs19\exe\
+        VS19:           \asxv6pxx\asxmak\vs19\exe\
     
-        VS22:           \asxv5pxx\asxmak\vs22\exe\
+        VS22:           \asxv6pxx\asxmak\vs22\exe\
     
-        Watcom:         \asxv5pxx\asxmak\watcom\exe\
+        Watcom:         \asxv6pxx\asxmak\watcom\exe\
     
     
-        Documentation (V 6.00) in pdf form is
-        \asxv5pxx\asxhtml\asmlnk.pdf
+        Documentation (V 6.1) in pdf form is
+        \asxv6pxx\asxhtml\asmlnk.pdf
     
-        Documentation (V 6.00) in rtf form is
-        \asxv5pxx\asxhtml\asmlnk.rtf
+        Documentation (V 6.1) in rtf form is
+        \asxv6pxx\asxhtml\asmlnk.rtf
     
-        Documentation (V 6.00) in plain text form is
-        \asxv5pxx\asxhtml\asmlnk.txt
+        Documentation (V 6.1) in plain text form is
+        \asxv6pxx\asxhtml\asmlnk.txt
     
-        Documentation (V 6.00) in HTML form starts with
-        \asxv5pxx\asxhtml\asxxxx.htm
+        Documentation (V 6.1) in HTML form starts with
+        \asxv6pxx\asxhtml\asxxxx.htm
     
     
     /*

@@ -1,0 +1,249 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML lang="en-US">
+<HEAD>
+<TITLE>AS370  Assembler</TITLE>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+</HEAD>
+<BODY BGCOLOR="#C0C0C0">
+
+<A href="../home.htm">
+<IMG width="343" height="58" border="0" SRC="welcom.gif" ALT="Welcome"></A>
+
+<H2>AS370  Assembler</H2>
+
+<A NAME = "TOP"> </A> 
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
+<H4><B><PRE>
+TMS370 REGISTER SET 
+
+The following is a list of the TMS370 registers used by AS370:  
+
+        A       - Register A (R0) - Accumulator
+        B       - Register B (R1) - Scratch
+        SP      - Register SP       Stack Pointer
+        ST      - Register ST       Status
+        Rn      - Working Registers 0-255
+        Pn      - Port Registers 0-255
+
+</PRE></B></H4>
+
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
+<H4><B><PRE>
+TMS370 ADDRESSING MODES 
+
+
+   The   TMS370   addressing   modes   are  described  in  three
+categories, general, absolute extended, and relative extended.  
+
+   The   destination   addresses   of   the   program   relative
+instructions:  BTJO, BTJZ, DJNZ, JBIT0, JBIT1, JMP,  and  J<cnd>
+are  processed  by  the  assembler and linker into 8-Bit offsets
+which are added to the program counter value  of  the  next  in-
+struction,  PCN.  These instructions operate in the same fashion
+as the TI assembler for the TMS370.  
+
+   The  CALLR  and JMPL operate in a similar fashion with 16-Bit
+offsets added to the program counter.  However, the AS370 assem-
+bler  treats  a numerical value in the Relative Direct and Rela-
+tive Indexed Addressing modes identically to a label, ie as  the
+actual  destination  address.  The TI assembler treats numerical
+values as true offsets from the program  counter  value  of  the
+next instruction, PCN.  
+
+   In either assembler a jump to an entry point labeled as ProcA
+is coded as JMPL ProcA.  The  assemblers  compute  the  relative
+offset  to  build the instruction.  For a numerical argument the
+assemblers differ greatly.  The TI  assembler  simply  adds  the
+numerical  value to the PCN.  Thus the instruction JMPL 10 would
+transfer control to the address 10 + PCN.  The  AS370  assembler
+would  tranfer  control to address 10 and NOT to an offset of 10
+from the address of the the instruction following the  JMPL  in-
+struction.   To  perform  an  equivalent numerical relative jump
+from the location of the JMPL instruction in AS370 the  argument
+must  be  preceeded  by  the  '*'  character.   Thus  the  AS370
+equivalent to the TI JMPL 10 is JMPL *10.  
+
+
+GENERAL:  8-Bit Addressing Range
+
+  Implied       LDSP            (B) -&gt; (SP)
+  Register      MOV R5,R4       (0005) -&gt; (0004)
+  Peripheral    MOV P025        (1025) -&gt; (A)
+  Immediate     ADD #123,R3     123 + (0003) -&gt; (0003)
+  PC Relative   JMP short       off8 + PCN -&gt; (PC)
+                                off8 = short - PCN
+  SP Relative   MOV 2(SP),A     (2 + (SP)) -&gt; (A)
+
+ABSOLUTE EXTENDED:  16-Bit Addressing Range
+
+  Direct        MOV A,1234      (A) -&gt; (1234)
+  Indexed       MOV 1234(B),A   (1234 + (B)) -&gt; (A)
+  Indirect      MOV @R4,A       ((R3:R4)) -&gt; (A)
+   /w Offset    MOV 12(R4),A    (12 + (R3:R4)) -&gt; (A)
+
+RELATIVE EXTENDED:  16-Bit Addressing Range
+
+  Direct        JMPL long       off16 + PCN -&gt; (PC)
+                                off16 = long - PCN
+                JMPL 1234       off16 + PCN -&gt; (PC)
+                                off16 = 1234 - PCN
+                JMPL *1234      1234 + PCN -&gt; (PC)
+  Indexed       JMPL long(B)    off16 + (B) + PCN -&gt; (PC)
+                                off16 = long - PCN
+                JMPL 1234(B)    off16 + (B) + PCN -&gt; (PC)
+                                off16 = 1234 - PCN
+                JMPL *1234(B)   1234 +(B) + PCN -&gt; (PC)
+  Indirect      JMPL @R4        (R3:R4) + (. - PCN) -&gt; (PC)
+   /w Offset    JMPL 12(R4)     12 + (R3:R4) + (. - PCN) -&gt; (PC)
+
+
+   PCN is the Program Counter of the Next instruction.  
+
+   Numerical,  short, and long arguments may be expressions con-
+taining numbers and addresses.  
+
+</PRE></B></H4>
+
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
+<H4><B><PRE>
+TMS370 INSTRUCTION SET 
+
+   The  TMS370  instructions  shown  in  the following list have
+generic arguments:  [s] a source argument, [d] a destination ar-
+gument,  A,  B, SP, and ST are specific registers, Rn and Pn are
+registers or ports, Rp is a register pair,  #  is  an  immediate
+value, and [to] is a destination address or label.  Instructions
+have varied allowed addressing types, consult  the  TMS370  data
+sheets  for  specific addressing modes allowed for each instruc-
+tion.  
+
+ADC     [s],[d]         [s] + [d] + C -&gt; [d]
+ADD     [s],[d]         [s] + [d] -&gt; [d]
+AND     [s],[d]         [s] AND [d] -&gt; [d]
+BR      [to]            Branch [to] Address
+BTJO    [s],[d],[to]    [s] AND [d] # 0, Branch [to] Address
+BTJZ    [s],[d],[to]    [s] AND [not d] # 0, Branch [to] Address
+CALL    [to]            Absolute Address call [to] subroutine
+CALLR   [to]            Relative Address call [to] subroutine
+CLR     [d]             0 -&gt; [d], Clear destination
+CLRC                    0 -&gt; C, Clear Carry Bit
+CMP     [s],[d]         Compare; [d] - [s] computed
+CMPBIT  [BITNAM]        Complement Bit; Invert Bit
+      An assembler constructed instruction that complements a
+      bit using a defined argument consisting of a MASK value
+      and a P or R register. e.g:  .define BITNAM "#2,R6" then
+      CMPBIT BITNAM will complement bit 2 of register R6.
+      This construct is equivalent to XOR #4,R6 with a more
+      descriptive nature.
+COMPL   [d]             0x00 - [d] -&gt; [d]; Two's complement
+DAC     [s],[d]         [s] + [d] + C -&gt; [d] (BCD)
+DEC     [d]             [d] - 1 -&gt; [d]
+DINT                    Disable interrupts
+DIV     Rs,A            A:B/Rs -&gt; A(quo),B(rem); 16-Bit/8-Bit
+DJNZ    [d],[to]        [d] - 1 -&gt; [d], if [d] # 0: go to [to]
+DSB     [s],[d]         [d] - [s] - 1 + C -&gt; [d] (BCD)
+EINT                    0x0C -&gt; ST, enable global interrupts
+EINTH                   0x04 -&gt; ST, high priority interrupt
+EINTL                   0x08 -&gt; ST, low  priority interrupt
+IDLE                    wait for interrupt
+INC     [d]             [d] + 1 -&gt; [d]
+INCW    #8-bit,Rp       [Rp] + #8-bit -&gt; [Rp]
+                        add 8-bit to 16-bit register pair
+INV     [d]             NOT[d] -&gt; [d]; 1's complement
+JBIT0   [BITNAM],[to]   If Bit = 0, [to] -&gt; (PC)
+                        8-bit  relative address
+      An assembler constructed instruction that jumps to a
+      location if the value of the bit is zero. Using a defined
+      argument consisting of a MASK value and a P or R register.
+      e.g:  .define BITNAM "#3,R2" then JBIT0 BITNAM,label
+      will branch to label if bit 3 of R2 is zero.  
+      This construct is equivalent to BTJZ #8,R2,label with
+      a more descriptive nature.
+JBIT1   [BITNAM],[to]   If Bit = 1, [to] -&gt; (PC)
+                        8-bit  relative address
+      An assembler constructed instruction that jumps to a
+      location if the value of the bit is one. Using a defined
+      argument consisting of a MASK value and a P or R register.
+      e.g:  .define BITNAM "#1,P3" then JBIT1 BITNAM,label
+      will branch to label if bit 1 of P3 is one.  
+      This construct is equivalent to BTJO #2,P3,label with
+      a more descriptive nature.
+JMP     [to]            [to] -&gt; (PC)
+                        8-bit  relative address
+JMPL    [to]            [to] -&gt; (PC)
+                        16-bit relative address
+Jcnd    [to]            [to] -&gt; (PC), on condition
+                        8-bit  relative address
+      JC (Carry), JEQ (=), JG (&gt;, signed), JGE (&gt;=, signed),
+      JHS (&gt;=, signed), JL (&lt;, signed), JLE (&lt;=, signed),
+      JLO (&lt;, unsigned), JN (Negative, signed), JNC (No Carry),
+      JNE (Not =), JNV (No Overfow, signed), JNZ (Not Zero),
+      JP (Positive, signed), JPZ (Positive or Zero, signed),
+      JV (Overflow, signed), JZ (Zero)
+LDSP                    (B) -&gt; (SP), Load Stack Pointer
+LDST    #               # -&gt; ST, Load ST Register
+MOV     [s],[d]         [s] -&gt; [d], Move an 8-bit value
+MOVW    [s],[d]         [s] -&gt; [d], Move a 16-bit value
+MPY     [s],[d]         [s] * [d] -&gt; A:B
+NOP                     No operation
+OR      [s],[d]         [s] OR [d] -&gt; [d]
+POP     [d]             [[SP]] -&gt; [d], [SP] - 1 -&gt; [SP]
+PUSH    [s]             [SP] + 1 -&gt; [SP], [s] -&gt; [[SP]]
+RL      [d]             d[Bit(n)] -&gt; d[Bit(n+1)]
+                        d[Bit(7)] -&gt; d[Bit(0)] and Carry
+RLC     [d]             d[Bit(n)] -&gt; d[Bit(n+1)]
+                        Carry -&gt; d[Bit(0)], d[Bit(7)] -&gt; Carry
+RR      [d]             d[Bit(n+1)] -&gt; d[Bit(n)]
+                        d[Bit(0)] -&gt; d[Bit(7)] and Carry
+RRC     [d]             d[Bit(n+1)] -&gt; d[Bit(n)]
+                        Carry -&gt; d[Bit(7)], d[Bit(0)] -&gt; Carry
+RTI                     Return from interrupt
+RTS                     Return from subroutine
+SBB     [s],[d]         [d] - [s] - 1 + C -&gt; [d]
+SBIT0   [BITNAM]        Set Bit to 0
+      An assembler constructed instruction that clears a named
+      bit using a defined argument consisting of a MASK value
+      and a P or R register. e.g:  .define BITNAM "#4,R6"
+      then SBIT0 BITNAM will clear bit 4 of register R6.
+      This construct is equivalent to AND #~16,R6 with a more
+      descriptive nature.
+SBIT1   [BITNAM]        Set Bit to 0
+      An assembler constructed instruction that sets a named
+      bit using a defined argument consisting of a MASK value
+      and a P or R register. e.g:  .define BITNAM "#3,R2"
+      then SBIT1 BITNAM will set bit 3 of register R2.
+      This construct is equivalent to OR #8,R2 with a more
+      descriptive nature.
+SETC                    Set the Cary Bit
+STSP                    [ST] -&gt; [B]
+SUB     [s],[d]         [d] - [s] -&gt; [d]
+SWAP    [d]             Swap operand's hi and lo nibbles
+TRAP    [s]             Trap to subroutine
+TST     [s]             Test; Set flags from register
+XCHB    [s]             Swap contents of B with [s]
+XOR     [s],[d]         [s] XOR [d] -&gt; [d]
+
+</PRE></B></H4>
+<H5><A HREF="asxdoc.htm#TOP"> Go to the Documentation Index</A></H5>
+
+<IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
+
+<P>
+<A HREF="asxxxx.htm#JUMP">
+<IMG width="32" height="32" border="0" SRC="spcshp.gif" ALIGN="bottom" alt="spaceship"></A>
+<B>...  Exit the ASxxxx Documentation</B>
+</P>
+
+<P>
+<A href="../home.htm">
+<IMG width="32" height="32" border="0" SRC="home.gif" ALIGN="bottom" alt="home"></A>
+<B>...  Home Page</B>
+</P>
+
+<H6><B>Last Updated: July 2026</B></H6>
+</BODY> 
+</HTML>

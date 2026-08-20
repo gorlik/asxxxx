@@ -5,21 +5,21 @@ REM   Purge Deleted Files
 rmdir /s /q deleted
 REM   Purge Assembled Files
 REM
-del *.cdb
-del *.exe
-del *.hex
-del *.hlr
-del *.ihx
-del *.i86
-del *.lst
-del *.map
-del *.noi
-del *.o
-del *.out
-del *.rel
-del *.rst
-del *.s19
-del *.s28
-del *.s37
-del *.sym
+del /q *.cdb
+del /q *.exe
+del /q *.hex
+del /q *.hlr
+del /q *.ihx
+del /q *.i86
+del /q *.lst
+del /q *.map
+del /q *.noi
+del /q *.o
+del /q *.out
+del /q *.rel
+del /q *.rst
+del /q *.s19
+del /q *.s28
+del /q *.s37
+del /q *.sym
 

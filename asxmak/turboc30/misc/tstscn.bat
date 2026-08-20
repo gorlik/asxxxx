@@ -7,6 +7,10 @@ del ..\..\..\asxtst\asmt2bhi.lst
 ..\exe\asxscn.exe ..\..\..\asxtst\asmt2bhi.lst
 
 del ..\..\..\asxtst\asmt2bhi.lst
+..\exe\as370.exe -glacxff ..\..\..\asxtst\asmt2bhi.asm
+..\exe\asxscn.exe ..\..\..\asxtst\asmt2bhi.lst
+
+del ..\..\..\asxtst\asmt2bhi.lst
 ..\exe\as4040.exe -glacxff ..\..\..\asxtst\asmt2bhi.asm
 ..\exe\asxscn.exe ..\..\..\asxtst\asmt2bhi.lst
 
@@ -161,6 +165,10 @@ del ..\..\..\asxtst\asmt2bhi.lst
 ..\exe\asm8c.exe -glacxff ..\..\..\asxtst\asmt2bhi.asm
 ..\exe\asxscn.exe ..\..\..\asxtst\asmt2bhi.lst
 
+del ..\..\..\asxtst\asmt2bhi.lst
+..\exe\asolms40.exe -glacxff ..\..\..\asxtst\asmt2bhi.asm
+..\exe\asxscn.exe ..\..\..\asxtst\asmt2bhi.lst
+
 del ..\..\..\asxtst\asmt2blo.lst
 ..\exe\aspdp11.exe -glacxff ..\..\..\asxtst\asmt2blo.asm
 ..\exe\asxscn.exe ..\..\..\asxtst\asmt2blo.lst
@@ -251,6 +259,17 @@ del ..\..\..\as2650\t2650.rst
 ..\exe\asxscn.exe ..\..\..\as2650\t2650.lst
 ..\exe\aslink.exe -nxu -g xADDR=0 -g xBADD=0 -g xDATA2=0 -g xDATA8=0 -g xP=0 ..\..\..\as2650\t2650.rel
 ..\exe\asxscn.exe -i ..\..\..\as2650\t2650.rst
+
+del ..\..\..\as370\t370.rel
+del ..\..\..\as370\t370.lst
+del ..\..\..\as370\t370.hlr
+del ..\..\..\as370\t370.rst
+..\exe\as370 -ploxff ..\..\..\as370\t370
+..\exe\aslink -nmux -g xa=0x00 ..\..\..\as370\t370.rel
+..\exe\asxscn ..\..\..\as370\t370.rst
+..\exe\as370 -ploxff -i ".define XTRNL" ..\..\..\as370\t370
+..\exe\aslink -nmux -g xa=0x00 ..\..\..\as370\t370.rel
+..\exe\asxscn ..\..\..\as370\t370.rst
 
 del ..\..\..\as4040\t4040.rel
 del ..\..\..\as4040\t4040.lst
@@ -569,6 +588,17 @@ del ..\..\..\ash8\th8.lst
 del ..\..\..\asm8c\tm8cs.lst
 ..\exe\asm8c.exe -glacxff ..\..\..\asm8c\tm8cs.asm
 ..\exe\asxscn.exe ..\..\..\asm8c\tm8cs.lst
+
+del ..\..\..\asolms40\t40.rel
+del ..\..\..\asolms40\t40.lst
+del ..\..\..\asolms40\t40.hlr
+del ..\..\..\asolms40\t40.rst
+..\exe\asolms40 -pbloxff ..\..\..\asolms40\t40
+..\exe\aslink -nux -g xa=0 ..\..\..\asolms40\t40.rel
+..\exe\asxscn ..\..\..\asolms40\t40.rst
+..\exe\asolms40 -pbloxff -i ".define EXTRN" ..\..\..\asolms40\t40
+..\exe\aslink -nux -g xa=0 ..\..\..\asolms40\t40.rel
+..\exe\asxscn ..\..\..\asolms40\t40.rst
 
 del ..\..\..\aspdp11\t11.lst
 del ..\..\..\aspdp11\t11.rel

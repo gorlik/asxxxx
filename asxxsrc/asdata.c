@@ -452,15 +452,18 @@ struct	mne	*mnehash[NHASH];
 /*
  *	The sym structure is a linked list of symbols defined
  *	in the assembler source files.  The first symbol is "."
- *	defined here.  The entry 'struct tsym *s_tsym'
+ *	defined in asdata.c.  The entry 'struct tsym *s_tsym'
  *	links any temporary symbols following this symbol and
  *	preceeding the next normal symbol.  The structure also
- *	contains the symbol's name, type (USER or NEW), flag
- *	(global, assigned, and multiply defined), a pointer
+ *	contains the symbol's name, type (NEW, USER or LOCAL),
+ *	flag (global, assigned, and multiply defined), a pointer
  *	to the area structure defining where the symbol is
  *	located, a reference number assigned by outgsd() in
- *	asout.c, and the symbols address relative to the base
- *	address of the area where the symbol is located.
+ *	asout.c, the symbols address relative to the base
+ *	address of the area where the symbol is located, the
+ *	symbols base address from the previous assembler pass,
+ *	and a pointer to an expression that the linker should
+ *	evaluate (if required).
  *
  *	struct	sym
  *	{
@@ -472,14 +475,16 @@ struct	mne	*mnehash[NHASH];
  *		struct	area *s_area;	Area line, 0 if absolute
  *		int	s_ref;		Ref. number
  *		a_uint	s_addr;		Address
+ *		a_uint	p_addr;		Previous Pass Address
+ *		char	*s_expr;	Expression to evaluate
  *	};
  */
 struct	sym	sym[] = {
-    {	NULL,	NULL,	".",	    S_USER, 0,			NULL,0,0 },
-    {	NULL,	NULL,	".__.ABS.", S_USER, S_ASG|S_GBL,	NULL,0,0 },
-    {	NULL,	NULL,	".__.CPU.", S_USER, S_ASG|S_LCL,	NULL,0,0 },
-    {	NULL,	NULL,	".__.H$L.", S_USER, S_ASG|S_LCL,	NULL,0,0 },
-    {	NULL,	NULL,	".__.$$$.", S_USER, S_ASG|S_LCL|S_EOL,	NULL,0,0 }
+    {	NULL,	NULL,	".",	    S_USER, 0,			NULL,0,0,0,NULL },
+    {	NULL,	NULL,	".__.ABS.", S_USER, S_ASG|S_GBL,	NULL,0,0,0,NULL },
+    {	NULL,	NULL,	".__.CPU.", S_USER, S_ASG|S_LCL,	NULL,0,0,0,NULL },
+    {	NULL,	NULL,	".__.H$L.", S_USER, S_ASG|S_LCL,	NULL,0,0,0,NULL },
+    {	NULL,	NULL,	".__.$$$.", S_USER, S_ASG|S_LCL|S_EOL,	NULL,0,0,0,NULL }
 };
 
 struct	sym	*symp;		/*	pointer to a symbol structure

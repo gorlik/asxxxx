@@ -227,7 +227,7 @@ addx(struct expr *esp)
 	r = strrchr(ip, '(');
 	if (r != NULL) {
 		ip = r + 1;
-		if (((rgm = rgmode()) != 0) & (getnb() == ')')) {
+		if (((rgm = rgmode()) != 0) && (getnb() == ')')) {
 			s = ip;
 			*r = 0;
 			ip = p;

@@ -7,6 +7,10 @@ rm -f ..\..\..\asxtst\asmt2bhi.lst
 ..\exe\asxscn.exe ../../../asxtst/asmt2bhi.lst
 
 rm -f ..\..\..\asxtst\asmt2bhi.lst
+..\exe\as370.exe -glacxff ../../../asxtst/asmt2bhi.asm
+..\exe\asxscn.exe ../../../asxtst/asmt2bhi.lst
+
+rm -f ..\..\..\asxtst\asmt2bhi.lst
 ..\exe\as4040.exe -glacxff ../../../asxtst/asmt2bhi.asm
 ..\exe\asxscn.exe ../../../asxtst/asmt2bhi.lst
 
@@ -161,6 +165,10 @@ rm -f ..\..\..\asxtst\asmt2bhi.lst
 ..\exe\asm8c.exe -glacxff ../../../asxtst/asmt2bhi.asm
 ..\exe\asxscn.exe ../../../asxtst/asmt2bhi.lst
 
+rm -f ..\..\..\asxtst\asmt2bhi.lst
+..\exe\asolms40.exe -glacxff ../../../asxtst\asmt2bhi.asm
+..\exe\asxscn.exe ../../../asxtst/asmt2bhi.lst
+
 rm -f ..\..\..\asxtst\asmt2blo.lst
 ..\exe\aspdp11.exe -glacxff ../../../asxtst/asmt2blo.asm
 ..\exe\asxscn.exe ../../../asxtst/asmt2blo.lst
@@ -251,6 +259,17 @@ rm -f ..\..\..\as2650/t2650.rst
 ..\exe\asxscn.exe ../../../as2650/t2650.lst
 ..\exe\aslink.exe -nxu -g xADDR=0 -g xBADD=0 -g xDATA2=0 -g xDATA8=0 -g xP=0 ../../../as2650/t2650.rel
 ..\exe\asxscn.exe -i ../../../as2650/t2650.rst
+
+rm -f ..\..\..\as370\t370.rel
+rm -f ..\..\..\as370\t370.lst
+rm -f ..\..\..\as370\t370.hlr
+rm -f ..\..\..\as370\t370.rst
+..\exe\as370 -ploxff ../../../as370/t370
+..\exe\aslink -nmux -g xa=0x00 ../../../as370/t370.rel
+..\exe\asxscn ../../../as370/t370.rst
+..\exe\as370 -ploxff -i ".define XTRNL" ../../../as370/t370
+..\exe\aslink -nmux -g xa=0x00 ../../../as370/t370.rel
+..\exe\asxscn ../../../as370/t370.rst
 
 rm -f ..\..\..\as4040/t4040.rel
 rm -f ..\..\..\as4040/t4040.lst
@@ -384,8 +403,8 @@ rm -f ..\..\..\as68cf/t68cf.lst
 rm -f ..\..\..\as68cf/t68cf.rst
 rm -f ..\..\..\as68cf/t68cf.hlr
 rm -f ..\..\..\as68cf/t68cf.rel
-..\exe\as68cf.exe -locx ../../../as68cf/t68k.asm
-..\exe\aslink -nux -g xb=0 -g xw=0 -g xl=0 ../../../as68cf/t68k
+..\exe\as68cf.exe -locx ../../../as68cf/t68cf.asm
+..\exe\aslink -nux -g xb=0 -g xw=0 -g xl=0 ../../../as68cf/t68cf
 ..\exe\asxscn.exe -4x ../../../as68cf/t68cf.rst
 
 rm -f ..\..\..\as68k/t68k.lst
@@ -570,6 +589,17 @@ rm -f ..\..\..\asm8c/tm8cs.lst
 ..\exe\asm8c.exe -glacxff ../../../asm8c/tm8cs.asm
 ..\exe\asxscn.exe ../../../asm8c/tm8cs.lst
 
+rm -f ..\..\..\asolms40\t40.rel
+rm -f ..\..\..\asolms40\t40.lst
+rm -f ..\..\..\asolms40\t40.hlr
+rm -f ..\..\..\asolms40\t40.rst
+..\exe\asolms40 -pbloxff ../../../asolms40/t40
+..\exe\aslink -nux -g xa=0 ../../../asolms40/t40.rel
+..\exe\asxscn ../../../asolms40/t40.rst
+..\exe\asolms40 -pbloxff -i ".define EXTRN" ../../../asolms40/t40
+..\exe\aslink -nux -g xa=0 ../../../asolms40/t40.rel
+..\exe\asxscn ../../../asolms40/t40.rst
+
 rm -f ..\..\..\aspdp11/t11.lst
 rm -f ..\..\..\aspdp11/t11.rel
 ..\exe\aspdp11.exe -locqff -i ".define .lst" ../../../aspdp11/t11
@@ -722,7 +752,7 @@ rm -f ..\..\..\asz8/tz8.rst
 
 rm -f ..\..\..\asz80/tz80.lst
 ..\exe\asz80.exe -glacxff ../../../asz80/tz80.asm
-..\exe\asxscn.exe ../../../asz80/tz80.lst
+..\exe\asxscn.exe -i ../../../asz80/tz80.lst
 
 rm -f ..\..\..\asz280/*.rel
 rm -f ..\..\..\asz280/*.lst

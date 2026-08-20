@@ -16,12 +16,42 @@
 
 <H4><B><PRE>
 Summary  of changes/additions to the ASxxxx Assemblers
-from version 5.50.
+from version 6.10.
 </PRE></B></H4>
 
 <IMG width="576" height="5" border="0" SRC="rnbow.gif" alt="rainbow">
 
 <H4><B><PRE>
+                ASxxxx/ASlink version 6.1
+                   Is An Update Release
+
+
+
+2026_07_31 Version 6.1
+
+   This is a complete release version
+   of the ASxxxx assemblers and linker.
+
+   A complete release was selected as there are numerous changes
+made to many batch files and updates to  internal  documentation
+of source files.  
+
+
+                  N E W   A S S E M B L E R S
+
+   Two new assemblers, as370 and asolms40, have been implemented
+for the Texas Instruments TMS370  series  and  the  OKI  OLMS-40
+series of microprocessors.  
+
+   A  tutorial,  "Step By Step To Creating An ASxxxx Assembler",
+can be viewed through the HTML documentation or by the PDF  file
+"StepByStep.pdf"  found in the asxhtml directory.  This tutorial
+details the process used to create the as370 and asolms40 assem-
+blers  and provides a general template for creating a new assem-
+bler.  
+
+
+
                ASxxxx/ASlink version 6.0
                   Is A Major Release
 
@@ -73,7 +103,7 @@ external global values or labels:
 
   or in an instruction
 
-entry:  jmp     entry + xa + xb
+entry: jmp     entry + xa + xb
        mv      dst,#0x10 * xa
 
   When the assembler detects these types of expressions the ex-
@@ -1221,6 +1251,6 @@ Version 4.00 to Version 4.10.
 <B>...  Home Page</B>
 </P>
 
-<H6><B>Last Updated: May 2026</B></H6>
+<H6><B>Last Updated: July 2026</B></H6>
 </BODY> 
 </HTML>

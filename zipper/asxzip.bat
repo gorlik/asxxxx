@@ -21,6 +21,7 @@ rem  Remove Non-Distribution Directories
 rem
 zip -d asxv6pxx.zip asxv6pxx\asxdoc\asxrno\* asxv6pxx\asxhtmw\*
 zip -d asxv6pxx.zip asxv6pxx\updater\* asxv6pxx\misc\*
+zip -d asxv6pxx.zip asxv6pxx\stbyst\*
 rem
 rem  Copy Current readme.txt File To asxv6pxx.txt
 rem  And Add To The Zip Archive

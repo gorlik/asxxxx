@@ -1,7 +1,7 @@
 /* chkmch.c */
 
 /*
- *  Copyright (C) 2001-2025  Alan R. Baldwin
+ *  Copyright (C) 2001-2026  Alan R. Baldwin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -97,7 +97,7 @@ machine(struct mne *mp)
 		opcycles = OPCY_SDP;
 		zpg = dot.s_area;
 		if (more()) {
-			expr(&e1, 0);
+			expr(&e1);
 			if (e1.e_flag == 0 && e1.e_base.e_ap == NULL) {
 				if (e1.e_addr & 0xFF) {
 					xerr('a', "A 256 Byte Boundary Required.");
@@ -123,7 +123,7 @@ machine(struct mne *mp)
 		break;
 
 	case S_OPCODE:
-		expr(&e1, 0);
+		expr(&e1);
 		abscheck(&e1);
 		outab(e1.e_addr);
 		break;

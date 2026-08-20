@@ -1,7 +1,7 @@
 /* xxxpst.c */
 
 /*
- *  Copyright (C) 1989-2026  Alan R. Baldwin
+ *  Copyright (C) 2026  xxxxxx
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,10 +16,6 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * Alan R. Baldwin
- * 721 Berkeley St.
- * Kent, Ohio  44240
  */
 
 #include "asxxxx.h"
@@ -93,25 +89,7 @@ struct	mode	*modep[16] = {
  */
 struct	mne	mne[] = {
 
-	/* machine */
-
-    {	NULL,	"CSEG",		S_ATYP,		0,	A_CSEG|A_1BYTE	},
-    {	NULL,	"DSEG",		S_ATYP,		0,	A_DSEG|A_1BYTE	},
-
-	/* system */
-
-    {	NULL,	"BANK",		S_ATYP,		0,	A_BNK	},
-    {	NULL,	"CON",		S_ATYP,		0,	A_CON	},
-    {	NULL,	"OVR",		S_ATYP,		0,	A_OVR	},
-    {	NULL,	"REL",		S_ATYP,		0,	A_REL	},
-    {	NULL,	"ABS",		S_ATYP,		0,	A_ABS	},
-    {	NULL,	"NOPAG",	S_ATYP,		0,	A_NOPAG	},
-    {	NULL,	"PAG",		S_ATYP,		0,	A_PAG	},
-
-    {	NULL,	"BASE",		S_BTYP,		0,	B_BASE	},
-    {	NULL,	"SIZE",		S_BTYP,		0,	B_SIZE	},
-    {	NULL,	"FSFX",		S_BTYP,		0,	B_FSFX	},
-    {	NULL,	"MAP",		S_BTYP,		0,	B_MAP	},
+	/* assembler */
 
     {	NULL,	".enabl",	S_OPTN,		0,	O_ENBL	},
     {	NULL,	".dsabl",	S_OPTN,		0,	O_DSBL	},

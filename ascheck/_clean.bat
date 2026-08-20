@@ -24,6 +24,9 @@ cd ..
 cd equtst
 call ..\..\_xfiles.bat
 cd ..
+cd expr
+call ..\..\_xfiles.bat
+cd ..
 cd ifchk
 call ..\..\_xfiles.bat
 cd ..
@@ -63,6 +66,9 @@ cd ..
 cd ..
 cd r_pagn
 call ..\..\_xfiles.bat
+cd ..
+cd reloc
+call rclean.bat
 cd ..
 cd schk
 call ..\..\_xfiles.bat

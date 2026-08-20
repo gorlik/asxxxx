@@ -3,12 +3,13 @@
 #		DJGPP V02.03  'GNU make' Version
 #		================================
 #
-#   15  April  2026		GCC 4.0.1 / make 3.79.1
+#   7  July  2026		GCC 4.0.1 / make 3.79.1
 #
 ####################################################################
 
 ASXXXX =	as1802		\
 		as2650		\
+		as370		\
 		as4040		\
 		as430		\
 		as6100		\
@@ -48,6 +49,7 @@ ASXXXX =	as1802		\
 		ash8		\
 		asm8c		\
 		aspic		\
+		asolms40	\
 		aspdp11		\
 		asrab		\
 		asrs08		\
@@ -94,6 +96,7 @@ DSTEXE=		../exe/
 
 SRC1802=	$(ASXBAS)as1802/
 SRC2650=	$(ASXBAS)as2650/
+SRC370=		$(ASXBAS)as370/
 SRC4040=	$(ASXBAS)as4040/
 SRC430=		$(ASXBAS)as430/
 SRC6100=	$(ASXBAS)as6100/
@@ -132,8 +135,9 @@ SRCF8=		$(ASXBAS)asf8/
 SRCGB=		$(ASXBAS)asgb/
 SRCH8=		$(ASXBAS)ash8/
 SRCM8C=		$(ASXBAS)asm8c/
-SRCPIC=		$(ASXBAS)aspic/
+SRCOLMS40=	$(ASXBAS)asolms40/
 SRCPDP11=	$(ASXBAS)aspdp11/
+SRCPIC=		$(ASXBAS)aspic/
 SRCRAB=		$(ASXBAS)asrab/
 SRCRS08=	$(ASXBAS)asrs08/
 SRCSCMP=	$(ASXBAS)asscmp/
@@ -229,6 +233,25 @@ as2650 :	$(ASXX) $(AS2650)
 		$(LD) $(LDFLAGS) -o as2650 $(ASXX) $(AS2650)
 		mv as2650.exe $(DSTEXE)as2650.exe
 		strip $(DSTEXE)as2650.exe
+
+
+####################################################################
+# AS370
+####################################################################
+
+AS370 =		m370adr.o m370pst.o m370mch.o
+
+m370adr.o :	$(SRC370)m370adr.c $(SRC370)m370.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+m370pst.o :	$(SRC370)m370pst.c $(SRC370)m370.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+m370mch.o :	$(SRC370)m370mch.c $(SRC370)m370.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+
+as370 :		$(ASXX) $(AS370)
+		$(LD) $(LDFLAGS) -o as370 $(ASXX) $(AS370)
+		mv as370.exe $(DSTEXE)as370.exe
+		strip $(DSTEXE)as370.exe
 
 
 ####################################################################
@@ -955,6 +978,25 @@ asm8c :		$(ASXX) $(ASM8C)
 		$(LD) $(LDFLAGS) -o asm8c $(ASXX) $(ASM8C)
 		mv asm8c.exe $(DSTEXE)asm8c.exe
 		strip $(DSTEXE)asm8c.exe
+
+
+####################################################################
+# ASOLMS40
+####################################################################
+
+ASOLMS40 =	ms40adr.o ms40pst.o ms40mch.o
+
+ms40adr.o :	$(SRCOLMS40)ms40adr.c $(SRCOLMS40)ms40.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+ms40pst.o :	$(SRCOLMS40)ms40pst.c $(SRCOLMS40)ms40.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+ms40mch.o :	$(SRCOLMS40)ms40mch.c $(SRCOLMS40)ms40.h $(SRCASX)asxxxx.h
+		$(CC) $(CCFLAGS) -I$(SRCASX) -I$(SRCMISC) -c $< -o $(@F)
+
+asolms40 :	$(ASXX) $(ASOLMS40)
+		$(LD) $(LDFLAGS) -o asolms40 $(ASXX) $(ASOLMS40)
+		mv asolms40.exe $(DSTEXE)asolms40.exe
+		strip $(DSTEXE)asolms40.exe
 
 
 ####################################################################

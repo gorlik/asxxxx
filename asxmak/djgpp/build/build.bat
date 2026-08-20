@@ -1,6 +1,7 @@
 rem make clean
 make as1802
 make as2650
+make as370
 make as4040
 make as430
 make as6100
@@ -39,6 +40,7 @@ make asf8
 make asgb
 make ash8
 make asm8c
+make asolms40
 make aspdp11
 make aspic
 make asrab

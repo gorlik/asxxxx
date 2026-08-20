@@ -53,7 +53,7 @@
  * Local Definitions
  */
 
-#define	VERSION	"V06.00"
+#define	VERSION	"V06.10"
 #define	COPYRIGHT "2026"
 
 /*
@@ -468,8 +468,11 @@ struct	mne
  *	flag (global, assigned, and multiply defined), a pointer
  *	to the area structure defining where the symbol is
  *	located, a reference number assigned by outgsd() in
- *	asout.c, and the symbols address relative to the base
- *	address of the area where the symbol is located.
+ *	asout.c, the symbols address relative to the base
+ *	address of the area where the symbol is located, the
+ *	symbols base address from the previous assembler pass,
+ *	and a pointer to an expression that the linker should
+ *	evaluate (if required).
  */
 struct	sym
 {

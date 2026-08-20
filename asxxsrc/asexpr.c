@@ -47,6 +47,7 @@
  *		void	clrexpr()
  *		int	digit()
  *		void	expr()
+ *		void	exprx()
  *		void	exprmasks()
  *		void	exprscan()
  *		void	exprsym()
@@ -175,9 +176,7 @@ expr(struct expr *esp)
 /*)Function	void	exprx(esp, n)
  *
  *		expr *	esp		pointer to an expr structure
- *		int	n		a firewall priority; all top
- *					level calls (from the user)
- *					should be made with n set to 0.
+ *		int	n		a firewall priority
  *
  *	The function exprx() evaluates an expression and
  *	stores its value and relocation information into
@@ -1366,7 +1365,7 @@ rngchk(a_uint n)
 	return((n & s_mask) ? (n | ~v_mask) : (n & v_mask));
 }
 
-/*)Function	void	exprmasks(esp)
+/*)Function	void	exprmasks(n)
  *
  *		int	n		T Line Bytes in Address
  *
