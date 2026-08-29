@@ -1,0 +1,4 @@
+The End Of Line characters may need to be converted
+from DOS to UNIX style in order to execute lnx_tstscn as
+a script file.  Use the dos2unix utility, or other
+of your choice, to change the \r\n termination to \n.
