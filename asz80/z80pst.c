@@ -189,13 +189,15 @@ struct	mne	mne[] = {
 /*    {	NULL,	".lohi",	S_MSB,		0,	O_LOHI	},	*/
 /*    {	NULL,	".hilo",	S_MSB,		0,	O_HILO	},	*/
 /*    {	NULL,	".8bit",	S_BITS,		0,	O_1BYTE	},	*/
-/*    {	NULL,	".16bit",	S_BITS,		0,	O_2BYTE	},	*/
-/*    {	NULL,	".24bit",	S_BITS,		0,	O_3BYTE	},	*/
+    {	NULL,	".16bit",	S_BITS,		0,	O_2BYTE	},	
+    {	NULL,	".24bit",	S_BITS,		0,	O_3BYTE	},	
 /*    {	NULL,	".32bit",	S_BITS,		0,	O_4BYTE	},	*/
     {	NULL,	".trace",	S_TRACE,	0,	O_TRC	},
     {	NULL,	".ntrace",	S_TRACE,	0,	O_NTRC	},
 /*    {	NULL,	"_______",	S_CONST,	0,	VALUE	},	*/
     {	NULL,	".end",		S_END,		0,	0	},
+    {	NULL,	".fixix",	S_SYNFIX,	0,	O_IXIY	},
+    {	NULL,	".fixhash",	S_SYNFIX,	0,	O_HASH	},
 
 	/* Macro Processor */
 
