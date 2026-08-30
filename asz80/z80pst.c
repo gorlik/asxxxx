@@ -196,8 +196,6 @@ struct	mne	mne[] = {
     {	NULL,	".ntrace",	S_TRACE,	0,	O_NTRC	},
 /*    {	NULL,	"_______",	S_CONST,	0,	VALUE	},	*/
     {	NULL,	".end",		S_END,		0,	0	},
-    {	NULL,	".fixix",	S_SYNFIX,	0,	O_IXIY	},
-    {	NULL,	".fixhash",	S_SYNFIX,	0,	O_HASH	},
 
 	/* Macro Processor */
 

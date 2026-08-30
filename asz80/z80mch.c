@@ -35,6 +35,7 @@ char	*dsft	= "asm";
 
 char	imtab[3] = { 0x46, 0x56, 0x5E };
 int	mchtyp;
+static int z80_bytes; // шырина адресов
 
 /*
  * Opcode Cycle Definitions
@@ -503,6 +504,16 @@ machine(struct mne *mp)
 		mchtyp = op;
 		sym[2].s_addr = op;
 		lmode = SLIST;
+		break;
+	case S_BITS:
+		if (z80_bytes == 0) {
+			z80_bytes = (int) op;
+			exprmasks(z80_bytes);
+		} else
+		if (z80_bytes != (int) op) {
+			err('m');
+		}
+		// lmode = SLIST;
 		break;
 
 	case X_INH1:
